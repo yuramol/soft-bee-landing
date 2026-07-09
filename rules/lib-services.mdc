@@ -1,0 +1,25 @@
+---
+description: Shared library, API helper, and type-safety standards
+globs: lib/**
+alwaysApply: false
+---
+
+# Library and API Layer Standards
+
+- Keep shared data access abstractions under `lib/api/**`.
+- Reuse existing modules/helpers before creating new ones.
+- Favor modular pure functions over duplicated logic.
+- Use TypeScript interfaces/unions/generics with explicit typing.
+- Avoid `any` and `unknown`; if unavoidable, add a short inline justification.
+
+# Supabase integration
+
+- Use only `lib/supabase/client` and `lib/supabase/server`.
+- Do not use `@supabase/auth-helpers-nextjs`; use `@supabase/ssr` patterns.
+- For Supabase auth cookie adapters, use `getAll` and `setAll`.
+- Never use `as any` for `.from()` table names; regenerate types first.
+
+# Query and mutation patterns
+
+- Client-side data access should go through query/mutation hooks.
+- Server-side data access should use dedicated helpers/actions, not ad hoc calls.

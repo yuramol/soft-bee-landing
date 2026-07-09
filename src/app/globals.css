@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@config '../../tailwind.config.js';
+
+@layer components {
+  .kpi-badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .kpi-badge-success {
+    @apply bg-success/10 text-success;
+  }
+
+  .kpi-badge-warning {
+    @apply bg-warning/10 text-warning;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --surface: 0 0% 98%;
+    --foreground: 205, 100%, 20%;
+    --foreground-secondary: 220 8% 36%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 24% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 24% 12%;
+    --primary: 195, 100%, 44%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 234 100% 98%;
+    --primary-hover: 196, 100%, 41%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 5% 96%;
+    --muted-foreground: 208, 7%, 46%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 4 74% 49%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 43 93% 47%;
+    --warning-foreground: 48 96% 89%;
+    --success: 150 78% 39%;
+    --success-foreground: 145 81% 96%;
+    --info: 218 80% 46%;
+    --info-foreground: 206 100% 97%;
+    --outline: 210 5% 92%;
+    --border: 210, 5%, 92%;
+    --input: 216 6% 85%;
+    --ring: 195 100% 44%;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --button-primary-disabled-bg: 0 0% 100%;
+    --button-primary-disabled-border: 210 5% 92%;
+    --button-primary-disabled-text: 220 6% 70%;
+    --button-primary-focus-ring: 195 100% 44%;
+    --button-secondary-bg: 0 0% 100%;
+    --button-secondary-hover-bg: 0 0% 98%;
+    --text-disabled: 220 6% 70%;
+    --const-white: 0 0% 100%;
+    --const-emerald: 192 67% 14%;
+    --const-emerald-foreground: 0 0% 100%;
+    --shadow-xs: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+    --shadow-skeumorphic-inner: 0px -2px 0px 0px rgba(10, 13, 18, 0.05);
+    --shadow-skeumorphic-inner-border: 0px 0px 0px 1px rgba(10, 13, 18, 0.18);
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --surface: 220 26% 8%;
+    --foreground: 210 40% 98%;
+    --foreground-secondary: 220 10% 72%;
+    --card: 220 25% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 25% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 195 100% 65%;
+    --primary-light: 195 35% 14%;
+    --primary-hover: 196 100% 70%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 48 96% 53%;
+    --warning-foreground: 26 83% 14%;
+    --success: 150 70% 34%;
+    --success-foreground: 145 50% 92%;
+    --info: 218 80% 60%;
+    --info-foreground: 218 50% 15%;
+    --outline: 220 15% 20%;
+    --border: 220, 15%, 20%;
+    --input: 220 15% 25%;
+    --shadow-xs: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --shadow-skeumorphic-inner: 0px -2px 0px 0px rgba(0, 0, 0, 0.2);
+    --shadow-skeumorphic-inner-border: 0px 0px 0px 1px rgba(255, 255, 255, 0.1);
+  }
+}
