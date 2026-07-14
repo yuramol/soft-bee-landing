@@ -7,12 +7,9 @@ import { cn } from '@/lib/utils';
 const fixel = localFont({
   src: [
     {
-      path: '../assets/fonts/fixel/fixelVariable.ttf',
+      path: '../assets/fonts/fixel/fixelText-Regular.woff2',
+      weight: '400',
       style: 'normal'
-    },
-    {
-      path: '../assets/fonts/fixel/fixelVariableItalic.ttf',
-      style: 'italic'
     }
   ],
   variable: '--font-sans',
