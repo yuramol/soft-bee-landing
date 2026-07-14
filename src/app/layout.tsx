@@ -1,10 +1,23 @@
 import type { Metadata } from 'next';
 import { Providers } from '@/app/providers';
 import './globals.css';
-import { Geist } from 'next/font/google';
+import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
+const fixel = localFont({
+  src: [
+    {
+      path: '../assets/fonts/fixel/fixelVariable.ttf',
+      style: 'normal'
+    },
+    {
+      path: '../assets/fonts/fixel/fixelVariableItalic.ttf',
+      style: 'italic'
+    }
+  ],
+  variable: '--font-sans',
+  display: 'swap'
+});
 
 export const metadata: Metadata = {
   title: 'Confyde',
@@ -17,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={cn('h-full antialiased', 'font-sans', geist.variable)}>
+    <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
       <body className='flex h-full flex-col'>
         <Providers>{children}</Providers>
       </body>

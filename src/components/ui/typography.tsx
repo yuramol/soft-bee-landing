@@ -50,21 +50,21 @@ export const Typography: FC<TypographyProps> = ({ children, variant, tag, classN
   const getClassNames = () => {
     switch (variant) {
       case 'display1':
-        return 'text-96 font-bold';
+        return 'text-96';
       case 'display2':
-        return 'text-80 font-bold';
+        return 'text-80';
       case 'h1':
-        return 'text-70 font-semibold';
+        return 'text-70';
       case 'h2':
-        return 'text-48 font-semibold';
+        return 'text-48';
       case 'h3':
-        return 'text-32 font-semibold';
+        return 'text-32';
       case 'h4':
-        return 'text-24 font-medium';
+        return 'text-24';
       case 'h5':
-        return 'text-20 font-medium';
+        return 'text-20';
       case 'h6':
-        return 'text-18 font-medium';
+        return 'text-18';
       case 'body1':
         return 'text-24';
       case 'body2':
