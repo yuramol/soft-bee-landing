@@ -5,10 +5,25 @@ import { createElement, FC, HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
 type TagVariants = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-export type TypographyVariants = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'body3' | 'description' | 'caption';
+export type TypographyVariants =
+  | 'display1'
+  | 'display2'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'body1'
+  | 'body2'
+  | 'body3'
+  | 'description'
+  | 'caption';
 
 // Mapping between `variant` and default HTML tag
 const defaultTagMapping: Record<TypographyVariants, TagVariants> = {
+  display1: 'h2',
+  display2: 'h2',
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -34,30 +49,34 @@ export const Typography: FC<TypographyProps> = ({ children, variant, tag, classN
 
   const getClassNames = () => {
     switch (variant) {
+      case 'display1':
+        return 'text-96 font-bold';
+      case 'display2':
+        return 'text-80 font-bold';
       case 'h1':
-        return 'text-h1 !leading-h1 font-semibold';
+        return 'text-70 font-semibold';
       case 'h2':
-        return '!text-h2 !leading-h2';
+        return 'text-48 font-semibold';
       case 'h3':
-        return '!text-h3 !leading-h3';
+        return 'text-32 font-semibold';
       case 'h4':
-        return '!text-h4 !leading-h4';
+        return 'text-24 font-medium';
       case 'h5':
-        return '!text-h5 !leading-h5';
+        return 'text-20 font-medium';
       case 'h6':
-        return '!text-h6 !leading-h6';
+        return 'text-18 font-medium';
       case 'body1':
-        return '!text-body1 !leading-body1';
+        return 'text-24';
       case 'body2':
-        return '!text-body2 !leading-body2';
+        return 'text-20';
       case 'body3':
-        return '!text-body3 !leading-body3';
+        return 'text-18';
       case 'description':
-        return '!text-description !leading-description';
+        return 'text-16';
       case 'caption':
-        return '!text-caption !leading-caption';
+        return 'text-16';
       default:
-        return '!text-body1 !leading-tiny';
+        return 'text-24';
     }
   };
 
