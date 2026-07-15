@@ -1,9 +1,14 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
+
+function logButtonClick() {
+  console.log('clicked');
+}
 
 export default function Home() {
   return (
@@ -22,6 +27,44 @@ export default function Home() {
           endIcon={<Icon icon='Paperclip' fill='#1B1C2380' width={20} height={20} />}
         />
       </div>
+
+      <div className='bg-gray-400 border-outline flex w-full max-w-2xl flex-col items-start gap-6 rounded-xl border p-8 text-left'>
+        <Typography variant='h3'>Buttons</Typography>
+
+        <Button variant='primary' onClick={logButtonClick}>
+          Discuss project
+        </Button>
+        <Button variant='primary' disabled>
+          Discuss project
+        </Button>
+        <Button onClick={logButtonClick}>All</Button>
+        <Button disabled>All</Button>
+        <Button variant='white' onClick={logButtonClick}>
+          All
+        </Button>
+        <Button variant='white' disabled>
+          All
+        </Button>
+
+        <div className='flex flex-wrap items-center gap-4'>
+          <Button variant='icon' size='icon-lg' aria-label='Close large' onClick={logButtonClick}>
+            <Icon icon='X' fill='currentColor' width={23} height={23} />
+          </Button>
+          <Button variant='icon' size='icon-md' aria-label='Close medium' onClick={logButtonClick}>
+            <Icon icon='X' fill='currentColor' width={20} height={20} />
+          </Button>
+          <Button variant='white' size='icon-lg' aria-label='Close white large' onClick={logButtonClick}>
+            <Icon icon='X' fill='currentColor' width={23} height={23} />
+          </Button>
+          <Button variant='white' size='icon-md' aria-label='Close white medium' onClick={logButtonClick}>
+            <Icon icon='X' fill='currentColor' width={20} height={20} />
+          </Button>
+          <Button variant='icon' size='icon-md' aria-label='Close disabled' disabled>
+            <Icon icon='X' fill='currentColor' width={20} height={20} />
+          </Button>
+        </div>
+      </div>
+
       <div className='bg-mist-gray flex flex-wrap items-center gap-4 p-4'>
         <Icon icon='Burger' />
         <Icon icon='Logo' />
