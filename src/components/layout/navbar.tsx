@@ -1,11 +1,12 @@
 'use client';
 
+import { LogOut, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, LogOut } from 'lucide-react';
-import { useUser } from '@/context/UserContext';
-import { ROUTES } from '@/constants';
+
 import { Button } from '@/components/ui/button';
+import { ROUTES } from '@/constants';
+import { useUser } from '@/context/UserContext';
 
 export const Navbar = () => {
   const { user, logout, isLoading } = useUser();
@@ -32,7 +33,7 @@ export const Navbar = () => {
           </div>
 
           <Button
-            variant='ghost'
+            variant='white'
             isLoading={isLoading}
             onClick={() => void handleSignOut()}
             className='flex items-center space-x-1 border-0 text-xs font-bold tracking-wide text-white/60 uppercase transition-colors hover:bg-transparent hover:text-white'
