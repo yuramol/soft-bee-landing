@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
@@ -16,6 +17,7 @@ export default function Home() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <Badge title='About us' />
       <div className='flex w-full max-w-md flex-col items-center gap-4'>
         <Input
           placeholder='Project details'
