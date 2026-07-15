@@ -74,7 +74,8 @@ module.exports = {
         'graphite-gray': 'var(--graphite-gray)',
         'mist-gray': 'var(--mist-gray)',
         'brand-black': 'var(--brand-black)',
-        'brand-white': 'var(--brand-white)'
+        'brand-white': 'var(--brand-white)',
+        'border': 'var(--border)'
       },
       borderRadius: {
         sm: 'var(--radius-sm)',

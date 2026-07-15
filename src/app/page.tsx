@@ -1,9 +1,25 @@
+'use client';
+
 import { Icon } from '@/components/ui/icon';
+import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
 
 export default function Home() {
   return (
     <main className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
+      <div className='flex w-full max-w-md flex-col items-center gap-4'>
+        <Input
+          placeholder='Project details'
+          handleIcon={() => console.log('clicked')}
+          endIcon={<Icon icon='Paperclip' fill='#1B1C2380' width={20} height={20} />}
+        />
+        <Input
+          error={'Error test text 404'}
+          placeholder='Project details'
+          handleIcon={() => console.log('clicked')}
+          endIcon={<Icon icon='Paperclip' fill='#1B1C2380' width={20} height={20} />}
+        />
+      </div>
       <div className='bg-mist-gray flex flex-wrap items-center gap-4 p-4'>
         <Icon icon='Burger' />
         <Icon icon='Logo' />
