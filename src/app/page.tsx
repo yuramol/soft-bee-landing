@@ -3,10 +3,19 @@
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export default function Home() {
   return (
     <main className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
+      <Dialog>
+        <DialogTrigger className='cursor-pointer'>Open Dialog Wrapper</DialogTrigger>
+        <DialogContent className='p-4 md:p-10'>
+          <DialogHeader className='mt-17 md:mt-12.75'>
+            <DialogTitle>Client director</DialogTitle>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
       <div className='flex w-full max-w-md flex-col items-center gap-4'>
         <Input
           placeholder='Project details'
