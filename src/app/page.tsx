@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 function logButtonClick() {
   console.log('clicked');
@@ -13,6 +14,14 @@ function logButtonClick() {
 export default function Home() {
   return (
     <main className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
+      <Dialog>
+        <DialogTrigger className='cursor-pointer'>Open Dialog Wrapper</DialogTrigger>
+        <DialogContent className='p-4 md:p-10'>
+          <DialogHeader className='mt-17 md:mt-12.75'>
+            <DialogTitle>Client director</DialogTitle>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
       <Badge title='About us' />
       <div className='flex w-full max-w-md flex-col items-center gap-4'>
         <Input
@@ -28,7 +37,7 @@ export default function Home() {
         />
       </div>
 
-      <div className='bg-gray-400 border-outline flex w-full max-w-2xl flex-col items-start gap-6 rounded-xl border p-8 text-left'>
+      <div className='border-outline flex w-full max-w-2xl flex-col items-start gap-6 rounded-xl border bg-gray-400 p-8 text-left'>
         <Typography variant='h3'>Buttons</Typography>
 
         <Button variant='primary' onClick={logButtonClick}>
