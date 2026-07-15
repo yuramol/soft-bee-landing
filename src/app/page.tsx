@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ function logButtonClick() {
 export default function Home() {
   return (
     <main className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
+      <Badge title='About us' />
       <div className='flex w-full max-w-md flex-col items-center gap-4'>
         <Input
           placeholder='Project details'

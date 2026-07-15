@@ -10,6 +10,11 @@ const fixel = localFont({
       path: '../assets/fonts/fixel/fixelText-Regular.woff2',
       weight: '400',
       style: 'normal'
+    },
+    {
+      path: '../assets/fonts/fixel/fixelText-Medium.woff2',
+      weight: '500',
+      style: 'normal'
     }
   ],
   variable: '--font-sans',
