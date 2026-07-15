@@ -66,13 +66,23 @@ module.exports = {
           white: 'hsl(var(--const-white))',
           emerald: 'hsl(var(--const-emerald))',
           'emerald-foreground': 'hsl(var(--const-emerald-foreground))'
-        }
+        },
+        'electric-green': 'var(--electric-green)',
+        'lime-glow': 'var(--lime-glow)',
+        'digital-cyan': 'var(--digital-cyan)',
+        'deep-teal': 'var(--deep-teal)',
+        'graphite-gray': 'var(--graphite-gray)',
+        'mist-gray': 'var(--mist-gray)',
+        'brand-black': 'var(--brand-black)',
+        'brand-white': 'var(--brand-white)',
+        'border': 'var(--border)'
       },
       borderRadius: {
         sm: 'var(--radius-sm)',
         md: 'var(--radius-md)',
         lg: 'var(--radius-lg)',
-        xl: 'var(--radius-xl)'
+        xl: 'var(--radius-xl)',
+        '2xl': 'var(--radius-2xl)'
       },
       boxShadow: {
         xs: 'var(--shadow-xs)',
@@ -92,6 +102,17 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
+      },
+      fontSize: {
+        '96': ['var(--fs-96)', '1.17'],
+        '80': ['var(--fs-80)', '1.17'],
+        '70': ['var(--fs-70)', '1.17'],
+        '48': ['var(--fs-48)', '1.24'],
+        '32': ['var(--fs-32)', '1.24'],
+        '24': ['var(--fs-24)', '1.37'],
+        '20': ['var(--fs-20)', '1.37'],
+        '18': ['var(--fs-18)', '1.37'],
+        '16': ['var(--fs-16)', '1.10'],
       }
     }
   },
