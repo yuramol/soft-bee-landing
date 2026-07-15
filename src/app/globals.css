@@ -29,6 +29,7 @@
     --mist-gray: #f5f5f5;
     --brand-black: #1b1c23;
     --brand-white: #ffffff;
+    --border: #dad7d7;
 
     --background: 0 0% 100%;
     --surface: 0 0% 98%;
@@ -57,7 +58,6 @@
     --info: 218 80% 46%;
     --info-foreground: 206 100% 97%;
     --outline: 210 5% 92%;
-    --border: 210, 5%, 92%;
     --input: 216 6% 85%;
     --ring: 195 100% 44%;
     --radius-sm: 10px;
@@ -90,6 +90,7 @@
     --mist-gray: #f5f5f5;
     --brand-black: #1b1c23;
     --brand-white: #ffffff;
+    --border: #dad7d7;
 
     --background: 222 47% 5%;
     --surface: 220 26% 8%;
@@ -117,7 +118,6 @@
     --info: 218 80% 60%;
     --info-foreground: 218 50% 15%;
     --outline: 220 15% 20%;
-    --border: 220, 15%, 20%;
     --input: 220 15% 25%;
     --shadow-xs: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
     --shadow-skeumorphic-inner: 0px -2px 0px 0px rgba(0, 0, 0, 0.2);
