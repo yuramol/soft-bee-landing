@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - dev
     paths:
       - 'supabase/**'
       - '.github/workflows/deploy_db.yaml'
@@ -24,37 +23,10 @@ jobs:
     name: Validate database
     uses: ./.github/workflows/validate_db.yaml
 
-  dev:
-    name: Deploy dev
-    if: github.ref == 'refs/heads/dev'
-    runs-on: ubuntu-latest
-    needs: [validate_db]
-    environment: dev
-    env:
-      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
-      - name: Validate required secret
-        run: |
-          if [ -z "$SUPABASE_DB_URL" ]; then
-            echo "Missing required secret: SUPABASE_DB_URL" >> $GITHUB_STEP_SUMMARY
-            exit 1
-          fi
-
-      - name: Deploy db changes
-        run: supabase db push --db-url "$SUPABASE_DB_URL"
-
   prod:
     name: Deploy prod
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: [validate_db]
-    environment: prod
     env:
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
     steps:
