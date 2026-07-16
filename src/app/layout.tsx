@@ -3,8 +3,7 @@ import { Providers } from '@/app/providers';
 import './globals.css';
 import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
-import { Footer } from '@/components/layout/footer';
-import { MainLayout } from '@/components/layout/main-layout';
+import { Footer, MainLayout } from '@/components/layout';
 
 const fixel = localFont({
   src: [

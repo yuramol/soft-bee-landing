@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import { Icon } from '@/components/ui/icon';
-import { Button } from '@/components/ui/button';
-import { DiscussProjectDialog } from '@/components/discuss-project-dialog';
 import { MobileNav } from './mobile-nav';
 import { cn } from '@/lib/utils';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
+import { DiscussProjectButton } from '../discuss-project-button';
 
 export interface HeaderProps {
   className?: string;
@@ -15,9 +14,13 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
   const isLightText = theme === 'dark';
   const textColor = isLightText ? 'text-foreground-inverse' : 'text-foreground';
   const burgerColor = isLightText ? 'var(--foreground-inverse)' : 'var(--foreground)';
-
   return (
-    <header className={cn('flex w-full items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5', className)}>
+    <header
+      className={cn(
+        'mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5',
+        className
+      )}
+    >
       <div className='flex items-center'>
         <Link href='/'>
           <Icon icon={isLightText ? 'LogoWhite' : 'Logo'} width={165} height={37} />
@@ -41,12 +44,10 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
         </nav>
 
         <div className='hidden items-center lg:flex'>
-          <DiscussProjectDialog
-            triggerButton={
-              <Button variant={isLightText ? 'white' : 'primary'} className='text-16 h-12 rounded-full px-6 font-medium'>
-                Discuss project
-              </Button>
-            }
+          <DiscussProjectButton
+            variant={isLightText ? 'white' : 'primary'}
+            className='h-12 rounded-full px-6 font-medium'
+            text='Discuss project'
           />
         </div>
 
