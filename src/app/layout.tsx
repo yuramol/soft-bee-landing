@@ -3,6 +3,8 @@ import { Providers } from '@/app/providers';
 import './globals.css';
 import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
+import { Footer } from '@/components/layout/footer';
+import { MainLayout } from '@/components/layout/main-layout';
 
 const fixel = localFont({
   src: [
@@ -33,8 +35,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
-      <body className='flex h-full flex-col'>
-        <Providers>{children}</Providers>
+      <body className='flex min-h-screen flex-col'>
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

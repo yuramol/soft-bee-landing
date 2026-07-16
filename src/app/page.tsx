@@ -13,7 +13,7 @@ function logButtonClick() {
 
 export default function Home() {
   return (
-    <main className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
+    <div className='bg-background text-foreground flex flex-col items-center justify-center gap-8 px-6 py-20 text-center'>
       <Dialog>
         <DialogTrigger className='cursor-pointer'>Open Dialog Wrapper</DialogTrigger>
         <DialogContent className='p-4 md:p-10'>
@@ -168,6 +168,6 @@ export default function Home() {
       <Typography variant='body3'>Body 3 (18/18)</Typography>
       <Typography variant='description'>Description (16/16)</Typography>
       <Typography variant='caption'>Caption (16/16)</Typography>
-    </main>
+    </div>
   );
 }
