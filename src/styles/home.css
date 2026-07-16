@@ -1,0 +1,12 @@
+@layer components {
+  .type-caret {
+    display: inline-block;
+    width: 0.055em;
+    height: 0.82em;
+    margin-left: 0.04em;
+    transform: translateY(0.1em);
+    border-radius: 1px;
+    background-color: var(--foreground);
+    animation: caret-blink 1.05s steps(1, end) infinite;
+  }
+}
