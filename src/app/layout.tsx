@@ -15,6 +15,11 @@ const fixel = localFont({
       path: '../assets/fonts/fixel/fixelText-Medium.woff2',
       weight: '500',
       style: 'normal'
+    },
+    {
+      path: '../assets/fonts/fixel/fixelText-SemiBold.woff2',
+      weight: '600',
+      style: 'normal'
     }
   ],
   variable: '--font-sans',
@@ -22,8 +27,8 @@ const fixel = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Confyde',
-  description: 'Confyde landing page'
+  title: 'SoftBee',
+  description: 'SoftBee landing page'
 };
 
 export default function RootLayout({
