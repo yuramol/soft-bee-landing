@@ -3,6 +3,7 @@ import { Providers } from '@/app/providers';
 import './globals.css';
 import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
+import { Header } from '@/components/layout/header';
 
 const fixel = localFont({
   src: [
@@ -15,6 +16,11 @@ const fixel = localFont({
       path: '../assets/fonts/fixel/fixelText-Medium.woff2',
       weight: '500',
       style: 'normal'
+    },
+    {
+      path: '../assets/fonts/fixel/fixelText-SemiBold.woff2',
+      weight: '600',
+      style: 'normal'
     }
   ],
   variable: '--font-sans',
@@ -22,8 +28,8 @@ const fixel = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Confyde',
-  description: 'Confyde landing page'
+  title: 'SoftBee',
+  description: 'SoftBee landing page'
 };
 
 export default function RootLayout({
@@ -34,7 +40,10 @@ export default function RootLayout({
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
       <body className='flex h-full flex-col'>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

@@ -20,10 +20,10 @@ export const LogoLlamaIndex = (style: IconCommonProps) => (
     />
     <defs>
       <linearGradient id='paint0_linear_552_3388' x1='35.5137' y1='48.7185' x2='88.9781' y2='93.5247' gradientUnits='userSpaceOnUse'>
-        <stop offset='0.062' stop-color='#EDDAD7' />
-        <stop offset='0.3257' stop-color='#E8A2E6' />
-        <stop offset='0.5893' stop-color='#87DDF6' />
-        <stop offset='1' stop-color='#AE8BE6' />
+        <stop offset='0.062' stopColor='#EDDAD7' />
+        <stop offset='0.3257' stopColor='#E8A2E6' />
+        <stop offset='0.5893' stopColor='#87DDF6' />
+        <stop offset='1' stopColor='#AE8BE6' />
       </linearGradient>
     </defs>
   </svg>
