@@ -24,22 +24,21 @@ const discussProjectSchema = z
 
 type ProjectFormValues = z.infer<typeof discussProjectSchema>;
 
-export function DiscussProjectDialog({
-  children,
-  open,
-  onOpenChange
-}: {
+interface DiscussProjectDialogProps {
   children?: React.ReactNode;
+  triggerButton?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-}) {
+}
+
+export function DiscussProjectDialog({ children, triggerButton, open, onOpenChange }: DiscussProjectDialogProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     control,
-    trigger
+    trigger: triggerValidation
   } = useForm<ProjectFormValues>({
     resolver: zodResolver(discussProjectSchema),
     defaultValues: {
@@ -62,14 +61,14 @@ export function DiscussProjectDialog({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setValue('file', e.target.files[0], { shouldValidate: true });
-      void trigger('projectDetails');
+      void triggerValidation('projectDetails');
     }
   };
 
   const handleRemoveFile = (e: React.MouseEvent) => {
     e.stopPropagation();
     setValue('file', undefined, { shouldValidate: true });
-    void trigger('projectDetails');
+    void triggerValidation('projectDetails');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -85,7 +84,7 @@ export function DiscussProjectDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {children && <DialogTrigger asChild>{children}</DialogTrigger>}
+      {(triggerButton || children) && <DialogTrigger asChild>{triggerButton || children}</DialogTrigger>}
       <DialogContent className='flex h-auto max-w-268 flex-col gap-5.75 overflow-hidden rounded-2xl border-0 p-4 md:flex-row md:gap-10 md:p-3 md:pr-10 lg:gap-15.25 lg:pr-19.25'>
         <div className='order-last flex h-64.25 w-full flex-col items-center justify-center rounded-xl bg-[url("/backgrounds/main-gradient.png")] bg-cover bg-center bg-no-repeat md:order-0 md:h-135 md:max-w-80 lg:max-w-91.5'>
           <Icon icon='LogoWhite' width={205} height={47} />
