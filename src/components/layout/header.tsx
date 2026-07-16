@@ -13,8 +13,8 @@ export interface HeaderProps {
 
 export function Header({ className, theme = 'light' }: HeaderProps) {
   const isLightText = theme === 'dark';
-  const textColor = isLightText ? 'text-brand-white' : 'text-brand-black';
-  const burgerColor = isLightText ? '#FFFFFF' : '#1B1C23';
+  const textColor = isLightText ? 'text-foreground-inverse' : 'text-foreground';
+  const burgerColor = isLightText ? 'var(--foreground-inverse)' : 'var(--foreground)';
 
   return (
     <header className={cn('flex w-full items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5', className)}>
