@@ -1,7 +1,8 @@
 'use client';
 
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
+import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
 function getTotalChars(segments: TypingSegment[]): number {
@@ -23,15 +24,22 @@ interface TypingTitleProps {
 
 export function TypingTitle({ segments, className, speedMs = 42, startDelayMs = 200 }: TypingTitleProps) {
   const totalChars = getTotalChars(segments);
-  const [visibleCount, setVisibleCount] = useState(0);
+  const prefersReducedMotion = useSyncExternalStore(
+    (onStoreChange) => {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      mediaQuery.addEventListener('change', onStoreChange);
+      return () => mediaQuery.removeEventListener('change', onStoreChange);
+    },
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => false
+  );
+  const [typedCount, setTypedCount] = useState(0);
   const frameRef = useRef<number | null>(null);
+  const visibleCount = prefersReducedMotion ? totalChars : typedCount;
   const isTyping = visibleCount < totalChars;
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     if (prefersReducedMotion) {
-      setVisibleCount(totalChars);
       return;
     }
 
@@ -50,7 +58,7 @@ export function TypingTitle({ segments, className, speedMs = 42, startDelayMs = 
 
         if (nextCount !== lastCount) {
           lastCount = nextCount;
-          setVisibleCount(nextCount);
+          setTypedCount(nextCount);
         }
       }
 
@@ -66,17 +74,17 @@ export function TypingTitle({ segments, className, speedMs = 42, startDelayMs = 
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [totalChars, speedMs, startDelayMs]);
+  }, [prefersReducedMotion, totalChars, speedMs, startDelayMs]);
 
   return (
-    <h1 className={cn('relative w-fit max-w-[905px] text-70 leading-[110%]', className)}>
+    <Typography variant='h1' className={cn('relative w-fit max-w-[905px] leading-[110%]', className)}>
       {/* Full text stays in the layout (and accessibility tree) to reserve space and avoid layout shift. */}
-      <span className="opacity-0">{renderSegments(segments)}</span>
-      <span aria-hidden className="absolute inset-0">
+      <span className='opacity-0'>{renderSegments(segments)}</span>
+      <span aria-hidden className='absolute inset-0'>
         {renderSegments(segments, visibleCount)}
-        {isTyping && <span className="type-caret" />}
+        {isTyping && <span className='type-caret' />}
       </span>
-    </h1>
+    </Typography>
   );
 }
 
