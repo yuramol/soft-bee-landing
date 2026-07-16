@@ -11,61 +11,61 @@ module.exports = {
     },
     extend: {
       colors: {
-        outline: 'hsl(var(--outline))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        surface: 'hsl(var(--surface))',
+        outline: 'var(--outline)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        surface: 'var(--surface)',
         foreground: {
-          DEFAULT: 'hsl(var(--foreground))',
-          secondary: 'hsl(var(--foreground-secondary))'
+          DEFAULT: 'var(--foreground)',
+          secondary: 'var(--foreground-secondary)'
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-          light: 'hsl(var(--primary-light))',
-          hover: 'hsl(var(--primary-hover))'
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+          light: 'var(--primary-light)',
+          hover: 'var(--primary-hover)'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)'
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))'
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)'
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)'
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)'
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)'
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)'
         },
         warning: {
-          DEFAULT: 'hsl(var(--warning))',
-          foreground: 'hsl(var(--warning-foreground))'
+          DEFAULT: 'var(--warning)',
+          foreground: 'var(--warning-foreground)'
         },
         success: {
-          DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--success-foreground))'
+          DEFAULT: 'var(--success)',
+          foreground: 'var(--success-foreground)'
         },
         info: {
-          DEFAULT: 'hsl(var(--info))',
-          foreground: 'hsl(var(--info-foreground))'
+          DEFAULT: 'var(--info)',
+          foreground: 'var(--info-foreground)'
         },
         const: {
-          white: 'hsl(var(--const-white))',
-          emerald: 'hsl(var(--const-emerald))',
-          'emerald-foreground': 'hsl(var(--const-emerald-foreground))'
+          white: 'var(--const-white)',
+          emerald: 'var(--const-emerald)',
+          'emerald-foreground': 'var(--const-emerald-foreground)'
         },
         'electric-green': 'var(--electric-green)',
         'lime-glow': 'var(--lime-glow)',
