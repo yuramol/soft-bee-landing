@@ -62,8 +62,8 @@ export function Hero() {
       onPointerEnter={showMedusae ? handlePointerEnter : undefined}
       onPointerLeave={showMedusae ? handlePointerLeave : undefined}
       className={cn(
-        'bg-background relative flex h-[700px] max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-lg px-5.25 pb-[51px] lg:px-10.5',
-        'lg:min-h-[560px] lg:rounded-2xl lg:pb-[108px]'
+        'bg-background relative mb-2.5 flex h-[700px] max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pb-[51px] lg:px-10.5',
+        'lg:min-h-[560px] lg:pb-[108px]'
       )}
     >
       {showMedusae && (

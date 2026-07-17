@@ -1,9 +1,10 @@
-import { AboutUs, Hero } from '@/components/sections/home';
+import { AboutUs, Hero, VideoWrapper } from '@/components/sections/home';
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <VideoWrapper />
       <AboutUs />
     </>
   );
