@@ -166,19 +166,8 @@ const FRAGMENT_SHADER = `
 
     if (alpha < 0.01) discard;
 
-    vec3 cBlue = vec3(0.26, 0.52, 0.96);
-    vec3 cRed = vec3(0.92, 0.26, 0.21);
-    vec3 cYellow = vec3(0.98, 0.73, 0.01);
-    vec3 cPurple = vec3(0.55, 0.32, 0.92);
-
-    float t = uTime * 1.05;
-    float p1 = sin(vPos.x * 0.7 + t);
-    float p2 = sin(vPos.y * 0.7 + t * 0.85 + p1);
-    float p3 = sin((vPos.x + vPos.y) * 0.45 - t * 0.6);
-
-    vec3 activeColor = mix(cBlue, cPurple, p1 * 0.5 + 0.5);
-    activeColor = mix(activeColor, cRed, p2 * 0.45 + 0.2);
-    activeColor = mix(activeColor, cYellow, p3 * 0.35 + 0.15);
+    // Brand electric-green (#c3ff00)
+    vec3 electricGreen = vec3(0.765, 1.0, 0.0);
 
     float ringAlpha = smoothstep(0.05, 0.55, vSize);
     float shimmer = 0.88 + 0.12 * sin(uTime * 2.0 + vPos.x * 1.5);
@@ -186,7 +175,7 @@ const FRAGMENT_SHADER = `
 
     if (finalAlpha < 0.01) discard;
 
-    gl_FragColor = vec4(activeColor, finalAlpha);
+    gl_FragColor = vec4(electricGreen, finalAlpha);
   }
 `;
 
@@ -229,8 +218,8 @@ function Particles({ isHovering }: ParticlesProps) {
     hoveringRef.current = isHovering;
   }, [isHovering]);
 
-  const countX = 90;
-  const countY = 55;
+  const countX = 76;
+  const countY = 46;
   const count = countX * countY;
 
   const geometry = useMemo(() => new THREE.PlaneGeometry(1, 1), []);
@@ -261,7 +250,7 @@ function Particles({ isHovering }: ParticlesProps) {
     const angles = new Float32Array(count);
     const gridWidth = viewport.width * 1.35;
     const gridHeight = viewport.height * 1.35;
-    const jitter = 0.4;
+    const jitter = 0.55;
 
     let i = 0;
     for (let y = 0; y < countY; y++) {
