@@ -8,9 +8,9 @@ import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
-import { TypingSegment, TypingTitle } from './typing-title';
+import { TypingSegment, TypingTitle } from './components';
 
-const Medusae = dynamic(() => import('./medusae').then((module) => module.Medusae), {
+const Medusae = dynamic(() => import('./components/medusae').then((module) => module.Medusae), {
   ssr: false,
   loading: () => null
 });
@@ -32,7 +32,7 @@ function getMediaQueryMatches(query: string) {
   return window.matchMedia(query).matches;
 }
 
-function Hero() {
+export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const prefersReducedMotion = useSyncExternalStore(
@@ -92,5 +92,3 @@ function Hero() {
     </section>
   );
 }
-
-export default Hero;
