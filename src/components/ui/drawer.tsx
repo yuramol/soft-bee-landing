@@ -32,12 +32,19 @@ const DrawerContent = React.forwardRef<
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
-      className={cn('fixed inset-x-0 bottom-0 z-50 flex h-screen w-[300px] flex-col rounded-r-[10px] bg-white px-[15px]', className)}
+      className={cn(
+        'fixed z-50 flex flex-col bg-white outline-none',
+        'data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:rounded-b-[10px]',
+        'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:rounded-t-[10px]',
+        'data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0',
+        'data-[vaul-drawer-direction=right]:top-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:bottom-auto! data-[vaul-drawer-direction=right]:h-auto! data-[vaul-drawer-direction=right]:rounded-b-[16px]',
+        className
+      )}
       {...props}
     >
       <DrawerTitle className='sr-only'>Drawer Title</DrawerTitle>
       <DrawerDescription className='sr-only'>Drawer Description</DrawerDescription>
-      <div className='bg-muted mx-auto mt-4 h-2 w-[100px] rounded-full' />
+
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
