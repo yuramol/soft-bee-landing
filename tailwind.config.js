@@ -40,7 +40,8 @@ module.exports = {
         },
         accent: {
           DEFAULT: 'var(--accent)',
-          foreground: 'var(--accent-foreground)'
+          foreground: 'var(--accent-foreground)',
+          dark: 'var(--accent-dark)'
         },
         popover: {
           DEFAULT: 'var(--popover)',

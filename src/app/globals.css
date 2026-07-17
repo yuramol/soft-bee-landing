@@ -80,6 +80,9 @@
 
     /* --- Borders / dividers --- */
     --border: var(--light-gray);
+
+    /* --- Components --- */
+    --about-card-text-width: calc(50cqw - 120px);
   }
 
   /* ============================================================

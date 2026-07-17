@@ -1,9 +1,10 @@
-import Hero from '@/components/sections/home/hero';
+import { Hero, AboutUs } from '@/components/sections/home';
 
 export default function Home() {
   return (
-    <main className='bg-muted text-brand-black flex min-h-screen flex-col items-start p-2.5'>
+    <div className='bg-muted'>
       <Hero />
-    </main>
+      <AboutUs />
+    </div>
   );
 }
