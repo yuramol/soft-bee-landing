@@ -1,4 +1,4 @@
-import { Header } from '@/components/layout/header';
+import { Header } from '@/components/layout';
 
 export default function DarkHeaderLayout({ children }: { children: React.ReactNode }) {
   return (
