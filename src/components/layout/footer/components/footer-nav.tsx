@@ -4,17 +4,17 @@ import { FOOTER_LINKS } from '@/constants/navigation';
 
 export const FooterNav = () => {
   return (
-    <nav className='text-brand-black mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between' aria-label='Footer Navigation'>
+    <nav className='text-foreground mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between' aria-label='Footer Navigation'>
       <div className='flex flex-col gap-5'>
         <Typography variant='description'>Kyiv</Typography>
         <ul className='flex flex-col gap-5'>
           <li>
-            <Link href='mailto:hello@softbee.com' className='text-brand-black/50 hover:text-brand-black transition-colors'>
+            <Link href='mailto:hello@softbee.com' className='text-foreground/50 hover:text-foreground transition-colors'>
               hello@softbee.com
             </Link>
           </li>
           <li>
-            <Link href='tel:+0000000000' className='text-brand-black/50 hover:text-brand-black transition-colors'>
+            <Link href='tel:+0000000000' className='text-foreground/50 hover:text-foreground transition-colors'>
               (+00) 0000 000 0
             </Link>
           </li>
@@ -31,7 +31,7 @@ export const FooterNav = () => {
                   href={link.href}
                   target={link.target}
                   rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-                  className='text-brand-black/60 hover:text-brand-black transition-colors'
+                  className='text-foreground/60 hover:text-foreground transition-colors'
                 >
                   {link.label}
                 </Link>
