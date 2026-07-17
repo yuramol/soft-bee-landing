@@ -3,7 +3,10 @@
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
 
+import { ComponentContainer } from '@/components/layout';
+import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
 
 import { TypingSegment, TypingTitle } from './typing-title';
 
@@ -58,7 +61,10 @@ function Hero() {
       ref={sectionRef}
       onPointerEnter={showMedusae ? handlePointerEnter : undefined}
       onPointerLeave={showMedusae ? handlePointerLeave : undefined}
-      className='relative flex min-h-[560px] w-full items-end justify-between overflow-hidden px-5.25 pb-[108px] lg:px-10.5'
+      className={cn(
+        'bg-background relative flex h-[700px] max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-lg px-5.25 pb-[51px] lg:px-10.5',
+        'lg:min-h-[560px] lg:rounded-2xl lg:pb-[108px]'
+      )}
     >
       {showMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
@@ -68,12 +74,21 @@ function Hero() {
         </div>
       )}
 
-      <div className='pointer-events-none relative z-10 flex w-full items-end justify-between'>
+      <div className='pointer-events-none absolute inset-0 z-0 overflow-hidden lg:hidden' aria-hidden>
+        <Icon icon='LogoShort' width={196} height={297} className='absolute right-0 bottom-[160px]' />
+      </div>
+
+      <ComponentContainer
+        className={cn(
+          'pointer-events-none relative z-10 flex w-full flex-col-reverse gap-[27px]',
+          'xl:flex-row xl:items-end xl:justify-between'
+        )}
+      >
         <Typography variant='body2' className='max-w-[336px]'>
           Softbee brings together engineers, designers, and analysts to create dependable solutions.
         </Typography>
         <TypingTitle segments={heroTitleSegments} />
-      </div>
+      </ComponentContainer>
     </section>
   );
 }

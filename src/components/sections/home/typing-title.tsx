@@ -77,7 +77,7 @@ export function TypingTitle({ segments, className, speedMs = 42, startDelayMs = 
   }, [prefersReducedMotion, totalChars, speedMs, startDelayMs]);
 
   return (
-    <Typography variant='h1' className={cn('relative w-fit max-w-[905px] leading-[110%]', className)}>
+    <Typography variant='h1' className={cn('relative w-fit max-w-[750px] leading-[110%]', `2xl:max-w-[905px]`, className)}>
       {/* Full text stays in the layout (and accessibility tree) to reserve space and avoid layout shift. */}
       <span className='opacity-0'>{renderSegments(segments)}</span>
       <span aria-hidden className='absolute inset-0'>
