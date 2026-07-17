@@ -58,7 +58,7 @@ function Hero() {
       ref={sectionRef}
       onPointerEnter={showMedusae ? handlePointerEnter : undefined}
       onPointerLeave={showMedusae ? handlePointerLeave : undefined}
-      className='bg-background relative flex min-h-[560px] w-full items-end justify-between overflow-hidden rounded-[36px] px-[42px] pb-[108px]'
+      className='relative flex min-h-[560px] w-full items-end justify-between overflow-hidden px-5.25 pb-[108px] lg:px-10.5'
     >
       {showMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
