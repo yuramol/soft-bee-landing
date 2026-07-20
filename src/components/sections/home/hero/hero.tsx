@@ -62,8 +62,8 @@ export function Hero() {
       onPointerEnter={showMedusae ? handlePointerEnter : undefined}
       onPointerLeave={showMedusae ? handlePointerLeave : undefined}
       className={cn(
-        'bg-background relative flex h-[700px] max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-lg px-5.25 pb-[51px] lg:px-10.5',
-        'lg:min-h-[560px] lg:rounded-2xl lg:pb-[108px]'
+        'bg-background relative mb-2.5 flex h-175 max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pb-[51px] lg:px-10.5',
+        'lg:min-h-140 lg:pb-27'
       )}
     >
       {showMedusae && (
@@ -75,16 +75,16 @@ export function Hero() {
       )}
 
       <div className='pointer-events-none absolute inset-0 z-0 overflow-hidden lg:hidden' aria-hidden>
-        <Icon icon='LogoShort' width={196} height={297} className='absolute right-0 bottom-[160px]' />
+        <Icon icon='LogoShort' width={196} height={297} className='absolute right-0 bottom-40' />
       </div>
 
       <ComponentContainer
         className={cn(
-          'pointer-events-none relative z-10 flex w-full flex-col-reverse gap-[27px]',
+          'pointer-events-none relative z-10 flex w-full flex-col-reverse gap-6.75',
           'xl:flex-row xl:items-end xl:justify-between'
         )}
       >
-        <Typography variant='body2' className='max-w-[336px]'>
+        <Typography variant='body2' className='max-w-84'>
           Softbee brings together engineers, designers, and analysts to create dependable solutions.
         </Typography>
         <TypingTitle segments={heroTitleSegments} />

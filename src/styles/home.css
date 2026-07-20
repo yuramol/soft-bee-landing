@@ -9,4 +9,26 @@
     background-color: var(--foreground);
     animation: caret-blink 1.05s steps(1, end) infinite;
   }
+
+  .tools-wave-item {
+    animation: tools-wave 3.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tools-wave-item {
+      animation: none;
+      transform: none;
+    }
+  }
+}
+
+@keyframes tools-wave {
+  0%,
+  100% {
+    transform: translateY(2.5rem);
+  }
+
+  50% {
+    transform: translateY(-2.5rem);
+  }
 }

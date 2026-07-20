@@ -5,6 +5,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Typography } from '@ui/typography';
+
 import { Icon } from './icon';
 
 const Dialog = DialogPrimitive.Root;
