@@ -1,4 +1,6 @@
+import { ComponentContainer } from '@/components/layout';
 import { AboutUs, Hero, Services, VideoWrapper } from '@/components/sections/home';
+import { Tools } from '@/components/sections/home/tools';
 
 export default function Home() {
   return (
@@ -6,7 +8,15 @@ export default function Home() {
       <Hero />
       <VideoWrapper />
       <AboutUs />
-      <Services />
+
+      <div className='bg-muted relative pb-10'>
+        <ComponentContainer>
+          <div className='w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
+            <Services />
+            <Tools />
+          </div>
+        </ComponentContainer>
+      </div>
     </>
   );
 }

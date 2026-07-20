@@ -95,7 +95,9 @@
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 16px;
+}
 
+@theme {
   --text-96: var(--fs-96);
   --text-80: var(--fs-80);
   --text-70: var(--fs-70);

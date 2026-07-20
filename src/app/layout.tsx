@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
-import { Providers } from '@/app/providers';
 import './globals.css';
+
 import localFont from 'next/font/local';
-import { cn } from '@/lib/utils';
+
+import { Providers } from '@/app/providers';
 import { Footer, MainLayout } from '@/components/layout';
+import { cn } from '@/lib/utils';
 
 const fixel = localFont({
   src: [
