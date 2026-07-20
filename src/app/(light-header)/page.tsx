@@ -1,10 +1,11 @@
-import { Hero, AboutUs } from '@/components/sections/home';
+import { Hero, AboutUs, Services } from '@/components/sections/home';
 
 export default function Home() {
   return (
     <div className='bg-muted'>
       <Hero />
       <AboutUs />
+      <Services />
     </div>
   );
 }
