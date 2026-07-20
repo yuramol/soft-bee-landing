@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { AnimatedBackground } from '@/components/ui/animated-background';
 import { Typography } from '@/components/ui/typography';
 import { Logo } from '@/assets/icons';
 import { ComponentContainer } from '@/components/layout';
@@ -13,15 +13,7 @@ export const Footer = () => {
 
   return (
     <footer className='bg-brand-white relative w-full shrink-0 overflow-hidden px-4 md:px-10.5'>
-      <div
-        className='pointer-events-none absolute inset-x-0 -top-75 z-0 h-250 w-full md:-top-20'
-        style={{
-          maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-        }}
-      >
-        <Image src='/backgrounds/footer-bg.webp' alt='Background' fill className='object-cover object-center' priority />
-      </div>
+      <AnimatedBackground className='-top-20 h-250' />
 
       <div className='relative z-10 w-full pt-31.25 pb-17 md:pt-80 md:pb-10'>
         <ComponentContainer>
