@@ -14,7 +14,10 @@ module.exports = {
         outline: 'var(--outline)',
         input: 'var(--input)',
         ring: 'var(--ring)',
-        background: 'var(--background)',
+        background: {
+          DEFAULT: 'var(--background)',
+          inverse: 'var(--background-inverse)'
+        },
         surface: 'var(--surface)',
         foreground: {
           DEFAULT: 'var(--foreground)',
