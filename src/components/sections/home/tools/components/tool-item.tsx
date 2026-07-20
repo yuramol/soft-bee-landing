@@ -26,10 +26,6 @@ function canHover() {
 export function ToolItem({ icon, name, description, invertOnHover = false, className }: ToolItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  function handleOpenChange(nextOpen: boolean) {
-    setIsOpen(nextOpen);
-  }
-
   function handleMouseEnter() {
     if (!canHover()) return;
     setIsOpen(true);
@@ -41,7 +37,7 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
   }
 
   return (
-    <Popover open={isOpen} onOpenChange={handleOpenChange}>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <button
           type='button'
