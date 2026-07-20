@@ -1,4 +1,4 @@
-import { AboutUs, Hero, VideoWrapper } from '@/components/sections/home';
+import { AboutUs, Hero, Services, VideoWrapper } from '@/components/sections/home';
 import { Tools } from '@/components/sections/home/tools';
 
 export default function Home() {
@@ -7,6 +7,7 @@ export default function Home() {
       <Hero />
       <VideoWrapper />
       <AboutUs />
+      <Services />
       <Tools />
     </>
   );

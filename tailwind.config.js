@@ -107,19 +107,7 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
       },
-      fontSize: {
-        96: ['var(--fs-96)', '1.17'],
-        80: ['var(--fs-80)', '1.17'],
-        70: ['var(--fs-70)', '1.17'],
-        48: ['var(--fs-48)', '1.24'],
-        32: ['var(--fs-32)', '1.24'],
-        28: ['var(--fs-28)', '1.24'],
-        24: ['var(--fs-24)', '1.37'],
-        20: ['var(--fs-20)', '1.37'],
-        18: ['var(--fs-18)', '1.37'],
-        16: ['var(--fs-16)', '1.10'],
-        14: ['var(--fs-14)', '1.10']
-      }
+
     }
   },
   plugins: [require('@tailwindcss/typography'), require('@tailwindcss/container-queries')]
