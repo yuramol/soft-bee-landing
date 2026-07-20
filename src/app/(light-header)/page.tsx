@@ -1,7 +1,6 @@
+import { ComponentContainer } from '@/components/layout';
 import { AboutUs, Hero, Services, VideoWrapper } from '@/components/sections/home';
 import { Tools } from '@/components/sections/home/tools';
-
-import { ComponentContainer } from '@/components/layout';
 
 export default function Home() {
   return (

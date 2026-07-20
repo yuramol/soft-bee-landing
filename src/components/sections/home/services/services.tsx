@@ -1,15 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Typography } from '@/components/ui/typography';
-import { ServiceCard } from './service-card';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { BREAKPOINTS } from '@/constants';
+import 'swiper/css';
 
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+
+import { Badge } from '@/components/ui/badge';
+import { Typography } from '@/components/ui/typography';
+import { BREAKPOINTS } from '@/constants';
+
+import { ServiceCard } from './service-card';
 
 const CARD_HIDDEN_OFFSET = 40;
 
