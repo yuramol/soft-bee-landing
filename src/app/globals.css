@@ -1,9 +1,9 @@
+@config '../../tailwind.config.js';
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '../styles/home.css';
-
-@config '../../tailwind.config.js';
 
 @layer components {
   .kpi-badge-primary {
@@ -61,12 +61,52 @@
   }
 }
 
+@layer base {
+  :root {
+    --fs-96: 40px;
+    --fs-80: 40px;
+    --fs-70: 40px;
+    --fs-48: 32px;
+    --fs-32: 24px;
+    --fs-28: 24px;
+    --fs-24: 20px;
+    --fs-20: 20px;
+    --fs-18: 18px;
+    --fs-16: 16px;
+    --fs-14: 14px;
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --fs-96: 96px;
+      --fs-80: 80px;
+      --fs-70: 70px;
+      --fs-48: 48px;
+      --fs-32: 32px;
+      --fs-28: 28px;
+      --fs-24: 24px;
+    }
+  }
+}
+
 @theme {
   --radius-sm: 10px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 16px;
+
+  --text-96: var(--fs-96);
+  --text-80: var(--fs-80);
+  --text-70: var(--fs-70);
+  --text-48: var(--fs-48);
+  --text-32: var(--fs-32);
+  --text-28: var(--fs-28);
+  --text-24: var(--fs-24);
+  --text-20: var(--fs-20);
+  --text-18: var(--fs-18);
+  --text-16: var(--fs-16);
+  --text-14: var(--fs-14);
 }
 
 @media (min-width: 1024px) {
@@ -107,32 +147,4 @@
    *   --border: var(--graphite-gray);
    * }
    * ============================================================ */
-}
-
-@layer base {
-  :root {
-    --fs-96: 40px;
-    --fs-80: 40px;
-    --fs-70: 40px;
-    --fs-48: 32px;
-    --fs-32: 24px;
-    --fs-28: 24px;
-    --fs-24: 20px;
-    --fs-20: 20px;
-    --fs-18: 18px;
-    --fs-16: 16px;
-    --fs-14: 14px;
-  }
-
-  @media (min-width: 768px) {
-    :root {
-      --fs-96: 96px;
-      --fs-80: 80px;
-      --fs-70: 70px;
-      --fs-48: 48px;
-      --fs-32: 32px;
-      --fs-28: 28px;
-      --fs-24: 24px;
-    }
-  }
 }

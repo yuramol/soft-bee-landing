@@ -52,35 +52,35 @@ export const Typography: FC<TypographyProps> = ({ children, variant, tag, classN
   const getClassNames = () => {
     switch (variant) {
       case 'display1':
-        return 'text-96';
+        return 'text-96 leading-[1.17]';
       case 'display2':
-        return 'text-80';
+        return 'text-80 leading-[1.17]';
       case 'h1':
-        return 'text-70';
+        return 'text-70 leading-[1.17]';
       case 'h2':
-        return 'text-48';
+        return 'text-48 leading-[1.24]';
       case 'h3':
-        return 'text-32';
+        return 'text-32 leading-[1.24]';
       case 'h4':
-        return 'text-24';
+        return 'text-24 leading-[1.37]';
       case 'h5':
-        return 'text-20';
+        return 'text-20 leading-[1.37]';
       case 'h6':
-        return 'text-18';
+        return 'text-18 leading-[1.37]';
       case 'body1':
-        return 'text-24';
+        return 'text-24 leading-[1.37]';
       case 'body2':
-        return 'text-20';
+        return 'text-20 leading-[1.37]';
       case 'body3':
-        return 'text-18';
+        return 'text-18 leading-[1.37]';
       case 'description':
-        return 'text-16';
+        return 'text-16 leading-[1.10]';
       case 'caption':
-        return 'text-16';
+        return 'text-16 leading-[1.10]';
       case 'caption2':
-        return 'text-14';
+        return 'text-14 leading-[1.10]';
       default:
-        return 'text-24';
+        return 'text-24 leading-[1.37]';
     }
   };
 
