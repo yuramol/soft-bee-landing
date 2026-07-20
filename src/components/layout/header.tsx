@@ -1,0 +1,58 @@
+import Link from 'next/link';
+import { Icon } from '@/components/ui/icon';
+import { MobileNav } from './mobile-nav';
+import { cn } from '@/lib/utils';
+import { MAIN_NAV_LINKS } from '@/constants/navigation';
+import { DiscussProjectButton } from '../discuss-project-button';
+
+export interface HeaderProps {
+  className?: string;
+  theme?: 'light' | 'dark';
+}
+
+export function Header({ className, theme = 'light' }: HeaderProps) {
+  const isLightText = theme === 'dark';
+  const textColor = isLightText ? 'text-foreground-inverse' : 'text-foreground';
+  const burgerColor = isLightText ? 'var(--foreground-inverse)' : 'var(--foreground)';
+  return (
+    <header
+      className={cn(
+        'mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5',
+        className
+      )}
+    >
+      <div className='flex items-center'>
+        <Link href='/'>
+          <Icon icon={isLightText ? 'LogoWhite' : 'Logo'} width={165} height={37} />
+        </Link>
+      </div>
+
+      <div className='flex items-center gap-20 xl:gap-31.25'>
+        <nav className='hidden lg:block'>
+          <ul className='flex items-center gap-11.25'>
+            {MAIN_NAV_LINKS.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className={cn('text-16 flex items-center font-medium whitespace-nowrap transition-opacity hover:opacity-80', textColor)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className='hidden items-center lg:flex'>
+          <DiscussProjectButton
+            variant={isLightText ? 'white' : 'primary'}
+            className='h-12 rounded-full px-6 font-medium'
+            text='Discuss project'
+          />
+        </div>
+
+        <MobileNav burgerColor={burgerColor} />
+      </div>
+    </header>
+  );
+}
