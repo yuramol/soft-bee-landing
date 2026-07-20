@@ -2,13 +2,14 @@
 
 import * as React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
+
 import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { FileBadge } from '@/components/ui/file-badge';
+import { Icon } from '@/components/ui/icon';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const discussProjectSchema = z
   .object({
