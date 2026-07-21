@@ -5,6 +5,7 @@ export { SidebarTop } from './sidebar-top';
 export { LogoWhite } from './logo-white';
 export { Logo } from './logo';
 export { LogoMark } from './logo-mark';
+export { LogoShort } from './logo-short';
 export { LogoOpenAI } from './logo-openai';
 export { LogoAnthropicClaude } from './logo-anthropic-claude';
 export { LogoGemini } from './logo-gemini';
