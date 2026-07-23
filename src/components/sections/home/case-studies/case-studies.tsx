@@ -8,7 +8,7 @@ import { caseStudiesData } from './data';
 
 export function CaseStudies() {
   return (
-    <section className='flex w-full flex-col pt-15.5 lg:pt-55'>
+    <section className='flex w-full flex-col pt-17 lg:pt-53.25'>
       <ComponentContainer className='flex flex-col gap-y-17 lg:gap-y-45'>
         <div className='flex flex-col items-start px-4 lg:items-center lg:px-0 lg:text-center'>
           <Badge title='Case studies' className='mb-7.5 w-fit lg:mb-10' />

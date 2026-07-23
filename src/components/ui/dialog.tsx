@@ -48,8 +48,8 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className='data-[state=open]:text-muted-foreground ring-offset-background bg-mist-gray absolute top-2.5 right-2.5 flex size-15.5 cursor-pointer items-center justify-center rounded-full opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none'>
-        <Icon icon='X' fill='#1B1C23' width={20} height={20} />
+      <DialogPrimitive.Close className='data-[state=open]:text-muted-foreground ring-offset-background bg-mist-gray absolute top-2.5 right-2.5 flex size-10 cursor-pointer items-center justify-center rounded-full opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none md:size-15.5'>
+        <Icon icon='X' fill='#1B1C23' className='size-4 md:size-5' />
         <Typography variant='description' tag='span' className='sr-only'>
           Close
         </Typography>
