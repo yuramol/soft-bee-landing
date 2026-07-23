@@ -19,8 +19,8 @@ export default function Home() {
           </div>
         </ComponentContainer>
       </div>
-      <Awards />
       <CaseStudies />
+      <Awards />
     </>
   );
 }
