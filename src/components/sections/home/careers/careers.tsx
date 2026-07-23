@@ -105,7 +105,7 @@ export const Careers = () => {
   }, [swiperInstance]);
 
   return (
-    <section className='bg-muted relative pb-10'>
+    <section className='bg-muted relative'>
       <ComponentContainer>
         <div className='w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
           <div ref={targetRef} className='relative w-full md:h-[400vh]'>
