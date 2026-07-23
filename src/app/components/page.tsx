@@ -108,7 +108,6 @@ export default function ComponentsPage() {
         <Icon icon='MagnifyingGlass' />
         <Icon icon='Stars' />
         <Icon icon='Crown' />
-        <Icon icon='StarPlus' />
         <Icon icon='LogoMark' />
         <Icon icon='PencilSimple' />
         <Icon icon='ChevronLeft' />
