@@ -5,3 +5,4 @@ export { Services } from './services';
 export { Tools } from './tools';
 export { Careers } from './careers';
 export { Awards } from './awards';
+export { CaseStudies } from './case-studies';
