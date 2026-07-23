@@ -1,6 +1,7 @@
 import { ComponentContainer } from '@/components/layout';
 import { AboutUs, Hero, Services, VideoWrapper } from '@/components/sections/home';
 import { Awards } from '@/components/sections/home/awards';
+import { CaseStudies } from '@/components/sections/home/case-studies';
 import { Tools } from '@/components/sections/home/tools';
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
           </div>
         </ComponentContainer>
       </div>
+      <CaseStudies />
       <Awards />
     </>
   );
