@@ -10,6 +10,11 @@ import { cn } from '@/lib/utils';
 const fixel = localFont({
   src: [
     {
+      path: '../assets/fonts/fixel/fixelText-Light.woff2',
+      weight: '300',
+      style: 'normal'
+    },
+    {
       path: '../assets/fonts/fixel/fixelText-Regular.woff2',
       weight: '400',
       style: 'normal'
