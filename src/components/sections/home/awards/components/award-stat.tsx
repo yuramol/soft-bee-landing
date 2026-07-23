@@ -43,7 +43,7 @@ export function AwardStat({ value, suffix = '', description, decimals = 0, class
 
   return (
     <div ref={ref} className={cn('flex flex-col items-start', className)}>
-      <Typography variant='display2' tag='span' className='text-foreground-inverse font-light'>
+      <Typography variant='display2' tag='span' className='font-light text-white'>
         {formatStatValue(animatedValue, decimals)}
         {suffix}
       </Typography>

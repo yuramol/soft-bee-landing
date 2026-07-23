@@ -35,11 +35,6 @@ function getMediaQueryMatches(query: string) {
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const prefersReducedMotion = useSyncExternalStore(
-    (onStoreChange) => subscribeMediaQuery('(prefers-reduced-motion: reduce)', onStoreChange),
-    () => getMediaQueryMatches('(prefers-reduced-motion: reduce)'),
-    () => false
-  );
   const canRenderMedusae = useSyncExternalStore(
     (onStoreChange) => subscribeMediaQuery(DESKTOP_MEDUSAE_QUERY, onStoreChange),
     () => getMediaQueryMatches(DESKTOP_MEDUSAE_QUERY),
@@ -54,19 +49,17 @@ export function Hero() {
     setIsHovering(false);
   }
 
-  const showMedusae = canRenderMedusae && !prefersReducedMotion;
-
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={showMedusae ? handlePointerEnter : undefined}
-      onPointerLeave={showMedusae ? handlePointerLeave : undefined}
+      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
+      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
         'bg-background relative mb-2.5 flex h-175 max-h-[calc(100vh-20px)] w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pb-[51px] lg:px-10.5',
         'lg:min-h-140 lg:pb-27'
       )}
     >
-      {showMedusae && (
+      {canRenderMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
           <Suspense fallback={null}>
             <Medusae eventSource={sectionRef} isHovering={isHovering} className='h-full w-full' />
