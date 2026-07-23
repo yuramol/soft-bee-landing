@@ -1,10 +1,26 @@
-import { Hero, AboutUs } from '@/components/sections/home';
+import { ComponentContainer } from '@/components/layout';
+import { AboutUs, Hero, Services, VideoWrapper } from '@/components/sections/home';
+import { Awards } from '@/components/sections/home/awards';
+import { CaseStudies } from '@/components/sections/home/case-studies';
+import { Tools } from '@/components/sections/home/tools';
 
 export default function Home() {
   return (
-    <div className='bg-muted'>
+    <>
       <Hero />
+      <VideoWrapper />
       <AboutUs />
-    </div>
+
+      <div className='bg-muted relative pb-10'>
+        <ComponentContainer>
+          <div className='w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
+            <Services />
+            <Tools />
+          </div>
+        </ComponentContainer>
+      </div>
+      <CaseStudies />
+      <Awards />
+    </>
   );
 }

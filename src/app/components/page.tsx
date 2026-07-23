@@ -2,10 +2,10 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 function logButtonClick() {
   console.log('clicked');
@@ -108,10 +108,10 @@ export default function ComponentsPage() {
         <Icon icon='MagnifyingGlass' />
         <Icon icon='Stars' />
         <Icon icon='Crown' />
-        <Icon icon='StarPlus' />
         <Icon icon='LogoMark' />
         <Icon icon='PencilSimple' />
         <Icon icon='ChevronLeft' />
+
         <Icon icon='ChevronRight' />
       </div>
       <div className='bg-surface border-outline flex w-full max-w-2xl flex-col items-center gap-6 rounded-xl border p-8 text-left'>

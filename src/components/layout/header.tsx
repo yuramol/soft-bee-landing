@@ -1,9 +1,11 @@
 import Link from 'next/link';
+
 import { Icon } from '@/components/ui/icon';
-import { MobileNav } from './mobile-nav';
-import { cn } from '@/lib/utils';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
+import { cn } from '@/lib/utils';
+
 import { DiscussProjectButton } from '../discuss-project-button';
+import { MobileNav } from './mobile-nav';
 
 export interface HeaderProps {
   className?: string;
@@ -17,7 +19,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
   return (
     <header
       className={cn(
-        'mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5',
+        'absolute top-0 right-0 left-0 z-50 mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5',
         className
       )}
     >

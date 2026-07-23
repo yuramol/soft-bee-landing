@@ -14,7 +14,10 @@ module.exports = {
         outline: 'var(--outline)',
         input: 'var(--input)',
         ring: 'var(--ring)',
-        background: 'var(--background)',
+        background: {
+          DEFAULT: 'var(--background)',
+          inverse: 'var(--background-inverse)'
+        },
         surface: 'var(--surface)',
         foreground: {
           DEFAULT: 'var(--foreground)',
@@ -115,19 +118,6 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'gradient-shift': 'gradient-shift 15s ease infinite',
         blob: 'blob 10s infinite ease-in-out'
-      },
-      fontSize: {
-        96: ['var(--fs-96)', '1.17'],
-        80: ['var(--fs-80)', '1.17'],
-        70: ['var(--fs-70)', '1.17'],
-        48: ['var(--fs-48)', '1.24'],
-        32: ['var(--fs-32)', '1.24'],
-        28: ['var(--fs-28)', '1.24'],
-        24: ['var(--fs-24)', '1.37'],
-        20: ['var(--fs-20)', '1.37'],
-        18: ['var(--fs-18)', '1.37'],
-        16: ['var(--fs-16)', '1.10'],
-        14: ['var(--fs-14)', '1.10']
       }
     }
   },

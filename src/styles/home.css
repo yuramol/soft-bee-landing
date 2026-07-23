@@ -9,4 +9,45 @@
     background-color: var(--foreground);
     animation: caret-blink 1.05s steps(1, end) infinite;
   }
+
+  .tools-wave-item {
+    animation: tools-wave 3.6s ease-in-out infinite;
+  }
+
+  .awards-glow-item {
+    animation: awards-glow-float 7s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tools-wave-item,
+    .awards-glow-item {
+      animation: none;
+      transform: none;
+    }
+  }
+}
+
+@keyframes tools-wave {
+  0%,
+  100% {
+    transform: translateY(2.5rem);
+  }
+
+  50% {
+    transform: translateY(-2.5rem);
+  }
+}
+
+@keyframes awards-glow-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translate3d(-6rem, 4rem, 0) scale(1.18);
+    opacity: 0.95;
+  }
 }
