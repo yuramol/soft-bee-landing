@@ -102,7 +102,7 @@ export const Services = () => {
 
   return (
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>
-      <div className='z-10 w-full px-4 py-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-5 xl:pt-28.75 xl:pb-15'>
+      <div className='z-10 w-full px-4 py-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
         <div className='mb-12 md:mb-0'>
           <Badge title='Services' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
 
