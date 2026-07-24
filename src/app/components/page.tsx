@@ -108,10 +108,10 @@ export default function ComponentsPage() {
         <Icon icon='MagnifyingGlass' />
         <Icon icon='Stars' />
         <Icon icon='Crown' />
-        <Icon icon='StarPlus' />
         <Icon icon='LogoMark' />
         <Icon icon='PencilSimple' />
         <Icon icon='ChevronLeft' />
+
         <Icon icon='ChevronRight' />
       </div>
       <div className='bg-surface border-outline flex w-full max-w-2xl flex-col items-center gap-6 rounded-xl border p-8 text-left'>
