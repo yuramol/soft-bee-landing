@@ -7,3 +7,4 @@ export { Careers } from './careers';
 export { Awards } from './awards';
 export { CaseStudies } from './case-studies';
 export { Testimonials } from './testimonials';
+export { Team } from './team';

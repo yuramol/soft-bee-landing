@@ -4,7 +4,7 @@ interface AnimatedBackgroundProps {
   className?: string;
 }
 
-export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
+export const FooterAnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
   return (
     <div
       className={cn('pointer-events-none absolute inset-x-0 z-0 w-full', className)}
@@ -15,21 +15,21 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
     >
       <div className='absolute inset-0 overflow-hidden'>
         {/* NEW ELEMENTS for upward dissipating blur */}
-        <div className='absolute top-10 left-[0%] h-50 w-full rounded-[100%] bg-[#C3FF00] opacity-30 blur-[100px] filter md:top-20 md:h-75 md:blur-[150px]'></div>
-        <div className='absolute top-20 left-[20%] h-50 w-[60%] rounded-[100%] bg-[#EEFCC2] opacity-40 blur-[80px] filter md:top-37.5 md:h-62.5 md:blur-[120px]'></div>
+        <div className='absolute top-10 left-[0%] h-50 w-full rounded-[100%] bg-[#C3FF00] opacity-30 blur-[100px] filter md:top-20 md:h-75 md:blur-[150px]' />
+        <div className='absolute top-20 left-[20%] h-50 w-[60%] rounded-[100%] bg-[#EEFCC2] opacity-40 blur-[80px] filter md:top-37.5 md:h-62.5 md:blur-[120px]' />
 
         <div className='absolute inset-0 mt-62.5'>
           {/* STATIC BASE (Prevents white gaps during animation) */}
-          <div className='absolute -top-12.5 left-[-10%] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:-top-37.5 md:h-150 md:w-175 md:opacity-40 md:blur-[120px]'></div>
-          <div className='absolute -top-12.5 right-[-10%] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:-top-37.5 md:h-150 md:w-175 md:opacity-40 md:blur-[120px]'></div>
-          <div className='absolute top-2.5 left-[calc(50%-150px)] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:top-37.5 md:left-[calc(50%-400px)] md:h-150 md:w-200 md:opacity-40 md:blur-[120px]'></div>
+          <div className='absolute -top-12.5 left-[-10%] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:-top-37.5 md:h-150 md:w-175 md:opacity-40 md:blur-[120px]' />
+          <div className='absolute -top-12.5 right-[-10%] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:-top-37.5 md:h-150 md:w-175 md:opacity-40 md:blur-[120px]' />
+          <div className='absolute top-2.5 left-[calc(50%-150px)] h-75 w-100 rounded-[100%] bg-[#C3FF00] opacity-40 blur-[80px] filter md:top-37.5 md:left-[calc(50%-400px)] md:h-150 md:w-200 md:opacity-40 md:blur-[120px]' />
 
           {/* Main Electric Green - Top Left (forms the left arm of the V) */}
           <div className='absolute -top-12.5 left-[-10%] h-75 w-100 md:-top-37.5 md:h-150 md:w-175'>
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#C3FF00] opacity-30 blur-[80px] filter md:opacity-30 md:blur-[120px]'
               style={{ animationDuration: '20s' }}
-            ></div>
+            />
           </div>
 
           {/* Main Electric Green - Top Right (forms the right arm of the V) */}
@@ -37,7 +37,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#C3FF00] opacity-30 blur-[80px] filter md:opacity-30 md:blur-[120px]'
               style={{ animationDelay: '5s', animationDuration: '22s' }}
-            ></div>
+            />
           </div>
 
           {/* Main Electric Green - Center Bottom (forms the tip of the V reaching the button) */}
@@ -45,7 +45,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#C3FF00] opacity-30 blur-[80px] filter md:opacity-30 md:blur-[120px]'
               style={{ animationDelay: '2s', animationDuration: '18s' }}
-            ></div>
+            />
           </div>
 
           {/* Moving Yellow - Floats inside the V */}
@@ -53,7 +53,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#EEFCC2] opacity-70 blur-[80px] filter md:opacity-70 md:blur-[100px]'
               style={{ animationDelay: '4s', animationDuration: '16s' }}
-            ></div>
+            />
           </div>
 
           {/* Deep Teal Gradient - Right side inside the V */}
@@ -66,7 +66,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
                 animationDelay: '6s',
                 animationDuration: '16s'
               }}
-            ></div>
+            />
           </div>
 
           {/* Ocean Cyan 1 - Very small, Top Left */}
@@ -74,7 +74,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#00A2BB] opacity-30 blur-2xl filter md:opacity-30 md:blur-2xl'
               style={{ animationDelay: '1s', animationDuration: '12s' }}
-            ></div>
+            />
           </div>
 
           {/* Ocean Cyan 2 - Very small, Center */}
@@ -82,7 +82,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#00A2BB] opacity-30 blur-2xl filter md:opacity-30 md:blur-[50px]'
               style={{ animationDelay: '4s', animationDuration: '15s' }}
-            ></div>
+            />
           </div>
 
           {/* Ocean Cyan 3 - Very small, Right */}
@@ -90,7 +90,7 @@ export const AnimatedBackground = ({ className }: AnimatedBackgroundProps) => {
             <div
               className='animate-blob h-full w-full rounded-[100%] bg-[#00A2BB] opacity-30 blur-2xl filter md:opacity-30 md:blur-2xl'
               style={{ animationDelay: '7s', animationDuration: '10s' }}
-            ></div>
+            />
           </div>
         </div>
       </div>
