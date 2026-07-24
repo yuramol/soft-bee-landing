@@ -104,6 +104,8 @@
 }
 
 @theme {
+  --font-instrument: var(--font-instrument);
+
   --text-96: var(--fs-96);
   --text-80: var(--fs-80);
   --text-70: var(--fs-70);

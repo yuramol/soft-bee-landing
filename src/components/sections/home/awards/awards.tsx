@@ -7,7 +7,7 @@ import { AWARD_STATS } from './data';
 
 export function Awards() {
   return (
-    <section className='flex flex-col items-center justify-center text-white'>
+    <section className='mb-2.5 flex flex-col items-center justify-center text-white'>
       <ComponentContainer className='bg-brand-black relative flex h-auto flex-col items-start gap-27 overflow-hidden rounded-2xl px-4 pt-16.5 pb-4 lg:px-11.25 lg:pt-28.75 lg:pb-10 2xl:h-screen'>
         <GlowEffect />
         <div className='relative z-10 flex h-full w-full flex-col items-start justify-between 2xl:max-w-[calc(100%-600px)] 2xl:pr-10'>

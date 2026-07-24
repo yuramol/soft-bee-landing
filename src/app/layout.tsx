@@ -7,6 +7,8 @@ import { Providers } from '@/app/providers';
 import { Footer, MainLayout } from '@/components/layout';
 import { cn } from '@/lib/utils';
 
+import { Instrument_Sans } from 'next/font/google';
+
 const fixel = localFont({
   src: [
     {
@@ -34,6 +36,12 @@ const fixel = localFont({
   display: 'swap'
 });
 
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-instrument',
+  display: 'swap'
+});
+
 export const metadata: Metadata = {
   title: 'SoftBee',
   description: 'SoftBee landing page'
@@ -45,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
+    <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable, instrumentSans.variable)}>
       <body className='flex min-h-screen flex-col'>
         <Providers>
           <MainLayout>{children}</MainLayout>

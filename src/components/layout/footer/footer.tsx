@@ -12,8 +12,8 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='bg-brand-white relative w-full shrink-0 overflow-hidden px-4 md:px-10.5'>
-      <AnimatedBackground className='-top-20 h-250' />
+    <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
+      <AnimatedBackground className='-top-82.5 h-312.5' />
 
       <div className='relative z-10 w-full pt-31.25 pb-17 md:pt-80 md:pb-10'>
         <ComponentContainer>

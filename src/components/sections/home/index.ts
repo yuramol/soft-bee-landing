@@ -6,3 +6,4 @@ export { Tools } from './tools';
 export { Careers } from './careers';
 export { Awards } from './awards';
 export { CaseStudies } from './case-studies';
+export { Testimonials } from './testimonials';

@@ -1,5 +1,5 @@
 import { ComponentContainer } from '@/components/layout';
-import { AboutUs, Awards, Careers, CaseStudies, Hero, Services, Tools, VideoWrapper } from '@/components/sections/home';
+import { AboutUs, Awards, Careers, CaseStudies, Hero, Services, Testimonials, Tools, VideoWrapper } from '@/components/sections/home';
 
 export default function Home() {
   return (
@@ -19,6 +19,7 @@ export default function Home() {
       <Careers />
       <CaseStudies />
       <Awards />
+      <Testimonials />
     </>
   );
 }
