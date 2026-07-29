@@ -87,7 +87,10 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     <Dialog open={open} onOpenChange={onOpenChange}>
       {(triggerButton || children) && <DialogTrigger asChild>{triggerButton || children}</DialogTrigger>}
       <DialogContent className='flex h-auto max-w-268 flex-col gap-5.75 overflow-hidden rounded-2xl border-0 p-4 md:flex-row md:gap-10 md:p-3 md:pr-10 lg:gap-15.25 lg:pr-19.25'>
-        <div className='order-last flex h-64.25 w-full flex-col items-center justify-center rounded-xl bg-[url("/backgrounds/main-gradient.webp")] bg-cover bg-center bg-no-repeat md:order-0 md:h-135 md:max-w-80 lg:max-w-91.5'>
+        <div
+          className='order-last flex h-64.25 w-full flex-col items-center justify-center rounded-xl bg-cover bg-center bg-no-repeat md:order-0 md:h-135 md:max-w-80 lg:max-w-91.5'
+          style={{ backgroundImage: 'url("/backgrounds/main-gradient.webp")' }}
+        >
           <Icon icon='LogoWhite' width={205} height={47} />
         </div>
         <form onSubmit={handleFormSubmit} className='flex flex-1 flex-col justify-center gap-5 md:gap-10'>

@@ -3,31 +3,31 @@
 import 'swiper/css';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
-import { BREAKPOINTS, ROUTES } from '@/constants';
+import { BREAKPOINTS } from '@/constants';
 
-import { CareersCard } from './careers-card';
-import { CareersVideo } from './careers-video';
+import { TestimonialCard } from './testimonial-card';
 
 const CARD_HIDDEN_OFFSET = 40;
 
-const MOCK_CARDS = Array.from({ length: 4 }).map((_, i) => ({
+const MOCK_CARDS = Array.from({ length: 6 }).map((_, i) => ({
   id: i,
-  badge: 'Development',
-  title: `Full-stack Developer ${i}`,
-  description:
-    'High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.'
+  quote:
+    "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+  avatar: '/images/home/testimonials/testimonial-avatar-01.webp',
+  name: 'Mark R',
+  role: 'Founder at NexaStream',
+  logo: '/images/home/testimonials/testimonial-logo-01.webp',
+  link: 'https://clutch.co/profile/soft-bee'
 }));
 
-export const Careers = () => {
+export const Testimonials = () => {
   const targetRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [maxTranslate, setMaxTranslate] = useState(0);
@@ -105,22 +105,17 @@ export const Careers = () => {
   }, [swiperInstance]);
 
   return (
-    <section className='bg-muted relative'>
+    <section className='relative z-10 -mb-10 md:-mb-10'>
       <ComponentContainer>
-        <div className='relative z-20 w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
+        <div className='w-full overflow-x-clip rounded-lg bg-white pb-4.25 md:rounded-2xl md:pb-18.75'>
           <div ref={targetRef} className='relative w-full md:h-[400vh]'>
-            <div className='z-10 w-full px-4 py-18.25 pb-23.5 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
+            <div className='z-10 w-full px-4 pt-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75'>
               <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>
                 <div>
-                  <Badge title='Careers' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
-                  <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-222'>
-                    Join the hive. We’re looking for talented minds to build the future together
+                  <Badge title='Testimonials' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
+                  <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-210'>
+                    Building Digital Success Together: What Our Partners Say
                   </Typography>
-                </div>
-                <div className='mt-6 hidden md:block'>
-                  <Button variant='default' asChild>
-                    <Link href={ROUTES.CAREERS}>Explore careers</Link>
-                  </Button>
                 </div>
               </div>
 
@@ -132,7 +127,14 @@ export const Careers = () => {
                 >
                   {MOCK_CARDS.map((card) => (
                     <div key={card.id} className='snap-start'>
-                      <CareersCard badge={card.badge} title={card.title} description={card.description} />
+                      <TestimonialCard
+                        quote={card.quote}
+                        avatar={card.avatar}
+                        name={card.name}
+                        role={card.role}
+                        logo={card.logo}
+                        link={card.link}
+                      />
                     </div>
                   ))}
                 </motion.div>
@@ -147,22 +149,21 @@ export const Careers = () => {
                   >
                     {MOCK_CARDS.map((card) => (
                       <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
-                        <CareersCard badge={card.badge} title={card.title} description={card.description} />
+                        <TestimonialCard
+                          quote={card.quote}
+                          avatar={card.avatar}
+                          name={card.name}
+                          role={card.role}
+                          logo={card.logo}
+                          link={card.link}
+                        />
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
-
-                <div className='mt-11.5 block w-full md:hidden'>
-                  <Button variant='default' className='w-full' asChild>
-                    <Link href={ROUTES.CAREERS}>Explore careers</Link>
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
-
-          <CareersVideo />
         </div>
       </ComponentContainer>
     </section>
