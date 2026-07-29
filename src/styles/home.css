@@ -51,3 +51,24 @@
     opacity: 0.95;
   }
 }
+
+/* Team Swiper Styles */
+@media (min-width: 768px) {
+  .team-swiper .swiper-slide {
+    opacity: 0 !important;
+    /* visibility: hidden !important; */
+  }
+  .team-swiper .swiper-slide-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 20 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-swiper .swiper-slide-next {
+    opacity: 0.4 !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+  }
+}
