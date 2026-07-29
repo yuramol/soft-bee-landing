@@ -97,6 +97,12 @@
   --radius-2xl: 16px;
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --radius-2xl: 36px;
+  }
+}
+
 @theme {
   --text-96: var(--fs-96);
   --text-80: var(--fs-80);
@@ -109,12 +115,6 @@
   --text-18: var(--fs-18);
   --text-16: var(--fs-16);
   --text-14: var(--fs-14);
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --radius-2xl: 36px;
-  }
 }
 
 @layer base {
