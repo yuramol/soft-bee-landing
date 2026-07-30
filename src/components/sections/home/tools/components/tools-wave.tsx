@@ -25,6 +25,7 @@ export function ToolsWave() {
     let animationFrameId = 0;
     let previousTimestamp: number | null = null;
     let isScrollComplete = false;
+    let hasStarted = false;
 
     function stopScroll() {
       isScrollComplete = true;
@@ -61,9 +62,30 @@ export function ToolsWave() {
       animationFrameId = requestAnimationFrame(step);
     }
 
-    animationFrameId = requestAnimationFrame(step);
+    function startScroll() {
+      if (hasStarted || isScrollComplete) return;
+      hasStarted = true;
+      animationFrameId = requestAnimationFrame(step);
+    }
 
-    return stopScroll;
+    // Defer auto-scroll until visible so continuous scroll events don't
+    // starve R3F's useMeasure debounce on first paint of the hero canvas.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          startScroll();
+          observer.disconnect();
+        }
+      },
+      { root: null, threshold: 0.15 }
+    );
+
+    observer.observe(scrollContainer);
+
+    return function cleanup() {
+      observer.disconnect();
+      stopScroll();
+    };
   }, []);
 
   return (
