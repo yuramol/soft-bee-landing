@@ -14,6 +14,10 @@
     animation: tools-wave 3.6s ease-in-out infinite;
   }
 
+  .tools-wave-paused .tools-wave-item {
+    animation-play-state: paused;
+  }
+
   .awards-glow-item {
     animation: awards-glow-float 7s ease-in-out infinite;
     will-change: transform, opacity;
