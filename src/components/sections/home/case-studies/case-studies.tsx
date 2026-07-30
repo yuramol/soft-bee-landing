@@ -15,8 +15,8 @@ export function CaseStudies() {
 
           <div className='flex flex-col items-start justify-between gap-4.75 lg:mb-12.5 lg:flex-row lg:gap-10'>
             <Typography variant='h2' className='text-foreground lg:max-w-175 xl:max-w-250'>
-              At Soft Bee, we combine{' '}
-              <span className='text-foreground/50'>technical precision with strategic thinking to solve complex business challenges.</span>
+              Technical precision, applied to real business problems.{' '}
+              <span className='text-foreground/50'>Here&apos;s what that looks like.</span>
             </Typography>
           </div>
           <Button className='hidden w-43 lg:block'>View more</Button>

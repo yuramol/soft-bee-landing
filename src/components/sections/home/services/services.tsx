@@ -12,14 +12,9 @@ import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
 
 import { ServiceCard } from './service-card';
+import { SERVICES_CARDS } from './data';
 
 const CARD_HIDDEN_OFFSET = 40;
-
-const MOCK_CARDS = Array.from({ length: 12 }).map((_, i) => ({
-  id: i,
-  title: `Web App Development ${i}`,
-  description: 'We brings together engineers, designers, and analysts to create dependable solutions.'
-}));
 
 export const Services = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -102,13 +97,13 @@ export const Services = () => {
 
   return (
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>
-      <div className='z-10 w-full px-4 py-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
+      <div className='z-10 w-full px-4 pt-18.25 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
         <div className='mb-12 md:mb-0'>
           <Badge title='Services' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
 
           <div>
-            <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-233.5'>
-              We build high-performance digital products with scalable code and seamless execution
+            <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-250'>
+              We build high-performance digital products - engineered to scale and delivered with care, from interface to infrastructure.
             </Typography>
           </div>
         </div>
@@ -117,11 +112,11 @@ export const Services = () => {
           {/* Desktop Horizontal Scroll */}
           <motion.div
             ref={carouselRef}
-            className='hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
+            className='hidden snap-x snap-mandatory items-stretch gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
             style={{ x: translateX }}
           >
-            {MOCK_CARDS.map((card) => (
-              <div key={card.id} className='snap-start'>
+            {SERVICES_CARDS.map((card) => (
+              <div key={card.id} className='flex snap-start self-stretch'>
                 <ServiceCard title={card.title} description={card.description} />
               </div>
             ))}
@@ -130,8 +125,8 @@ export const Services = () => {
           {/* Mobile Swiper */}
           <div className='block overflow-hidden md:hidden'>
             <Swiper loop={true} slidesPerView='auto' spaceBetween={10} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
-              {MOCK_CARDS.map((card) => (
-                <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
+              {SERVICES_CARDS.map((card) => (
+                <SwiperSlide key={`mobile-${card.id}`} className='flex h-auto! w-full!'>
                   <ServiceCard title={card.title} description={card.description} />
                 </SwiperSlide>
               ))}
