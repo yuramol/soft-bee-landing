@@ -117,6 +117,11 @@
   --text-18: var(--fs-18);
   --text-16: var(--fs-16);
   --text-14: var(--fs-14);
+
+  --shadow-smart-input: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+  --shadow-smart-result: 0px -10px 40px 0px rgba(0, 0, 0, 0.1);
+  --shadow-smart-download: 0px 24px 64px 0px #c3ff00;
+  --shadow-smart-assessing: 0px 4px 64px 0px #00a2bb;
 }
 
 @layer base {
@@ -151,4 +156,33 @@
    *   --border: var(--graphite-gray);
    * }
    * ============================================================ */
+}
+
+@layer utilities {
+  @keyframes slideUp {
+    from {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes solidPulse {
+    0%,
+    100% {
+      background-color: var(--muted);
+    }
+    50% {
+      background-color: #e5e5e5;
+    }
+  }
+
+  .bg-gradient-border {
+    background:
+      linear-gradient(var(--background), var(--background)) padding-box,
+      linear-gradient(90deg, #c3ff00 0%, #00a2bb 100%) border-box;
+  }
 }
