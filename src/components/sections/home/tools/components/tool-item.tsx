@@ -12,6 +12,7 @@ export interface ToolItemProps {
   description: string;
   invertOnHover?: boolean;
   className?: string;
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
 const triggerOpenOpacity = 'group-data-[state=open]/trigger:opacity-100';
@@ -27,8 +28,12 @@ function preventFocusScroll(event: Event) {
   event.preventDefault();
 }
 
-export function ToolItem({ icon, name, description, invertOnHover = false, className }: ToolItemProps) {
+export function ToolItem({ icon, name, description, invertOnHover = false, className, onOpenChange }: ToolItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    onOpenChange?.(isOpen);
+  }, [isOpen, onOpenChange]);
 
   function handleMouseEnter() {
     if (!canHover()) return;
