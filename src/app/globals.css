@@ -182,7 +182,7 @@
 
   .bg-gradient-border {
     background:
-      linear-gradient(var(--background), var(--background)) padding-box,
+      linear-gradient(white, white) padding-box,
       linear-gradient(90deg, #c3ff00 0%, #00a2bb 100%) border-box;
   }
 }

@@ -80,7 +80,7 @@ export const SmartEstimation = () => {
                 >
                   AI-powered
                 </span>{' '}
-                estimate of your development timeline and budget
+                preliminary estimate of your development timeline and budget.
               </>
             )}
           </Typography>
