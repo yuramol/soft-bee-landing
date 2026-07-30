@@ -4,7 +4,6 @@ import './globals.css';
 import { Instrument_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 
-import { Providers } from '@/app/providers';
 import { Footer, MainLayout } from '@/components/layout';
 import { cn } from '@/lib/utils';
 
@@ -56,10 +55,8 @@ export default function RootLayout({
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable, instrumentSans.variable)}>
       <body className='flex min-h-screen flex-col'>
-        <Providers>
           <MainLayout>{children}</MainLayout>
           <Footer />
-        </Providers>
       </body>
     </html>
   );
