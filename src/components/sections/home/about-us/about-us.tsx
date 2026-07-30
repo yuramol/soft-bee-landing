@@ -5,7 +5,7 @@ import { ComponentContainer } from '@/components/layout';
 
 export const AboutUs = () => {
   return (
-    <section className='flex w-full flex-col pt-15.5 pb-25 lg:px-10.5 lg:pt-57 lg:pb-35'>
+    <section className='flex w-full flex-col pt-15.5 pb-25 lg:px-10.5 lg:pt-50 lg:pb-35'>
       <ComponentContainer>
         <div className='px-4 lg:px-0'>
           <Badge title='About us' className='mb-7.5 w-fit lg:mb-10' />

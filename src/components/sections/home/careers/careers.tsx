@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS, ROUTES } from '@/constants';
+import { cn } from '@/lib/utils';
 
 import { CareersCard } from './careers-card';
 import { CareersVideo } from './careers-video';
@@ -27,7 +28,11 @@ const MOCK_CARDS = Array.from({ length: 4 }).map((_, i) => ({
     'High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.'
 }));
 
-export const Careers = () => {
+interface CareersProps {
+  className?: string;
+}
+
+export const Careers = ({ className }: CareersProps) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [maxTranslate, setMaxTranslate] = useState(0);
@@ -105,7 +110,7 @@ export const Careers = () => {
   }, [swiperInstance]);
 
   return (
-    <section className='bg-muted relative'>
+    <section className={cn('bg-muted relative', className)}>
       <ComponentContainer>
         <div className='relative z-20 w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
           <div ref={targetRef} className='relative w-full md:h-[400vh]'>
