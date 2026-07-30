@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Typography } from '@/components/ui/typography';
@@ -23,6 +23,10 @@ function canHover() {
   return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 }
 
+function preventFocusScroll(event: Event) {
+  event.preventDefault();
+}
+
 export function ToolItem({ icon, name, description, invertOnHover = false, className }: ToolItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,6 +39,20 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
     if (!canHover()) return;
     setIsOpen(false);
   }
+
+  //prevent scrolling back to tools item
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleScroll() {
+      setIsOpen(false);
+    }
+
+    window.addEventListener('scroll', handleScroll, true);
+    return function cleanup() {
+      window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, [isOpen]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -77,6 +95,8 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
         align='center'
         sideOffset={12}
         collisionPadding={10}
+        onOpenAutoFocus={preventFocusScroll}
+        onCloseAutoFocus={preventFocusScroll}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className='border-border bg-background text-foreground flex w-87.5 max-w-[calc(100vw-2rem)] flex-col gap-4 rounded-[16px] border p-8 text-base shadow-xs'

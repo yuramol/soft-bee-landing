@@ -12,20 +12,30 @@ const WAVE_STAGGER_S = 0.22;
 const AUTO_SCROLL_SPEED_PX_PER_S = 48;
 
 export function ToolsWave() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
+    const containerElement = containerRef.current;
+    const trackElement = trackRef.current;
+    if (!containerElement || !trackElement) return;
 
-    const scrollContainer = container;
+    const container = containerElement;
+    const track = trackElement;
+
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (reducedMotionQuery.matches) return;
 
     let animationFrameId = 0;
     let previousTimestamp: number | null = null;
+    let offsetX = 0;
     let isScrollComplete = false;
     let hasStarted = false;
+
+    function setOffset(nextOffsetX: number) {
+      offsetX = nextOffsetX;
+      track.style.transform = `translate3d(${-offsetX}px, 0, 0)`;
+    }
 
     function stopScroll() {
       isScrollComplete = true;
@@ -42,23 +52,23 @@ export function ToolsWave() {
       const elapsedMs = timestamp - previousTimestamp;
       previousTimestamp = timestamp;
 
-      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      const maxOffsetX = Math.max(0, track.scrollWidth - container.clientWidth);
 
-      if (maxScrollLeft <= 0) {
+      if (maxOffsetX <= 0) {
         stopScroll();
         return;
       }
 
       const distance = (AUTO_SCROLL_SPEED_PX_PER_S * elapsedMs) / 1000;
-      const nextScrollLeft = scrollContainer.scrollLeft + distance;
+      const nextOffsetX = offsetX + distance;
 
-      if (nextScrollLeft >= maxScrollLeft) {
-        scrollContainer.scrollLeft = maxScrollLeft;
+      if (nextOffsetX >= maxOffsetX) {
+        setOffset(maxOffsetX);
         stopScroll();
         return;
       }
 
-      scrollContainer.scrollLeft = nextScrollLeft;
+      setOffset(nextOffsetX);
       animationFrameId = requestAnimationFrame(step);
     }
 
@@ -68,7 +78,7 @@ export function ToolsWave() {
       animationFrameId = requestAnimationFrame(step);
     }
 
-    // Defer auto-scroll until visible so continuous scroll events don't
+    // Defer auto-scroll until visible so continuous motion doesn't
     // starve R3F's useMeasure debounce on first paint of the hero canvas.
     const observer = new IntersectionObserver(
       (entries) => {
@@ -80,7 +90,7 @@ export function ToolsWave() {
       { root: null, threshold: 0.15 }
     );
 
-    observer.observe(scrollContainer);
+    observer.observe(container);
 
     return function cleanup() {
       observer.disconnect();
@@ -89,11 +99,14 @@ export function ToolsWave() {
   }, []);
 
   return (
-    <div
-      ref={scrollContainerRef}
-      className='w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
-    >
-      <ul className={cn('mx-auto flex w-max items-center gap-4 px-4 pt-16 pb-36', 'sm:gap-5 sm:pt-20 lg:gap-6 lg:pt-24 lg:pb-56')}>
+    <div ref={containerRef} className='w-full overflow-x-clip'>
+      <ul
+        ref={trackRef}
+        className={cn(
+          'mx-auto flex w-max items-center gap-4 px-4 pt-16 pb-36 will-change-transform',
+          'sm:gap-5 sm:pt-20 lg:gap-6 lg:pt-24 lg:pb-56'
+        )}
+      >
         {TOOLS.map(function renderTool(tool, index) {
           return (
             <li
