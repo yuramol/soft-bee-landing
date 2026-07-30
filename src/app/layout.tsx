@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+import { Instrument_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import { Providers } from '@/app/providers';
 import { Footer, MainLayout } from '@/components/layout';
 import { cn } from '@/lib/utils';
-
-import { Instrument_Sans } from 'next/font/google';
 
 const fixel = localFont({
   src: [
@@ -33,13 +32,15 @@ const fixel = localFont({
     }
   ],
   variable: '--font-sans',
-  display: 'swap'
+  display: 'swap',
+  preload: false
 });
 
 const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
   variable: '--font-instrument',
-  display: 'swap'
+  display: 'swap',
+  preload: false
 });
 
 export const metadata: Metadata = {
