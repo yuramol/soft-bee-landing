@@ -35,10 +35,6 @@ const VERTEX_SHADER = `
     return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
   }
 
-  mat2 rotate2d(float _angle) {
-    return mat2(cos(_angle), sin(_angle), -sin(_angle), cos(_angle));
-  }
-
   float sdTriangle(vec2 p, vec2 a, vec2 b, vec2 c) {
     vec2 e0 = b - a;
     vec2 e1 = c - b;
@@ -128,23 +124,18 @@ const VERTEX_SHADER = `
     float depthBreath = pulse * 0.55 + depthWave * 0.45;
     pos.z += rimInfluence * (0.55 + rand * 0.45) * depthBreath * (uRadius * 0.08);
 
-    // Size swells with breath + ripple so dashes feel dimensional.
+    // Size swells with breath + ripple so dots feel dimensional.
     float sizePulse = 0.75 + pulse * 0.35 + ripple * 0.12 * rimInfluence;
-    float baseSize = uRadius * 0.0038;
-    float activeSize = uRadius * 0.026 * sizePulse;
+    float baseSize = uRadius * 0.0045;
+    float activeSize = uRadius * 0.02 * sizePulse;
     float currentScale = baseSize + rimInfluence * activeSize;
-    float stretch = rimInfluence * uRadius * (0.01 + pulse * 0.006);
+    float sizeJitter = 0.82 + rand * 0.36;
 
     vec3 transformed = position;
-    transformed.x *= (currentScale + stretch);
-    transformed.y *= currentScale * (0.62 + rand * 0.12);
+    transformed.xy *= currentScale * sizeJitter;
 
     vSize = rimInfluence * (0.85 + pulse * 0.15);
     vPos = pos.xy;
-
-    // Orientation follows the swirl field, not a rigid spoke.
-    float orientAngle = angleToMouse + swirl * 0.35 + ripple * 0.12;
-    transformed.xy = rotate2d(orientAngle) * transformed.xy;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos + transformed, 1.0);
   }
@@ -161,8 +152,8 @@ const FRAGMENT_SHADER = `
     vec2 center = vec2(0.5);
     vec2 pos = abs(vUv - center) * 2.0;
 
-    float d = pow(pow(pos.x, 2.6) + pow(pos.y, 2.6), 1.0 / 2.6);
-    float alpha = 1.0 - smoothstep(0.8, 1.0, d);
+    float d = length(pos);
+    float alpha = 1.0 - smoothstep(0.72, 1.0, d);
 
     if (alpha < 0.01) discard;
 
@@ -204,7 +195,7 @@ function createParticleUniforms(): ParticleUniforms {
     uMouse: { value: new THREE.Vector2(0, 0) },
     uResolution: { value: new THREE.Vector2(1, 1) },
     uRadius: { value: 6 },
-    uOpacity: { value: 0 }
+    uOpacity: { value: 1 }
   };
 }
 
@@ -212,14 +203,13 @@ function Particles({ isHovering }: ParticlesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport, size } = useThree();
   const hoveringRef = useRef(isHovering);
-  const wasHoveringRef = useRef(false);
 
   useEffect(() => {
     hoveringRef.current = isHovering;
   }, [isHovering]);
 
-  const countX = 76;
-  const countY = 46;
+  const countX = 100;
+  const countY = 60;
   const count = countX * countY;
 
   const geometry = useMemo(() => new THREE.PlaneGeometry(1, 1), []);
@@ -286,27 +276,17 @@ function Particles({ isHovering }: ParticlesProps) {
     const current = nextUniforms.uMouse.value;
 
     nextUniforms.uTime.value = clock.getElapsedTime();
-    nextUniforms.uRadius.value = Math.min(viewport.width, viewport.height) * 0.52;
+    nextUniforms.uRadius.value = Math.min(viewport.width, viewport.height) * 0.442;
+    nextUniforms.uOpacity.value = 1;
 
-    const targetOpacity = isActive ? 1 : 0;
-    nextUniforms.uOpacity.value += (targetOpacity - nextUniforms.uOpacity.value) * 0.1;
+    // Follow pointer while hovering; stay put when the pointer leaves.
+    if (!isActive) return;
 
-    if (isActive) {
-      const targetX = (pointer.x * viewport.width) / 2;
-      const targetY = (pointer.y * viewport.height) / 2;
-
-      if (!wasHoveringRef.current) {
-        current.x = targetX;
-        current.y = targetY;
-      } else {
-        // Heavier follow — Antigravity-like weight.
-        const dragFactor = 0.04;
-        current.x += (targetX - current.x) * dragFactor;
-        current.y += (targetY - current.y) * dragFactor;
-      }
-    }
-
-    wasHoveringRef.current = isActive;
+    const targetX = (pointer.x * viewport.width) / 2;
+    const targetY = (pointer.y * viewport.height) / 2;
+    const dragFactor = 0.04;
+    current.x += (targetX - current.x) * dragFactor;
+    current.y += (targetY - current.y) * dragFactor;
   });
 
   return <instancedMesh ref={meshRef} args={[geometry, material, count]} />;
@@ -319,6 +299,9 @@ export function Medusae({ eventSource, isHovering, className }: MedusaeProps) {
       eventSource={eventSource as RefObject<HTMLElement>}
       eventPrefix='client'
       dpr={[1, 1.5]}
+      // Ignore page scroll events — nested scrollers (e.g. ToolsWave) would
+      // otherwise keep resetting useMeasure's debounce and leave size at 0.
+      resize={{ scroll: false, debounce: 0 }}
       camera={{ position: [0, 0, 20], fov: 50, near: 0.1, far: 100 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ pointerEvents: 'none' }}
