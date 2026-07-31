@@ -114,7 +114,7 @@ export const Careers = () => {
                 <div>
                   <Badge title='Careers' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
                   <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-222'>
-                    Join the hive. We’re looking for talented minds to build the future together
+                    Join the team. We&apos;re looking for talented minds to build the future together.
                   </Typography>
                 </div>
                 <div className='mt-6 hidden md:block'>

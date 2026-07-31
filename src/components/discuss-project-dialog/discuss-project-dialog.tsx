@@ -1,20 +1,22 @@
 'use client';
 
-import * as React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { FileBadge } from '@/components/ui/file-badge';
+import { cn } from '@/lib/utils';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FileUploadBadge } from './components/file-upload-badge';
+import { BaseSyntheticEvent, ChangeEvent, MouseEvent, ReactNode, useRef, useState } from 'react';
 
 const discussProjectSchema = z
   .object({
     fullName: z.string().min(1, 'Full name is required'),
-    email: z.string().email('Invalid email address'),
+    email: z.email('Invalid email address'),
     projectDetails: z.string().optional(),
     file: z.custom<File>().optional()
   })
@@ -26,8 +28,8 @@ const discussProjectSchema = z
 type ProjectFormValues = z.infer<typeof discussProjectSchema>;
 
 interface DiscussProjectDialogProps {
-  children?: React.ReactNode;
-  triggerButton?: React.ReactNode;
+  children?: ReactNode;
+  triggerButton?: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -50,8 +52,8 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     }
   });
 
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const [isPaperclipHovered, setIsPaperclipHovered] = React.useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isPaperclipHovered, setIsPaperclipHovered] = useState(false);
 
   const file = useWatch({ control, name: 'file' });
 
@@ -59,14 +61,14 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setValue('file', e.target.files[0], { shouldValidate: true });
       void triggerValidation('projectDetails');
     }
   };
 
-  const handleRemoveFile = (e: React.MouseEvent) => {
+  const handleRemoveFile = (e: MouseEvent) => {
     e.stopPropagation();
     setValue('file', undefined, { shouldValidate: true });
     void triggerValidation('projectDetails');
@@ -79,7 +81,7 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     console.log('Project Details Form Submitted:', data);
   };
 
-  const handleFormSubmit = (e: React.BaseSyntheticEvent) => {
+  const handleFormSubmit = (e: BaseSyntheticEvent) => {
     void handleSubmit(onSubmit)(e);
   };
 
@@ -107,25 +109,53 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
               <Input placeholder='Your email' type='email' {...register('email')} error={errors.email?.message} />
             </div>
             <input type='file' className='hidden' ref={fileInputRef} onChange={handleFileChange} />
-            <Input
-              placeholder='Project details'
-              {...register('projectDetails')}
-              error={errors.projectDetails?.message}
-              handleIcon={handleFileClick}
-              className={file ? 'pr-40' : ''}
-              endIcon={
-                <div className='flex items-center gap-3'>
-                  {file && <FileBadge name={file.name} onRemove={handleRemoveFile} />}
-                  <div
-                    onMouseEnter={() => setIsPaperclipHovered(true)}
-                    onMouseLeave={() => setIsPaperclipHovered(false)}
-                    className='relative flex items-center justify-center after:absolute after:-inset-3 after:content-[""]'
-                  >
-                    <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} width={20} height={20} />
-                  </div>
+
+            <div>
+              <div className='flex w-full flex-col gap-1'>
+                <div className='relative flex w-full'>
+                  <textarea
+                    placeholder='Project details'
+                    {...register('projectDetails')}
+                    onInput={(e) => {
+                      const target = e.target as HTMLTextAreaElement;
+                      target.style.height = '52px';
+                      target.style.height = `${Math.min(target.scrollHeight, 82)}px`;
+                    }}
+                    className={cn(
+                      'focus-visible:ring-ring border-border focus:border-brand-black/50 placeholder:text-16 placeholder:text-brand-black/50 text-brand-black text-16 flex h-13 min-h-13 w-full resize-none overflow-y-auto rounded-3xl border bg-transparent p-4 leading-5.25 transition-colors focus-visible:outline-none',
+                      !file && 'pr-12'
+                    )}
+                  />
+                  {!file && (
+                    <div
+                      className='absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer'
+                      onClick={handleFileClick}
+                      onMouseEnter={() => setIsPaperclipHovered(true)}
+                      onMouseLeave={() => setIsPaperclipHovered(false)}
+                    >
+                      <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} width={20} height={20} />
+                    </div>
+                  )}
                 </div>
-              }
-            />
+                {errors.projectDetails && (
+                  <span className='text-destructive w-full text-left text-xs'>{errors.projectDetails.message}</span>
+                )}
+              </div>
+
+              <AnimatePresence>
+                {file && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                    animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
+                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className='overflow-hidden'
+                  >
+                    <FileUploadBadge file={file} onRemove={handleRemoveFile} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
           <Button type='submit' variant='primary'>
             Send
