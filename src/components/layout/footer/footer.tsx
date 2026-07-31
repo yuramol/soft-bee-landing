@@ -27,7 +27,7 @@ export const Footer = () => {
             <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text='Plan your project with us' />
           </div>
 
-          <Divider className='' />
+          <Divider />
 
           <LogoMedusae />
 
