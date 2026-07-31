@@ -36,6 +36,7 @@
     --graphite-gray: #444a57;
     --mist-gray: #f5f5f5;
     --light-gray: #dad7d7;
+    --destructive: #991b1b; /* dark red for errors */
 
     /* ============================================================
      * Semantic tokens — role-based colors used across the UI.
@@ -74,6 +75,7 @@
     --fs-18: 18px;
     --fs-16: 16px;
     --fs-14: 14px;
+    --fs-12: 12px;
   }
 
   @media (min-width: 768px) {
@@ -117,6 +119,7 @@
   --text-18: var(--fs-18);
   --text-16: var(--fs-16);
   --text-14: var(--fs-14);
+  --text-12: var(--fs-12);
 
   --shadow-smart-input: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
   --shadow-smart-result: 0px -10px 40px 0px rgba(0, 0, 0, 0.1);
@@ -132,6 +135,7 @@
     --foreground-inverse: var(--brand-white); /* white text on dark / colored backgrounds */
     --primary-foreground: var(--brand-black); /* text on --primary */
     --accent-foreground: var(--brand-white); /* text on --accent */
+    --destructive-foreground: var(--brand-white);
 
     /* --- Borders / dividers --- */
     --border: var(--light-gray);

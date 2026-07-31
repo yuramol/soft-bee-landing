@@ -29,7 +29,7 @@ export const Team = () => {
         <div className='flex flex-col xl:h-237.5 xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
           <div className='pointer-events-none z-20 flex w-full shrink-0 flex-col justify-between pb-0 xl:w-112.75 xl:py-10'>
             <div className='pointer-events-auto mb-10 ml-3 md:ml-10.5 xl:mb-0'>
-              <Badge title='Team' className='bg-muted/50 mb-7.5 w-fit xl:mb-10' />
+              <Badge title='Team' className='mb-7.5 w-fit xl:mb-10' />
               <Typography variant='h2' className='text-foreground max-w-150'>
                 Meet the minds behind Soft Bee
               </Typography>
