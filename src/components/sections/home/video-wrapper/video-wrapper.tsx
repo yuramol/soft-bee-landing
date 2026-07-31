@@ -28,6 +28,7 @@ export function VideoWrapper() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldResumeRef = useRef(false);
+  const hasLoadedSourceRef = useRef(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [position, setPosition] = useState<PointerPosition>({ x: 0, y: 0 });
@@ -87,6 +88,12 @@ export function VideoWrapper() {
     if (!video) return;
 
     shouldResumeRef.current = false;
+
+    if (!hasLoadedSourceRef.current) {
+      video.src = VIDEO_SRC;
+      hasLoadedSourceRef.current = true;
+    }
+
     void video.play().then(() => {
       setIsPlaying(true);
     });
@@ -143,14 +150,7 @@ export function VideoWrapper() {
         isDesktopPointer && isHovering && 'cursor-none'
       )}
     >
-      <video
-        ref={videoRef}
-        src={`${VIDEO_SRC}#t=0.001`}
-        preload='metadata'
-        playsInline
-        onEnded={handleVideoEnded}
-        className='absolute inset-0 size-full object-cover'
-      />
+      <video ref={videoRef} preload='none' playsInline onEnded={handleVideoEnded} className='absolute inset-0 size-full object-cover' />
 
       {showButton ? (
         <Button
