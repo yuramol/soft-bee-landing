@@ -21,7 +21,8 @@ module.exports = {
         surface: 'var(--surface)',
         foreground: {
           DEFAULT: 'var(--foreground)',
-          secondary: 'var(--foreground-secondary)'
+          secondary: 'var(--foreground-secondary)',
+          inverse: 'var(--foreground-inverse)'
         },
         primary: {
           DEFAULT: 'var(--primary)',
