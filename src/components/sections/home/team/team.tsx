@@ -11,15 +11,21 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { ComponentContainer } from '@/components/layout';
 import { ArrowLeft, ArrowRight } from '@/assets/icons';
-import { TeamAnimatedBackground } from '@/components/ui/team-animated-background';
+import { TeamAnimatedBackground } from './components';
 import { TeamMemberCard } from './team-member-card';
 import { TEAM_MEMBERS } from './data';
 
-export const Team = () => {
+interface TeamProps {
+  hideCoFounders?: boolean;
+}
+
+export const Team = ({ hideCoFounders }: TeamProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
-  const activeMember = TEAM_MEMBERS[currentIndex % TEAM_MEMBERS.length];
+  const filteredMembers = hideCoFounders ? TEAM_MEMBERS.filter((member) => member.role !== 'Co-founder') : TEAM_MEMBERS;
+
+  const activeMember = filteredMembers[currentIndex % filteredMembers.length];
 
   return (
     <section className='relative z-10 w-full'>
@@ -57,7 +63,7 @@ export const Team = () => {
                 className='team-swiper h-full w-full overflow-visible!'
               >
                 {Array.from({ length: 30 })
-                  .flatMap(() => TEAM_MEMBERS)
+                  .flatMap(() => filteredMembers)
                   .map((member, index) => (
                     <SwiperSlide
                       key={`${member.id}-${index}`}

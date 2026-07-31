@@ -14,8 +14,8 @@ export interface HeaderProps {
 
 export function Header({ className, theme = 'light' }: HeaderProps) {
   const isLightText = theme === 'dark';
-  const textColor = isLightText ? 'text-foreground-inverse' : 'text-foreground';
-  const burgerColor = isLightText ? 'var(--foreground-inverse)' : 'var(--foreground)';
+  const textColor = isLightText ? 'text-white' : 'text-foreground';
+  const burgerColor = isLightText ? 'var(--brand-white)' : 'var(--foreground)';
   return (
     <header
       className={cn(
