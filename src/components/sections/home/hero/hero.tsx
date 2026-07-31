@@ -78,7 +78,8 @@ export function Hero() {
         )}
       >
         <Typography variant='body2' className='max-w-84'>
-          Softbee brings together engineers, designers, and analysts to create dependable solutions.
+          Soft Bee is a team of engineers, designers, and analysts building web, mobile, and AI products companies rely on - from first MVP
+          to global scale.
         </Typography>
         <TypingTitle segments={heroTitleSegments} />
       </ComponentContainer>

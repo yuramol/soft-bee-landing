@@ -14,7 +14,7 @@ export const ServiceCard = ({ title, description }: ServiceCardProps) => {
   return (
     <Link
       href={ROUTES.SERVICES}
-      className='group bg-muted relative flex h-93.75 w-full shrink-0 flex-col overflow-hidden rounded-lg p-8 md:h-auto md:max-w-100 md:min-w-112.75'
+      className='group bg-muted relative flex h-full w-full shrink-0 flex-col overflow-hidden rounded-lg p-8 md:max-w-100 md:min-w-112.75'
     >
       <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
         <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />

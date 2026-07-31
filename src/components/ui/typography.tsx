@@ -19,7 +19,8 @@ export type TypographyVariants =
   | 'body3'
   | 'description'
   | 'caption'
-  | 'caption2';
+  | 'caption2'
+  | 'caption3';
 
 // Mapping between `variant` and default HTML tag
 const defaultTagMapping: Record<TypographyVariants, TagVariants> = {
@@ -36,7 +37,8 @@ const defaultTagMapping: Record<TypographyVariants, TagVariants> = {
   body3: 'p',
   description: 'p',
   caption: 'span',
-  caption2: 'span'
+  caption2: 'span',
+  caption3: 'span'
 };
 
 export interface TypographyProps extends HTMLAttributes<HTMLElement> {
@@ -79,6 +81,8 @@ export const Typography: FC<TypographyProps> = ({ children, variant, tag, classN
         return 'text-16 leading-[1.10]';
       case 'caption2':
         return 'text-14 leading-[1.10]';
+      case 'caption3':
+        return 'text-12 leading-[1.10]';
       default:
         return 'text-24 leading-[1.37]';
     }

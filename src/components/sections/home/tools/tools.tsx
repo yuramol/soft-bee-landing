@@ -6,7 +6,7 @@ import { ToolsWave } from './components';
 
 export function Tools() {
   return (
-    <section className={cn('flex w-full flex-col', 'lg:pt-45 lg:pb-64.75')}>
+    <section className={cn('flex w-full flex-col pt-8.25', 'lg:pt-45 lg:pb-64.75')}>
       <div className='w-full md:mb-10'>
         <ToolsWave />
       </div>
@@ -14,10 +14,10 @@ export function Tools() {
         <div className={cn('flex flex-col items-start pb-25.75 text-left', 'lg:items-center lg:pb-0 lg:text-center')}>
           <Badge title='Tools' className='mb-7.5 w-fit lg:mb-10' />
           <Typography variant='h2' className='text-foreground lg:max-w-175 xl:max-w-331'>
-            We choose technologies{' '}
+            We don&apos;t chase trends — we choose technologies{' '}
             <span className='text-foreground/50'>
-              that shape the future. Our stack combines rock-solid stability with innovative agility, enabling us to build solutions that
-              adapt to your business evolution and stand the test of time.
+              with a track record. Our stack is stable enough to trust in healthcare and fintech, and flexible enough to grow with your
+              product.
             </span>
           </Typography>
         </div>

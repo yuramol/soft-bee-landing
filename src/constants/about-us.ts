@@ -2,32 +2,28 @@ export const ABOUT_US_CARDS = [
   {
     id: '01',
     title: 'Knowledgeable',
-    description:
-      'Strong products start with deep understanding. We invest in learning, research, and practical experience to make informed decisions at every stage of the process. Our team combines technical expertise, product thinking, and industry awareness to solve problems efficiently instead of relying on assumptions. We value people who are curious, proactive, and always improving their skills.',
+    description: `Senior-level expertise across web, mobile, and AI. We stay deep in our craft so you don't have to explain the basics - bring us the problem, and we'll bring the architecture.`,
     activeBg: 'bg-primary-light',
     activeText: 'text-foreground-secondary'
   },
   {
     id: '02',
     title: 'Creative',
-    description:
-      'Creativity for us is not only about visuals — it is about finding smarter ways to solve problems. We explore different perspectives, experiment with ideas, and look for solutions that are both functional and engaging. Whether it is product design, user experience, or development approach, we aim to create work that feels modern, clear, and meaningful without unnecessary complexity.',
+    description: `Standard problems get standard solutions. Non-standard ones - multi-tenant systems, LLM infrastructure, complex integrations - are where we do our best work.`,
     activeBg: 'bg-accent',
     activeText: 'text-muted'
   },
   {
     id: '03',
     title: 'Collaborative',
-    description:
-      'Great digital products are built through strong collaboration. We maintain open communication inside the team and with our clients to keep every project transparent and aligned. Designers, developers, analysts, and managers work closely together throughout the entire process, which helps us move faster, avoid misunderstandings, and achieve better results as one team.',
+    description: `We work as part of your team, not as an outside vendor. Shared goals, direct communication, and decisions made together.`,
     activeBg: 'bg-accent-dark',
     activeText: 'text-muted'
   },
   {
     id: '04',
-    title: 'Inspiring',
-    description:
-      'A healthy work environment directly impacts the quality of the final product. We encourage initiative, responsibility, and continuous growth while creating a culture based on trust and respect. Our goal is to build an atmosphere where people feel comfortable sharing ideas, taking ownership, and doing work they are genuinely proud of.',
+    title: 'Transparent',
+    description: `Clear reporting, honest estimates, and architecture decisions explained in plain language. You always know what we're building and why.`,
     activeBg: 'bg-foreground-secondary',
     activeText: 'text-muted'
   }
