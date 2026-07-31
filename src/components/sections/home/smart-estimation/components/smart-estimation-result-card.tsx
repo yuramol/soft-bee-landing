@@ -74,11 +74,9 @@ export const SmartEstimationResultCard = ({ isSuccess, onDownload }: { isSuccess
           </div>
 
           {isSuccess && (
-            <div
-              className='absolute top-13.75 left-13.75 z-10'
-              style={{ fontFamily: 'Inter, sans-serif', fontWeight: 200, fontStyle: 'italic', color: '#FF0000' }}
-            >
-              Real content PDF
+            <div className='pointer-events-none absolute top-10 left-10 z-10 flex flex-col text-left text-black md:top-15 md:left-16'>
+              <div className='text-[24px] leading-normal font-medium md:text-[32px]'>Estimate: 20-25 hours</div>
+              <div className='mt-6 text-[16px] leading-normal md:text-[20px]'>Price: $350,000 - $450,000 approximately for the work</div>
             </div>
           )}
 

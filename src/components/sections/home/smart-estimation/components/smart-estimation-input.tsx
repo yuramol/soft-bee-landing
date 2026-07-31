@@ -66,7 +66,7 @@ export const SmartEstimationInput = ({
 
       <div
         className={cn(
-          'bg-gradient-border shadow-smart-input relative z-10 flex min-h-17.5 w-full flex-col justify-center rounded-[45px] border-2 border-transparent py-5.25 pr-3 pl-6 transition-all duration-500 ease-out focus-within:ring-[5px] focus-within:ring-white/50 md:min-h-23.5 md:py-0 md:pr-4 md:pl-8.5',
+          'bg-gradient-border shadow-smart-input relative z-10 flex min-h-17.5 w-full flex-col justify-center rounded-[45px] border-2 border-transparent py-5.25 pr-3 pl-6 focus-within:ring-[5px] focus-within:ring-white/50 md:min-h-23.5 md:py-0 md:pr-4 md:pl-8.5',
           step !== 'input' && 'pointer-events-none blur-[2px]',
           isExpanded ? (file ? 'md:pt-6 md:pb-3.5' : 'md:pt-8.5 md:pb-3.5') : 'md:py-4'
         )}
@@ -85,7 +85,7 @@ export const SmartEstimationInput = ({
               onChange={handleInput}
               placeholder='Share your project details'
               className={cn(
-                'text-foreground placeholder:text-foreground/50 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent font-normal transition-all duration-500 ease-out outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:placeholder:text-[24px] md:placeholder:font-medium',
+                'text-foreground placeholder:text-foreground/50 m-0 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent p-0 leading-6 font-normal outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:leading-9 md:placeholder:text-[24px] md:placeholder:font-medium',
                 text.length === 0 ? 'text-[16px] md:text-[24px]' : 'text-[16px] md:text-[18px]',
                 isExpanded ? 'pr-0' : 'pr-27.5'
               )}
@@ -95,7 +95,7 @@ export const SmartEstimationInput = ({
 
             <div
               className={cn(
-                'absolute right-0 flex items-center gap-1 transition-all duration-500 ease-out',
+                'absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-1',
                 isExpanded ? 'pointer-events-none scale-95 opacity-0' : 'scale-100 opacity-100'
               )}
             >
@@ -121,7 +121,7 @@ export const SmartEstimationInput = ({
 
           <div
             className={cn(
-              'grid transition-all duration-500 ease-out',
+              'grid',
               '-mr-1 -ml-4 md:-mr-2 md:-ml-6.5',
               isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
             )}
@@ -137,16 +137,16 @@ export const SmartEstimationInput = ({
                     onMouseLeave={() => setIsPaperclipHovered(false)}
                     className='relative flex cursor-pointer items-center justify-center p-2'
                   >
-                    <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} width={24} height={24} />
+                    <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} className='size-6 md:size-8' />
                   </div>
 
                   <Button
                     variant='icon'
                     onClick={onSubmit}
                     disabled={isDisabled}
-                    className='disabled:bg-muted disabled:text-foreground size-12 shrink-0 disabled:opacity-100'
+                    className='disabled:bg-muted disabled:text-foreground size-10.5 shrink-0 disabled:opacity-100 md:size-15.5'
                   >
-                    <Icon icon='ArrowUp' color={isDisabled ? 'var(--foreground)' : undefined} width={24} height={24} />
+                    <Icon icon='ArrowUp' color={isDisabled ? 'var(--foreground)' : undefined} className='size-4 md:size-6' />
                   </Button>
                 </div>
               </div>
