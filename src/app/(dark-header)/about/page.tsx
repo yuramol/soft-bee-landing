@@ -1,7 +1,14 @@
+import { AboutHero, Founders } from '@/components/sections/about';
+import { AboutUs, Careers, Team } from '@/components/sections/home';
+
 export default function AboutPage() {
   return (
-    <main className='bg-brand-black flex min-h-screen flex-col items-center p-24 text-white'>
-      <h1 className='text-48 font-bold'>About us</h1>
-    </main>
+    <>
+      <AboutHero />
+      <AboutUs />
+      <Founders />
+      <Team hideCoFounders />
+      <Careers className='z-10 -mb-10 bg-transparent md:-mb-10' />
+    </>
   );
 }

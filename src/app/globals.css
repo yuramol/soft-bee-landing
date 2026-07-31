@@ -142,6 +142,7 @@
 
     /* --- Components --- */
     --about-card-text-width: calc(50cqw - 120px);
+    --hero-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 34.44%);
   }
 
   /* ============================================================
