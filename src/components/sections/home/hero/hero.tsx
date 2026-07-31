@@ -3,12 +3,19 @@
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
 
+import { ReactNode } from 'react';
+
 import { ComponentContainer } from '@/components/layout';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
 import { TypingSegment, TypingTitle } from './components';
+
+export interface HeroProps {
+  titleSegments?: TypingSegment[];
+  description?: ReactNode;
+}
 
 const Medusae = dynamic(() => import('./components/medusae').then((module) => module.Medusae), {
   ssr: false,
@@ -32,7 +39,7 @@ function getMediaQueryMatches(query: string) {
   return window.matchMedia(query).matches;
 }
 
-export function Hero() {
+export function Hero({ titleSegments = heroTitleSegments, description }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const canRenderMedusae = useSyncExternalStore(
@@ -78,10 +85,14 @@ export function Hero() {
         )}
       >
         <Typography variant='body2' className='max-w-84'>
-          Soft Bee is a team of engineers, designers, and analysts building web, mobile, and AI products companies rely on - from first MVP
-          to global scale.
+          {description || (
+            <>
+              Soft Bee is a team of engineers, designers, and analysts building web, mobile, and AI products companies rely on - from first
+              MVP to global scale.
+            </>
+          )}
         </Typography>
-        <TypingTitle segments={heroTitleSegments} />
+        <TypingTitle segments={titleSegments} />
       </ComponentContainer>
     </section>
   );

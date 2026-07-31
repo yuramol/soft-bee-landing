@@ -120,6 +120,7 @@
   --text-16: var(--fs-16);
   --text-14: var(--fs-14);
   --text-12: var(--fs-12);
+  --shadow-icon: var(--shadow-icon);
 }
 
 @layer base {
@@ -138,6 +139,7 @@
     /* --- Components --- */
     --about-card-text-width: calc(50cqw - 120px);
     --hero-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 34.44%);
+    --shadow-icon: 0px 1.39px 2.78px 0px #0000001a;
   }
 
   /* ============================================================

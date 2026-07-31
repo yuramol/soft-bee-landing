@@ -1,7 +1,14 @@
+import { Hero } from '@/components/sections/home';
+import { Benefits } from '@/components/sections/careers/benefits';
+
 export default function CareersPage() {
   return (
-    <main className='text-brand-black flex min-h-screen flex-col items-center justify-center bg-white p-24'>
-      <h1 className='text-48 font-bold'>Careers</h1>
-    </main>
+    <>
+      <Hero
+        titleSegments={[{ text: 'Shape the Next Generation of "Soft" Tech' }]}
+        description="Explore our open roles, bring your unique skills, and let's build impactful digital products together."
+      />
+      <Benefits />
+    </>
   );
 }
