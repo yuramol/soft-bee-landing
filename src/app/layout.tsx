@@ -55,8 +55,8 @@ export default function RootLayout({
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable, instrumentSans.variable)}>
       <body className='flex min-h-screen flex-col'>
-          <MainLayout>{children}</MainLayout>
-          <Footer />
+        <MainLayout>{children}</MainLayout>
+        <Footer />
       </body>
     </html>
   );

@@ -35,3 +35,7 @@ export { PencilSimple } from './pencil-simple';
 export { ChevronLeft } from './chevron-left';
 export { ChevronRight } from './chevron-right';
 export { LogoClutch } from './logo-clutch';
+export { DocumentPdf } from './document-pdf';
+export { CheckCircle } from './check-circle';
+export { Plus } from './plus';
+export { DocumentFile } from './document-file';

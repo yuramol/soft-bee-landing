@@ -30,6 +30,7 @@ export interface IconProps {
   stroke?: string;
   style?: CSSProperties;
   onClick?: () => void;
+  extension?: string;
 }
 
 export const Icon: FC<IconProps> = ({ icon, size, width, height, color, className, ...props }) => {
