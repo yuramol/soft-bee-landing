@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { ComponentContainer } from '@/components/layout';
 import { ArrowLeft, ArrowRight } from '@/assets/icons';
-import { TeamAnimatedBackground } from '@/components/ui/team-animated-background';
+import { TeamAnimatedBackground } from './components';
 import { TeamMemberCard } from './team-member-card';
 import { TEAM_MEMBERS } from './data';
 
