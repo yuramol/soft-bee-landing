@@ -66,7 +66,7 @@ export const SmartEstimationInput = ({
 
       <div
         className={cn(
-          'bg-gradient-border shadow-smart-input relative z-10 flex min-h-17.5 w-full flex-col justify-center rounded-[45px] border-2 border-transparent py-5.25 pr-3 pl-6 focus-within:ring-[5px] focus-within:ring-white/50 md:min-h-23.5 md:py-0 md:pr-4 md:pl-8.5',
+          'bg-gradient-border shadow-smart-input relative z-10 flex min-h-17.5 w-full flex-col justify-center rounded-[45px] border-2 border-transparent py-5.25 pr-3 pl-6 transition-all duration-500 ease-out focus-within:ring-[5px] focus-within:ring-white/50 md:min-h-23.5 md:py-0 md:pr-4 md:pl-8.5',
           step !== 'input' && 'pointer-events-none blur-[2px]',
           isExpanded ? (file ? 'md:pt-6 md:pb-3.5' : 'md:pt-8.5 md:pb-3.5') : 'md:py-4'
         )}
@@ -85,73 +85,61 @@ export const SmartEstimationInput = ({
               onChange={handleInput}
               placeholder='Share your project details'
               className={cn(
-                'text-foreground placeholder:text-foreground/50 m-0 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent p-0 leading-6 font-normal outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:leading-9 md:placeholder:text-[24px] md:placeholder:font-medium',
+                'text-foreground placeholder:text-foreground/50 m-0 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent p-0 leading-6 font-normal transition-all duration-500 ease-out outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:leading-9 md:placeholder:text-[24px] md:placeholder:font-medium',
                 text.length === 0 ? 'text-[16px] md:text-[24px]' : 'text-[16px] md:text-[18px]',
                 isExpanded ? 'pr-0' : 'pr-27.5'
               )}
               style={{ height: 'auto' }}
               rows={1}
             />
-
-            <div
-              className={cn(
-                'absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-1',
-                isExpanded ? 'pointer-events-none scale-95 opacity-0' : 'scale-100 opacity-100'
-              )}
-            >
-              <div
-                onClick={handleFileClick}
-                onMouseEnter={() => setIsPaperclipHovered(true)}
-                onMouseLeave={() => setIsPaperclipHovered(false)}
-                className='relative flex cursor-pointer items-center justify-center p-2'
-              >
-                <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} className='size-6 md:size-8' />
-              </div>
-
-              <Button
-                variant='icon'
-                onClick={onSubmit}
-                disabled={isDisabled}
-                className='disabled:bg-muted disabled:text-foreground size-10.5 shrink-0 disabled:opacity-100 md:size-15.5'
-              >
-                <Icon icon='ArrowUp' color={isDisabled ? 'var(--foreground)' : undefined} className='size-4 md:size-6' />
-              </Button>
-            </div>
           </div>
 
           <div
             className={cn(
-              'grid',
+              'grid transition-[grid-template-rows] duration-500 ease-out',
               '-mr-1 -ml-4 md:-mr-2 md:-ml-6.5',
-              isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+              isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
             )}
           >
             <div className='overflow-hidden'>
-              <div className='mt-5 mb-3.5 h-px w-full bg-black/10 md:mt-7' />
-
-              <div className='flex w-full items-center justify-end pr-1 pl-4 md:pr-2 md:pl-6.5'>
-                <div className='flex items-center gap-1'>
-                  <div
-                    onClick={handleFileClick}
-                    onMouseEnter={() => setIsPaperclipHovered(true)}
-                    onMouseLeave={() => setIsPaperclipHovered(false)}
-                    className='relative flex cursor-pointer items-center justify-center p-2'
-                  >
-                    <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} className='size-6 md:size-8' />
-                  </div>
-
-                  <Button
-                    variant='icon'
-                    onClick={onSubmit}
-                    disabled={isDisabled}
-                    className='disabled:bg-muted disabled:text-foreground size-10.5 shrink-0 disabled:opacity-100 md:size-15.5'
-                  >
-                    <Icon icon='ArrowUp' color={isDisabled ? 'var(--foreground)' : undefined} className='size-4 md:size-6' />
-                  </Button>
-                </div>
-              </div>
+              <div
+                className={cn(
+                  'mt-5 mb-3.5 h-px w-full bg-black/10 transition-opacity duration-500 md:mt-7',
+                  isExpanded ? 'opacity-100' : 'opacity-0'
+                )}
+              />
+              <div className='h-10.5 w-full md:h-15.5' />
             </div>
           </div>
+        </div>
+
+        <div
+          className={cn(
+            'absolute right-3.5 flex items-center gap-1 transition-all duration-500 ease-out md:bottom-3.5',
+            isExpanded ? 'bottom-3.5' : 'bottom-3'
+          )}
+        >
+          <div
+            onClick={handleFileClick}
+            onMouseEnter={() => setIsPaperclipHovered(true)}
+            onMouseLeave={() => setIsPaperclipHovered(false)}
+            className='relative flex cursor-pointer items-center justify-center p-2'
+          >
+            <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} className='size-6 md:size-8' />
+          </div>
+
+          <Button
+            variant='icon'
+            onClick={onSubmit}
+            disabled={isDisabled}
+            className='disabled:bg-muted disabled:text-foreground size-10.5 shrink-0 transition-colors duration-500 disabled:opacity-100 md:size-15.5'
+          >
+            <Icon
+              icon='ArrowUp'
+              color={isDisabled ? 'var(--foreground)' : undefined}
+              className='size-4 transition-colors duration-500 md:size-6'
+            />
+          </Button>
         </div>
       </div>
 
