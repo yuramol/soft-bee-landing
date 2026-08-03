@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS, ROUTES } from '@/constants';
-import { cn } from '@/lib/utils';
+import { cn, getInitialTranslate } from '@/lib/utils';
 
 import { CareersCard } from './careers-card';
 import { CareersVideo } from './careers-video';
@@ -178,18 +178,3 @@ export const Careers = ({ className }: CareersProps) => {
     </section>
   );
 };
-
-function getInitialTranslate(carousel: HTMLDivElement, visibleCardsCount: number) {
-  const cards = Array.from(carousel.children) as HTMLElement[];
-  const visibleCards = cards.slice(0, visibleCardsCount);
-
-  if (visibleCards.length === 0) {
-    return 0;
-  }
-
-  const firstCard = visibleCards[0];
-  const lastCard = visibleCards[visibleCards.length - 1];
-  const visibleWidth = lastCard.offsetLeft + lastCard.offsetWidth - firstCard.offsetLeft;
-
-  return Math.max(0, carousel.clientWidth - visibleWidth);
-}

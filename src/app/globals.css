@@ -64,9 +64,6 @@
 
 @layer base {
   :root {
-    /* Fluid progress: 0 at 375px, 1 at 1900px. clamp() caps outside that range. */
-    --fs-fluid: calc((100vw - 375px) / 1525);
-
     --fs-96: clamp(40px, calc(40px + 56 * var(--fs-fluid)), 96px);
     --fs-80: clamp(40px, calc(40px + 40 * var(--fs-fluid)), 80px);
     --fs-70: clamp(40px, calc(40px + 30 * var(--fs-fluid)), 70px);
