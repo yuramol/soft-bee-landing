@@ -64,30 +64,18 @@
 
 @layer base {
   :root {
-    --fs-96: 40px;
-    --fs-80: 40px;
-    --fs-70: 40px;
-    --fs-48: 32px;
-    --fs-32: 24px;
-    --fs-28: 24px;
-    --fs-24: 20px;
+    --fs-96: clamp(40px, calc(40px + 56 * var(--fs-fluid)), 96px);
+    --fs-80: clamp(40px, calc(40px + 40 * var(--fs-fluid)), 80px);
+    --fs-70: clamp(40px, calc(40px + 30 * var(--fs-fluid)), 70px);
+    --fs-48: clamp(32px, calc(32px + 16 * var(--fs-fluid)), 48px);
+    --fs-32: clamp(24px, calc(24px + 8 * var(--fs-fluid)), 32px);
+    --fs-28: clamp(24px, calc(24px + 4 * var(--fs-fluid)), 28px);
+    --fs-24: clamp(20px, calc(20px + 4 * var(--fs-fluid)), 24px);
     --fs-20: 20px;
     --fs-18: 18px;
     --fs-16: 16px;
     --fs-14: 14px;
     --fs-12: 12px;
-  }
-
-  @media (min-width: 768px) {
-    :root {
-      --fs-96: 96px;
-      --fs-80: 80px;
-      --fs-70: 70px;
-      --fs-48: 48px;
-      --fs-32: 32px;
-      --fs-28: 28px;
-      --fs-24: 24px;
-    }
   }
 }
 

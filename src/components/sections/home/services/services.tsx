@@ -10,11 +10,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
+import { getInitialTranslate } from '@/lib/utils';
 
-import { ServiceCard } from './service-card';
 import { SERVICES_CARDS } from './data';
+import { ServiceCard } from './service-card';
 
-const CARD_HIDDEN_OFFSET = 40;
+const INITIAL_VISIBLE_CARDS = 2;
 
 export const Services = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -25,15 +26,20 @@ export const Services = () => {
 
   useEffect(() => {
     const updateMaxTranslate = () => {
-      if (carouselRef.current) {
-        if (window.innerWidth < BREAKPOINTS.MD) {
-          setMaxTranslate(0);
-          setStartTranslate(0);
-        } else {
-          setMaxTranslate(carouselRef.current.scrollWidth - carouselRef.current.clientWidth);
-          setStartTranslate(carouselRef.current.clientWidth + CARD_HIDDEN_OFFSET);
-        }
+      const carousel = carouselRef.current;
+
+      if (!carousel) {
+        return;
       }
+
+      if (window.innerWidth < BREAKPOINTS.MD) {
+        setMaxTranslate(0);
+        setStartTranslate(0);
+        return;
+      }
+
+      setMaxTranslate(carousel.scrollWidth - carousel.clientWidth);
+      setStartTranslate(getInitialTranslate(carousel, INITIAL_VISIBLE_CARDS));
     };
 
     // Initial calculate + add a small delay to ensure fonts/layout are loaded
