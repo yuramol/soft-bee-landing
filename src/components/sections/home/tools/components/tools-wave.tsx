@@ -15,7 +15,8 @@ const AUTO_SCROLL_SPEED_PX_PER_S = 48;
 const trackWrapperClassName = cn(
   'flex w-max will-change-transform',
   'gap-4 pt-16 pb-36 px-4',
-  'sm:gap-5 sm:pt-20 lg:gap-6 lg:pt-24 lg:pb-56'
+  'sm:gap-5 sm:pt-20 lg:gap-6 lg:pt-24 lg:pb-56',
+  'xl:pt-14 xl:pb-20'
 );
 
 const trackClassName = cn('flex w-max items-center gap-4', 'sm:gap-5 lg:gap-6');

@@ -14,7 +14,7 @@ import { BREAKPOINTS } from '@/constants';
 import { ServiceCard } from './service-card';
 import { SERVICES_CARDS } from './data';
 
-const CARD_HIDDEN_OFFSET = 40;
+const INITIAL_VISIBLE_CARDS = 2;
 
 export const Services = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -25,15 +25,20 @@ export const Services = () => {
 
   useEffect(() => {
     const updateMaxTranslate = () => {
-      if (carouselRef.current) {
-        if (window.innerWidth < BREAKPOINTS.MD) {
-          setMaxTranslate(0);
-          setStartTranslate(0);
-        } else {
-          setMaxTranslate(carouselRef.current.scrollWidth - carouselRef.current.clientWidth);
-          setStartTranslate(carouselRef.current.clientWidth + CARD_HIDDEN_OFFSET);
-        }
+      const carousel = carouselRef.current;
+
+      if (!carousel) {
+        return;
       }
+
+      if (window.innerWidth < BREAKPOINTS.MD) {
+        setMaxTranslate(0);
+        setStartTranslate(0);
+        return;
+      }
+
+      setMaxTranslate(carousel.scrollWidth - carousel.clientWidth);
+      setStartTranslate(getInitialTranslate(carousel, INITIAL_VISIBLE_CARDS));
     };
 
     // Initial calculate + add a small delay to ensure fonts/layout are loaded
@@ -137,3 +142,18 @@ export const Services = () => {
     </section>
   );
 };
+
+function getInitialTranslate(carousel: HTMLDivElement, visibleCardsCount: number) {
+  const cards = Array.from(carousel.children) as HTMLElement[];
+  const visibleCards = cards.slice(0, visibleCardsCount);
+
+  if (visibleCards.length === 0) {
+    return 0;
+  }
+
+  const firstCard = visibleCards[0];
+  const lastCard = visibleCards[visibleCards.length - 1];
+  const visibleWidth = lastCard.offsetLeft + lastCard.offsetWidth - firstCard.offsetLeft;
+
+  return Math.max(0, carousel.clientWidth - visibleWidth);
+}

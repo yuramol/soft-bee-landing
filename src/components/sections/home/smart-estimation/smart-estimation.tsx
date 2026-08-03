@@ -57,10 +57,10 @@ export const SmartEstimation = () => {
   };
 
   return (
-    <section className='relative w-full pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25'>
-      <EstimationAnimatedBackground className='-left-1.25 h-200 w-[calc(100%+10px)] md:-left-2.5 md:h-300 md:w-[calc(100%+20px)]' />
+    <section className='relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:overflow-hidden xl:py-16'>
+      <EstimationAnimatedBackground className='-left-1.25 h-200 w-[calc(100%+10px)] md:-left-2.5 md:h-300 md:w-[calc(100%+20px)] xl:h-full' />
 
-      <ComponentContainer className='relative z-10'>
+      <ComponentContainer className='relative z-10 xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:justify-center'>
         <div className='flex flex-col items-start justify-center px-4 md:items-center md:px-0'>
           <Badge title='Smart estimation' className='mb-7.5 w-fit md:mb-10' />
 
