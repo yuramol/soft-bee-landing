@@ -35,7 +35,7 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
     <>
       <Drawer open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction='right' shouldScaleBackground={false}>
         <DrawerTrigger asChild>
-          <button type='button' className='lg:hidden'>
+          <button type='button' className='cursor-pointer lg:hidden'>
             <Icon icon='Burger' width={32} height={32} color={burgerColor} />
           </button>
         </DrawerTrigger>
@@ -45,7 +45,7 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
             <Link href='/' onClick={handleClose}>
               <Icon icon='Logo' width={165} height={37} />
             </Link>
-            <button type='button' className='flex items-center justify-center' onClick={handleClose}>
+            <button type='button' className='flex cursor-pointer items-center justify-center' onClick={handleClose}>
               <Icon icon='X' width={24} height={24} fill='#1B1C23' />
             </button>
           </div>
