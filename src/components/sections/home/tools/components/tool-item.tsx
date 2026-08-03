@@ -15,7 +15,6 @@ export interface ToolItemProps {
   onOpenChange?: (isOpen: boolean) => void;
 }
 
-const triggerOpenOpacity = 'group-data-[state=open]/trigger:opacity-100';
 const triggerOpenIconSurface =
   'group-data-[state=open]/trigger:border-background-inverse group-data-[state=open]/trigger:bg-background-inverse';
 const triggerOpenIconInvert = 'group-data-[state=open]/trigger:brightness-0 group-data-[state=open]/trigger:invert';
@@ -69,17 +68,9 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
           onMouseLeave={handleMouseLeave}
           className={cn('group/trigger relative flex flex-col items-center border-0 bg-transparent p-0 outline-none', className)}
         >
-          <span
-            aria-hidden
-            className={cn(
-              'bg-primary/55 pointer-events-none absolute top-[40%] left-1/2 z-0 size-17.5 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-300 sm:size-17.5 lg:size-36',
-              triggerOpenOpacity
-            )}
-          />
-
           <div
             className={cn(
-              'border-border bg-background relative z-10 flex size-17.5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 sm:size-17.5 lg:size-36',
+              'border-border bg-background relative flex size-17.5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 sm:size-17.5 lg:size-36',
               triggerOpenIconSurface
             )}
           >
@@ -104,7 +95,7 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
         onCloseAutoFocus={preventFocusScroll}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className='border-border bg-background text-foreground flex w-87.5 max-w-[calc(100vw-2rem)] flex-col gap-4 rounded-[16px] border p-8 text-base shadow-xs'
+        className='border-border bg-background text-foreground shadow-tool-tooltip flex w-72 max-w-[calc(100vw-2rem)] flex-col gap-3 rounded-xl border p-5 text-base sm:w-87.5 sm:gap-4 sm:rounded-[16px] sm:p-8'
       >
         <Typography variant='body1' className='font-medium'>
           {name}
