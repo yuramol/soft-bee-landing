@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { FooterAnimatedBackground } from '@/components/ui/footer-animated-background';
-import { Typography } from '@/components/ui/typography';
-import { Logo } from '@/assets/icons';
+
+import { DiscussProjectButton } from '@/components/discuss-project-button';
 import { ComponentContainer } from '@/components/layout';
 import { Divider } from '@/components/ui/divider';
+import { FooterAnimatedBackground } from '@/components/ui/footer-animated-background';
+import { Typography } from '@/components/ui/typography';
 
-import { FooterNav } from './components';
-import { DiscussProjectButton } from '@/components/discuss-project-button';
+import { FooterNav, LogoMedusae } from './components';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,11 +27,9 @@ export const Footer = () => {
             <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text='Plan your project with us' />
           </div>
 
-          <Divider className='mb-7.75 md:mb-31.5' />
+          <Divider />
 
-          <div className='mb-13.75 flex w-full justify-center md:mb-26.25'>
-            <Logo className='text-foreground h-auto w-full' />
-          </div>
+          <LogoMedusae />
 
           <FooterNav />
 

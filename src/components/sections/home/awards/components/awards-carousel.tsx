@@ -11,7 +11,7 @@ import { AwardsItem } from './awards-item';
 const AUTO_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_TRANSITION_S = 0.6;
 const NEXT_CARD_PEEK_FALLBACK_PX = 200;
-const DESKTOP_QUERY = '(min-width: 1536px)';
+const DESKTOP_QUERY = '(min-width: 1280px)';
 
 interface AwardsCarouselProps {
   className?: string;
@@ -49,7 +49,7 @@ interface StaticListProps {
 
 function StaticList({ items, className }: StaticListProps) {
   return (
-    <div className={cn('z-100 flex w-full flex-col items-center gap-3 lg:gap-6 2xl:hidden 2xl:max-w-150', className)}>
+    <div className={cn('z-100 flex w-full flex-col items-center gap-3 lg:gap-6 xl:hidden xl:max-w-150', className)}>
       {items.map((item) => (
         <div key={item.id}>{renderAwardItem(item)}</div>
       ))}
@@ -154,7 +154,7 @@ function CarouselTrack({ items, isActive, className }: CarouselTrackProps) {
   return (
     <div
       className={cn(
-        'relative z-10 mt-60 hidden w-full max-w-150 overflow-hidden 2xl:absolute 2xl:top-1/2 2xl:right-11.25 2xl:block 2xl:w-auto 2xl:-translate-y-1/2',
+        'relative z-10 mt-60 hidden w-full max-w-150 overflow-hidden xl:absolute xl:top-1/2 xl:right-11.25 xl:block xl:w-auto xl:-translate-y-1/2',
         className
       )}
       style={viewportHeight ? { height: viewportHeight } : undefined}

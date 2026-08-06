@@ -1,5 +1,17 @@
 import { ComponentContainer } from '@/components/layout';
-import { AboutUs, Awards, Careers, CaseStudies, Hero, Services, Team, Testimonials, Tools, VideoWrapper } from '@/components/sections/home';
+import {
+  AboutUs,
+  Awards,
+  Careers,
+  CaseStudies,
+  Hero,
+  Services,
+  Team,
+  Testimonials,
+  Tools,
+  VideoWrapper,
+  SmartEstimation
+} from '@/components/sections/home';
 
 export default function Home() {
   return (
@@ -19,6 +31,7 @@ export default function Home() {
       <Team />
       <Careers />
       <CaseStudies />
+      <SmartEstimation />
       <Awards />
       <Testimonials />
     </>

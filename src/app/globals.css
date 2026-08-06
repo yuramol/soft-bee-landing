@@ -64,30 +64,21 @@
 
 @layer base {
   :root {
-    --fs-96: 40px;
-    --fs-80: 40px;
-    --fs-70: 40px;
-    --fs-48: 32px;
-    --fs-32: 24px;
-    --fs-28: 24px;
-    --fs-24: 20px;
+    /* Fluid progress: 0 at 375px, 1 at 1900px. clamp() caps outside that range. */
+    --fs-fluid: calc((100vw - 375px) / 1525);
+
+    --fs-96: clamp(40px, calc(40px + 56 * var(--fs-fluid)), 96px);
+    --fs-80: clamp(40px, calc(40px + 40 * var(--fs-fluid)), 80px);
+    --fs-70: clamp(40px, calc(40px + 30 * var(--fs-fluid)), 70px);
+    --fs-48: clamp(32px, calc(32px + 16 * var(--fs-fluid)), 48px);
+    --fs-32: clamp(24px, calc(24px + 8 * var(--fs-fluid)), 32px);
+    --fs-28: clamp(24px, calc(24px + 4 * var(--fs-fluid)), 28px);
+    --fs-24: clamp(20px, calc(20px + 4 * var(--fs-fluid)), 24px);
     --fs-20: 20px;
     --fs-18: 18px;
     --fs-16: 16px;
     --fs-14: 14px;
     --fs-12: 12px;
-  }
-
-  @media (min-width: 768px) {
-    :root {
-      --fs-96: 96px;
-      --fs-80: 80px;
-      --fs-70: 70px;
-      --fs-48: 48px;
-      --fs-32: 32px;
-      --fs-28: 28px;
-      --fs-24: 24px;
-    }
   }
 }
 
@@ -120,7 +111,13 @@
   --text-16: var(--fs-16);
   --text-14: var(--fs-14);
   --text-12: var(--fs-12);
+
   --shadow-icon: var(--shadow-icon);
+  --shadow-smart-input: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+  --shadow-smart-result: 0px -10px 40px 0px rgba(0, 0, 0, 0.1);
+  --shadow-smart-download: 0px 24px 64px 0px #c3ff00;
+  --shadow-smart-assessing: 0px 4px 64px 0px #00a2bb;
+  --shadow-tool-tooltip: -30px 0 34px 4px color-mix(in srgb, var(--primary) 45%, transparent);
 }
 
 @layer base {
@@ -158,4 +155,43 @@
    *   --border: var(--graphite-gray);
    * }
    * ============================================================ */
+}
+
+@layer utilities {
+  @keyframes slideUp {
+    from {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes solidPulse {
+    0%,
+    100% {
+      background-color: var(--muted);
+    }
+    50% {
+      background-color: #e5e5e5;
+    }
+  }
+
+  @keyframes jumpUpDown {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .bg-gradient-border {
+    background:
+      linear-gradient(#ffffff, #ffffff) padding-box,
+      linear-gradient(90deg, #c3ff00 0%, #00a2bb 100%) border-box;
+  }
 }
