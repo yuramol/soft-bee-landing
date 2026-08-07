@@ -33,7 +33,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
         overviewDescription={caseStudy.overviewDescription}
         overviewImages={caseStudy.overviewImages}
       />
-      <Tools />
+      <Tools title={caseStudy.toolsTitle} />
     </>
   );
 }

@@ -10,7 +10,7 @@ interface CaseStudyOverviewProps {
 }
 
 export const CaseStudyOverview = ({ overviewTitle, overviewDescription, overviewImages }: CaseStudyOverviewProps) => (
-  <section className='mt-12 flex w-full flex-col lg:mt-24'>
+  <section className='mt-12 mb-10 flex w-full flex-col md:mb-0 lg:mt-24'>
     <ComponentContainer>
       <div className='px-4 lg:px-0'>
         <Badge title='Overview' className='mb-7.5 w-fit lg:mb-10' />
