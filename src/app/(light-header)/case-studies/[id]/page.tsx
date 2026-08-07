@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { CASE_STUDIES } from '@/components/sections/case-studies/data';
-import { CaseStudyHero } from '@/components/sections/case-study';
+import { CaseStudyHero, CaseStudyPreview } from '@/components/sections/case-study';
 import { Tools } from '@/components/sections/home';
 
 export function generateStaticParams() {
@@ -27,6 +27,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
         tech={caseStudy.tech}
         cards={caseStudy.cards}
       />
+      <CaseStudyPreview image={caseStudy.image} title={caseStudy.title} />
       <Tools />
     </>
   );

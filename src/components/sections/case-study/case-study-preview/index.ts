@@ -1,2 +1,1 @@
-export { CaseStudyHero } from './case-study-hero';
 export { CaseStudyPreview } from './case-study-preview';
