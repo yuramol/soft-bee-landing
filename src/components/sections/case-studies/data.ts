@@ -13,6 +13,9 @@ export interface CaseStudy {
   projectType: string;
   tech: string[];
   cards: CaseStudyCard[];
+  overviewTitle: string;
+  overviewDescription: string;
+  overviewImages: string[];
 }
 
 const mockCards: CaseStudyCard[] = [
@@ -44,7 +47,11 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'AutoBro Inc.',
     projectType: 'Web Application',
     tech: ['React', 'Redux', 'Node.js'],
-    cards: mockCards
+    cards: mockCards,
+    overviewTitle: 'Autobro is an innovative automotive platform designed for seamless car buying and selling experiences.',
+    overviewDescription:
+      'Built with a user-centric approach, Autobro simplifies vehicle discovery, financing, and transaction management, empowering users to make informed decisions with confidence.',
+    overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp']
   },
   {
     id: 'gapnurse',
@@ -55,7 +62,11 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'GapNurse LLC',
     projectType: 'Mobile App',
     tech: ['React Native', 'Firebase', 'Redux'],
-    cards: mockCards
+    cards: mockCards,
+    overviewTitle: 'GapNurse is a digital healthcare platform connecting facilities with qualified nursing professionals on demand.',
+    overviewDescription:
+      'With a robust mobile application, GapNurse streamlines shift scheduling, credential verification, and payroll management, ensuring healthcare facilities always have the staff they need.',
+    overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp']
   },
   {
     id: 'plumbid',
@@ -66,7 +77,11 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'plumBid Corp',
     projectType: 'Platform',
     tech: ['Next.js', 'Tailwind', 'PostgreSQL'],
-    cards: mockCards
+    cards: mockCards,
+    overviewTitle: 'plumBid is a digital real estate auction platform designed for transparent and seamless online bidding.',
+    overviewDescription:
+      'Built with a modern and responsive interface, plumBid simplifies auction workflows, offer tracking, and property management while helping users navigate transactions with greater transparency and confidence.',
+    overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp']
   },
   {
     id: 'trovr',
@@ -77,6 +92,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'Trovr Group',
     projectType: 'Web Service',
     tech: ['Vue.js', 'Python', 'AWS'],
-    cards: mockCards
+    cards: mockCards,
+    overviewTitle: 'Trovr is a cutting-edge web service designed to revolutionize reward-based recycling and sustainability initiatives.',
+    overviewDescription:
+      'Featuring an intuitive interface, Trovr simplifies the process of tracking eco-friendly actions, redeeming rewards, and fostering a greener community with engaging digital tools.',
+    overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp']
   }
 ];
