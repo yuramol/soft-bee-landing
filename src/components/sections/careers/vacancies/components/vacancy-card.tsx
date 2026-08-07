@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { VacancyDialog } from '@/components/vacancy-dialog';
 
-interface CareersCardProps {
+interface VacancyCardProps {
   badge: string;
   title: string;
   description: string;
@@ -15,7 +15,7 @@ const MOCK_ROLE_DESCRIPTION =
   "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.";
 
 const MOCK_RESPONSIBILITIES = (
-  <ol className='marker:text-foreground/50 list-decimal space-y-4 pl-8'>
+  <ol className='marker:text-foreground/50 list-decimal space-y-4 pl-8 text-[20px] md:text-[24px]'>
     <li>
       Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising
       quality. You move effortlessly between fast-paced startups and more complex, established organizations.
@@ -44,10 +44,10 @@ const MOCK_RESPONSIBILITIES = (
   </ol>
 );
 
-export const CareersCard = ({ badge, title, description }: CareersCardProps) => {
+export const VacancyCard = ({ badge, title, description }: VacancyCardProps) => {
   return (
     <VacancyDialog title={title} roleDescription={MOCK_ROLE_DESCRIPTION} responsibilities={MOCK_RESPONSIBILITIES}>
-      <button className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:p-8'>
+      <button className='group bg-muted relative flex h-auto min-h-77.75 w-full cursor-pointer flex-col justify-between overflow-hidden rounded-lg p-4 text-left md:min-h-93.75 md:p-8'>
         <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
           <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
         </div>
