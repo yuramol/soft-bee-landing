@@ -1,0 +1,44 @@
+{
+  "title": ["Have a vision in mind?", "Let’s build the roadmap together"],
+  "cta": "Plan your project with us",
+  "location": "Kyiv",
+  "contacts": [
+    {
+      "label": "hello@softbee.com",
+      "href": "mailto:hello@softbee.com"
+    },
+    {
+      "label": "(+00) 0000 000 0",
+      "href": "tel:+0000000000"
+    }
+  ],
+  "navSections": [
+    {
+      "title": "Home",
+      "links": [
+        { "label": "Services", "href": "/services", "target": "_self" },
+        { "label": "Case studies", "href": "/case-studies", "target": "_self" },
+        { "label": "Insights", "href": "/insights", "target": "_self" }
+      ]
+    },
+    {
+      "title": "About",
+      "links": [
+        { "label": "Company", "href": "/company", "target": "_blank" },
+        { "label": "Career", "href": "/career", "target": "_blank" }
+      ]
+    },
+    {
+      "title": "Social media",
+      "links": [
+        { "label": "Instagram", "href": "/instagram", "target": "_blank" },
+        { "label": "LinkedIn", "href": "/linkedin", "target": "_blank" }
+      ]
+    }
+  ],
+  "legalLinks": [
+    { "label": "Terms of use", "href": "#" },
+    { "label": "Privacy policy", "href": "#" }
+  ],
+  "copyright": "Soft Bee © All rights reserved,"
+}

@@ -7,8 +7,9 @@ import { FooterAnimatedBackground } from '@/components/ui/footer-animated-backgr
 import { Typography } from '@/components/ui/typography';
 
 import { FooterNav, LogoMedusae } from './components';
+import footerContent from './content.json';
 
-export const Footer = () => {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -19,12 +20,15 @@ export const Footer = () => {
         <ComponentContainer>
           <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
             <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
-              Have a vision in mind?
-              <br />
-              Let’s build the roadmap together
+              {footerContent.title.map((line, index) => (
+                <span key={line}>
+                  {index > 0 ? <br /> : null}
+                  {line}
+                </span>
+              ))}
             </Typography>
 
-            <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text='Plan your project with us' />
+            <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text={footerContent.cta} />
           </div>
 
           <Divider />
@@ -37,20 +41,17 @@ export const Footer = () => {
 
           <div className='flex flex-col items-center justify-between gap-5 text-sm md:flex-row'>
             <ul className='flex w-full flex-col justify-between gap-5 md:w-auto md:flex-row md:justify-start md:gap-5.75'>
-              <li>
-                <Link href='#' className='text-foreground text-16 font-medium transition-colors md:font-normal'>
-                  Terms of use
-                </Link>
-              </li>
-              <li>
-                <Link href='#' className='text-foreground text-16 font-medium transition-colors md:font-normal'>
-                  Privacy policy
-                </Link>
-              </li>
+              {footerContent.legalLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className='text-foreground text-16 font-medium transition-colors md:font-normal'>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
             <div className='mr-auto text-left md:mt-0 md:mr-0 md:text-right'>
               <Typography variant='description' className='text-foreground font-medium md:font-normal'>
-                Soft Bee © All rights reserved, {currentYear}
+                {footerContent.copyright} {currentYear}
               </Typography>
             </div>
           </div>
@@ -58,4 +59,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+}

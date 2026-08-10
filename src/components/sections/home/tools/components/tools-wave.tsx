@@ -3,11 +3,20 @@
 import { animate, motion, useInView, useMotionValue, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Icon } from '@/components/ui/icon';
+import { Icon, IconName } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 
-import { TOOLS } from './data';
+import toolsContent from '../content.json';
 import { ToolItem } from './tool-item';
+
+interface Tool {
+  name: string;
+  description: string;
+  icon: IconName;
+  invertOnHover?: boolean;
+}
+
+const TOOLS = toolsContent.tools as Tool[];
 
 const WAVE_STAGGER_S = 0.22;
 const AUTO_SCROLL_SPEED_PX_PER_S = 48;

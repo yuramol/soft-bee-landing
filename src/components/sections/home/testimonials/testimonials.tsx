@@ -14,19 +14,9 @@ import { BREAKPOINTS } from '@/constants';
 import { getInitialTranslate } from '@/lib/utils';
 
 import { TestimonialCard } from './testimonial-card';
+import testimonialsContent from './content.json';
 
 const INITIAL_VISIBLE_CARDS = 2;
-
-const MOCK_CARDS = Array.from({ length: 6 }).map((_, i) => ({
-  id: i,
-  quote:
-    "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-  avatar: '/images/home/testimonials/testimonial-avatar-01.webp',
-  name: 'Mark R',
-  role: 'Founder at NexaStream',
-  logo: '/images/home/testimonials/testimonial-logo-01.webp',
-  link: 'https://clutch.co/profile/soft-bee'
-}));
 
 export const Testimonials = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -118,9 +108,9 @@ export const Testimonials = () => {
             <div className='z-10 w-full px-4 pt-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75'>
               <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>
                 <div>
-                  <Badge title='Testimonials' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
+                  <Badge title={testimonialsContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
                   <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-210'>
-                    Building Digital Success Together: What Our Partners Say
+                    {testimonialsContent.title}
                   </Typography>
                 </div>
               </div>
@@ -131,7 +121,7 @@ export const Testimonials = () => {
                   className='hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
                   style={{ x: translateX }}
                 >
-                  {MOCK_CARDS.map((card) => (
+                  {testimonialsContent.cards.map((card) => (
                     <div key={card.id} className='snap-start'>
                       <TestimonialCard
                         quote={card.quote}
@@ -153,7 +143,7 @@ export const Testimonials = () => {
                     className='w-full overflow-visible!'
                     onSwiper={setSwiperInstance}
                   >
-                    {MOCK_CARDS.map((card) => (
+                    {testimonialsContent.cards.map((card) => (
                       <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
                         <TestimonialCard
                           quote={card.quote}

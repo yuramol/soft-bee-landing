@@ -7,13 +7,21 @@ import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
-import type { CaseStudiesItem as CaseStudiesItemData } from '../data';
+export interface CaseStudyItemData {
+  href: string;
+  title: string;
+  description: string;
+  tools: string[];
+  image: string;
+}
+
 interface CaseStudiesItemProps {
-  item: CaseStudiesItemData;
+  item: CaseStudyItemData;
 }
 
 function CaseStudiesItem({ item }: CaseStudiesItemProps) {
   const { title, description, tools, image, href } = item;
+
   return (
     <div className={cn('flex flex-col-reverse items-center gap-x-5 gap-y-7', 'lg:flex-row 2xl:gap-x-45')}>
       <div className='flex flex-col gap-y-3 px-4 lg:gap-y-11.5 lg:px-10.5'>
