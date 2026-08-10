@@ -1,9 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
-
-import { ReactNode } from 'react';
+import { ReactNode, Suspense, useRef, useState, useSyncExternalStore } from 'react';
 
 import { ComponentContainer } from '@/components/layout';
 import { Icon } from '@/components/ui/icon';
@@ -11,6 +9,7 @@ import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
 import { TypingSegment, TypingTitle } from './components';
+import heroContent from './content.json';
 
 export interface HeroProps {
   titleSegments?: TypingSegment[];
@@ -21,11 +20,6 @@ const Medusae = dynamic(() => import('./components/medusae').then((module) => mo
   ssr: false,
   loading: () => null
 });
-
-const heroTitleSegments: TypingSegment[] = [
-  { text: 'Custom', className: 'text-foreground/50', breakAfter: true },
-  { text: 'Engineering crafted for ambitious business' }
-];
 
 const DESKTOP_MEDUSAE_QUERY = '(hover: hover) and (pointer: fine) and (min-width: 1024px)';
 
@@ -39,7 +33,7 @@ function getMediaQueryMatches(query: string) {
   return window.matchMedia(query).matches;
 }
 
-export function Hero({ titleSegments = heroTitleSegments, description }: HeroProps) {
+export function Hero({ titleSegments = heroContent.titleSegments, description = heroContent.description }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const canRenderMedusae = useSyncExternalStore(
@@ -85,12 +79,7 @@ export function Hero({ titleSegments = heroTitleSegments, description }: HeroPro
         )}
       >
         <Typography variant='body2' className='max-w-84'>
-          {description || (
-            <>
-              Soft Bee is a team of engineers, designers, and analysts building web, mobile, and AI products companies rely on - from first
-              MVP to global scale.
-            </>
-          )}
+          {description}
         </Typography>
         <TypingTitle segments={titleSegments} />
       </ComponentContainer>

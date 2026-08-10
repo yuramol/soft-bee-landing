@@ -14,18 +14,20 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 
 import { TeamAnimatedBackground } from './components';
-import { TEAM_MEMBERS } from './data';
+import teamContent from './content.json';
 import { TeamMemberCard } from './team-member-card';
 
 interface TeamProps {
   hideCoFounders?: boolean;
 }
 
-export const Team = ({ hideCoFounders }: TeamProps) => {
+export function Team({ hideCoFounders }: TeamProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
-  const filteredMembers = hideCoFounders ? TEAM_MEMBERS.filter((member) => member.role !== 'Co-founder') : TEAM_MEMBERS;
+  const filteredMembers = hideCoFounders
+    ? teamContent.members.filter((member) => member.role !== teamContent.coFounderRole)
+    : teamContent.members;
 
   const activeMember = filteredMembers[currentIndex % filteredMembers.length];
 
@@ -37,9 +39,9 @@ export const Team = ({ hideCoFounders }: TeamProps) => {
         <div className='flex flex-col xl:h-[calc(100vh-107px)] xl:max-h-[calc(100vh-107px)] xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
           <div className='pointer-events-none z-20 flex w-full shrink-0 flex-col justify-between pb-0 xl:w-112.75 xl:py-10'>
             <div className='pointer-events-auto mb-10 ml-3 md:ml-10.5 xl:mb-0'>
-              <Badge title='Team' className='mb-7.5 w-fit xl:mb-10' />
+              <Badge title={teamContent.badge} className='mb-7.5 w-fit xl:mb-10' />
               <Typography variant='h2' className='text-foreground max-w-150'>
-                Meet the minds behind Soft Bee
+                {teamContent.title}
               </Typography>
             </div>
 
@@ -105,4 +107,4 @@ export const Team = ({ hideCoFounders }: TeamProps) => {
       </ComponentContainer>
     </section>
   );
-};
+}

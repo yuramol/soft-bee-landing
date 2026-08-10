@@ -1,13 +1,14 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+
+import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
-import { ComponentContainer } from '@/components/layout';
 import { cn } from '@/lib/utils';
 
-import { SmartEstimationInput } from './components';
-import { EstimationAnimatedBackground } from './components';
-import { useEffect, useRef, useState } from 'react';
+import { EstimationAnimatedBackground, SmartEstimationInput } from './components';
+import smartEstimationContent from './content.json';
 
 interface SmartEstimationProps {
   hideAnimatedBackground?: boolean;
@@ -75,25 +76,30 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
 
       <ComponentContainer className='relative z-10 xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:justify-center'>
         <div className='flex flex-col items-start justify-center px-4 md:items-center md:px-0'>
-          <Badge title='Smart estimation' className='mb-7.5 w-fit md:mb-10' />
+          <Badge title={smartEstimationContent.badge} className='mb-7.5 w-fit md:mb-10' />
 
           <Typography variant='h2' className='text-foreground mb-14.25 max-w-264.5 text-left md:mb-19.75 md:text-center'>
             {step === 'success' ? (
-              <>Your custom estimate is done. Download the PDF for free to see Soft Bee&apos;s assessment.</>
+              <>{smartEstimationContent.title.success}</>
             ) : (
               <>
-                Describe your project vision and get an instant{' '}
-                <span
-                  className='bg-clip-text text-transparent'
-                  style={{
-                    backgroundImage: 'linear-gradient(94.31deg, #C3FF00 -13.39%, #00A2BB 106.35%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}
-                >
-                  AI-powered
-                </span>{' '}
-                preliminary estimate of your development timeline and budget.
+                {smartEstimationContent.title.input.map((segment, index) =>
+                  segment.gradient ? (
+                    <span
+                      key={index}
+                      className='bg-clip-text text-transparent'
+                      style={{
+                        backgroundImage: 'linear-gradient(94.31deg, #C3FF00 -13.39%, #00A2BB 106.35%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                      }}
+                    >
+                      {segment.text}
+                    </span>
+                  ) : (
+                    <span key={index}>{segment.text}</span>
+                  )
+                )}
               </>
             )}
           </Typography>

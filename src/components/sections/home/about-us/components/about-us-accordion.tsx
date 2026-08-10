@@ -1,15 +1,27 @@
 'use client';
 
 import { useState } from 'react';
-import { AboutUsCard } from './about-us-card';
-import { ABOUT_US_CARDS } from '@/constants';
 
-export const AboutUsAccordion = () => {
+import { AboutUsCard } from './about-us-card';
+
+interface AboutUsCardData {
+  id: string;
+  title: string;
+  description: string;
+  activeBg: string;
+  activeText: string;
+}
+
+interface AboutUsAccordionProps {
+  cards: AboutUsCardData[];
+}
+
+export const AboutUsAccordion = ({ cards }: AboutUsAccordionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className='@container flex w-full flex-col gap-2.5 lg:flex-row'>
-      {ABOUT_US_CARDS.map((card, index) => (
+      {cards.map((card, index) => (
         <AboutUsCard
           key={card.id}
           id={card.id}
