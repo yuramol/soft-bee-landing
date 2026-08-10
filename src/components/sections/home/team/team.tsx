@@ -1,19 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import 'swiper/css';
-import { Swiper as SwiperClass } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
 
+import Image from 'next/image';
+import { useState } from 'react';
+import { Swiper as SwiperClass } from 'swiper';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { ArrowLeft, ArrowRight } from '@/assets/icons';
+import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
-import { ComponentContainer } from '@/components/layout';
-import { ArrowLeft, ArrowRight } from '@/assets/icons';
+
 import { TeamAnimatedBackground } from './components';
-import { TeamMemberCard } from './team-member-card';
 import { TEAM_MEMBERS } from './data';
+import { TeamMemberCard } from './team-member-card';
 
 interface TeamProps {
   hideCoFounders?: boolean;
@@ -32,7 +34,7 @@ export const Team = ({ hideCoFounders }: TeamProps) => {
       <TeamAnimatedBackground className='-top-100 -bottom-100 -left-1.25 h-[calc(100%+800px)] w-[calc(100%+10px)] md:-left-2.5 md:w-[calc(100%+20px)]' />
 
       <ComponentContainer className='relative z-10'>
-        <div className='flex flex-col xl:h-237.5 xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
+        <div className='flex flex-col xl:h-[calc(100vh-107px)] xl:max-h-[calc(100vh-107px)] xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
           <div className='pointer-events-none z-20 flex w-full shrink-0 flex-col justify-between pb-0 xl:w-112.75 xl:py-10'>
             <div className='pointer-events-auto mb-10 ml-3 md:ml-10.5 xl:mb-0'>
               <Badge title='Team' className='mb-7.5 w-fit xl:mb-10' />

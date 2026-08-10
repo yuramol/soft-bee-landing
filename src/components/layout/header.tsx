@@ -4,6 +4,7 @@ import { Icon } from '@/components/ui/icon';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
 
+import { NavDropdown } from './nav-dropdown';
 import { DiscussProjectButton } from '../discuss-project-button';
 import { MobileNav } from './mobile-nav';
 
@@ -16,6 +17,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
   const isLightText = theme === 'dark';
   const textColor = isLightText ? 'text-white' : 'text-foreground';
   const burgerColor = isLightText ? 'var(--brand-white)' : 'var(--foreground)';
+
   return (
     <header
       className={cn(
@@ -34,12 +36,16 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
           <ul className='flex items-center gap-11.25'>
             {MAIN_NAV_LINKS.map((link) => (
               <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className={cn('text-16 flex items-center font-medium whitespace-nowrap transition-opacity hover:opacity-80', textColor)}
-                >
-                  {link.label}
-                </Link>
+                {link.subLinks ? (
+                  <NavDropdown label={link.label} subLinks={link.subLinks} textColor={textColor} />
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={cn('text-16 flex items-center font-medium whitespace-nowrap transition-opacity hover:opacity-80', textColor)}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

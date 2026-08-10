@@ -70,13 +70,13 @@ export function ToolItem({ icon, name, description, invertOnHover = false, class
         >
           <div
             className={cn(
-              'border-border bg-background relative flex size-17.5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 sm:size-17.5 lg:size-36',
+              'border-border bg-background relative flex size-17.5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 sm:size-17.5 lg:size-28 2xl:size-36',
               triggerOpenIconSurface
             )}
           >
             <span
               className={cn(
-                'flex size-9 items-center justify-center transition-[filter] duration-300 lg:size-22 [&_svg]:size-full',
+                'flex size-9 items-center justify-center transition-[filter] duration-300 lg:size-16 2xl:size-22 [&_svg]:size-full',
                 invertOnHover && triggerOpenIconInvert
               )}
             >

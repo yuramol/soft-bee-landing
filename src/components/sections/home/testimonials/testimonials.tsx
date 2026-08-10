@@ -11,10 +11,11 @@ import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
+import { getInitialTranslate } from '@/lib/utils';
 
 import { TestimonialCard } from './testimonial-card';
 
-const CARD_HIDDEN_OFFSET = 40;
+const INITIAL_VISIBLE_CARDS = 2;
 
 const MOCK_CARDS = Array.from({ length: 6 }).map((_, i) => ({
   id: i,
@@ -36,15 +37,20 @@ export const Testimonials = () => {
 
   useEffect(() => {
     const updateMaxTranslate = () => {
-      if (carouselRef.current) {
-        if (window.innerWidth < BREAKPOINTS.MD) {
-          setMaxTranslate(0);
-          setStartTranslate(0);
-        } else {
-          setMaxTranslate(carouselRef.current.scrollWidth - carouselRef.current.clientWidth);
-          setStartTranslate(carouselRef.current.clientWidth + CARD_HIDDEN_OFFSET);
-        }
+      const carousel = carouselRef.current;
+
+      if (!carousel) {
+        return;
       }
+
+      if (window.innerWidth < BREAKPOINTS.MD) {
+        setMaxTranslate(0);
+        setStartTranslate(0);
+        return;
+      }
+
+      setMaxTranslate(carousel.scrollWidth - carousel.clientWidth);
+      setStartTranslate(getInitialTranslate(carousel, INITIAL_VISIBLE_CARDS));
     };
 
     updateMaxTranslate();
