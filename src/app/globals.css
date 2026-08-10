@@ -97,7 +97,7 @@
 }
 
 @theme {
-  --font-instrument: var(--font-instrument);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --text-96: var(--fs-96);
   --text-80: var(--fs-80);
