@@ -16,6 +16,7 @@
     "success": "Your custom estimate is done. Download the PDF for free to see Soft Bee's assessment."
   },
   "placeholder": "Share your project details",
+  "editLabel": "Edit",
   "privacyNote": "Uploaded materials and text are used exclusively for your estimate",
   "result": {
     "assessingLabel": "Assessing tech stack",
