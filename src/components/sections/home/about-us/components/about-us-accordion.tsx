@@ -16,12 +16,8 @@ interface AboutUsAccordionProps {
   cards: AboutUsCardData[];
 }
 
-export function AboutUsAccordion({ cards }: AboutUsAccordionProps) {
+export const AboutUsAccordion = ({ cards }: AboutUsAccordionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  function handleCardClick(index: number) {
-    setActiveIndex(index);
-  }
 
   return (
     <div className='@container flex w-full flex-col gap-2.5 lg:flex-row'>
@@ -34,9 +30,9 @@ export function AboutUsAccordion({ cards }: AboutUsAccordionProps) {
           activeBg={card.activeBg}
           activeText={card.activeText}
           isActive={activeIndex === index}
-          onClick={() => handleCardClick(index)}
+          onClick={() => setActiveIndex(index)}
         />
       ))}
     </div>
   );
-}
+};

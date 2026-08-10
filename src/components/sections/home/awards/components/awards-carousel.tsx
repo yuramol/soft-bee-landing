@@ -2,7 +2,7 @@
 
 import { TransitionEvent, useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 
-import { Icon, type IconName } from '@/components/ui/icon';
+import { Icon, IconName } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 
 import awardsContent from '../content.json';
@@ -21,7 +21,6 @@ interface AwardItemData {
   profileUrl: string;
 }
 
-// Icons are authored in content.json; assert IconName so Icon receives a typed name.
 const AWARDS_ITEMS = awardsContent.items as AwardItemData[];
 
 interface AwardsCarouselProps {

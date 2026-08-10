@@ -5,7 +5,7 @@ import { Typography } from '@/components/ui/typography';
 import { AboutUsAccordion } from './components';
 import aboutUsContent from './content.json';
 
-export function AboutUs() {
+export const AboutUs = () => {
   return (
     <section className='flex w-full flex-col pt-15.5 pb-25 lg:px-10.5 lg:pt-50 lg:pb-35'>
       <ComponentContainer>
@@ -35,4 +35,4 @@ export function AboutUs() {
       </ComponentContainer>
     </section>
   );
-}
+};

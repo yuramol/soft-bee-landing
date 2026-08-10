@@ -4,7 +4,7 @@ import { Typography } from '@/components/ui/typography';
 
 import footerContent from '../content.json';
 
-export function FooterNav() {
+export const FooterNav = () => {
   return (
     <nav className='text-foreground mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between' aria-label='Footer Navigation'>
       <div className='flex flex-col gap-5'>
@@ -41,4 +41,4 @@ export function FooterNav() {
       ))}
     </nav>
   );
-}
+};

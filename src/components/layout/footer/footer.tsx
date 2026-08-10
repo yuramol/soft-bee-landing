@@ -9,7 +9,7 @@ import { Typography } from '@/components/ui/typography';
 import { FooterNav, LogoMedusae } from './components';
 import footerContent from './content.json';
 
-export function Footer() {
+export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -59,4 +59,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};

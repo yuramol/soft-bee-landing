@@ -11,7 +11,7 @@ import { BREAKPOINTS } from '@/constants';
 import { CareersVideoCard } from './careers-video-card';
 import careersContent from './content.json';
 
-export function CareersVideo() {
+export const CareersVideo = () => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
   useEffect(() => {
@@ -79,4 +79,4 @@ export function CareersVideo() {
       </div>
     </div>
   );
-}
+};

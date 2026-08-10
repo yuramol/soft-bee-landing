@@ -28,7 +28,7 @@ interface CareersProps {
   className?: string;
 }
 
-export function Careers({ className }: CareersProps) {
+export const Careers = ({ className }: CareersProps) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [maxTranslate, setMaxTranslate] = useState(0);
@@ -185,4 +185,4 @@ export function Careers({ className }: CareersProps) {
       </ComponentContainer>
     </section>
   );
-}
+};
