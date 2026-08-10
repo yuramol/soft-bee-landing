@@ -1,16 +1,21 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
-import { Typography } from '@/components/ui/typography';
-import { ComponentContainer } from '@/components/layout';
-
-import { SmartEstimationInput } from './components';
-import { EstimationAnimatedBackground } from './components';
 import { useEffect, useRef, useState } from 'react';
 
+import { ComponentContainer } from '@/components/layout';
+import { Badge } from '@/components/ui/badge';
+import { Typography } from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
+
+import { EstimationAnimatedBackground, SmartEstimationInput } from './components';
 import smartEstimationContent from './content.json';
 
-export const SmartEstimation = () => {
+interface SmartEstimationProps {
+  hideAnimatedBackground?: boolean;
+  className?: string;
+}
+
+export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEstimationProps = {}) => {
   const [step, setStep] = useState<'input' | 'loading' | 'success'>('input');
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -59,8 +64,15 @@ export const SmartEstimation = () => {
   };
 
   return (
-    <section className='relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:overflow-hidden xl:py-16'>
-      <EstimationAnimatedBackground className='-left-1.25 h-200 w-[calc(100%+10px)] md:-left-2.5 md:h-300 md:w-[calc(100%+20px)] xl:h-full' />
+    <section
+      className={cn(
+        'relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:py-16',
+        className
+      )}
+    >
+      {!hideAnimatedBackground && (
+        <EstimationAnimatedBackground className='-left-1.25 h-200 w-[calc(100%+10px)] md:-left-2.5 md:h-300 md:w-[calc(100%+20px)] xl:h-full' />
+      )}
 
       <ComponentContainer className='relative z-10 xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:justify-center'>
         <div className='flex flex-col items-start justify-center px-4 md:items-center md:px-0'>

@@ -1,7 +1,11 @@
+import { CaseStudies } from '@/components/sections/case-studies';
+import { SmartEstimation } from '@/components/sections/home';
+
 export default function CaseStudiesPage() {
   return (
-    <main className='text-brand-black flex min-h-screen flex-col items-center justify-center bg-white p-24'>
-      <h1 className='text-48 font-bold'>Case Studies</h1>
-    </main>
+    <>
+      <CaseStudies />
+      <SmartEstimation hideAnimatedBackground className='z-10 -mb-10 md:-mb-80 lg:-mb-40' />
+    </>
   );
 }
