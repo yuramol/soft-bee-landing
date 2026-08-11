@@ -1,0 +1,95 @@
+{
+  "badge": "Careers",
+  "title": "Join the team. We're looking for talented minds to build the future together.",
+  "cta": "Explore careers",
+  "cards": [
+    {
+      "id": 0,
+      "badge": "Development",
+      "title": "Full-stack Developer 0",
+      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
+      "vacancyDetails": {
+        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
+        "responsibilities": [
+          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
+          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
+          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
+          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
+          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
+          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
+          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "badge": "Development",
+      "title": "Full-stack Developer 1",
+      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
+      "vacancyDetails": {
+        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
+        "responsibilities": [
+          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
+          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
+          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
+          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
+          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
+          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
+          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "badge": "Development",
+      "title": "Full-stack Developer 2",
+      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
+      "vacancyDetails": {
+        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
+        "responsibilities": [
+          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
+          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
+          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
+          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
+          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
+          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
+          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "badge": "Development",
+      "title": "Full-stack Developer 3",
+      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
+      "vacancyDetails": {
+        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
+        "responsibilities": [
+          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
+          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
+          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
+          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
+          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
+          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
+          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
+        ]
+      }
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "title": "Flow over Friction: How We Execute",
+      "description": "How we cleared the schedule so you can stay in the zone and do your best work.",
+      "imageSrc": "/images/home/careers/careers-card-01.webp",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+      "id": 2,
+      "title": "We don't want you to stay the same",
+      "description": "We don't blame mistakes — we fund your learning. If you don't grow, the hive doesn't grow.",
+      "imageSrc": "/images/home/careers/careers-card-02.webp",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    }
+  ]
+}

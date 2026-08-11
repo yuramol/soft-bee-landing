@@ -112,6 +112,7 @@
   --text-14: var(--fs-14);
   --text-12: var(--fs-12);
 
+  --shadow-icon: var(--shadow-icon);
   --shadow-smart-input: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
   --shadow-smart-result: 0px -10px 40px 0px rgba(0, 0, 0, 0.1);
   --shadow-smart-download: 0px 24px 64px 0px #c3ff00;
@@ -135,6 +136,7 @@
     /* --- Components --- */
     --about-card-text-width: calc(50cqw - 120px);
     --hero-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 34.44%);
+    --shadow-icon: 0px 1.39px 2.78px 0px #0000001a;
   }
 
   /* ============================================================

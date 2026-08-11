@@ -1,0 +1,28 @@
+{
+  "badge": "Team",
+  "title": "Meet the minds behind Soft Bee",
+  "coFounderRole": "Co-founder",
+  "members": [
+    {
+      "id": 1,
+      "name": "Alex",
+      "role": "Co-founder",
+      "description": "A visionary leader with 10+ years in tech, Alex ensures every project aligns with business goals. He believes that great software is built on transparency and relentless attention to detail.",
+      "image": "/images/home/team/team-member-01.webp"
+    },
+    {
+      "id": 2,
+      "name": "Yurii",
+      "role": "Co-founder",
+      "description": "As a co-founder, Yurii brings strategic visions to life, ensuring our solutions are both highly functional and user-centric. He bridges the gap between business strategy, user needs, and product excellence.",
+      "image": "/images/home/team/team-member-02.webp"
+    },
+    {
+      "id": 3,
+      "name": "Mike",
+      "role": "Technical Lead",
+      "description": "With deep expertise in scalable architecture, Mike drives the technical direction. His code not only solves problems today but sets a strong foundation for future growth.",
+      "image": "/images/home/team/team-member-03.webp"
+    }
+  ]
+}

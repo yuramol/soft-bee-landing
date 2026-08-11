@@ -1,0 +1,13 @@
+{
+  "titleSegments": [
+    {
+      "text": "Custom",
+      "className": "text-foreground/50",
+      "breakAfter": true
+    },
+    {
+      "text": "Engineering crafted for ambitious business"
+    }
+  ],
+  "description": "Soft Bee is a team of engineers, designers, and analysts building web, mobile, and AI products companies rely on - from first MVP to global scale."
+}

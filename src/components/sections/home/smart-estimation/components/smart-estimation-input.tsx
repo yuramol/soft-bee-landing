@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { SmartEstimationResultCard } from './smart-estimation-result-card';
 import { ChangeEvent, useRef, useState } from 'react';
 
+import smartEstimationContent from '../content.json';
+
 type Step = 'input' | 'loading' | 'success';
 
 interface SmartEstimationInputProps {
@@ -83,7 +85,7 @@ export const SmartEstimationInput = ({
               ref={textareaRef}
               value={text}
               onChange={handleInput}
-              placeholder='Share your project details'
+              placeholder={smartEstimationContent.placeholder}
               className={cn(
                 'text-foreground placeholder:text-foreground/50 m-0 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent p-0 leading-6 font-normal transition-all duration-500 ease-out outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:leading-9 md:placeholder:text-[24px] md:placeholder:font-medium',
                 text.length === 0 ? 'text-[16px] md:text-[24px]' : 'text-[16px] md:text-[18px]',
@@ -151,7 +153,7 @@ export const SmartEstimationInput = ({
               className='bg-accent hover:bg-accent/90 border-accent-dark h-10.5 gap-2.5 border px-4 py-1.5 pr-4 pl-6 text-[14px] text-white shadow'
               rightIcon={<Icon icon='PencilSimple' className='opacity-50' width={22} height={22} />}
             >
-              Edit
+              {smartEstimationContent.editLabel}
             </Button>
           </div>
 
@@ -163,9 +165,7 @@ export const SmartEstimationInput = ({
         </div>
       )}
 
-      <p className='text-foreground/50 mt-3.75 text-center text-[12px] md:mt-5 md:text-[16px]'>
-        Uploaded materials and text are used exclusively for your estimate
-      </p>
+      <p className='text-foreground/50 mt-3.75 text-center text-[12px] md:mt-5 md:text-[16px]'>{smartEstimationContent.privacyNote}</p>
       <input type='file' className='hidden' ref={fileInputRef} onChange={handleFileChange} />
     </div>
   );
