@@ -1,0 +1,258 @@
+[
+  {
+    "id": "autobro",
+    "title": "Autobro",
+    "year": "2022",
+    "image": "/images/case-studies/autobro.webp",
+    "link": "/case-studies/autobro",
+    "client": "AutoBro Inc.",
+    "projectType": "Web Application",
+    "tech": ["React", "Redux", "Node.js"],
+    "cards": [
+      {
+        "title": "Real-Time",
+        "description": "Users can place and monitor bids instantly through a transparent and responsive auction experience."
+      },
+      {
+        "title": "Responsive",
+        "description": "The platform was optimized to provide seamless interaction across desktop, tablet, and mobile devices."
+      },
+      {
+        "title": "Streamlined",
+        "description": "Simplified user flows helped buyers and sellers manage listings, offers, and bidding with less friction."
+      },
+      {
+        "title": "Flexible",
+        "description": "Customizable auction settings allowed sellers to configure listings and bidding behavior more efficiently."
+      }
+    ],
+    "overviewTitle": "Autobro is an innovative automotive platform designed for seamless car buying and selling experiences.",
+    "overviewDescription": "Built with a user-centric approach, Autobro simplifies vehicle discovery, financing, and transaction management, empowering users to make informed decisions with confidence.",
+    "overviewImages": ["/images/case-study/overview-img-1.webp", "/images/case-study/overview-img-2.webp"],
+    "toolsTitle": "We tailored our stack for Autobro, ensuring <span class=\"text-foreground/50\">maximum performance and scalability in the automotive industry.</span>",
+    "galleryImages": [
+      "/images/case-study/case-study-img-1.webp",
+      "/images/case-study/case-study-img-2.webp",
+      "/images/case-study/case-study-img-3.webp"
+    ],
+    "resultsDescription": [
+      "Design: Soft Bee",
+      "Development: Soft Bee",
+      "Frontend: React & Redux",
+      "Responsive Optimization: Soft Bee",
+      "Ongoing Support: Soft Bee"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "80%",
+        "description": "Users found cars faster using our optimized search and intuitive filtering system.",
+        "bottomText": "FASTER DISCOVERY"
+      },
+      {
+        "id": 2,
+        "title": "3x",
+        "description": "Increase in completed transactions thanks to the streamlined financing workflows.",
+        "bottomText": "HIGHER CONVERSION"
+      },
+      {
+        "id": 3,
+        "title": "99%",
+        "description": "Platform uptime maintained during peak traffic through robust architecture.",
+        "bottomText": "IMPROVED STABILITY"
+      }
+    ]
+  },
+  {
+    "id": "gapnurse",
+    "title": "GapNurse",
+    "year": "2022",
+    "image": "/images/case-studies/gap-nurse.webp",
+    "link": "/case-studies/gapnurse",
+    "client": "GapNurse LLC",
+    "projectType": "Mobile App",
+    "tech": ["React Native", "Firebase", "Redux"],
+    "cards": [
+      {
+        "title": "Real-Time",
+        "description": "Users can place and monitor bids instantly through a transparent and responsive auction experience."
+      },
+      {
+        "title": "Responsive",
+        "description": "The platform was optimized to provide seamless interaction across desktop, tablet, and mobile devices."
+      },
+      {
+        "title": "Streamlined",
+        "description": "Simplified user flows helped buyers and sellers manage listings, offers, and bidding with less friction."
+      },
+      {
+        "title": "Flexible",
+        "description": "Customizable auction settings allowed sellers to configure listings and bidding behavior more efficiently."
+      }
+    ],
+    "overviewTitle": "GapNurse is a digital healthcare platform connecting facilities with qualified nursing professionals on demand.",
+    "overviewDescription": "With a robust mobile application, GapNurse streamlines shift scheduling, credential verification, and payroll management, ensuring healthcare facilities always have the staff they need.",
+    "overviewImages": ["/images/case-study/overview-img-1.webp", "/images/case-study/overview-img-2.webp"],
+    "toolsTitle": "Our healthcare-focused technology stack for GapNurse ensures <span class=\"text-foreground/50\">HIPAA compliance, real-time sync, and unwavering reliability for medical professionals.</span>",
+    "galleryImages": [
+      "/images/case-study/case-study-img-1.webp",
+      "/images/case-study/case-study-img-2.webp",
+      "/images/case-study/case-study-img-3.webp"
+    ],
+    "resultsDescription": [
+      "Design: Soft Bee",
+      "Development: Soft Bee",
+      "Mobile App: React Native",
+      "Compliance: HIPAA Standards",
+      "Ongoing Support: Soft Bee"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "50%",
+        "description": "Reduction in time spent on scheduling and shift management for nursing facilities.",
+        "bottomText": "IMPROVED EFFICIENCY"
+      },
+      {
+        "id": 2,
+        "title": "5k+",
+        "description": "Shifts successfully filled within the first quarter of the platform launch.",
+        "bottomText": "HIGH ADOPTION RATE"
+      },
+      {
+        "id": 3,
+        "title": "100%",
+        "description": "Compliance maintained with robust credential verification and secure data handling.",
+        "bottomText": "GUARANTEED SECURITY"
+      }
+    ]
+  },
+  {
+    "id": "plumbid",
+    "title": "plumBid",
+    "year": "2022",
+    "image": "/images/case-studies/plumbid.webp",
+    "link": "/case-studies/plumbid",
+    "client": "plumBid Corp",
+    "projectType": "Platform",
+    "tech": ["Next.js", "Tailwind", "PostgreSQL"],
+    "cards": [
+      {
+        "title": "Real-Time",
+        "description": "Users can place and monitor bids instantly through a transparent and responsive auction experience."
+      },
+      {
+        "title": "Responsive",
+        "description": "The platform was optimized to provide seamless interaction across desktop, tablet, and mobile devices."
+      },
+      {
+        "title": "Streamlined",
+        "description": "Simplified user flows helped buyers and sellers manage listings, offers, and bidding with less friction."
+      },
+      {
+        "title": "Flexible",
+        "description": "Customizable auction settings allowed sellers to configure listings and bidding behavior more efficiently."
+      }
+    ],
+    "overviewTitle": "plumBid is a digital real estate auction platform designed for transparent and seamless online bidding.",
+    "overviewDescription": "Built with a modern and responsive interface, plumBid simplifies auction workflows, offer tracking, and property management while helping users navigate transactions with greater transparency and confidence.",
+    "overviewImages": ["/images/case-study/overview-img-1.webp", "/images/case-study/overview-img-2.webp"],
+    "toolsTitle": "We engineered plumBid with a robust architecture, providing <span class=\"text-foreground/50\">lightning-fast auction updates and bank-grade security for high-stakes real estate bidding.</span>",
+    "galleryImages": [
+      "/images/case-study/case-study-img-1.webp",
+      "/images/case-study/case-study-img-2.webp",
+      "/images/case-study/case-study-img-3.webp"
+    ],
+    "resultsDescription": [
+      "Design: Soft Bee",
+      "Development: Soft Bee",
+      "Frontend: React & GraphQL",
+      "Responsive Optimization: Soft Bee",
+      "Ongoing Support: Soft Bee"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "75%",
+        "description": "Users interacted more actively with listings and auction flows through a faster and more intuitive platform experience.",
+        "bottomText": "HIGHER USER ENGAGEMENT"
+      },
+      {
+        "id": 2,
+        "title": "2x",
+        "description": "Simplified workflows and real-time updates helped users complete auction actions with significantly less friction.",
+        "bottomText": "FASTER BIDDING PROCESS"
+      },
+      {
+        "id": 3,
+        "title": "75%",
+        "description": "Optimized front-end architecture and responsive interactions created a smoother and more reliable user experience.",
+        "bottomText": "IMPROVED PLATFORM PERFORMANCE"
+      }
+    ]
+  },
+  {
+    "id": "trovr",
+    "title": "Trovr",
+    "year": "2022",
+    "image": "/images/case-studies/trovr.webp",
+    "link": "/case-studies/trovr",
+    "client": "Trovr Group",
+    "projectType": "Web Service",
+    "tech": ["Vue.js", "Python", "AWS"],
+    "cards": [
+      {
+        "title": "Real-Time",
+        "description": "Users can place and monitor bids instantly through a transparent and responsive auction experience."
+      },
+      {
+        "title": "Responsive",
+        "description": "The platform was optimized to provide seamless interaction across desktop, tablet, and mobile devices."
+      },
+      {
+        "title": "Streamlined",
+        "description": "Simplified user flows helped buyers and sellers manage listings, offers, and bidding with less friction."
+      },
+      {
+        "title": "Flexible",
+        "description": "Customizable auction settings allowed sellers to configure listings and bidding behavior more efficiently."
+      }
+    ],
+    "overviewTitle": "Trovr is a cutting-edge web service designed to revolutionize reward-based recycling and sustainability initiatives.",
+    "overviewDescription": "Featuring an intuitive interface, Trovr simplifies the process of tracking eco-friendly actions, redeeming rewards, and fostering a greener community with engaging digital tools.",
+    "overviewImages": ["/images/case-study/overview-img-1.webp", "/images/case-study/overview-img-2.webp"],
+    "toolsTitle": "Trovr’s ecosystem is powered by sustainable and scalable technologies, allowing <span class=\"text-foreground/50\">seamless integration with IoT devices and instant reward processing.</span>",
+    "galleryImages": [
+      "/images/case-study/case-study-img-1.webp",
+      "/images/case-study/case-study-img-2.webp",
+      "/images/case-study/case-study-img-3.webp"
+    ],
+    "resultsDescription": [
+      "Design: Soft Bee",
+      "Development: Soft Bee",
+      "Backend: Python & AWS",
+      "Data Processing: Soft Bee",
+      "Ongoing Support: Soft Bee"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "1M+",
+        "description": "Recycling actions tracked and verified through the scalable AWS infrastructure.",
+        "bottomText": "MASSIVE SCALE"
+      },
+      {
+        "id": 2,
+        "title": "40%",
+        "description": "Increase in daily active users engaging with the reward redemption workflows.",
+        "bottomText": "ENHANCED RETENTION"
+      },
+      {
+        "id": 3,
+        "title": "95%",
+        "description": "Positive user feedback on the speed and reliability of the mobile-responsive platform.",
+        "bottomText": "HIGH SATISFACTION"
+      }
+    ]
+  }
+]
