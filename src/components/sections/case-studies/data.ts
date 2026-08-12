@@ -1,3 +1,4 @@
+import { TestimonialItem } from '@/components/sections/home/testimonials/testimonials';
 import caseStudiesData from './case-studies.json';
 
 export interface CaseStudyCard {
@@ -29,6 +30,7 @@ export interface CaseStudy {
   galleryImages?: string[];
   resultsDescription?: string[];
   resultsCards?: CaseStudyResultCard[];
+  testimonials?: TestimonialItem[];
 }
 
 export const CASE_STUDIES: CaseStudy[] = caseStudiesData as CaseStudy[];

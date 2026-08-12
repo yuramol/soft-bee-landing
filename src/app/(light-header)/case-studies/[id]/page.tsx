@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { CASE_STUDIES } from '@/components/sections/case-studies/data';
 import { CaseStudyHero, CaseStudyPreview, CaseStudyOverview, CaseStudyGallery, CaseStudyResults } from '@/components/sections/case-study';
-import { Tools } from '@/components/sections/home';
+import { Tools, Testimonials } from '@/components/sections/home';
 
 export function generateStaticParams() {
   return CASE_STUDIES.map((study) => ({
@@ -36,6 +36,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
       <Tools title={caseStudy.toolsTitle} />
       <CaseStudyGallery images={caseStudy.galleryImages} />
       <CaseStudyResults description={caseStudy.resultsDescription} cards={caseStudy.resultsCards} />
+      <Testimonials cards={caseStudy.testimonials} />
     </>
   );
 }

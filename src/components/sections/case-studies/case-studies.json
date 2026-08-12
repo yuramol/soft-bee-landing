@@ -61,6 +61,35 @@
         "description": "Platform uptime maintained during peak traffic through robust architecture.",
         "bottomText": "IMPROVED STABILITY"
       }
+    ],
+    "testimonials": [
+      {
+        "id": "autobro-0",
+        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Alex B",
+        "role": "CEO at AutoBro Inc.",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "autobro-1",
+        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Sarah J",
+        "role": "CTO at AutoBro Inc.",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "autobro-2",
+        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Michael T",
+        "role": "Product Manager at AutoBro Inc.",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      }
     ]
   },
   {
@@ -124,6 +153,35 @@
         "title": "100%",
         "description": "Compliance maintained with robust credential verification and secure data handling.",
         "bottomText": "GUARANTEED SECURITY"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "gapnurse-0",
+        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Alex B",
+        "role": "CEO at GapNurse LLC",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "gapnurse-1",
+        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Sarah J",
+        "role": "CTO at GapNurse LLC",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "gapnurse-2",
+        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Michael T",
+        "role": "Product Manager at GapNurse LLC",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
       }
     ]
   },
@@ -189,6 +247,35 @@
         "description": "Optimized front-end architecture and responsive interactions created a smoother and more reliable user experience.",
         "bottomText": "IMPROVED PLATFORM PERFORMANCE"
       }
+    ],
+    "testimonials": [
+      {
+        "id": "plumbid-0",
+        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Alex B",
+        "role": "CEO at plumBid Corp",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "plumbid-1",
+        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Sarah J",
+        "role": "CTO at plumBid Corp",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "plumbid-2",
+        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Michael T",
+        "role": "Product Manager at plumBid Corp",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      }
     ]
   },
   {
@@ -252,6 +339,35 @@
         "title": "95%",
         "description": "Positive user feedback on the speed and reliability of the mobile-responsive platform.",
         "bottomText": "HIGH SATISFACTION"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "trovr-0",
+        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Alex B",
+        "role": "CEO at Trovr Group",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "trovr-1",
+        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Sarah J",
+        "role": "CTO at Trovr Group",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
+      },
+      {
+        "id": "trovr-2",
+        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
+        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+        "name": "Michael T",
+        "role": "Product Manager at Trovr Group",
+        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+        "link": "https://clutch.co/profile/soft-bee"
       }
     ]
   }
