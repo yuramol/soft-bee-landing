@@ -17,6 +17,7 @@ export interface CaseStudy {
   overviewDescription: string;
   overviewImages: string[];
   toolsTitle?: string;
+  galleryImages?: string[];
 }
 
 const mockCards: CaseStudyCard[] = [
@@ -54,7 +55,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Built with a user-centric approach, Autobro simplifies vehicle discovery, financing, and transaction management, empowering users to make informed decisions with confidence.',
     overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp'],
     toolsTitle:
-      'We tailored our stack for Autobro, ensuring <span class="text-foreground/50">maximum performance and scalability in the automotive industry.</span>'
+      'We tailored our stack for Autobro, ensuring <span class="text-foreground/50">maximum performance and scalability in the automotive industry.</span>',
+    galleryImages: [
+      '/images/case-study/case-study-img-1.webp',
+      '/images/case-study/case-study-img-2.webp',
+      '/images/case-study/case-study-img-3.webp'
+    ]
   },
   {
     id: 'gapnurse',
@@ -71,7 +77,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       'With a robust mobile application, GapNurse streamlines shift scheduling, credential verification, and payroll management, ensuring healthcare facilities always have the staff they need.',
     overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp'],
     toolsTitle:
-      'Our healthcare-focused technology stack for GapNurse ensures <span class="text-foreground/50">HIPAA compliance, real-time sync, and unwavering reliability for medical professionals.</span>'
+      'Our healthcare-focused technology stack for GapNurse ensures <span class="text-foreground/50">HIPAA compliance, real-time sync, and unwavering reliability for medical professionals.</span>',
+    galleryImages: [
+      '/images/case-study/case-study-img-1.webp',
+      '/images/case-study/case-study-img-2.webp',
+      '/images/case-study/case-study-img-3.webp'
+    ]
   },
   {
     id: 'plumbid',
@@ -88,7 +99,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Built with a modern and responsive interface, plumBid simplifies auction workflows, offer tracking, and property management while helping users navigate transactions with greater transparency and confidence.',
     overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp'],
     toolsTitle:
-      'We engineered plumBid with a robust architecture, providing <span class="text-foreground/50">lightning-fast auction updates and bank-grade security for high-stakes real estate bidding.</span>'
+      'We engineered plumBid with a robust architecture, providing <span class="text-foreground/50">lightning-fast auction updates and bank-grade security for high-stakes real estate bidding.</span>',
+    galleryImages: [
+      '/images/case-study/case-study-img-1.webp',
+      '/images/case-study/case-study-img-2.webp',
+      '/images/case-study/case-study-img-3.webp'
+    ]
   },
   {
     id: 'trovr',
@@ -105,6 +121,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Featuring an intuitive interface, Trovr simplifies the process of tracking eco-friendly actions, redeeming rewards, and fostering a greener community with engaging digital tools.',
     overviewImages: ['/images/case-study/overview-img-1.webp', '/images/case-study/overview-img-2.webp'],
     toolsTitle:
-      'Trovr’s ecosystem is powered by sustainable and scalable technologies, allowing <span class="text-foreground/50">seamless integration with IoT devices and instant reward processing.</span>'
+      'Trovr’s ecosystem is powered by sustainable and scalable technologies, allowing <span class="text-foreground/50">seamless integration with IoT devices and instant reward processing.</span>',
+    galleryImages: [
+      '/images/case-study/case-study-img-1.webp',
+      '/images/case-study/case-study-img-2.webp',
+      '/images/case-study/case-study-img-3.webp'
+    ]
   }
 ];

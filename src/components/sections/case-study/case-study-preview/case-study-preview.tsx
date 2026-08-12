@@ -14,7 +14,7 @@ export const CaseStudyPreview = ({ image, title }: CaseStudyPreviewProps) => (
         alt={`${title} preview`}
         width={1440}
         height={900}
-        className='h-dvh w-full rounded-md object-cover lg:rounded-4xl'
+        className='h-auto w-full rounded-md object-cover lg:h-dvh lg:rounded-4xl'
       />
     </ComponentContainer>
   </section>
