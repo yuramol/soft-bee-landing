@@ -6,6 +6,7 @@ import { ComponentContainer } from '@/components/layout';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { CaseStudyCards, CaseStudyBadge } from './components';
+import caseStudyHeroContent from './content.json';
 
 const Medusae = dynamic(() => import('@/components/sections/home/hero/components/medusae').then((module) => module.Medusae), {
   ssr: false,
@@ -85,7 +86,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
         <div className='hidden w-full items-start justify-between pb-16 text-left lg:flex'>
           <div className='flex flex-col gap-2'>
             <Typography variant='body2' className='text-foreground-secondary font-light'>
-              Client
+              {caseStudyHeroContent.client}
             </Typography>
             <Typography variant='body2' className='text-foreground font-semibold'>
               {client}
@@ -93,7 +94,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
           </div>
           <div className='flex flex-col gap-2'>
             <Typography variant='body2' className='text-foreground-secondary font-light'>
-              Project type
+              {caseStudyHeroContent.projectType}
             </Typography>
             <Typography variant='body2' className='text-foreground font-semibold'>
               {projectType}
@@ -101,7 +102,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
           </div>
           <div className='flex flex-col gap-2'>
             <Typography variant='body2' className='text-foreground-secondary font-light'>
-              Tech
+              {caseStudyHeroContent.tech}
             </Typography>
             <Typography variant='body2' className='text-foreground font-semibold'>
               {tech.join(', ')}
@@ -109,7 +110,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
           </div>
           <div className='flex flex-col gap-2 text-right'>
             <Typography variant='body2' className='text-foreground-secondary font-light'>
-              Year
+              {caseStudyHeroContent.year}
             </Typography>
             <Typography variant='body2' className='text-foreground font-semibold'>
               {year}

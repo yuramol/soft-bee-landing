@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { ComponentContainer } from '@/components/layout';
 import Image from 'next/image';
+import caseStudyOverviewContent from './content.json';
 
 interface CaseStudyOverviewProps {
   overviewTitle: string;
@@ -13,7 +14,7 @@ export const CaseStudyOverview = ({ overviewTitle, overviewDescription, overview
   <section className='mt-12 mb-10 flex w-full flex-col md:mb-0 lg:mt-24'>
     <div className='px-4 lg:px-10.5'>
       <ComponentContainer>
-        <Badge title='Overview' className='mb-7.5 w-fit lg:mb-10' />
+        <Badge title={caseStudyOverviewContent.badge} className='mb-7.5 w-fit lg:mb-10' />
 
         <div className='mb-34 flex flex-col items-start justify-between gap-4.75 lg:mb-20 lg:flex-row lg:gap-10 xl:mb-30 2xl:mb-46'>
           <Typography variant='h2' className='text-foreground lg:max-w-175 xl:max-w-233.5'>
