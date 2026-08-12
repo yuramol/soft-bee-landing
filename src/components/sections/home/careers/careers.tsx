@@ -17,16 +17,12 @@ import { cn, getInitialTranslate } from '@/lib/utils';
 
 import { CareersCard } from './careers-card';
 import { CareersVideo } from './careers-video';
+import careersContent from './content.json';
+import { CareersCardData } from './types';
 
 const INITIAL_VISIBLE_CARDS = 2;
 
-const MOCK_CARDS = Array.from({ length: 4 }).map((_, i) => ({
-  id: i,
-  badge: 'Development',
-  title: `Full-stack Developer ${i}`,
-  description:
-    'High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.'
-}));
+const CAREERS_CARDS: CareersCardData[] = careersContent.cards;
 
 interface CareersProps {
   className?: string;
@@ -122,14 +118,14 @@ export const Careers = ({ className }: CareersProps) => {
             <div className='z-10 w-full px-4 py-18.25 pb-23.5 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
               <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>
                 <div>
-                  <Badge title='Careers' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
+                  <Badge title={careersContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
                   <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-222'>
-                    Join the team. We&apos;re looking for talented minds to build the future together.
+                    {careersContent.title}
                   </Typography>
                 </div>
                 <div className='mt-6 hidden md:block'>
                   <Button variant='default' asChild>
-                    <Link href={ROUTES.CAREERS}>Explore careers</Link>
+                    <Link href={ROUTES.CAREERS}>{careersContent.cta}</Link>
                   </Button>
                 </div>
               </div>
@@ -140,9 +136,15 @@ export const Careers = ({ className }: CareersProps) => {
                   className='hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
                   style={{ x: translateX }}
                 >
-                  {MOCK_CARDS.map((card) => (
+                  {CAREERS_CARDS.map((card) => (
                     <div key={card.id} className='snap-start'>
-                      <CareersCard badge={card.badge} title={card.title} description={card.description} />
+                      <CareersCard
+                        badge={card.badge}
+                        title={card.title}
+                        description={card.description}
+                        roleDescription={card.vacancyDetails.roleDescription}
+                        responsibilities={card.vacancyDetails.responsibilities}
+                      />
                     </div>
                   ))}
                 </motion.div>
@@ -155,9 +157,15 @@ export const Careers = ({ className }: CareersProps) => {
                     className='w-full overflow-visible!'
                     onSwiper={setSwiperInstance}
                   >
-                    {MOCK_CARDS.map((card) => (
+                    {CAREERS_CARDS.map((card) => (
                       <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
-                        <CareersCard badge={card.badge} title={card.title} description={card.description} />
+                        <CareersCard
+                          badge={card.badge}
+                          title={card.title}
+                          description={card.description}
+                          roleDescription={card.vacancyDetails.roleDescription}
+                          responsibilities={card.vacancyDetails.responsibilities}
+                        />
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -165,7 +173,7 @@ export const Careers = ({ className }: CareersProps) => {
 
                 <div className='mt-11.5 block w-full md:hidden'>
                   <Button variant='default' className='w-full' asChild>
-                    <Link href={ROUTES.CAREERS}>Explore careers</Link>
+                    <Link href={ROUTES.CAREERS}>{careersContent.cta}</Link>
                   </Button>
                 </div>
               </div>

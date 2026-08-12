@@ -12,7 +12,7 @@ import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
 import { getInitialTranslate } from '@/lib/utils';
 
-import { SERVICES_CARDS } from './data';
+import servicesContent from './content.json';
 import { ServiceCard } from './service-card';
 
 const INITIAL_VISIBLE_CARDS = 2;
@@ -105,11 +105,11 @@ export const Services = () => {
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>
       <div className='z-10 w-full px-4 pt-18.25 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
         <div className='mb-12 md:mb-0'>
-          <Badge title='Services' className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
+          <Badge title={servicesContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
 
           <div>
             <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-250'>
-              We build high-performance digital products - engineered to scale and delivered with care, from interface to infrastructure.
+              {servicesContent.title}
             </Typography>
           </div>
         </div>
@@ -121,7 +121,7 @@ export const Services = () => {
             className='hidden snap-x snap-mandatory items-stretch gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
             style={{ x: translateX }}
           >
-            {SERVICES_CARDS.map((card) => (
+            {servicesContent.cards.map((card) => (
               <div key={card.id} className='flex snap-start self-stretch'>
                 <ServiceCard title={card.title} description={card.description} />
               </div>
@@ -131,7 +131,7 @@ export const Services = () => {
           {/* Mobile Swiper */}
           <div className='block overflow-hidden md:hidden'>
             <Swiper loop={true} slidesPerView='auto' spaceBetween={10} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
-              {SERVICES_CARDS.map((card) => (
+              {servicesContent.cards.map((card) => (
                 <SwiperSlide key={`mobile-${card.id}`} className='flex h-auto! w-full!'>
                   <ServiceCard title={card.title} description={card.description} />
                 </SwiperSlide>

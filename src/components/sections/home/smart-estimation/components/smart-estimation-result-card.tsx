@@ -1,6 +1,8 @@
-import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
+
+import smartEstimationContent from '../content.json';
 
 const SmartEstimationSkeleton = () => {
   const topLines = [
@@ -63,6 +65,8 @@ const SmartEstimationSkeleton = () => {
 };
 
 export const SmartEstimationResultCard = ({ isSuccess, onDownload }: { isSuccess?: boolean; onDownload?: () => void }) => {
+  const { result } = smartEstimationContent;
+
   return (
     <div className='relative z-40 min-h-screen w-201.5 max-w-[calc(100vw-32px)] shrink-0 animate-[slideUp_0.5s_ease-out_forwards]'>
       <div className='absolute -inset-2 -z-10 rounded-t-[45px] bg-linear-to-r from-[#C3FF00] to-[#00A2BB] opacity-60 blur-3xl' />
@@ -83,12 +87,12 @@ export const SmartEstimationResultCard = ({ isSuccess, onDownload }: { isSuccess
           <div className='absolute top-29.25 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
             {isSuccess ? (
               <Button onClick={onDownload} className='shadow-smart-download w-42.75'>
-                Download PDF
+                {result.downloadLabel}
               </Button>
             ) : (
               <div className='shadow-smart-assessing flex h-15 w-55 items-center justify-center gap-2.5 rounded-[200px] bg-[#C3FF00] font-medium text-black'>
                 <Icon icon='LogoMark' width={24} height={28} />
-                <span className='text-[16px]'>Assessing tech stack</span>
+                <span className='text-[16px]'>{result.assessingLabel}</span>
               </div>
             )}
           </div>

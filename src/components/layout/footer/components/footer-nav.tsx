@@ -1,27 +1,26 @@
 import Link from 'next/link';
+
 import { Typography } from '@/components/ui/typography';
-import { FOOTER_LINKS } from '@/constants/navigation';
+
+import footerContent from '../content.json';
 
 export const FooterNav = () => {
   return (
     <nav className='text-foreground mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between' aria-label='Footer Navigation'>
       <div className='flex flex-col gap-5'>
-        <Typography variant='description'>Kyiv</Typography>
+        <Typography variant='description'>{footerContent.location}</Typography>
         <ul className='flex flex-col gap-5'>
-          <li>
-            <Link href='mailto:hello@softbee.com' className='text-foreground/50 hover:text-foreground transition-colors'>
-              hello@softbee.com
-            </Link>
-          </li>
-          <li>
-            <Link href='tel:+0000000000' className='text-foreground/50 hover:text-foreground transition-colors'>
-              (+00) 0000 000 0
-            </Link>
-          </li>
+          {footerContent.contacts.map((contact) => (
+            <li key={contact.href}>
+              <Link href={contact.href} className='text-foreground/50 hover:text-foreground transition-colors'>
+                {contact.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
 
-      {FOOTER_LINKS.map((section) => (
+      {footerContent.navSections.map((section) => (
         <div key={section.title} className='flex flex-col gap-5'>
           <Typography variant='description'>{section.title}</Typography>
           <ul className='flex flex-col gap-5'>

@@ -7,19 +7,23 @@ import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
+import awardsContent from '../content.json';
+
 export interface AwardItemBadge {
   icon: ReactNode;
   label: string;
 }
 
+const [crownBadge, starPlusBadge] = awardsContent.itemBadges;
+
 const DEFAULT_BADGES: AwardItemBadge[] = [
   {
     icon: <Icon icon='Crown' className='size-7 shrink-0 lg:size-10.5' />,
-    label: '100% Job Success'
+    label: crownBadge.label
   },
   {
     icon: <Image src='/images/home/star-plus.png' alt='Star Plus' width={40} height={40} className='size-7 shrink-0 lg:size-10.5' />,
-    label: 'Top Rated Plus'
+    label: starPlusBadge.label
   }
 ];
 

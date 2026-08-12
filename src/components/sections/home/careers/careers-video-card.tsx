@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { PointerEvent, useState, useSyncExternalStore } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 interface PointerPosition {
   x: number;

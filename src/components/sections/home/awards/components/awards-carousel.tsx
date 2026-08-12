@@ -2,16 +2,26 @@
 
 import { TransitionEvent, useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 
-import { Icon } from '@/components/ui/icon';
+import { Icon, IconName } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 
-import { AwardItemData, AWARDS_ITEMS } from '../data';
+import awardsContent from '../content.json';
 import { AwardsItem } from './awards-item';
 
 const AUTO_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_TRANSITION_S = 0.6;
 const NEXT_CARD_PEEK_FALLBACK_PX = 200;
 const DESKTOP_QUERY = '(min-width: 1280px)';
+
+interface AwardItemData {
+  id: string;
+  logoIcon: IconName;
+  logoClassName: string;
+  description: string;
+  profileUrl: string;
+}
+
+const AWARDS_ITEMS = awardsContent.items as AwardItemData[];
 
 interface AwardsCarouselProps {
   className?: string;

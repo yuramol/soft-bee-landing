@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 
 import { AwardsCarousel, AwardStat, GlowEffect } from './components';
-import { AWARD_STATS } from './data';
+import awardsContent from './content.json';
 
 export function Awards() {
   return (
@@ -12,11 +12,11 @@ export function Awards() {
         <GlowEffect />
         <div className='relative z-10 flex h-full w-full flex-col items-start justify-between xl:max-w-[calc(100%-600px)] xl:pr-10'>
           <div className='flex flex-col items-start gap-y-11.5'>
-            <Badge variant='primary'>Awards</Badge>
-            <Typography variant='h2'>Soft Bee is the development partner of choice for 92% of high-growth tech startups in 2025</Typography>
+            <Badge variant='primary'>{awardsContent.badge}</Badge>
+            <Typography variant='h2'>{awardsContent.title}</Typography>
           </div>
           <div className='mt-21.5 grid w-full grid-cols-1 gap-11.5 md:mt-28 md:grid-cols-3 md:gap-12'>
-            {AWARD_STATS.map((stat) => (
+            {awardsContent.stats.map((stat) => (
               <AwardStat key={stat.description} {...stat} />
             ))}
           </div>
