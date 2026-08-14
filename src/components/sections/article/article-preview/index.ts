@@ -1,2 +1,1 @@
-export { ArticleHero } from './article-hero';
 export { ArticlePreview } from './article-preview';
