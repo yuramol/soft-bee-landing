@@ -13,18 +13,18 @@ interface DesktopCardProps {
   allServices: Service[];
 }
 
-export function ServicesDesktopCard({ service, index, allServices }: DesktopCardProps) {
-  function scrollToService(id: string) {
-    const anchor = document.getElementById(`service-anchor-${id}`);
-    if (anchor) {
-      const top = anchor.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top,
-        behavior: 'auto'
-      });
-    }
+function scrollToService(id: string) {
+  const anchor = document.getElementById(`service-anchor-${id}`);
+  if (anchor) {
+    const top = anchor.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top,
+      behavior: 'auto'
+    });
   }
+}
 
+export function ServicesDesktopCard({ service, index, allServices }: DesktopCardProps) {
   return (
     <>
       <div id={`service-anchor-${service.id}`} className='block h-0 w-full' />
