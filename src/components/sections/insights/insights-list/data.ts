@@ -6,6 +6,10 @@ export interface InsightArticle {
   title: string;
   description: string;
   slug: string;
+  authorName: string;
+  authorRole: string;
+  authorImage: string;
+  date: string;
 }
 
 const baseArticles = [
@@ -54,8 +58,17 @@ const images = [
   '/images/services/services-img-4.webp'
 ];
 
+const authors = [
+  { name: 'Anna Kovalenko', role: 'Lead Developer', image: '/images/articles/article-author-img-1.webp' },
+  { name: 'Dmytro Petrenko', role: 'Product Manager', image: '/images/articles/article-author-img-1.webp' },
+  { name: 'Olena Shevchenko', role: 'UI/UX Designer', image: '/images/articles/article-author-img-1.webp' }
+];
+
 export const mockInsights: InsightArticle[] = Array.from({ length: 90 }).map((_, i) => {
   const base = baseArticles[i % baseArticles.length];
+  const author = authors[i % authors.length];
+  const dateObj = new Date(2024, 0, 1 + i); // incrementing days for mock dates
+
   return {
     id: String(i + 1),
     image: images[i % images.length],
@@ -63,6 +76,10 @@ export const mockInsights: InsightArticle[] = Array.from({ length: 90 }).map((_,
     readTime: base.readTime,
     title: i >= 6 ? `${base.title} - Volume ${Math.floor(i / 6) + 1}` : base.title,
     description: base.description,
-    slug: `article-${i + 1}`
+    slug: `article-${i + 1}`,
+    authorName: author.name,
+    authorRole: author.role,
+    authorImage: author.image,
+    date: dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '.')
   };
 });
