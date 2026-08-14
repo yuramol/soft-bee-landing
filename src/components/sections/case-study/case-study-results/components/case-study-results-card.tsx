@@ -9,6 +9,13 @@ interface CaseStudyResultsCardProps {
   bottomText: string;
 }
 
+function formatStatValue(value: number, decimals: number) {
+  if (decimals > 0) {
+    return value.toFixed(decimals);
+  }
+  return Math.round(value).toString();
+}
+
 export function CaseStudyResultsCard({ title, description, bottomText }: CaseStudyResultsCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.4 });
@@ -32,13 +39,6 @@ export function CaseStudyResultsCard({ title, description, bottomText }: CaseStu
 
     return () => controls.stop();
   }, [isInView, targetValue]);
-
-  function formatStatValue(value: number, decimals: number) {
-    if (decimals > 0) {
-      return value.toFixed(decimals);
-    }
-    return Math.round(value).toString();
-  }
 
   const displayTitle = targetValue === 0 ? title : `${formatStatValue(animatedValue, decimals)}${suffix}`;
 
