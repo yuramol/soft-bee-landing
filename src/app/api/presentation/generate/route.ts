@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     }
 
     // Simulate backend processing time
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     // Simulate random backend rejection (e.g., 10% chance)
     if (Math.random() < 0.1) {

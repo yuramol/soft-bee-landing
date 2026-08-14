@@ -22,10 +22,15 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
   const [error, setError] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isSubmittingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+      }
     };
   }, []);
 
@@ -38,6 +43,8 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
     setStep('loading');
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
+    abortControllerRef.current = new AbortController();
+
     try {
       const formData = new FormData();
       if (text.trim()) formData.append('text', text);
@@ -45,7 +52,8 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
 
       const response = await fetch('/api/presentation/generate', {
         method: 'POST',
-        body: formData
+        body: formData,
+        signal: abortControllerRef.current.signal
       });
 
       if (!response.ok) {
@@ -55,10 +63,15 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
 
       setStep('success');
     } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        setStep('input');
+        return;
+      }
       setError(err instanceof Error ? err.message : 'An unexpected error occurred.');
       setStep('input');
     } finally {
       isSubmittingRef.current = false;
+      abortControllerRef.current = null;
     }
   };
 
