@@ -4,7 +4,8 @@ export const ROUTES = {
   LOGIN: '/login',
   AUTH_CALLBACK: '/auth/callback',
   CAREERS: '/careers',
-  SERVICES: '/services'
+  SERVICES: '/services',
+  CASE_STUDIES: '/case-studies'
 } as const;
 
 /** Paths anonymous users must reach (OAuth must hit /auth/callback before session exists). */
