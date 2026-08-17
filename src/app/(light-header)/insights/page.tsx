@@ -1,7 +1,16 @@
+import { Suspense } from 'react';
+import { Hero } from '@/components/sections/home';
+import { InsightsList } from '@/components/sections/insights/insights-list/insights-list';
+
+import heroContent from '@/components/sections/insights/hero/content.json';
+
 export default function InsightsPage() {
   return (
-    <main className='text-brand-black flex min-h-screen flex-col items-center justify-center bg-white p-24'>
-      <h1 className='text-48 font-bold'>Insights</h1>
-    </main>
+    <>
+      <Hero titleSegments={heroContent.titleSegments} description={heroContent.description} />
+      <Suspense>
+        <InsightsList />
+      </Suspense>
+    </>
   );
 }

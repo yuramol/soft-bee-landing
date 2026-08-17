@@ -15,6 +15,7 @@ interface SmartEstimationInputProps {
   step: Step;
   text: string;
   file: File | null;
+  error?: string | null;
   onTextChange: (text: string) => void;
   onFileChange: (file: File | null) => void;
   onSubmit: () => void;
@@ -26,6 +27,7 @@ export const SmartEstimationInput = ({
   step,
   text,
   file,
+  error,
   onTextChange,
   onFileChange,
   onSubmit,
@@ -60,7 +62,8 @@ export const SmartEstimationInput = ({
   };
 
   const isExpanded = text.length > 0 || file !== null;
-  const isDisabled = !text.trim() && !file;
+  const MIN_TEXT_LENGTH = 10;
+  const isDisabled = !file && text.trim().length < MIN_TEXT_LENGTH;
 
   return (
     <div className='relative w-full max-w-181.25'>
@@ -164,6 +167,8 @@ export const SmartEstimationInput = ({
           )}
         </div>
       )}
+
+      {error && <p className='text-destructive mt-3 text-center text-[12px] font-light md:mt-4 md:text-[14px]'>{error}</p>}
 
       <p className='text-foreground/50 mt-3.75 text-center text-[12px] md:mt-5 md:text-[16px]'>{smartEstimationContent.privacyNote}</p>
       <input type='file' className='hidden' ref={fileInputRef} onChange={handleFileChange} />
