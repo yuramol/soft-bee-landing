@@ -19,26 +19,76 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
   const [step, setStep] = useState<'input' | 'loading' | 'success'>('input');
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isSubmittingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+      }
     };
   }, []);
 
-  const handleSubmit = () => {
-    if (!text.trim() && !file) return;
+  const handleSubmit = async () => {
+    const MIN_TEXT_LENGTH = 10;
+    if ((!file && text.trim().length < MIN_TEXT_LENGTH) || step === 'loading' || isSubmittingRef.current) return;
+
+    isSubmittingRef.current = true;
+    setError(null);
     setStep('loading');
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
+
+    abortControllerRef.current = new AbortController();
+
+    try {
+      const formData = new FormData();
+      if (text.trim()) formData.append('text', text);
+      if (file) formData.append('file', file);
+
+      const response = await fetch('/api/presentation/generate', {
+        method: 'POST',
+        body: formData,
+        signal: abortControllerRef.current.signal
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to submit requirements.');
+      }
+
       setStep('success');
-    }, 5000);
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        setStep('input');
+        return;
+      }
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred.');
+      setStep('input');
+    } finally {
+      isSubmittingRef.current = false;
+      abortControllerRef.current = null;
+    }
   };
 
   const handleEdit = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setError(null);
     setStep('input');
+  };
+
+  const handleTextChange = (newText: string) => {
+    setText(newText);
+    if (error) setError(null);
+  };
+
+  const handleFileChange = (newFile: File | null) => {
+    setFile(newFile);
+    if (error) setError(null);
   };
 
   const handleDownload = () => {
@@ -108,9 +158,12 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
             step={step}
             text={text}
             file={file}
-            onTextChange={setText}
-            onFileChange={setFile}
-            onSubmit={handleSubmit}
+            error={error}
+            onTextChange={handleTextChange}
+            onFileChange={handleFileChange}
+            onSubmit={() => {
+              void handleSubmit();
+            }}
             onEdit={handleEdit}
             onDownload={handleDownload}
           />
