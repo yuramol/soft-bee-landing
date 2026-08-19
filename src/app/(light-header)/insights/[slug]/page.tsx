@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { ArticleHero, ArticlePreview, ArticleContent } from '@/components/sections/article';
+import { ArticleHero, ArticlePreview, ArticleContent, MoreInsights } from '@/components/sections/article';
 import { mockInsights } from '@/components/sections/insights/insights-list/data';
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -7,6 +7,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const article = mockInsights.find((a) => a.slug === slug);
   if (!article) return notFound();
+
+  const moreArticles = mockInsights.filter((a) => a.slug !== slug).slice(0, 3);
 
   return (
     <>
@@ -21,6 +23,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       />
       <ArticlePreview image={article.image} title={article.title} />
       <ArticleContent content={article.content} />
+      <MoreInsights articles={moreArticles} />
     </>
   );
 }

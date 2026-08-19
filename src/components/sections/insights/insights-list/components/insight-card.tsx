@@ -7,7 +7,7 @@ import insightsContent from '../content.json';
 
 export function InsightCard({ article }: { article: InsightArticle }) {
   return (
-    <Link href={`${ROUTES.INSIGHTS}/${article.slug}`} className='group flex flex-col rounded-3xl bg-white p-4 xl:p-6 2xl:p-8'>
+    <Link href={`${ROUTES.INSIGHTS}/${article.slug}`} className='group flex h-full flex-col rounded-3xl bg-white p-4 xl:p-6 2xl:p-8'>
       <div className='relative mb-6 aspect-400/235 w-full overflow-hidden rounded-2xl bg-gray-100 xl:h-87.75'>
         <Image
           src={article.image}
