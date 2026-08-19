@@ -1,3 +1,17 @@
+export interface ArticleBlockContent {
+  id: string;
+  type: 'text' | 'quote' | 'image' | 'list' | 'conclusion';
+  heading?: string;
+  shortHeading?: string;
+  text?: string;
+  authorName?: string;
+  authorRole?: string;
+  image?: string;
+  caption?: string;
+  description?: string;
+  items?: string[];
+}
+
 export interface InsightArticle {
   id: string;
   image: string;
@@ -10,7 +24,44 @@ export interface InsightArticle {
   authorRole: string;
   authorImage: string;
   date: string;
+  content: ArticleBlockContent[];
 }
+
+const mockContent: ArticleBlockContent[] = [
+  {
+    id: 'hidden-cost',
+    type: 'text',
+    heading: 'The hidden cost of rigid systems',
+    shortHeading: 'The hidden cost',
+    text: 'Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\n\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\n· Team frustration: Developers spend more time fixing legacy bugs than innovating.'
+  },
+  {
+    id: 'quote-1',
+    type: 'quote',
+    text: 'Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.',
+    authorName: 'Quote author'
+  },
+  {
+    id: 'balance',
+    type: 'text',
+    heading: 'Finding the balance between structure and flexibility',
+    shortHeading: 'Balance',
+    text: 'Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.'
+  },
+  {
+    id: 'image-1',
+    type: 'image',
+    image: '/images/services/services-img-3.webp',
+    caption: 'A person sitting at a white desk in a sunlit room, speaking into a smartphone and taking notes in front of an open laptop'
+  },
+  {
+    id: 'conclusion',
+    type: 'conclusion',
+    heading: 'Final thoughts',
+    shortHeading: 'Conclusion',
+    text: 'Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come.'
+  }
+];
 
 const baseArticles = [
   {
@@ -80,6 +131,16 @@ export const mockInsights: InsightArticle[] = Array.from({ length: 90 }).map((_,
     authorName: author.name,
     authorRole: author.role,
     authorImage: author.image,
-    date: dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '.')
+    date: dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '.'),
+    content: (() => {
+      const blocks = mockContent.map((block) => (block.type === 'quote' ? { ...block, authorName: author.name } : block));
+      const conclusion = blocks.find((b) => b.type === 'conclusion');
+      const otherBlocks = blocks.filter((b) => b.type !== 'conclusion');
+
+      const shift = i % otherBlocks.length;
+      const rearranged = [...otherBlocks.slice(shift), ...otherBlocks.slice(0, shift)];
+
+      return conclusion ? [...rearranged, conclusion] : rearranged;
+    })()
   };
 });

@@ -6,16 +6,18 @@ interface ArticlePreviewProps {
   title: string;
 }
 
-export const ArticlePreview = ({ image, title }: ArticlePreviewProps) => (
-  <section>
-    <ComponentContainer>
-      <Image
-        src={image}
-        alt={`${title} preview`}
-        width={1440}
-        height={900}
-        className='h-auto w-full rounded-md object-cover lg:h-dvh lg:rounded-4xl'
-      />
-    </ComponentContainer>
-  </section>
-);
+export function ArticlePreview({ image, title }: ArticlePreviewProps) {
+  return (
+    <section>
+      <ComponentContainer>
+        <Image
+          src={image}
+          alt={`${title} preview`}
+          width={1440}
+          height={900}
+          className='h-auto w-full rounded-md object-cover lg:h-dvh lg:rounded-4xl'
+        />
+      </ComponentContainer>
+    </section>
+  );
+}

@@ -39,7 +39,7 @@ interface ArticleHeroProps {
   date: string;
 }
 
-export const ArticleHero = ({ topic, title, authorName, authorRole, authorImage, readTime, date }: ArticleHeroProps) => {
+export function ArticleHero({ topic, title, authorName, authorRole, authorImage, readTime, date }: ArticleHeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -49,11 +49,14 @@ export const ArticleHero = ({ topic, title, authorName, authorRole, authorImage,
     () => false
   );
 
+  const handlePointerEnter = () => setIsHovering(true);
+  const handlePointerLeave = () => setIsHovering(false);
+
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={canRenderMedusae ? () => setIsHovering(true) : undefined}
-      onPointerLeave={canRenderMedusae ? () => setIsHovering(false) : undefined}
+      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
+      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
         'bg-background relative mb-2.5 flex w-full flex-col justify-end overflow-hidden rounded-2xl px-4 pt-25 pb-11.5 lg:min-h-175 lg:px-10.5 lg:pt-35'
       )}
@@ -139,4 +142,4 @@ export const ArticleHero = ({ topic, title, authorName, authorRole, authorImage,
       </ComponentContainer>
     </section>
   );
-};
+}

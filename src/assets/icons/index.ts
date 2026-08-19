@@ -39,3 +39,4 @@ export { DocumentPdf } from './document-pdf';
 export { CheckCircle } from './check-circle';
 export { Plus } from './plus';
 export { DocumentFile } from './document-file';
+export { Check } from './check';

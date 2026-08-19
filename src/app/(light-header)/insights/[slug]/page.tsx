@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { ArticleHero, ArticlePreview } from '@/components/sections/article';
+import { ArticleHero, ArticlePreview, ArticleContent } from '@/components/sections/article';
 import { mockInsights } from '@/components/sections/insights/insights-list/data';
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -20,6 +20,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         date={article.date}
       />
       <ArticlePreview image={article.image} title={article.title} />
+      <ArticleContent content={article.content} />
     </>
   );
 }
