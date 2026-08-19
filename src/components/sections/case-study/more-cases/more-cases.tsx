@@ -2,20 +2,21 @@
 
 import 'swiper/css';
 
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { BREAKPOINTS, ROUTES } from '@/constants';
+import { ROUTES } from '@/constants';
 
 import { ComponentContainer } from '@/components/layout';
 import { Typography } from '@/components/ui/typography';
 import { CASE_STUDIES } from '@/components/sections/case-studies/data';
 
 import { DesktopCard } from './components';
+import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
@@ -50,45 +51,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
 
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
-  useEffect(() => {
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!hasAnimated && window.innerWidth < BREAKPOINTS.MD) {
-              hasAnimated = true;
-              if (swiperInstance && swiperInstance.wrapperEl) {
-                setTimeout(() => {
-                  const wrapper = swiperInstance.wrapperEl;
-                  const currentTranslate = swiperInstance.translate;
-
-                  wrapper.style.transition = 'transform 0.6s ease-out';
-                  wrapper.style.transform = `translate3d(${currentTranslate - 60}px, 0, 0)`;
-
-                  setTimeout(() => {
-                    wrapper.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                    setTimeout(() => {
-                      wrapper.style.transition = '';
-                      swiperInstance.setTranslate(currentTranslate);
-                    }, 600);
-                  }, 700);
-                }, 500);
-              }
-            }
-          } else {
-            hasAnimated = false;
-          }
-        });
-      },
-      { threshold: 0.8, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (swiperInstance && swiperInstance.el) {
-      observer.observe(swiperInstance.el);
-    }
-    return () => observer.disconnect();
-  }, [swiperInstance]);
+  useSwiperPeekAnimation(swiperInstance);
 
   return (
     <section className='relative z-10 w-full pt-30 pb-24 md:pt-50 md:pb-0 2xl:pt-80'>

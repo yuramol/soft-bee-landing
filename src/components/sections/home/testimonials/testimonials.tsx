@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
 import { getInitialTranslate } from '@/lib/utils';
+import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import { TestimonialCard } from './testimonial-card';
 import testimonialsContent from './content.json';
@@ -74,45 +75,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
 
   const translateX = useTransform(scrollYProgress, [0, 1], [startTranslate, -maxTranslate]);
 
-  useEffect(() => {
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!hasAnimated && window.innerWidth < BREAKPOINTS.MD) {
-              hasAnimated = true;
-              if (swiperInstance && swiperInstance.wrapperEl) {
-                setTimeout(() => {
-                  const wrapper = swiperInstance.wrapperEl;
-                  const currentTranslate = swiperInstance.translate;
-
-                  wrapper.style.transition = 'transform 0.6s ease-out';
-                  wrapper.style.transform = `translate3d(${currentTranslate - 60}px, 0, 0)`;
-
-                  setTimeout(() => {
-                    wrapper.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                    setTimeout(() => {
-                      wrapper.style.transition = '';
-                      swiperInstance.setTranslate(currentTranslate);
-                    }, 600);
-                  }, 700);
-                }, 500);
-              }
-            }
-          } else {
-            hasAnimated = false;
-          }
-        });
-      },
-      { threshold: 0.8, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (swiperInstance && swiperInstance.el) {
-      observer.observe(swiperInstance.el);
-    }
-    return () => observer.disconnect();
-  }, [swiperInstance]);
+  useSwiperPeekAnimation(swiperInstance);
 
   return (
     <section className='relative z-10 -mb-10 md:-mb-10'>
