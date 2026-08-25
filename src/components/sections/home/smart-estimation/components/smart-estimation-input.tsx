@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { FileBadge } from '@/components/ui/file-badge';
 import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { SmartEstimationResultCard } from './smart-estimation-result-card';
+import { SmartEstimationLoadingModal, SmartEstimationResultCard } from './smart-estimation-result-card';
 import { ChangeEvent, useRef, useState } from 'react';
 
 import smartEstimationContent from '../content.json';
@@ -148,9 +148,11 @@ export const SmartEstimationInput = ({
         </div>
       </div>
 
+      {step === 'loading' && <SmartEstimationLoadingModal />}
+
       {step !== 'input' && (
         <div className='pointer-events-none absolute inset-0 z-30 flex items-center justify-center'>
-          <div className='pointer-events-auto absolute top-6 right-6 z-50'>
+          <div className='pointer-events-auto absolute top-6 right-6 z-60'>
             <Button
               onClick={onEdit}
               className='bg-accent hover:bg-accent/90 border-accent-dark h-10.5 gap-2.5 border px-4 py-1.5 pr-4 pl-6 text-[14px] text-white shadow'
@@ -160,9 +162,9 @@ export const SmartEstimationInput = ({
             </Button>
           </div>
 
-          {(step === 'loading' || step === 'success') && (
+          {step === 'success' && (
             <div className='pointer-events-auto absolute inset-x-0 top-21.25 flex justify-center'>
-              <SmartEstimationResultCard isSuccess={step === 'success'} onDownload={onDownload} />
+              <SmartEstimationResultCard isSuccess onDownload={onDownload} />
             </div>
           )}
         </div>
