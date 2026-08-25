@@ -5,7 +5,8 @@ import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
 import { ComponentContainer } from '@/components/layout';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
-import { CaseStudyCards, CaseStudyBadge } from './components';
+import { CaseStudyCards } from './components';
+import { TopicBadge } from '@/components/ui/topic-badge';
 import caseStudyHeroContent from './content.json';
 
 const Medusae = dynamic(() => import('@/components/sections/home/hero/components/medusae').then((module) => module.Medusae), {
@@ -65,7 +66,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
       <ComponentContainer className='relative z-10 flex flex-col'>
         {/* Mobile Header elements */}
         <div className='flex w-full items-center justify-between pb-26.25 lg:hidden'>
-          <CaseStudyBadge>{projectType}</CaseStudyBadge>
+          <TopicBadge>{projectType}</TopicBadge>
           <Typography variant='body3' className='text-foreground/50 font-medium'>
             {year}
           </Typography>
@@ -78,7 +79,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
         {/* Mobile tech tags */}
         <div className='flex flex-wrap gap-1.5 pb-9.25 lg:hidden'>
           {tech.map((t) => (
-            <CaseStudyBadge key={t}>{t}</CaseStudyBadge>
+            <TopicBadge key={t}>{t}</TopicBadge>
           ))}
         </div>
 

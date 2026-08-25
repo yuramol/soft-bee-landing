@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS, ROUTES } from '@/constants';
 import { cn, getInitialTranslate } from '@/lib/utils';
+import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import { CareersCard } from './careers-card';
 import { CareersVideo } from './careers-video';
@@ -70,45 +71,7 @@ export const Careers = ({ className }: CareersProps) => {
 
   const translateX = useTransform(scrollYProgress, [0, 1], [startTranslate, -maxTranslate]);
 
-  useEffect(() => {
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!hasAnimated && window.innerWidth < BREAKPOINTS.MD) {
-              hasAnimated = true;
-              if (swiperInstance && swiperInstance.wrapperEl) {
-                setTimeout(() => {
-                  const wrapper = swiperInstance.wrapperEl;
-                  const currentTranslate = swiperInstance.translate;
-
-                  wrapper.style.transition = 'transform 0.6s ease-out';
-                  wrapper.style.transform = `translate3d(${currentTranslate - 60}px, 0, 0)`;
-
-                  setTimeout(() => {
-                    wrapper.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                    setTimeout(() => {
-                      wrapper.style.transition = '';
-                      swiperInstance.setTranslate(currentTranslate);
-                    }, 600);
-                  }, 700);
-                }, 500);
-              }
-            }
-          } else {
-            hasAnimated = false;
-          }
-        });
-      },
-      { threshold: 0.8, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (swiperInstance && swiperInstance.el) {
-      observer.observe(swiperInstance.el);
-    }
-    return () => observer.disconnect();
-  }, [swiperInstance]);
+  useSwiperPeekAnimation(swiperInstance);
 
   return (
     <section className={cn('bg-muted relative', className)}>

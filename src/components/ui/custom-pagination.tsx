@@ -17,10 +17,33 @@ interface CustomPaginationProps {
   className?: string;
 }
 
+function PageLink({ page, currentPage, onPageChange }: { page: number; currentPage: number; onPageChange: (page: number) => void }) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onPageChange(page);
+  };
+
+  return (
+    <PaginationLink href='#' isActive={currentPage === page} onClick={handleClick}>
+      {page}
+    </PaginationLink>
+  );
+}
+
 export function CustomPagination({ currentPage, totalPages, onPageChange, className }: CustomPaginationProps) {
   if (totalPages <= 1) return null;
 
   const pageNumbers = getPageNumbers(currentPage, totalPages);
+
+  const handlePreviousClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onPageChange(Math.max(1, currentPage - 1));
+  };
+
+  const handleNextClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onPageChange(Math.min(totalPages, currentPage + 1));
+  };
 
   return (
     <Pagination className={className}>
@@ -28,10 +51,7 @@ export function CustomPagination({ currentPage, totalPages, onPageChange, classN
         <PaginationItem className='hidden md:block'>
           <PaginationPrevious
             href='#'
-            onClick={(e) => {
-              e.preventDefault();
-              onPageChange(Math.max(1, currentPage - 1));
-            }}
+            onClick={handlePreviousClick}
             className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
           />
         </PaginationItem>
@@ -47,16 +67,7 @@ export function CustomPagination({ currentPage, totalPages, onPageChange, classN
 
           return (
             <PaginationItem key={page}>
-              <PaginationLink
-                href='#'
-                isActive={currentPage === page}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPageChange(page as number);
-                }}
-              >
-                {page}
-              </PaginationLink>
+              <PageLink page={page as number} currentPage={currentPage} onPageChange={onPageChange} />
             </PaginationItem>
           );
         })}
@@ -64,10 +75,7 @@ export function CustomPagination({ currentPage, totalPages, onPageChange, classN
         <PaginationItem className='hidden md:block'>
           <PaginationNext
             href='#'
-            onClick={(e) => {
-              e.preventDefault();
-              onPageChange(Math.min(totalPages, currentPage + 1));
-            }}
+            onClick={handleNextClick}
             className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
           />
         </PaginationItem>
