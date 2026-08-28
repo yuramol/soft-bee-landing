@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 import { FileBadge } from '@/components/ui/file-badge';
 import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { SmartEstimationLoadingModal, SmartEstimationResultCard } from './smart-estimation-result-card';
+import { SmartEstimationLoadingModal } from './smart-estimation-loading-modal';
+import { SmartEstimationResultCard } from './smart-estimation-result-card';
 import { ChangeEvent, useRef, useState } from 'react';
 
 import smartEstimationContent from '../content.json';
