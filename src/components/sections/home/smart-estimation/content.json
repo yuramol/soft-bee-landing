@@ -19,7 +19,30 @@
   "editLabel": "Edit",
   "privacyNote": "Uploaded materials and text are used exclusively for your estimate",
   "result": {
-    "assessingLabel": "Assessing tech stack",
+    "assessingLabels": [
+      "Let’s put some numbers on it.",
+      "Turning “roughly” into something useful.",
+      "Making the unknown a little less unknown.",
+      "Putting the pieces together…",
+      "Finding the shape of the problem…",
+      "Getting a feel for the beast…",
+      "Taking a closer look…",
+      "Seeing the bigger picture…",
+      "Putting complexity into perspective…",
+      "Finding where the time goes…",
+      "Making some educated bets…",
+      "Turning complexity into clarity…",
+      "Looking past the obvious…",
+      "Separating signal from noise…",
+      "Getting our bearings…",
+      "Doing the math nobody wants to do.",
+      "Making an educated guess, emphasis on educated.",
+      "Because “it depends” isn't an estimate.",
+      "Waking up our developer…",
+      "Cancelling the coffee break…",
+      "Waiting for requirements to agree…",
+      "Pretending this was well documented…"
+    ],
     "downloadLabel": "Download PDF"
   }
 }

@@ -2,16 +2,16 @@
 
 import 'swiper/css';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { DiscussProjectButton } from '@/components/discuss-project-button';
 import { ComponentContainer } from '@/components/layout';
-import { BREAKPOINTS } from '@/constants';
 import { cn } from '@/lib/utils';
 
 import { CaseStudyResultCard } from '@/components/sections/case-studies/data';
+import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 import { CaseStudyResultsCard } from './components';
 import caseStudyResultsContent from './content.json';
 
@@ -24,45 +24,7 @@ interface CaseStudyResultsProps {
 export const CaseStudyResults = ({ className, description = [], cards = [] }: CaseStudyResultsProps) => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
-  useEffect(() => {
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!hasAnimated && window.innerWidth < BREAKPOINTS.MD) {
-              hasAnimated = true;
-              if (swiperInstance && swiperInstance.wrapperEl) {
-                setTimeout(() => {
-                  const wrapper = swiperInstance.wrapperEl;
-                  const currentTranslate = swiperInstance.translate;
-
-                  wrapper.style.transition = 'transform 0.6s ease-out';
-                  wrapper.style.transform = `translate3d(${currentTranslate - 60}px, 0, 0)`;
-
-                  setTimeout(() => {
-                    wrapper.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                    setTimeout(() => {
-                      wrapper.style.transition = '';
-                      swiperInstance.setTranslate(currentTranslate);
-                    }, 600);
-                  }, 700);
-                }, 500);
-              }
-            }
-          } else {
-            hasAnimated = false;
-          }
-        });
-      },
-      { threshold: 0.8, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (swiperInstance && swiperInstance.el) {
-      observer.observe(swiperInstance.el);
-    }
-    return () => observer.disconnect();
-  }, [swiperInstance]);
+  useSwiperPeekAnimation(swiperInstance);
 
   return (
     <section className={cn('bg-muted relative px-4 pt-29.25 pb-23.75 md:pt-20 md:pb-37.5 lg:px-10.5', className)}>

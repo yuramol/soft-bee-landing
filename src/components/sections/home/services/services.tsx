@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
 import { getInitialTranslate } from '@/lib/utils';
+import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import servicesContent from './content.json';
 import { ServiceCard } from './service-card';
@@ -60,46 +61,7 @@ export const Services = () => {
 
   const translateX = useTransform(scrollYProgress, [0, 1], [startTranslate, -maxTranslate]);
 
-  useEffect(() => {
-    // Mobile peek animation for Swiper
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!hasAnimated && window.innerWidth < BREAKPOINTS.MD) {
-              hasAnimated = true;
-              if (swiperInstance && swiperInstance.wrapperEl) {
-                setTimeout(() => {
-                  const wrapper = swiperInstance.wrapperEl;
-                  const currentTranslate = swiperInstance.translate;
-
-                  wrapper.style.transition = 'transform 0.6s ease-out';
-                  wrapper.style.transform = `translate3d(${currentTranslate - 60}px, 0, 0)`;
-
-                  setTimeout(() => {
-                    wrapper.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                    setTimeout(() => {
-                      wrapper.style.transition = '';
-                      swiperInstance.setTranslate(currentTranslate);
-                    }, 600);
-                  }, 700);
-                }, 500);
-              }
-            }
-          } else {
-            hasAnimated = false;
-          }
-        });
-      },
-      { threshold: 0.8, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (swiperInstance && swiperInstance.el) {
-      observer.observe(swiperInstance.el);
-    }
-    return () => observer.disconnect();
-  }, [swiperInstance]);
+  useSwiperPeekAnimation(swiperInstance);
 
   return (
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>

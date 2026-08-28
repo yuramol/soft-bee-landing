@@ -117,7 +117,8 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
     <section
       className={cn(
         'relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:py-16',
-        className
+        className,
+        step === 'loading' && 'z-50'
       )}
     >
       {!hideAnimatedBackground && (

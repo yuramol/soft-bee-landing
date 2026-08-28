@@ -1,70 +1,12 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
-import { cn } from '@/lib/utils';
 
 import smartEstimationContent from '../content.json';
+import { SmartEstimationSkeleton } from './smart-estimation-skeleton';
 
-const SmartEstimationSkeleton = () => {
-  const topLines = [
-    { width: 'w-full', delay: '0ms' },
-    { width: 'w-11/12', delay: '150ms' },
-    { width: 'w-4/5', delay: '300ms' }
-  ];
-
-  const col1Lines = [
-    { width: 'w-full', delay: '450ms' },
-    { width: 'w-11/12', delay: '600ms' },
-    { width: 'w-4/5', delay: '750ms' },
-    { width: 'w-[85%]', delay: '900ms' },
-    { width: 'w-[90%]', delay: '1050ms' },
-    { width: 'w-3/4', delay: '1200ms' }
-  ];
-
-  const col2Lines = [
-    { width: 'w-11/12', delay: '1350ms' },
-    { width: 'w-full', delay: '1500ms' },
-    { width: 'w-4/5', delay: '1650ms' },
-    { width: 'w-[85%]', delay: '1800ms' },
-    { width: 'w-[95%]', delay: '1950ms' },
-    { width: 'w-3/4', delay: '2100ms' }
-  ];
-
-  return (
-    <div className='relative z-10 flex w-full flex-col'>
-      <div className='mb-10 flex w-full flex-col gap-4.25 md:mb-26'>
-        {topLines.map((line, i) => (
-          <div
-            key={i}
-            className={cn('bg-muted h-6 animate-[solidPulse_1.5s_ease-in-out_infinite]', line.width)}
-            style={{ animationDelay: line.delay }}
-          />
-        ))}
-      </div>
-      <div className='flex w-full gap-10.75'>
-        <div className='flex flex-1 flex-col gap-4.25'>
-          {col1Lines.map((line, i) => (
-            <div
-              key={i}
-              className={cn('bg-muted h-6 animate-[solidPulse_1.5s_ease-in-out_infinite]', line.width)}
-              style={{ animationDelay: line.delay }}
-            />
-          ))}
-        </div>
-        <div className='flex flex-1 flex-col gap-4.25'>
-          {col2Lines.map((line, i) => (
-            <div
-              key={i}
-              className={cn('bg-muted h-6 animate-[solidPulse_1.5s_ease-in-out_infinite]', line.width)}
-              style={{ animationDelay: line.delay }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const SmartEstimationResultCard = ({ isSuccess, onDownload }: { isSuccess?: boolean; onDownload?: () => void }) => {
+export function SmartEstimationResultCard({ isSuccess, onDownload }: { isSuccess?: boolean; onDownload?: () => void }) {
   const { result } = smartEstimationContent;
 
   return (
@@ -84,22 +26,17 @@ export const SmartEstimationResultCard = ({ isSuccess, onDownload }: { isSuccess
             </div>
           )}
 
-          <div className='absolute top-29.25 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
-            {isSuccess ? (
+          {isSuccess && (
+            <div className='absolute top-29.25 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
               <Button onClick={onDownload} className='shadow-smart-download w-42.75'>
                 {result.downloadLabel}
               </Button>
-            ) : (
-              <div className='shadow-smart-assessing flex h-15 w-55 items-center justify-center gap-2.5 rounded-[200px] bg-[#C3FF00] font-medium text-black'>
-                <Icon icon='LogoMark' width={24} height={28} />
-                <span className='text-[16px]'>{result.assessingLabel}</span>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {!isSuccess && <SmartEstimationSkeleton />}
         </div>
       </div>
     </div>
   );
-};
+}
