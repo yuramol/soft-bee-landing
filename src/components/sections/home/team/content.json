@@ -19,9 +19,177 @@
     },
     {
       "id": 3,
-      "name": "Mike",
-      "role": "Technical Lead",
-      "description": "With deep expertise in scalable architecture, Mike drives the technical direction. His code not only solves problems today but sets a strong foundation for future growth.",
+      "name": "Vitaliy Hula",
+      "role": "Lead Fullstack Developer",
+      "description": "Leads technical architecture and oversees the delivery of scalable web solutions.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 4,
+      "name": "Vitaliy Pushkarov",
+      "role": "Frontend Developer",
+      "description": "Develops modern user interfaces with a focus on usability, performance, and consistency.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 5,
+      "name": "Anton Mazurenko",
+      "role": "React Native Developer",
+      "description": "Builds cross-platform mobile applications with a focus on performance and user experience.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 6,
+      "name": "Roman Buharin",
+      "role": "Frontend Developer",
+      "description": "Implements responsive frontend solutions aligned with product and design requirements.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 7,
+      "name": "Mykyta Kaidash",
+      "role": "Lead Fullstack Developer",
+      "description": "Designs system architecture, leads implementation, and supports engineering quality across projects.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 8,
+      "name": "Marian Burban",
+      "role": "Frontend Developer",
+      "description": "Creates user-facing features and ensures high-quality frontend implementation.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 9,
+      "name": "Vitaliy Fedychkanych",
+      "role": "Fullstack Developer",
+      "description": "Delivers end-to-end product functionality across frontend and backend systems.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 10,
+      "name": "Dmytro Skorokhodov",
+      "role": "Fullstack Developer",
+      "description": "Develops and maintains full-cycle web application features and integrations.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 11,
+      "name": "Denys Bykov",
+      "role": "Lead Fullstack Developer",
+      "description": "Drives technical execution, mentors developers, and ensures code quality standards.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 12,
+      "name": "Oleg Duma",
+      "role": "Frontend Developer",
+      "description": "Builds clean and responsive interfaces that support a seamless user experience.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 13,
+      "name": "Vsevolod Stepanenko",
+      "role": "Frontend Developer",
+      "description": "Develops frontend components with attention to usability and visual quality.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 14,
+      "name": "Yevhen Dudiak",
+      "role": "Frontend Developer",
+      "description": "Implements reliable frontend solutions that meet product and business needs.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 15,
+      "name": "Oleg Polovii",
+      "role": "Fullstack Developer",
+      "description": "Works across frontend and backend to deliver robust digital products.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 16,
+      "name": "Anastasia Pavlova",
+      "role": "Fullstack Developer",
+      "description": "Builds scalable application features and supports end-to-end product development.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 17,
+      "name": "Nazarii Alberda",
+      "role": "Fullstack Developer",
+      "description": "Contributes to web product development across both client-side and server-side systems.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 18,
+      "name": "Mykhailo Yastremskii",
+      "role": "Fullstack Developer",
+      "description": "Develops and optimizes product functionality across the full technology stack.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 19,
+      "name": "Diana Fushtei",
+      "role": "Designer",
+      "description": "Creates product design solutions, visual communication, and user experience concepts.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 20,
+      "name": "Mykola Bobryk",
+      "role": "Project Manager",
+      "description": "Coordinates project delivery, timelines, and communication between clients and teams.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 21,
+      "name": "Hanna Homaiko",
+      "role": "Accounting Manager",
+      "description": "Oversees financial records, reporting, and day-to-day accounting operations.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 22,
+      "name": "Oleksandr Zastavnyi",
+      "role": "Chief of Sales Department",
+      "description": "Leads the sales function, develops partnerships, and drives revenue growth.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 23,
+      "name": "Roman Senyv",
+      "role": "Accounting and Recruiting",
+      "description": "Supports financial operations and manages recruitment and talent coordination.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 23,
+      "name": "Polina Samokysh",
+      "role": "Branding",
+      "description": "Develops brand positioning, identity, and communication consistency across channels.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 24,
+      "name": "Oleskandr Statsenko",
+      "role": "Sales",
+      "description": "Supports business development through client outreach and sales pipeline management.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 24,
+      "name": "Andrii Havryliuk",
+      "role": "Accounting",
+      "description": "Supports accounting processes and financial documentation management.",
+      "image": "/images/home/team/team-member-03.webp"
+    },
+    {
+      "id": 25,
+      "name": "Igor Plaksenko",
+      "role": "Lead Generation",
+      "description": "Identifies prospective clients and builds a qualified pipeline of new business opportunities.",
       "image": "/images/home/team/team-member-03.webp"
     }
   ]
