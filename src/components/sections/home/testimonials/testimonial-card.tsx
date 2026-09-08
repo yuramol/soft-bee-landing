@@ -26,7 +26,7 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
 
       <Typography
         variant='body2'
-        className='before:font-instrument before:text-accent relative ml-5 text-[18px] leading-snug before:absolute before:top-1 before:-left-4 before:text-[28px] before:leading-none before:font-bold before:content-["\201C"] md:before:-left-5'
+        className='before:text-accent relative ml-5 text-[18px] leading-snug before:absolute before:top-1 before:-left-4 before:font-sans before:text-[28px] before:leading-none before:font-bold before:content-["\201C"] md:before:-left-5'
       >
         {quote}
       </Typography>

@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { ComponentContainer } from '@/components/layout';
 import {
   AboutUs,
@@ -23,15 +25,25 @@ export default function Home() {
       <div className='bg-muted relative pb-30.5 md:pb-26.75'>
         <ComponentContainer>
           <div className='relative z-20 w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
-            <Services />
-            <Tools />
+            <Suspense fallback={null}>
+              <Services />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Tools />
+            </Suspense>
           </div>
         </ComponentContainer>
       </div>
-      <Team />
-      <Careers />
+      <Suspense fallback={null}>
+        <Team />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Careers />
+      </Suspense>
       <CaseStudies />
-      <SmartEstimation />
+      <Suspense fallback={null}>
+        <SmartEstimation />
+      </Suspense>
       <Awards />
       <Testimonials />
     </>
