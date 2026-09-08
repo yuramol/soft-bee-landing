@@ -1,0 +1,60 @@
+{
+  "badge": "Testimonials",
+  "title": "Building Digital Success Together: What Our Partners Say",
+  "cards": [
+    {
+      "id": 0,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    },
+    {
+      "id": 1,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    },
+    {
+      "id": 2,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    },
+    {
+      "id": 3,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    },
+    {
+      "id": 4,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    },
+    {
+      "id": 5,
+      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
+      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
+      "name": "Mark R",
+      "role": "Founder at NexaStream",
+      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
+      "link": "https://clutch.co/profile/soft-bee"
+    }
+  ]
+}

@@ -14,11 +14,15 @@ module.exports = {
         outline: 'var(--outline)',
         input: 'var(--input)',
         ring: 'var(--ring)',
-        background: 'var(--background)',
+        background: {
+          DEFAULT: 'var(--background)',
+          inverse: 'var(--background-inverse)'
+        },
         surface: 'var(--surface)',
         foreground: {
           DEFAULT: 'var(--foreground)',
-          secondary: 'var(--foreground-secondary)'
+          secondary: 'var(--foreground-secondary)',
+          inverse: 'var(--foreground-inverse)'
         },
         primary: {
           DEFAULT: 'var(--primary)',
@@ -98,24 +102,23 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 }
+        },
+        'gradient-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' }
+        },
+        blob: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(100px, -120px) scale(1.15)' },
+          '66%': { transform: 'translate(-100px, 100px) scale(0.85)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
-      },
-      fontSize: {
-        96: ['var(--fs-96)', '1.17'],
-        80: ['var(--fs-80)', '1.17'],
-        70: ['var(--fs-70)', '1.17'],
-        48: ['var(--fs-48)', '1.24'],
-        32: ['var(--fs-32)', '1.24'],
-        28: ['var(--fs-28)', '1.24'],
-        24: ['var(--fs-24)', '1.37'],
-        20: ['var(--fs-20)', '1.37'],
-        18: ['var(--fs-18)', '1.37'],
-        16: ['var(--fs-16)', '1.10'],
-        14: ['var(--fs-14)', '1.10']
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'gradient-shift': 'gradient-shift 15s ease infinite',
+        blob: 'blob 10s infinite ease-in-out'
       }
     }
   },

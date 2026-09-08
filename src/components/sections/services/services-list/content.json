@@ -1,0 +1,207 @@
+[
+  {
+    "id": "web-app-development",
+    "title": "Web App Development",
+    "description": "We build high-performance web applications tailored specifically to your business logic. From corporate portals to automated workflows, our development process ensures high speed, bulletproof security, and an architecture ready to grow alongside your user base.",
+    "bgClass": "bg-primary",
+    "textClass": "text-foreground",
+    "articles": [
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "Tech trends",
+        "readTime": "5 min read",
+        "title": "Organizing Team Workflows for Maximum Efficiency",
+        "link": "/articles/organizing-team-workflows"
+      },
+      {
+        "image": "/images/services/services-img-2.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      },
+      {
+        "image": "/images/services/services-img-3.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "front-end-development",
+    "title": "Front-End Development",
+    "description": "Creating intuitive, responsive, and highly engaging user interfaces using modern web technologies. Our front-end solutions focus on delivering seamless user experiences across all devices and platforms.",
+    "bgClass": "bg-accent",
+    "textClass": "text-background",
+    "articles": [
+      {
+        "image": "/images/services/services-img-2.webp",
+        "tag": "UI/UX",
+        "readTime": "4 min read",
+        "title": "The Future of Interactive Web Interfaces",
+        "link": "/articles/future-interactive-interfaces"
+      },
+      {
+        "image": "/images/services/services-img-4.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "saas-b2b-d2c",
+    "title": "SaaS & B2B/D2C Platforms",
+    "description": "We build high-performance web applications tailored specifically to your business logic. From corporate portals to automated workflows, our development process ensures high speed, bulletproof security, and an architecture ready to grow alongside your user base.",
+    "bgClass": "bg-accent-dark",
+    "textClass": "text-background",
+    "articles": [
+      {
+        "image": "/images/services/services-img-3.webp",
+        "tag": "Tech trends",
+        "readTime": "5 min read",
+        "title": "Organizing Team Workflows for Maximum Efficiency",
+        "link": "/articles/saas-workflows"
+      },
+      {
+        "image": "/images/services/services-img-4.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      },
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "ui-ux-design",
+    "title": "UI/UX Design",
+    "description": "Our design team crafts visually stunning and user-centric interfaces. We focus on understanding your users to create designs that not only look beautiful but also drive engagement and conversions.",
+    "bgClass": "bg-foreground",
+    "textClass": "text-white",
+    "articles": [
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "Design",
+        "readTime": "3 min read",
+        "title": "Mastering the Art of User Research",
+        "link": "/articles/user-research"
+      },
+      {
+        "image": "/images/services/services-img-3.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "mobile-app-development",
+    "title": "Mobile App Development",
+    "description": "Developing robust and scalable mobile applications for iOS and Android. We utilize cross-platform and native technologies to deliver apps that perform flawlessly on any device.",
+    "bgClass": "bg-foreground-secondary",
+    "textClass": "text-white",
+    "articles": [
+      {
+        "image": "/images/services/services-img-2.webp",
+        "tag": "Mobile",
+        "readTime": "4 min read",
+        "title": "Native vs Cross-Platform: Making the Right Choice",
+        "link": "/articles/native-vs-cross-platform"
+      },
+      {
+        "image": "/images/services/services-img-4.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      },
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "back-end-development",
+    "title": "Back-End Development",
+    "description": "Building secure, scalable, and efficient server-side architectures. Our backend solutions power complex applications, ensuring data integrity, fast processing, and seamless integrations.",
+    "bgClass": "bg-primary",
+    "textClass": "text-foreground",
+    "articles": [
+      {
+        "image": "/images/services/services-img-3.webp",
+        "tag": "Backend",
+        "readTime": "7 min read",
+        "title": "Designing Scalable Microservices Architecture",
+        "link": "/articles/scalable-microservices"
+      },
+      {
+        "image": "/images/services/services-img-2.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "ai-integrations",
+    "title": "AI Integrations",
+    "description": "Leveraging artificial intelligence to automate processes, analyze data, and create smarter applications. We integrate cutting-edge AI models tailored to solve your specific business challenges.",
+    "bgClass": "bg-accent",
+    "textClass": "text-background",
+    "articles": [
+      {
+        "image": "/images/services/services-img-4.webp",
+        "tag": "AI",
+        "readTime": "8 min read",
+        "title": "How AI is Transforming Modern Business",
+        "link": "/articles/ai-business-transformation"
+      },
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      },
+      {
+        "image": "/images/services/services-img-3.webp",
+        "tag": "",
+        "readTime": "",
+        "title": "",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "id": "product-support-scaling",
+    "title": "Product Support & Scaling",
+    "description": "Providing ongoing maintenance, support, and infrastructure scaling to ensure your product grows smoothly with your business and continues to deliver value to your users over time.",
+    "bgClass": "bg-accent-dark",
+    "textClass": "text-background",
+    "articles": [
+      {
+        "image": "/images/services/services-img-1.webp",
+        "tag": "Scaling",
+        "readTime": "5 min read",
+        "title": "Best Practices for Post-Launch Product Support",
+        "link": "/articles/product-support"
+      }
+    ]
+  }
+]

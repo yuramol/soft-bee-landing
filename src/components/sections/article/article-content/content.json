@@ -1,0 +1,13 @@
+{
+  "socialShare": {
+    "title": "Social share buttons",
+    "instagramAriaLabel": "Share on Instagram",
+    "copyLinkAriaLabel": "Copy link"
+  },
+  "sidebar": {
+    "title": "Content:"
+  },
+  "blocks": {
+    "imageAltFallback": "Article image"
+  }
+}

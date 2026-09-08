@@ -6,6 +6,8 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({ children }) => (
   <main className='flex flex-1 flex-col'>
-    <div className='flex h-full min-h-full w-full flex-auto flex-col overflow-hidden'>{children}</div>
+    <div className='bg-muted text-foreground flex h-full min-h-screen w-full flex-auto flex-col overflow-x-clip p-1.25 md:p-2.5'>
+      {children}
+    </div>
   </main>
 );

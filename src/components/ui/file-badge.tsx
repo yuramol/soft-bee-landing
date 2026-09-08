@@ -15,7 +15,7 @@ export function FileBadge({ name, onRemove, className }: FileBadgeProps) {
   return (
     <div
       className={cn(
-        'border-brand-black/50 bg-mist-gray flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 transition-colors',
+        'border-brand-black/50 bg-mist-gray flex w-fit cursor-pointer items-center gap-2 rounded-full border px-3 py-2 transition-colors',
         className
       )}
       onMouseEnter={() => setIsHovered(true)}

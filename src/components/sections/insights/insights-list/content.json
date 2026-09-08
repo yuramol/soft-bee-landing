@@ -1,0 +1,23 @@
+{
+  "tabs": [
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "tech",
+      "label": "Tech & Dev"
+    },
+    {
+      "id": "team",
+      "label": "Team & Workflow"
+    },
+    {
+      "id": "company",
+      "label": "Company news"
+    }
+  ],
+  "card": {
+    "readArticle": "Read article"
+  }
+}
