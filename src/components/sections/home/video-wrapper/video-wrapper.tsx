@@ -12,6 +12,7 @@ interface PointerPosition {
 }
 
 const VIDEO_SRC = '/videos/home.mp4';
+const VIDEO_POSTER = '/videos/home-poster.webp';
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
 function subscribeMediaQuery(query: string, onStoreChange: () => void) {
@@ -28,8 +29,10 @@ export function VideoWrapper() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldResumeRef = useRef(false);
+  const pendingPlayRef = useRef(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isSourceReady, setIsSourceReady] = useState(false);
   const [position, setPosition] = useState<PointerPosition>({ x: 0, y: 0 });
 
   const isDesktopPointer = useSyncExternalStore(
@@ -40,7 +43,7 @@ export function VideoWrapper() {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || !isSourceReady) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -71,7 +74,19 @@ export function VideoWrapper() {
 
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isSourceReady]);
+
+  useEffect(() => {
+    if (!isSourceReady || !pendingPlayRef.current) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    pendingPlayRef.current = false;
+    void video.play().then(() => {
+      setIsPlaying(true);
+    });
+  }, [isSourceReady]);
 
   function pauseVideoPlayback() {
     const video = videoRef.current;
@@ -83,10 +98,17 @@ export function VideoWrapper() {
   }
 
   function playVideoPlayback() {
+    shouldResumeRef.current = false;
+
+    if (!isSourceReady) {
+      pendingPlayRef.current = true;
+      setIsSourceReady(true);
+      return;
+    }
+
     const video = videoRef.current;
     if (!video) return;
 
-    shouldResumeRef.current = false;
     void video.play().then(() => {
       setIsPlaying(true);
     });
@@ -145,9 +167,10 @@ export function VideoWrapper() {
     >
       <video
         ref={videoRef}
-        src={`${VIDEO_SRC}#t=0.001`}
-        preload='metadata'
+        poster={VIDEO_POSTER}
+        preload='none'
         playsInline
+        src={isSourceReady ? VIDEO_SRC : undefined}
         onEnded={handleVideoEnded}
         className='absolute inset-0 size-full object-cover'
       />

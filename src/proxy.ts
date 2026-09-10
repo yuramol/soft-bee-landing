@@ -13,8 +13,11 @@ function shouldSkipProxy(pathname: string): boolean {
 }
 
 export async function proxy(request: NextRequest) {
-  if (shouldSkipProxy(request.nextUrl.pathname)) {
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname === '/' || shouldSkipProxy(pathname)) {
     return NextResponse.next();
   }
+
   return updateSession(request);
 }

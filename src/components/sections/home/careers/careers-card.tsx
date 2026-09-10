@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
@@ -27,9 +25,7 @@ export const CareersCard = ({ badge, title, description, roleDescription, respon
       }
     >
       <button className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:p-8'>
-        <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-          <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
-        </div>
+        <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
         <div className='absolute top-8 right-8 z-10'>
           <Button variant='icon' size='icon-md' className='pointer-events-none rounded-full' asChild>

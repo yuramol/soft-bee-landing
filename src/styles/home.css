@@ -1,3 +1,11 @@
+@media (hover: hover) and (pointer: fine) {
+  .card-hover-gradient {
+    background-image: url('/backgrounds/card-gradient.webp');
+    background-size: cover;
+    background-position: center;
+  }
+}
+
 @layer components {
   .type-caret {
     display: inline-block;

@@ -20,13 +20,11 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
       rel='noopener noreferrer'
       className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 flex-col justify-between overflow-hidden rounded-lg p-6 md:w-149.75 md:max-w-149.75 md:p-8'
     >
-      <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-        <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
-      </div>
+      <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
       <Typography
         variant='body2'
-        className='before:font-instrument before:text-accent relative ml-5 text-[18px] leading-snug before:absolute before:top-1 before:-left-4 before:text-[28px] before:leading-none before:font-bold before:content-["\201C"] md:before:-left-5'
+        className='before:text-accent relative ml-5 text-[18px] leading-snug before:absolute before:top-1 before:-left-4 before:text-[28px] before:leading-none before:font-bold before:content-["\201C"] md:before:-left-5'
       >
         {quote}
       </Typography>
