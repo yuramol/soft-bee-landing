@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 
 interface TestimonialCardProps {
@@ -24,10 +25,8 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
         <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
       </div>
 
-      <Typography
-        variant='body2'
-        className='before:font-instrument before:text-accent relative ml-5 text-[18px] leading-snug before:absolute before:top-1 before:-left-4 before:text-[28px] before:leading-none before:font-bold before:content-["\201C"] md:before:-left-5'
-      >
+      <Typography variant='body2' className='relative ml-5 text-[18px] leading-snug'>
+        <Icon icon='Quote' color='#00A2BB' className='absolute top-1 -left-4 md:-left-5' />
         {quote}
       </Typography>
 

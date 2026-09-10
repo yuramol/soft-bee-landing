@@ -1,17 +1,14 @@
+import nextDynamic from 'next/dynamic';
+
 import { ComponentContainer } from '@/components/layout';
-import {
-  AboutUs,
-  Awards,
-  Careers,
-  CaseStudies,
-  Hero,
-  Services,
-  Team,
-  Testimonials,
-  Tools,
-  VideoWrapper,
-  SmartEstimation
-} from '@/components/sections/home';
+import { AboutUs, Careers, CaseStudies, Hero, Services, Team, Testimonials } from '@/components/sections/home';
+
+const VideoWrapper = nextDynamic(() => import('@/components/sections/home/video-wrapper').then((module) => module.VideoWrapper));
+const Tools = nextDynamic(() => import('@/components/sections/home/tools').then((module) => module.Tools));
+const SmartEstimation = nextDynamic(() => import('@/components/sections/home/smart-estimation').then((module) => module.SmartEstimation));
+const Awards = nextDynamic(() => import('@/components/sections/home/awards').then((module) => module.Awards));
+
+export const dynamic = 'force-static';
 
 export default function Home() {
   return (

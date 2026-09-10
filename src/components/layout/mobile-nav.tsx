@@ -1,15 +1,20 @@
 'use client';
 
 import Link from 'next/link';
+import nextDynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { DiscussProjectDialog } from '@/components/discuss-project-dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
+
+const DiscussProjectDialog = nextDynamic(
+  () => import('@/components/discuss-project-dialog').then((module) => module.DiscussProjectDialog),
+  { ssr: false }
+);
 
 export interface MobileNavProps {
   burgerColor: string;
@@ -99,7 +104,7 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
           </div>
         </DrawerContent>
       </Drawer>
-      <DiscussProjectDialog open={isProjectDialogOpen} onOpenChange={setIsProjectDialogOpen} />
+      {isProjectDialogOpen ? <DiscussProjectDialog open={isProjectDialogOpen} onOpenChange={setIsProjectDialogOpen} /> : null}
     </>
   );
 }
