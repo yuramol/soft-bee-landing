@@ -9,6 +9,11 @@ import { cn } from '@/lib/utils';
 const fixel = localFont({
   src: [
     {
+      path: '../assets/fonts/fixel/subset/fixel-light-latin.woff2',
+      weight: '300',
+      style: 'normal'
+    },
+    {
       path: '../assets/fonts/fixel/subset/fixel-regular-latin.woff2',
       weight: '400',
       style: 'normal'
@@ -16,6 +21,11 @@ const fixel = localFont({
     {
       path: '../assets/fonts/fixel/subset/fixel-medium-latin.woff2',
       weight: '500',
+      style: 'normal'
+    },
+    {
+      path: '../assets/fonts/fixel/subset/fixel-semibold-latin.woff2',
+      weight: '600',
       style: 'normal'
     }
   ],
