@@ -21,7 +21,9 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
       rel='noopener noreferrer'
       className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 flex-col justify-between overflow-hidden rounded-lg p-6 md:w-149.75 md:max-w-149.75 md:p-8'
     >
-      <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+      <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+        <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
+      </div>
 
       <Typography variant='body2' className='relative ml-5 text-[18px] leading-snug'>
         <Icon icon='Quote' color='#00A2BB' className='absolute top-1 -left-4 md:-left-5' />
