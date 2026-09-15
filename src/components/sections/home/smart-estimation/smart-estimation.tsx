@@ -265,6 +265,18 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     setStep('input');
   }
 
+  function handleCancelPolling() {
+    clearPollTimeout();
+    abortInFlight();
+    isPollingRef.current = false;
+    clearStoredActiveJobId();
+    setJobId(null);
+    setProgress(undefined);
+    setStage(undefined);
+    setIsBackgroundPolling(false);
+    setStep('input');
+  }
+
   function handleShowProgress() {
     if (!jobId) return;
     setIsBackgroundPolling(false);
@@ -389,6 +401,10 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     handleShowProgress();
   }
 
+  function onCancelPolling() {
+    handleCancelPolling();
+  }
+
   function onEdit() {
     handleEdit();
   }
@@ -451,6 +467,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
             onEdit={onEdit}
             onDismissLoading={onDismissLoading}
             onShowProgress={onShowProgress}
+            onCancelPolling={onCancelPolling}
             onDownload={onDownload}
           />
         </div>

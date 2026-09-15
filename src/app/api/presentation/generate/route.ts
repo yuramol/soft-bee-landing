@@ -6,7 +6,6 @@ import {
   RATE_LIMIT_BURST_MAX,
   RATE_LIMIT_BURST_WINDOW_MS,
   RATE_LIMIT_MAX_PER_DAY,
-  bumpPresentationRateLimit,
   createProposal,
   getPresentationRateLimitState,
   isAllowedEstimatorOrigin,
@@ -41,8 +40,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unable to verify client. Please try again.' }, { status: 503 });
     }
 
+    // Cookie rate limit check (now signed and consumed in one step)
     const rateLimit = await getPresentationRateLimitState();
     if (!rateLimit.allowed) {
+      if (rateLimit.reason === 'misconfigured') {
+        console.error('SITE_HMAC_SECRET is not configured for presentation rate limit.');
+        return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+      }
+      if (rateLimit.reason === 'burst') {
+        return burstRateLimitResponse();
+      }
       return dailyRateLimitResponse();
     }
 
@@ -108,8 +115,6 @@ export async function POST(request: Request) {
       return dailyRateLimitResponse();
     }
 
-    await bumpPresentationRateLimit(rateLimit);
-
     const captchaResult = await verifyRecaptchaV3Token(captchaToken ?? '');
     if (!captchaResult.ok) {
       await markReservationFailed(reservationId, requestText, fileName, captchaResult.error ?? 'Captcha verification failed.');
@@ -155,7 +160,8 @@ export async function POST(request: Request) {
     }
 
     if (error instanceof EstimatorApiError) {
-      return NextResponse.json({ error: error.message }, { status: mapEstimatorStatus(error.status) });
+      console.error(`Estimator API error (${error.status}):`, error.message);
+      return NextResponse.json({ error: 'Generation failed.' }, { status: mapEstimatorStatus(error.status) });
     }
 
     console.error('Error generating presentation:', error);

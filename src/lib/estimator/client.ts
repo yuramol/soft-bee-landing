@@ -115,7 +115,50 @@ export class EstimatorApiError extends Error {
   }
 }
 
-async function downloadViaHttpsRedirect(location: string): Promise<DownloadProposalResult> {
+/**
+ * Validate that a download redirect URL's hostname is in the allowlist.
+ * Rejects URLs with credentials, non-HTTPS, and unexpected ports.
+ * Fails closed if ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST is empty.
+ */
+function assertAllowedDownloadHost(url: URL): void {
+  if (url.protocol !== 'https:') {
+    throw new EstimatorApiError('Download redirect must use HTTPS.', 502);
+  }
+
+  if (url.username || url.password) {
+    throw new EstimatorApiError('Download redirect URL must not contain credentials.', 502);
+  }
+
+  // Reject unexpected ports (only allow 443 or default)
+  if (url.port && url.port !== '443') {
+    throw new EstimatorApiError('Download redirect URL uses an unexpected port.', 502);
+  }
+
+  const allowlist = (process.env.ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST ?? '')
+    .split(',')
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (allowlist.length === 0) {
+    throw new EstimatorApiError('Download host allowlist is not configured.', 502);
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  const isAllowed = allowlist.some(
+    (allowed) => hostname === allowed || hostname.endsWith('.' + allowed)
+  );
+
+  if (!isAllowed) {
+    console.error(`Download redirect hostname not allowed: ${url.hostname}`);
+    throw new EstimatorApiError('Download host not allowed.', 502);
+  }
+}
+
+async function downloadViaHttpsRedirect(location: string, maxHops = 5): Promise<DownloadProposalResult> {
+  if (maxHops <= 0) {
+    throw new EstimatorApiError('Too many download redirects.', 502);
+  }
+
   let redirectUrl: URL;
 
   try {
@@ -124,15 +167,23 @@ async function downloadViaHttpsRedirect(location: string): Promise<DownloadPropo
     throw new EstimatorApiError('Invalid download redirect URL.', 502);
   }
 
-  if (redirectUrl.protocol !== 'https:') {
-    throw new EstimatorApiError('Download redirect must use HTTPS.', 502);
-  }
+  assertAllowedDownloadHost(redirectUrl);
 
   const response = await fetchWithTimeout(redirectUrl.toString(), {
     method: 'GET',
     timeoutMs: ESTIMATOR_DOWNLOAD_TIMEOUT_MS,
-    redirect: 'follow'
+    redirect: 'manual'
   });
+
+  // Handle further redirects (validate each hop)
+  if (isRedirectStatus(response.status)) {
+    const nextLocation = response.headers.get('location');
+    if (!nextLocation) {
+      throw new EstimatorApiError('Download redirect missing Location header.', 502);
+    }
+
+    return downloadViaHttpsRedirect(nextLocation, maxHops - 1);
+  }
 
   if (!response.ok) {
     throw new EstimatorApiError('Failed to download presentation from signed URL.', response.status);

@@ -30,6 +30,7 @@ interface SmartEstimationInputProps {
   onEdit: () => void;
   onDismissLoading: () => void;
   onShowProgress: () => void;
+  onCancelPolling: () => void;
   onDownload: () => void;
 }
 
@@ -48,6 +49,7 @@ export function SmartEstimationInput({
   onEdit,
   onDismissLoading,
   onShowProgress,
+  onCancelPolling,
   onDownload
 }: SmartEstimationInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -198,13 +200,23 @@ export function SmartEstimationInput({
       {isBackgroundPolling && step === 'input' && (
         <div className='mt-4 flex flex-col items-center gap-2 text-center' data-testid='smart-estimation-background'>
           <p className='text-foreground/70 text-[12px] md:text-[14px]'>{smartEstimationContent.backgroundGeneratingNote}</p>
-          <Button
-            onClick={onShowProgress}
-            data-testid='smart-estimation-show-progress'
-            className='bg-accent hover:bg-accent/90 border-accent-dark h-9 border px-4 text-[13px] text-white shadow'
-          >
-            {smartEstimationContent.showProgressLabel}
-          </Button>
+          <div className='flex gap-2'>
+            <Button
+              onClick={onShowProgress}
+              data-testid='smart-estimation-show-progress'
+              className='bg-accent hover:bg-accent/90 border-accent-dark h-9 border px-4 text-[13px] text-white shadow'
+            >
+              {smartEstimationContent.showProgressLabel}
+            </Button>
+            <Button
+              onClick={onCancelPolling}
+              data-testid='smart-estimation-cancel-polling'
+              variant='white'
+              className='h-9 border px-4 text-[13px]'
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
       )}
 

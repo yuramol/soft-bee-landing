@@ -30,7 +30,8 @@ export async function GET() {
     });
   } catch (error) {
     if (error instanceof EstimatorApiError) {
-      return NextResponse.json({ error: error.message }, { status: mapEstimatorStatus(error.status) });
+      console.error(`Estimator API error (${error.status}):`, error.message);
+      return NextResponse.json({ error: 'Failed to fetch status.' }, { status: mapEstimatorStatus(error.status) });
     }
 
     console.error('Error fetching active presentation job:', error);
