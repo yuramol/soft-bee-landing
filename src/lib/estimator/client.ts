@@ -90,6 +90,16 @@ export async function downloadProposal(jobId: string): Promise<DownloadProposalR
       throw new EstimatorApiError('Download redirect missing Location header.', 502);
     }
 
+    // 🔍 DEBUG: Log redirect URL to see Railway's actual host
+    console.log('🔍 [DEBUG] Railway redirect Location:', location);
+    try {
+      const redirectUrl = new URL(location);
+      console.log('🔍 [DEBUG] Redirect hostname:', redirectUrl.hostname);
+      console.log('🔍 [DEBUG] Redirect protocol:', redirectUrl.protocol);
+    } catch (e) {
+      console.log('🔍 [DEBUG] Failed to parse redirect URL:', e);
+    }
+
     return downloadViaHttpsRedirect(location);
   }
 
@@ -139,7 +149,12 @@ function assertAllowedDownloadHost(url: URL): void {
     .map((h) => h.trim().toLowerCase())
     .filter(Boolean);
 
+  console.log('🔍 [DEBUG] ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST raw:', process.env.ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST);
+  console.log('🔍 [DEBUG] Parsed allowlist:', allowlist);
+  console.log('🔍 [DEBUG] Checking hostname:', url.hostname.toLowerCase());
+
   if (allowlist.length === 0) {
+    console.log('⚠️  [DEBUG] Allowlist is EMPTY - will reject (fail-closed)');
     throw new EstimatorApiError('Download host allowlist is not configured.', 502);
   }
 
@@ -148,10 +163,15 @@ function assertAllowedDownloadHost(url: URL): void {
     (allowed) => hostname === allowed || hostname.endsWith('.' + allowed)
   );
 
+  console.log('🔍 [DEBUG] Is hostname allowed?', isAllowed);
+
   if (!isAllowed) {
-    console.error(`Download redirect hostname not allowed: ${url.hostname}`);
+    console.error('❌ [DEBUG] Download redirect hostname not allowed:', url.hostname);
+    console.error('❌ [DEBUG] Allowed hosts:', allowlist.join(', '));
     throw new EstimatorApiError('Download host not allowed.', 502);
   }
+
+  console.log('✅ [DEBUG] Hostname is allowed, proceeding with download');
 }
 
 async function downloadViaHttpsRedirect(location: string, maxHops = 5): Promise<DownloadProposalResult> {
@@ -166,6 +186,11 @@ async function downloadViaHttpsRedirect(location: string, maxHops = 5): Promise<
   } catch {
     throw new EstimatorApiError('Invalid download redirect URL.', 502);
   }
+
+  console.log('🔍 [DEBUG] downloadViaHttpsRedirect - checking URL:', redirectUrl.href);
+  console.log('🔍 [DEBUG] Hostname:', redirectUrl.hostname);
+  console.log('🔍 [DEBUG] Protocol:', redirectUrl.protocol);
+  console.log('🔍 [DEBUG] Port:', redirectUrl.port || 'default');
 
   assertAllowedDownloadHost(redirectUrl);
 
