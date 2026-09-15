@@ -24,7 +24,7 @@ Security model for the public Smart Estimation form and `/api/presentation/*` pr
 
 ### 1. Origin / CSRF
 
-- **Production:** request must send `Origin` in `ESTIMATOR_ALLOWED_ORIGINS`. Referer-only is rejected.
+- **Production:** request must send `Origin` in `SITE_ALLOWED_ORIGINS`. Referer-only is rejected.
 - **Development:** localhost Origin/Referer allowed.
 - Spoofable by non-browser clients; captcha + IP limits are the real gates for scripts.
 
@@ -37,7 +37,7 @@ Before Railway:
 - Google `siteverify`
 - Score ≥ `0.5`
 - Action `estimate_create` (when Google returns `action`)
-- `hostname` must be allowlisted (from `ESTIMATOR_ALLOWED_ORIGINS`; localhost in development)
+- `hostname` must be allowlisted (from `SITE_ALLOWED_ORIGINS`; localhost in development)
 
 Fail closed if `RECAPTCHA_SECRET` is missing.
 
@@ -48,12 +48,12 @@ Code: `src/lib/estimator/recaptcha.ts`, `recaptcha-client.ts`.
 After a successful create, the server sets httpOnly cookie `estimator_jobs`:
 
 - Payload: `{ v: 1, jobs: [{ id, exp }, …] }` (capped, expired pruned)
-- Value: `base64url(json).HMAC-SHA256` with `ESTIMATOR_OWNERSHIP_SECRET`
+- Value: `base64url(json).HMAC-SHA256` with `SITE_HMAC_SECRET`
 - Verified with `timingSafeEqual`
 
 `GET …/[jobId]`, `…/download`, and `…/active` call `ownsJobId` / `getLatestOwnedJobId`. Unauthorized → **404**.
 
-**No hardcoded secret fallback** — missing `ESTIMATOR_OWNERSHIP_SECRET` → generate returns 500; ownership checks fail closed.
+**No hardcoded secret fallback** — missing `SITE_HMAC_SECRET` → generate returns 500; ownership checks fail closed.
 
 Code: `ownership-token.ts`, `ownership.ts`, `secrets.ts`.
 
@@ -162,7 +162,7 @@ If **Cloudflare** is in front: equivalent rate rule + bot mode. Prefer one prima
 
 ```bash
 # required everywhere (no dev fallback)
-ESTIMATOR_OWNERSHIP_SECRET=$(openssl rand -base64 32)
+SITE_HMAC_SECRET=$(openssl rand -base64 32)
 ```
 
-Also set `ESTIMATOR_BASE_URL`, `ESTIMATOR_API_KEY`, `ESTIMATOR_ALLOWED_ORIGINS`, reCAPTCHA keys, and Supabase service role. Never commit live keys.
+Also set `ESTIMATOR_BASE_URL`, `ESTIMATOR_API_KEY`, `SITE_ALLOWED_ORIGINS`, reCAPTCHA keys, and Supabase service role. Never commit live keys.

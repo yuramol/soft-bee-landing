@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import {
-  countEstimationAttemptsByIp,
-  getRequestIp,
-  reserveEstimationAttempt,
-  updateEstimationLog
-} from '@/lib/api/estimation-logs';
+import { countEstimationAttemptsByIp, getRequestIp, reserveEstimationAttempt, updateEstimationLog } from '@/lib/api/estimation-logs';
 import {
   EstimatorApiError,
   RATE_LIMIT_BURST_MAX,
@@ -20,6 +15,7 @@ import {
   validateEstimatorUploadWithContent,
   verifyRecaptchaV3Token
 } from '@/lib/estimator';
+import { isBrowserFile, readFormString } from '@/lib/security';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -36,7 +32,7 @@ export async function POST(request: Request) {
     }
 
     if (!isOwnershipSecretConfigured()) {
-      console.error('ESTIMATOR_OWNERSHIP_SECRET is not configured.');
+      console.error('SITE_HMAC_SECRET is not configured.');
       return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
     }
 
@@ -116,12 +112,7 @@ export async function POST(request: Request) {
 
     const captchaResult = await verifyRecaptchaV3Token(captchaToken ?? '');
     if (!captchaResult.ok) {
-      await markReservationFailed(
-        reservationId,
-        requestText,
-        fileName,
-        captchaResult.error ?? 'Captcha verification failed.'
-      );
+      await markReservationFailed(reservationId, requestText, fileName, captchaResult.error ?? 'Captcha verification failed.');
       return NextResponse.json({ error: captchaResult.error ?? 'Captcha verification failed.' }, { status: 403 });
     }
 
@@ -222,15 +213,6 @@ function dailyRateLimitResponse(): NextResponse {
 
 function rateLimitUnavailableResponse(): NextResponse {
   return NextResponse.json({ error: 'Rate limit temporarily unavailable. Please try again.' }, { status: 503 });
-}
-
-function readFormString(formData: FormData, key: string): string | null {
-  const value = formData.get(key);
-  return typeof value === 'string' ? value : null;
-}
-
-function isBrowserFile(value: FormDataEntryValue | null): value is File {
-  return typeof File !== 'undefined' && value instanceof File && value.size >= 0 && value.name.length > 0;
 }
 
 function mapEstimatorStatus(status: number): number {

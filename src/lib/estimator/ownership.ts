@@ -9,7 +9,7 @@ export { isOwnershipSecretConfigured };
 export async function rememberOwnedJobId(jobId: string): Promise<void> {
   const secret = getOwnershipSecret();
   if (!secret) {
-    throw new Error('ESTIMATOR_OWNERSHIP_SECRET is not configured.');
+    throw new Error('SITE_HMAC_SECRET is not configured.');
   }
 
   const cookieStore = await cookies();

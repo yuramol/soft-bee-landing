@@ -22,11 +22,7 @@ const ALLOWED_EXTENSIONS_BY_MIME: Record<(typeof ESTIMATOR_ALLOWED_MIME_TYPES)[n
 const MAGIC_SNIFF_BYTES = 512;
 const DANGEROUS_TRAILING_EXTENSIONS = ['.exe', '.bat', '.cmd', '.com', '.js', '.mjs', '.vbs', '.ps1', '.scr', '.jar'];
 
-export function validateEstimatorUpload(input: {
-  text: string | null;
-  file: File | null;
-  minTextLength?: number;
-}): UploadValidationResult {
+export function validateEstimatorUpload(input: { text: string | null; file: File | null; minTextLength?: number }): UploadValidationResult {
   const minTextLength = input.minTextLength ?? 10;
   const trimmedText = input.text?.trim() ?? '';
   const hasText = trimmedText.length >= minTextLength;
@@ -149,15 +145,10 @@ function matchesMagicForFile(file: File, head: Uint8Array): boolean {
 
   if (mimeType === 'application/msword' || extension === '.doc') {
     // OLE Compound File (legacy .doc)
-    return (
-      head.length >= 4 && head[0] === 0xd0 && head[1] === 0xcf && head[2] === 0x11 && head[3] === 0xe0
-    );
+    return head.length >= 4 && head[0] === 0xd0 && head[1] === 0xcf && head[2] === 0x11 && head[3] === 0xe0;
   }
 
-  if (
-    mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-    extension === '.docx'
-  ) {
+  if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || extension === '.docx') {
     // ZIP local file header (DOCX is OOXML)
     return head.length >= 4 && head[0] === 0x50 && head[1] === 0x4b && (head[2] === 0x03 || head[2] === 0x05 || head[2] === 0x07);
   }

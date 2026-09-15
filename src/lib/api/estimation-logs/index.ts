@@ -2,7 +2,6 @@ export {
   countEstimationAttemptsByIp,
   createEstimationLog,
   finalizeEstimationLog,
-  getRequestIp,
   reserveEstimationAttempt,
   updateEstimationLog,
   type CreateEstimationLogInput,
@@ -10,3 +9,5 @@ export {
   type FinalizeEstimationLogInput,
   type UpdateEstimationLogInput
 } from './client';
+
+export { getRequestIp } from '@/lib/security';

@@ -98,8 +98,8 @@ See `.example.env`. Required for the feature:
 |----------|--------|--------|
 | `ESTIMATOR_BASE_URL` | server | Railway base URL |
 | `ESTIMATOR_API_KEY` | server | Bearer to Railway |
-| `ESTIMATOR_OWNERSHIP_SECRET` | server | HMAC for ownership + poll cookies (**all envs**) |
-| `ESTIMATOR_ALLOWED_ORIGINS` | server | Comma-separated prod origins |
+| `SITE_HMAC_SECRET` | server | HMAC for ownership, poll, and contact rate-limit cookies (**all envs**) |
+| `SITE_ALLOWED_ORIGINS` | server | Comma-separated prod origins (estimation + contact) |
 | `RECAPTCHA_SECRET` | server | siteverify |
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | client | Invisible v3 |
 | `SUPABASE_*` / service role | server | `estimation_logs` writes + IP counts |

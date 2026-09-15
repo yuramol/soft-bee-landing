@@ -221,7 +221,10 @@ describe('ownership-token', () => {
   it('drops expired jobs', () => {
     const payload = {
       v: 1 as const,
-      jobs: [{ id: 'old', exp: now - 1 }, { id: 'fresh', exp: now + 60 }]
+      jobs: [
+        { id: 'old', exp: now - 1 },
+        { id: 'fresh', exp: now + 60 }
+      ]
     };
     const cookie = signOwnershipPayload(payload, secret);
     const parsed = readSignedOwnershipPayload(cookie, secret, now);
@@ -231,20 +234,20 @@ describe('ownership-token', () => {
 
 describe('isAllowedEstimatorOrigin', () => {
   const previousNodeEnv = process.env.NODE_ENV;
-  const previousAllowedOrigins = process.env.ESTIMATOR_ALLOWED_ORIGINS;
+  const previousAllowedOrigins = process.env.SITE_ALLOWED_ORIGINS;
 
   afterEach(() => {
     process.env.NODE_ENV = previousNodeEnv;
     if (previousAllowedOrigins === undefined) {
-      delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+      delete process.env.SITE_ALLOWED_ORIGINS;
     } else {
-      process.env.ESTIMATOR_ALLOWED_ORIGINS = previousAllowedOrigins;
+      process.env.SITE_ALLOWED_ORIGINS = previousAllowedOrigins;
     }
   });
 
   it('allows localhost in development', () => {
     process.env.NODE_ENV = 'development';
-    delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+    delete process.env.SITE_ALLOWED_ORIGINS;
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('http://localhost:3000/api/presentation/generate', {
@@ -257,7 +260,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('allows 127.0.0.1 in development', () => {
     process.env.NODE_ENV = 'development';
-    delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+    delete process.env.SITE_ALLOWED_ORIGINS;
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('http://127.0.0.1:3000/api/presentation/generate', {
@@ -270,7 +273,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('rejects unknown origins in production', () => {
     process.env.NODE_ENV = 'production';
-    process.env.ESTIMATOR_ALLOWED_ORIGINS = 'https://softbee.io';
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io';
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('https://softbee.io/api/presentation/generate', {
@@ -283,7 +286,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('allows listed production origins', () => {
     process.env.NODE_ENV = 'production';
-    process.env.ESTIMATOR_ALLOWED_ORIGINS = 'https://softbee.io, https://www.softbee.io';
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io, https://www.softbee.io';
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('https://www.softbee.io/api/presentation/generate', {
@@ -296,7 +299,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('rejects Referer-only requests in production', () => {
     process.env.NODE_ENV = 'production';
-    process.env.ESTIMATOR_ALLOWED_ORIGINS = 'https://softbee.io';
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io';
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('https://softbee.io/api/presentation/generate', {
@@ -309,7 +312,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('allows Referer fallback in development', () => {
     process.env.NODE_ENV = 'development';
-    delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+    delete process.env.SITE_ALLOWED_ORIGINS;
 
     const allowed = isAllowedEstimatorOrigin(
       new Request('http://localhost:3000/api/presentation/generate', {
@@ -322,7 +325,7 @@ describe('isAllowedEstimatorOrigin', () => {
 
   it('rejects requests with no Origin or Referer', () => {
     process.env.NODE_ENV = 'production';
-    process.env.ESTIMATOR_ALLOWED_ORIGINS = 'https://softbee.io';
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io';
 
     const allowed = isAllowedEstimatorOrigin(new Request('https://softbee.io/api/presentation/generate'));
     expect(allowed).toBe(false);
@@ -331,20 +334,20 @@ describe('isAllowedEstimatorOrigin', () => {
 
 describe('isAllowedRecaptchaHostname', () => {
   const previousNodeEnv = process.env.NODE_ENV;
-  const previousAllowedOrigins = process.env.ESTIMATOR_ALLOWED_ORIGINS;
+  const previousAllowedOrigins = process.env.SITE_ALLOWED_ORIGINS;
 
   afterEach(() => {
     process.env.NODE_ENV = previousNodeEnv;
     if (previousAllowedOrigins === undefined) {
-      delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+      delete process.env.SITE_ALLOWED_ORIGINS;
     } else {
-      process.env.ESTIMATOR_ALLOWED_ORIGINS = previousAllowedOrigins;
+      process.env.SITE_ALLOWED_ORIGINS = previousAllowedOrigins;
     }
   });
 
   it('allows localhost hostnames in development', () => {
     process.env.NODE_ENV = 'development';
-    delete process.env.ESTIMATOR_ALLOWED_ORIGINS;
+    delete process.env.SITE_ALLOWED_ORIGINS;
 
     expect(isAllowedRecaptchaHostname('localhost')).toBe(true);
     expect(isAllowedRecaptchaHostname('127.0.0.1')).toBe(true);
@@ -352,7 +355,7 @@ describe('isAllowedRecaptchaHostname', () => {
 
   it('allows configured production hostnames only', () => {
     process.env.NODE_ENV = 'production';
-    process.env.ESTIMATOR_ALLOWED_ORIGINS = 'https://softbee.io,https://www.softbee.io';
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io,https://www.softbee.io';
 
     expect(isAllowedRecaptchaHostname('softbee.io')).toBe(true);
     expect(isAllowedRecaptchaHostname('www.softbee.io')).toBe(true);
@@ -382,9 +385,7 @@ describe('formatEstimateHours / formatEstimatePrice', () => {
   });
 
   it('formats USD price ranges', () => {
-    expect(formatEstimatePrice({ priceMin: 350000, priceMax: 450000 })).toBe(
-      '$350,000 - $450,000 approximately for the work'
-    );
+    expect(formatEstimatePrice({ priceMin: 350000, priceMax: 450000 })).toBe('$350,000 - $450,000 approximately for the work');
     expect(formatEstimatePrice({ priceMin: 350000 })).toBe('from $350,000 approximately for the work');
     expect(formatEstimatePrice({ priceMax: 450000 })).toBe('up to $450,000 approximately for the work');
   });
@@ -425,8 +426,7 @@ function mockFile(input: { name: string; type: string; size: number; bytes?: Uin
     slice(start?: number, end?: number) {
       const sliced = bytes.slice(start ?? 0, end ?? bytes.length);
       return {
-        arrayBuffer: async () =>
-          sliced.buffer.slice(sliced.byteOffset, sliced.byteOffset + sliced.byteLength)
+        arrayBuffer: async () => sliced.buffer.slice(sliced.byteOffset, sliced.byteOffset + sliced.byteLength)
       };
     },
     arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)

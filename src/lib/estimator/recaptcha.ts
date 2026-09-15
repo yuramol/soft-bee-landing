@@ -8,7 +8,13 @@ export interface RecaptchaVerifyResult {
   score?: number;
 }
 
-export async function verifyRecaptchaV3Token(token: string): Promise<RecaptchaVerifyResult> {
+export interface VerifyRecaptchaOptions {
+  /** Defaults to estimate_create for Smart Estimation callers. */
+  expectedAction?: string;
+  isAllowedHostname?: (hostname: string) => boolean;
+}
+
+export async function verifyRecaptchaV3Token(token: string, options?: VerifyRecaptchaOptions): Promise<RecaptchaVerifyResult> {
   const secret = process.env.RECAPTCHA_SECRET;
   if (!secret) {
     return { ok: false, error: 'Captcha is not configured.' };
@@ -17,6 +23,9 @@ export async function verifyRecaptchaV3Token(token: string): Promise<RecaptchaVe
   if (!token.trim()) {
     return { ok: false, error: 'Captcha token is required.' };
   }
+
+  const expectedAction = options?.expectedAction ?? ESTIMATOR_RECAPTCHA_ACTION;
+  const hostnameAllowed = options?.isAllowedHostname ?? isAllowedRecaptchaHostname;
 
   const body = new URLSearchParams();
   body.set('secret', secret);
@@ -38,11 +47,11 @@ export async function verifyRecaptchaV3Token(token: string): Promise<RecaptchaVe
     return { ok: false, error: 'Captcha verification failed.' };
   }
 
-  if (typeof payload.action === 'string' && payload.action !== ESTIMATOR_RECAPTCHA_ACTION) {
+  if (typeof payload.action === 'string' && payload.action !== expectedAction) {
     return { ok: false, error: 'Captcha action mismatch.' };
   }
 
-  if (typeof payload.hostname !== 'string' || !isAllowedRecaptchaHostname(payload.hostname)) {
+  if (typeof payload.hostname !== 'string' || !hostnameAllowed(payload.hostname)) {
     return { ok: false, error: 'Captcha hostname mismatch.' };
   }
 

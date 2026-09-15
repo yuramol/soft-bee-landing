@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export async function executeEstimatorRecaptcha(): Promise<string> {
+export async function executeRecaptcha(action: string): Promise<string> {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   if (!siteKey) {
@@ -29,7 +29,11 @@ export async function executeEstimatorRecaptcha(): Promise<string> {
     grecaptcha.ready(() => resolve());
   });
 
-  return grecaptcha.execute(siteKey, { action: ESTIMATOR_RECAPTCHA_ACTION });
+  return grecaptcha.execute(siteKey, { action });
+}
+
+export async function executeEstimatorRecaptcha(): Promise<string> {
+  return executeRecaptcha(ESTIMATOR_RECAPTCHA_ACTION);
 }
 
 function loadRecaptchaScript(siteKey: string): Promise<void> {
