@@ -169,12 +169,26 @@ function validateContactFileMetadata(file: File): ContactValidationResult | { ok
 }
 
 function isAllowedContactFile(file: File): boolean {
-  const mime = file.type as (typeof CONTACT_ALLOWED_MIME_TYPES)[number];
+  const lowerName = file.name.toLowerCase();
+  let mime = file.type as (typeof CONTACT_ALLOWED_MIME_TYPES)[number];
+
+  // If MIME is empty, resolve from extension
+  if (!mime || mime.trim().length === 0) {
+    if (lowerName.endsWith('.pdf')) {
+      mime = 'application/pdf';
+    } else if (lowerName.endsWith('.doc')) {
+      mime = 'application/msword';
+    } else if (lowerName.endsWith('.docx')) {
+      mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    } else {
+      return false;
+    }
+  }
+
   if (!(CONTACT_ALLOWED_MIME_TYPES as readonly string[]).includes(mime)) {
     return false;
   }
 
-  const lowerName = file.name.toLowerCase();
   const allowedExts = ALLOWED_EXTENSIONS_BY_MIME[mime];
   return allowedExts.some((ext) => lowerName.endsWith(ext));
 }
@@ -190,8 +204,23 @@ function hasSuspiciousDoubleExtension(fileName: string): boolean {
 
 async function sniffContactFile(file: File): Promise<ContactValidationResult | { ok: true }> {
   const header = new Uint8Array(await file.slice(0, MAGIC_SNIFF_BYTES).arrayBuffer());
+  const lowerName = file.name.toLowerCase();
+  let mimeType = file.type;
 
-  if (file.type === 'application/pdf') {
+  // If MIME is empty, resolve from extension for magic sniffing
+  if (!mimeType || mimeType.trim().length === 0) {
+    if (lowerName.endsWith('.pdf')) {
+      mimeType = 'application/pdf';
+    } else if (lowerName.endsWith('.doc')) {
+      mimeType = 'application/msword';
+    } else if (lowerName.endsWith('.docx')) {
+      mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    } else {
+      return { ok: false, error: 'Unsupported file type. Use PDF, DOC, or DOCX.' };
+    }
+  }
+
+  if (mimeType === 'application/pdf') {
     const prefix = String.fromCharCode(...header.slice(0, 5));
     if (prefix !== '%PDF-') {
       return { ok: false, error: 'Unsupported file type. Use PDF, DOC, or DOCX.' };
@@ -200,7 +229,7 @@ async function sniffContactFile(file: File): Promise<ContactValidationResult | {
   }
 
   // DOC: OLE Compound File magic (D0 CF 11 E0 A1 B1 1A E1)
-  if (file.type === 'application/msword') {
+  if (mimeType === 'application/msword') {
     const ole = [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1];
     if (!ole.every((byte, index) => header[index] === byte)) {
       return { ok: false, error: 'Unsupported file type. Use PDF, DOC, or DOCX.' };
@@ -209,7 +238,7 @@ async function sniffContactFile(file: File): Promise<ContactValidationResult | {
   }
 
   // DOCX: ZIP local file header PK\x03\x04
-  if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+  if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
     if (!(header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x03 && header[3] === 0x04)) {
       return { ok: false, error: 'Unsupported file type. Use PDF, DOC, or DOCX.' };
     }

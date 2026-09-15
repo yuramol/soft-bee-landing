@@ -64,4 +64,40 @@ describe('validateContactSubmission', () => {
     });
     expect(result.ok).toBe(false);
   });
+
+  it('accepts PDF with empty MIME type and .pdf extension', () => {
+    const file = new File(['%PDF-1.4'], 'resume.pdf', { type: '' });
+    const result = validateContactSubmission({
+      ...base,
+      file
+    });
+    expect(result.ok).toBe(true);
+  });
+
+  it('accepts DOC with empty MIME type and .doc extension', () => {
+    const file = new File(['doc'], 'resume.doc', { type: '' });
+    const result = validateContactSubmission({
+      ...base,
+      file
+    });
+    expect(result.ok).toBe(true);
+  });
+
+  it('accepts DOCX with empty MIME type and .docx extension', () => {
+    const file = new File(['docx'], 'resume.docx', { type: '' });
+    const result = validateContactSubmission({
+      ...base,
+      file
+    });
+    expect(result.ok).toBe(true);
+  });
+
+  it('rejects empty MIME type with unsupported extension', () => {
+    const file = new File(['data'], 'resume.txt', { type: '' });
+    const result = validateContactSubmission({
+      ...base,
+      file
+    });
+    expect(result.ok).toBe(false);
+  });
 });

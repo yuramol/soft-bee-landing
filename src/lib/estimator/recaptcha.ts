@@ -47,7 +47,8 @@ export async function verifyRecaptchaV3Token(token: string, options?: VerifyReca
     return { ok: false, error: 'Captcha verification failed.' };
   }
 
-  if (typeof payload.action === 'string' && payload.action !== expectedAction) {
+  // Fail closed: reject if action is missing or mismatched
+  if (typeof payload.action !== 'string' || payload.action !== expectedAction) {
     return { ok: false, error: 'Captcha action mismatch.' };
   }
 

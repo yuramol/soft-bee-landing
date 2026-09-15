@@ -73,6 +73,10 @@ export async function getProposal(jobId: string): Promise<ProposalStatusResult> 
 }
 
 export async function downloadProposal(jobId: string): Promise<DownloadProposalResult> {
+  console.log('═══════════════════════════════════════════════════');
+  console.log('🚀 [DOWNLOAD] Starting download for jobId:', jobId);
+  console.log('═══════════════════════════════════════════════════');
+  
   const { baseUrl, apiKey } = getEstimatorConfig();
 
   const response = await fetchWithTimeout(`${baseUrl}/v1/proposals/${encodeURIComponent(jobId)}/download`, {
@@ -84,18 +88,36 @@ export async function downloadProposal(jobId: string): Promise<DownloadProposalR
     redirect: 'manual'
   });
 
+  console.log('📥 [DOWNLOAD] Response status:', response.status);
+  console.log('📥 [DOWNLOAD] Is redirect?', isRedirectStatus(response.status));
+
   if (isRedirectStatus(response.status)) {
     const location = response.headers.get('location');
     if (!location) {
       throw new EstimatorApiError('Download redirect missing Location header.', 502);
     }
 
+    // 🔍 DEBUG: Log redirect URL to see Railway's actual host
+    console.log('🔍 [DEBUG] Railway redirect Location:', location);
+    try {
+      const redirectUrl = new URL(location);
+      console.log('🔍 [DEBUG] Redirect hostname:', redirectUrl.hostname);
+      console.log('🔍 [DEBUG] Redirect protocol:', redirectUrl.protocol);
+    } catch (e) {
+      console.log('🔍 [DEBUG] Failed to parse redirect URL:', e);
+    }
+
     return downloadViaHttpsRedirect(location);
   }
 
   if (!response.ok) {
+    console.log('❌ [DOWNLOAD] Response not OK, status:', response.status);
     throw new EstimatorApiError(await readErrorMessage(response), response.status);
   }
+
+  console.log('✅ [DOWNLOAD] Direct download (no redirect), returning body');
+  console.log('📦 [DOWNLOAD] Content-Type:', response.headers.get('content-type'));
+  console.log('═══════════════════════════════════════════════════');
 
   return {
     body: response.body,
@@ -115,7 +137,60 @@ export class EstimatorApiError extends Error {
   }
 }
 
-async function downloadViaHttpsRedirect(location: string): Promise<DownloadProposalResult> {
+/**
+ * Validate that a download redirect URL's hostname is in the allowlist.
+ * Rejects URLs with credentials, non-HTTPS, and unexpected ports.
+ * Fails closed if ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST is empty.
+ */
+function assertAllowedDownloadHost(url: URL): void {
+  if (url.protocol !== 'https:') {
+    throw new EstimatorApiError('Download redirect must use HTTPS.', 502);
+  }
+
+  if (url.username || url.password) {
+    throw new EstimatorApiError('Download redirect URL must not contain credentials.', 502);
+  }
+
+  // Reject unexpected ports (only allow 443 or default)
+  if (url.port && url.port !== '443') {
+    throw new EstimatorApiError('Download redirect URL uses an unexpected port.', 502);
+  }
+
+  const allowlist = (process.env.ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST ?? '')
+    .split(',')
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean);
+
+  console.log('🔍 [DEBUG] ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST raw:', process.env.ESTIMATOR_DOWNLOAD_HOST_ALLOWLIST);
+  console.log('🔍 [DEBUG] Parsed allowlist:', allowlist);
+  console.log('🔍 [DEBUG] Checking hostname:', url.hostname.toLowerCase());
+
+  if (allowlist.length === 0) {
+    console.log('⚠️  [DEBUG] Allowlist is EMPTY - will reject (fail-closed)');
+    throw new EstimatorApiError('Download host allowlist is not configured.', 502);
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  const isAllowed = allowlist.some(
+    (allowed) => hostname === allowed || hostname.endsWith('.' + allowed)
+  );
+
+  console.log('🔍 [DEBUG] Is hostname allowed?', isAllowed);
+
+  if (!isAllowed) {
+    console.error('❌ [DEBUG] Download redirect hostname not allowed:', url.hostname);
+    console.error('❌ [DEBUG] Allowed hosts:', allowlist.join(', '));
+    throw new EstimatorApiError('Download host not allowed.', 502);
+  }
+
+  console.log('✅ [DEBUG] Hostname is allowed, proceeding with download');
+}
+
+async function downloadViaHttpsRedirect(location: string, maxHops = 5): Promise<DownloadProposalResult> {
+  if (maxHops <= 0) {
+    throw new EstimatorApiError('Too many download redirects.', 502);
+  }
+
   let redirectUrl: URL;
 
   try {
@@ -124,15 +199,28 @@ async function downloadViaHttpsRedirect(location: string): Promise<DownloadPropo
     throw new EstimatorApiError('Invalid download redirect URL.', 502);
   }
 
-  if (redirectUrl.protocol !== 'https:') {
-    throw new EstimatorApiError('Download redirect must use HTTPS.', 502);
-  }
+  console.log('🔍 [DEBUG] downloadViaHttpsRedirect - checking URL:', redirectUrl.href);
+  console.log('🔍 [DEBUG] Hostname:', redirectUrl.hostname);
+  console.log('🔍 [DEBUG] Protocol:', redirectUrl.protocol);
+  console.log('🔍 [DEBUG] Port:', redirectUrl.port || 'default');
+
+  assertAllowedDownloadHost(redirectUrl);
 
   const response = await fetchWithTimeout(redirectUrl.toString(), {
     method: 'GET',
     timeoutMs: ESTIMATOR_DOWNLOAD_TIMEOUT_MS,
-    redirect: 'follow'
+    redirect: 'manual'
   });
+
+  // Handle further redirects (validate each hop)
+  if (isRedirectStatus(response.status)) {
+    const nextLocation = response.headers.get('location');
+    if (!nextLocation) {
+      throw new EstimatorApiError('Download redirect missing Location header.', 502);
+    }
+
+    return downloadViaHttpsRedirect(nextLocation, maxHops - 1);
+  }
 
   if (!response.ok) {
     throw new EstimatorApiError('Failed to download presentation from signed URL.', response.status);
