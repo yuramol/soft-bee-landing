@@ -1,0 +1,58 @@
+SoftBee Smart Estimation — sample project brief (manual test)
+
+Project name: Atlas Ops Console
+Client type: Mid-market B2B SaaS
+Goal: Build an internal operations console that lets customer success and ops teams
+manage accounts, tickets, and billing signals in one place.
+
+Problem
+Today the team jumps between Notion, spreadsheets, Stripe dashboards, and a legacy
+admin panel. That slows response times and creates inconsistent account notes.
+
+Must-have features
+1. Secure login with email/password and Google SSO
+2. Role-based access: Admin, Success Manager, Viewer
+3. Account list with search, filters (plan, health score, region), and pagination
+4. Account detail page: overview, contacts, open tickets, recent activity timeline
+5. Ticket inbox: create/assign/close tickets, priority, SLA due dates
+6. Stripe webhook ingestion for payment failed / subscription canceled events
+7. Basic audit log for sensitive actions (role changes, exports)
+8. CSV export for accounts and tickets
+
+Nice-to-have
+- In-app notifications and email digests
+- Saved filter views per user
+- Light/dark theme
+
+Technical preferences
+- Next.js App Router + TypeScript
+- Supabase for auth + Postgres + RLS
+- Deploy on Vercel
+- Background jobs for webhook processing
+
+Integrations
+- Stripe (webhooks + customer lookup)
+- Google Workspace SSO
+- Optional Slack notifications for high-priority tickets
+
+Non-functional requirements
+- Target launch in 10–14 weeks
+- Support ~50 internal users at launch, grow to ~200
+- P95 page load under 2s on broadband
+- Accessibility: WCAG 2.1 AA for core flows
+- Audit-friendly logging retained for 1 year
+
+Out of scope for v1
+- Customer-facing portal
+- Native mobile apps
+- Full BI/reporting warehouse
+- Multi-tenant white-label
+
+Acceptance criteria for estimate
+Please return a preliminary hours range and budget range for design + engineering,
+including QA and a short discovery/setup buffer. Call out major risks (SSO, Stripe
+webhooks, RLS complexity) if they materially affect the estimate.
+
+Sample user story
+As a Success Manager, I want to open an account and see unpaid invoices and open
+tickets together so I can prioritize outreach before renewal.

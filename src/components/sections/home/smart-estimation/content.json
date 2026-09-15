@@ -13,10 +13,13 @@
         "text": " preliminary estimate of your development timeline and budget."
       }
     ],
-    "success": "Your custom estimate is done. Download the PDF for free to see Soft Bee's assessment."
+    "success": "Your custom estimate is done. Soft Bee's PowerPoint assessment is downloading."
   },
   "placeholder": "Share your project details",
   "editLabel": "Edit",
+  "hideLabel": "Hide",
+  "showProgressLabel": "Show progress",
+  "backgroundGeneratingNote": "Your estimate is still generating in the background.",
   "privacyNote": "Uploaded materials and text are used exclusively for your estimate",
   "result": {
     "assessingLabels": [
@@ -43,6 +46,6 @@
       "Waiting for requirements to agree…",
       "Pretending this was well documented…"
     ],
-    "downloadLabel": "Download PDF"
+    "downloadLabel": "Download PPTX"
   }
 }

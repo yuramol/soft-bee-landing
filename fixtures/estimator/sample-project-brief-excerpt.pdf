@@ -1,0 +1,54 @@
+%PDF-1.4
+1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj
+2 0 obj<< /Type /Pages /Kids [3 0 R] /Count 1 >>endobj
+3 0 obj<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>endobj
+4 0 obj<< /Length 877 >>stream
+BT
+/F1 11 Tf
+54 720 Td
+16 TL
+(Problem) Tj
+T*
+(Today the team jumps between Notion, spreadsheets, Stripe dashboards, and a legacy) Tj
+T*
+(admin panel. That slows response times and creates inconsistent account notes.) Tj
+T*
+() Tj
+T*
+(Must-have features) Tj
+T*
+(1. Secure login with email/password and Google SSO) Tj
+T*
+(2. Role-based access: Admin, Success Manager, Viewer) Tj
+T*
+(3. Account list with search, filters \(plan, health score, region\), and pagination) Tj
+T*
+(4. Account detail page: overview, contacts, open tickets, recent activity timeline) Tj
+T*
+(5. Ticket inbox: create/assign/close tickets, priority, SLA due dates) Tj
+T*
+(6. Stripe webhook ingestion for payment failed / subscription canceled events) Tj
+T*
+(7. Basic audit log for sensitive actions \(role changes, exports\)) Tj
+T*
+(8. CSV export for accounts and tickets) Tj
+T*
+() Tj
+T*
+(Nice-to-have) Tj
+ET
+endstream
+endobj
+5 0 obj<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000056 00000 n 
+0000000111 00000 n 
+0000000235 00000 n 
+0000001161 00000 n 
+trailer<< /Size 6 /Root 1 0 R >>
+startxref
+1229
+%%EOF

@@ -5,6 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
+import { createPresentationJob, downloadPresentationJob, getActivePresentationJob, getPresentationJob } from '@/lib/api/presentation';
+import type { ProposalEstimate } from '@/lib/estimator/types';
+import { executeEstimatorRecaptcha } from '@/lib/estimator/recaptcha-client';
+import { validateEstimatorUpload } from '@/lib/estimator/validate-upload';
 import { cn } from '@/lib/utils';
 
 import { EstimationAnimatedBackground, SmartEstimationInput } from './components';
@@ -15,106 +19,383 @@ interface SmartEstimationProps {
   className?: string;
 }
 
-export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEstimationProps = {}) => {
-  const [step, setStep] = useState<'input' | 'loading' | 'success'>('input');
+type Step = 'input' | 'loading' | 'success';
+
+const ACTIVE_JOB_STORAGE_KEY = 'estimator_active_job_id';
+
+export function SmartEstimation({ hideAnimatedBackground, className }: SmartEstimationProps = {}) {
+  const [step, setStep] = useState<Step>('input');
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [estimate, setEstimate] = useState<ProposalEstimate | null>(null);
+  const [progress, setProgress] = useState<number | undefined>(undefined);
+  const [stage, setStage] = useState<string | undefined>(undefined);
+  const [isBackgroundPolling, setIsBackgroundPolling] = useState(false);
   const isSubmittingRef = useRef(false);
+  const isPollingRef = useRef(false);
+  const isResumingRef = useRef(true);
+  const resumeGenerationRef = useRef(0);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const pollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasAutoDownloadedRef = useRef(false);
+  const hasResumedRef = useRef(false);
 
   useEffect(() => {
+    void resumeActiveJob();
+
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-        abortControllerRef.current = null;
-      }
+      clearPollTimeout();
+      abortInFlight();
     };
   }, []);
 
-  const handleSubmit = async () => {
-    const MIN_TEXT_LENGTH = 10;
-    if ((!file && text.trim().length < MIN_TEXT_LENGTH) || step === 'loading' || isSubmittingRef.current) return;
-
-    isSubmittingRef.current = true;
-    setError(null);
-    setStep('loading');
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    abortControllerRef.current = new AbortController();
+  async function resumeActiveJob() {
+    if (hasResumedRef.current) return;
+    hasResumedRef.current = true;
+    const generation = resumeGenerationRef.current;
 
     try {
-      const formData = new FormData();
-      if (text.trim()) formData.append('text', text);
-      if (file) formData.append('file', file);
-
-      const response = await fetch('/api/presentation/generate', {
-        method: 'POST',
-        body: formData,
-        signal: abortControllerRef.current.signal
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to submit requirements.');
-      }
-
-      setStep('success');
-    } catch (err) {
-      if (err instanceof Error && err.name === 'AbortError') {
-        setStep('input');
+      const active = await getActivePresentationJob();
+      if (!isResumeGenerationCurrent(generation) || isSubmittingRef.current) {
         return;
       }
+
+      if (!active.active || !active.jobId) {
+        clearStoredActiveJobId();
+        return;
+      }
+
+      const isTerminal = active.status === 'completed' || active.status === 'failed';
+      const isInFlight = Boolean(active.status) && !isTerminal;
+      const storedJobId = readStoredActiveJobId();
+      const shouldResumeCompleted = active.status === 'completed' && storedJobId === active.jobId;
+
+      if (!isInFlight && !shouldResumeCompleted) {
+        if (active.status === 'failed' || active.status === 'completed') {
+          clearStoredActiveJobId();
+        }
+        return;
+      }
+
+      if (!isResumeGenerationCurrent(generation) || isSubmittingRef.current) {
+        return;
+      }
+
+      setJobId(active.jobId);
+      setProgress(active.progress);
+      setStage(active.stage);
+      writeStoredActiveJobId(active.jobId);
+
+      if (active.status === 'completed') {
+        setEstimate(active.estimate ?? null);
+        setStep('success');
+        setIsBackgroundPolling(false);
+        clearStoredActiveJobId();
+        return;
+      }
+
+      setStep('loading');
+      setIsBackgroundPolling(false);
+      // Release before polling so a later intentional submit is not blocked for the whole job.
+      isResumingRef.current = false;
+      await startPolling(active.jobId, generation);
+    } catch (err) {
+      console.error('Failed to resume active estimate:', err);
+    } finally {
+      isResumingRef.current = false;
+    }
+  }
+
+  async function handleSubmit() {
+    const validation = validateEstimatorUpload({ text, file });
+    if (
+      !validation.ok ||
+      step === 'loading' ||
+      isSubmittingRef.current ||
+      isPollingRef.current ||
+      isResumingRef.current
+    ) {
+      if (!validation.ok) {
+        setError(validation.error);
+      }
+      return;
+    }
+
+    isSubmittingRef.current = true;
+    // Invalidate any in-flight resume so it cannot abort/poll over this new job.
+    resumeGenerationRef.current += 1;
+    hasAutoDownloadedRef.current = false;
+    setError(null);
+    setEstimate(null);
+    setProgress(undefined);
+    setStage(undefined);
+    setJobId(null);
+    setIsBackgroundPolling(false);
+    setStep('loading');
+    clearPollTimeout();
+    abortInFlight();
+
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
+
+    try {
+      const captchaToken = await executeEstimatorRecaptcha();
+      const created = await createPresentationJob(
+        {
+          text,
+          file,
+          captchaToken,
+          idempotencyKey: crypto.randomUUID()
+        },
+        signal
+      );
+
+      setJobId(created.jobId);
+      writeStoredActiveJobId(created.jobId);
+      await pollUntilSettled(created.jobId, signal);
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return;
+      }
+      clearStoredActiveJobId();
+      setIsBackgroundPolling(false);
       setError(err instanceof Error ? err.message : 'An unexpected error occurred.');
       setStep('input');
     } finally {
       isSubmittingRef.current = false;
-      abortControllerRef.current = null;
     }
-  };
+  }
 
-  const handleEdit = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setError(null);
+  async function startPolling(activeJobId: string, resumeGeneration?: number) {
+    if (isPollingRef.current) return;
+    if (resumeGeneration !== undefined) {
+      if (!isResumeGenerationCurrent(resumeGeneration) || isSubmittingRef.current) {
+        return;
+      }
+    }
+
+    clearPollTimeout();
+
+    let signal: AbortSignal;
+
+    if (resumeGeneration !== undefined) {
+      // Resume must not abortInFlight — a newer submit may already own the controller.
+      if (!isResumeGenerationCurrent(resumeGeneration) || isSubmittingRef.current || isPollingRef.current) {
+        return;
+      }
+
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+
+      if (!isResumeGenerationCurrent(resumeGeneration) || isSubmittingRef.current) {
+        controller.abort();
+        if (abortControllerRef.current === controller) {
+          abortControllerRef.current = null;
+        }
+        return;
+      }
+
+      signal = controller.signal;
+    } else {
+      abortInFlight();
+      abortControllerRef.current = new AbortController();
+      signal = abortControllerRef.current.signal;
+    }
+
+    try {
+      await pollUntilSettled(activeJobId, signal);
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return;
+      }
+      clearStoredActiveJobId();
+      setIsBackgroundPolling(false);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred.');
+      setStep('input');
+    }
+  }
+
+  function isResumeGenerationCurrent(generation: number) {
+    return resumeGenerationRef.current === generation;
+  }
+
+  async function pollUntilSettled(activeJobId: string, signal: AbortSignal) {
+    isPollingRef.current = true;
+    let delayMs = 3000;
+
+    try {
+      while (!signal.aborted) {
+        const status = await getPresentationJob(activeJobId, signal);
+
+        setProgress(status.progress);
+        setStage(status.stage);
+
+        if (status.status === 'completed') {
+          setEstimate(status.estimate ?? null);
+          setIsBackgroundPolling(false);
+          setStep('success');
+          clearStoredActiveJobId();
+          await downloadPresentation(activeJobId, { isAuto: true });
+          return;
+        }
+
+        if (status.status === 'failed') {
+          clearStoredActiveJobId();
+          setIsBackgroundPolling(false);
+          throw new Error(status.error || 'Estimate generation failed.');
+        }
+
+        await sleep(delayMs, signal);
+        delayMs = Math.min(delayMs + 1000, 5000);
+      }
+
+      throw new DOMException('Aborted', 'AbortError');
+    } finally {
+      isPollingRef.current = false;
+      if (abortControllerRef.current?.signal === signal) {
+        abortControllerRef.current = null;
+      }
+    }
+  }
+
+  function handleDismissLoading() {
+    setIsBackgroundPolling(true);
     setStep('input');
-  };
+  }
 
-  const handleTextChange = (newText: string) => {
+  function handleShowProgress() {
+    if (!jobId) return;
+    setIsBackgroundPolling(false);
+    setStep('loading');
+  }
+
+  function handleEdit() {
+    clearPollTimeout();
+    abortInFlight();
+    isSubmittingRef.current = false;
+    isPollingRef.current = false;
+    clearStoredActiveJobId();
+    setError(null);
+    setProgress(undefined);
+    setStage(undefined);
+    setJobId(null);
+    setEstimate(null);
+    setIsBackgroundPolling(false);
+    setStep('input');
+  }
+
+  function handleTextChange(newText: string) {
     setText(newText);
     if (error) setError(null);
-  };
+  }
 
-  const handleFileChange = (newFile: File | null) => {
+  function handleFileChange(newFile: File | null) {
+    if (newFile) {
+      const fileOnly = validateEstimatorUpload({ text: 'x'.repeat(10), file: newFile });
+      if (!fileOnly.ok) {
+        setError(fileOnly.error);
+        return;
+      }
+    }
+
     setFile(newFile);
     if (error) setError(null);
-  };
+  }
 
-  const handleDownload = () => {
-    const pdfBase64 =
-      'JVBERi0xLjcKJYGBgYEKCjYgMCBvYmoKPDwKL0ZpbHRlciAvRmxhdGVEZWNvZGUKL0xlbmd0aCAxODMKPj4Kc3RyZWFtCnicdY5BCgIxDEX3OUXXgpomadKCCOooLtwIvYCIiqKLEfH8ZhQUQQk09CXh/RamFTB0dT3AcLk733e343bTNyxZMlougTDUPZCEuoL4XI0hYTCJA5/WC4wkGZto0Uaj98QTQiZGavxNhJp1YcnIeBzqCWoP5hXW0P6TFxPSTElziPJbjm95QiNX80tLwszJ1TPGrpw0Tyrf1IOidZcLy5/gOrPiM3VKhE6yenyz7q/Tr/APa2lDpQplbmRzdHJlYW0KZW5kb2JqCgo3IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9UeXBlIC9PYmpTdG0KL04gNQovRmlyc3QgMjYKL0xlbmd0aCAzNzgKPj4Kc3RyZWFtCnic1VLfS8MwEH7PX3GP+uCSZmmTyhjsVxVEFCcoig9dG0ZlJNJmMv9779LNsQfxWcrR3N13ue9yXwICJCgFQ9AGFKRDCSlolcJoxPjj14cFfl+ubcf4TVN38IoYAQ/wxvjMb12AhI3H7IidlaHc+DXriyAh8AFx3/p6W9kWRsWiKITQQohMoWVCyDn+Z2g5mkQfc9LgGU2rvWFMD4UYTjBX9JbpvobyEZvu6xf4R2xGmHmPVab3f/pSr0V/h/yLTz5m/NbX8zJYOJtfSiGzSAafSiQv5/gcrS2D/7/DRf6Nd79OeLJnWi8tubWkgbhl/mA7v20rXDvhCo8ZOlzbzacNTVVeaJEb5KlNjhqLJcdcrpXMjEwzs89hO/58t3q3VbyG3MUuXC0D8esDFLu1dVNO/Q6VKfBL83QgDRiVDLALqnTinA+k26hYF5AvedlexSdDEWXGl9tViC4FE8anZWfjMEe2SMVVvm7cGvhT4yauaw4BuvEbKHXOWAplbmRzdHJlYW0KZW5kb2JqCgo4IDAgb2JqCjw8Ci9TaXplIDkKL1Jvb3QgMiAwIFIKL0luZm8gMyAwIFIKL0ZpbHRlciAvRmxhdGVEZWNvZGUKL1R5cGUgL1hSZWYKL0xlbmd0aCAzOQovVyBbIDEgMiAyIF0KL0luZGV4IFsgMCA5IF0KPj4Kc3RyZWFtCnicFcSxDQAgEAOxS0CiZf8p2eDRuTAwUw5YrLZshwuJ9cEHXPsDTAplbmRzdHJlYW0KZW5kb2JqCgpzdGFydHhyZWYKNzUyCiUlRU9G';
-
-    const byteCharacters = atob(pdfBase64);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
+  async function downloadPresentation(activeJobId: string, options?: { isAuto?: boolean }) {
+    if (options?.isAuto) {
+      if (hasAutoDownloadedRef.current) return;
+      hasAutoDownloadedRef.current = true;
     }
-    const byteArray = new Uint8Array(byteNumbers);
 
-    const blob = new Blob([byteArray], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'estimation.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+    try {
+      const blob = await downloadPresentationJob(activeJobId);
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'estimation.pptx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      if (options?.isAuto) {
+        hasAutoDownloadedRef.current = false;
+      }
+      setError(err instanceof Error ? err.message : 'Failed to download presentation.');
+    }
+  }
+
+  function handleDownload() {
+    if (!jobId) {
+      setError('Nothing to download yet.');
+      return;
+    }
+
+    void downloadPresentation(jobId);
+  }
+
+  function abortInFlight() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+  }
+
+  function clearPollTimeout() {
+    if (pollTimeoutRef.current) {
+      clearTimeout(pollTimeoutRef.current);
+      pollTimeoutRef.current = null;
+    }
+  }
+
+  function sleep(ms: number, signal: AbortSignal): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (signal.aborted) {
+        reject(new DOMException('Aborted', 'AbortError'));
+        return;
+      }
+
+      const onAbort = () => {
+        clearPollTimeout();
+        reject(new DOMException('Aborted', 'AbortError'));
+      };
+
+      pollTimeoutRef.current = setTimeout(() => {
+        signal.removeEventListener('abort', onAbort);
+        pollTimeoutRef.current = null;
+        resolve();
+      }, ms);
+
+      signal.addEventListener('abort', onAbort, { once: true });
+    });
+  }
+
+  function onSubmit() {
+    void handleSubmit();
+  }
+
+  function onDownload() {
+    handleDownload();
+  }
+
+  function onDismissLoading() {
+    handleDismissLoading();
+  }
+
+  function onShowProgress() {
+    handleShowProgress();
+  }
+
+  function onEdit() {
+    handleEdit();
+  }
 
   return (
     <section
+      data-testid='smart-estimation'
       className={cn(
         'relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:py-16',
         className,
@@ -160,16 +441,45 @@ export const SmartEstimation = ({ hideAnimatedBackground, className }: SmartEsti
             text={text}
             file={file}
             error={error}
+            progress={progress}
+            stage={stage}
+            estimate={estimate}
+            isBackgroundPolling={isBackgroundPolling}
             onTextChange={handleTextChange}
             onFileChange={handleFileChange}
-            onSubmit={() => {
-              void handleSubmit();
-            }}
-            onEdit={handleEdit}
-            onDownload={handleDownload}
+            onSubmit={onSubmit}
+            onEdit={onEdit}
+            onDismissLoading={onDismissLoading}
+            onShowProgress={onShowProgress}
+            onDownload={onDownload}
           />
         </div>
       </ComponentContainer>
     </section>
   );
-};
+}
+
+function readStoredActiveJobId(): string | null {
+  try {
+    const value = window.localStorage.getItem(ACTIVE_JOB_STORAGE_KEY);
+    return value && value.length > 0 ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredActiveJobId(jobId: string) {
+  try {
+    window.localStorage.setItem(ACTIVE_JOB_STORAGE_KEY, jobId);
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
+function clearStoredActiveJobId() {
+  try {
+    window.localStorage.removeItem(ACTIVE_JOB_STORAGE_KEY);
+  } catch {
+    // ignore
+  }
+}
