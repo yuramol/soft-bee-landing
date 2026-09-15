@@ -73,6 +73,10 @@ export async function getProposal(jobId: string): Promise<ProposalStatusResult> 
 }
 
 export async function downloadProposal(jobId: string): Promise<DownloadProposalResult> {
+  console.log('═══════════════════════════════════════════════════');
+  console.log('🚀 [DOWNLOAD] Starting download for jobId:', jobId);
+  console.log('═══════════════════════════════════════════════════');
+  
   const { baseUrl, apiKey } = getEstimatorConfig();
 
   const response = await fetchWithTimeout(`${baseUrl}/v1/proposals/${encodeURIComponent(jobId)}/download`, {
@@ -83,6 +87,9 @@ export async function downloadProposal(jobId: string): Promise<DownloadProposalR
     timeoutMs: ESTIMATOR_DOWNLOAD_TIMEOUT_MS,
     redirect: 'manual'
   });
+
+  console.log('📥 [DOWNLOAD] Response status:', response.status);
+  console.log('📥 [DOWNLOAD] Is redirect?', isRedirectStatus(response.status));
 
   if (isRedirectStatus(response.status)) {
     const location = response.headers.get('location');
@@ -104,8 +111,13 @@ export async function downloadProposal(jobId: string): Promise<DownloadProposalR
   }
 
   if (!response.ok) {
+    console.log('❌ [DOWNLOAD] Response not OK, status:', response.status);
     throw new EstimatorApiError(await readErrorMessage(response), response.status);
   }
+
+  console.log('✅ [DOWNLOAD] Direct download (no redirect), returning body');
+  console.log('📦 [DOWNLOAD] Content-Type:', response.headers.get('content-type'));
+  console.log('═══════════════════════════════════════════════════');
 
   return {
     body: response.body,
