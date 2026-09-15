@@ -1,9 +1,9 @@
 export const ESTIMATOR_RECAPTCHA_ACTION = 'estimate_create';
 export const RECAPTCHA_MIN_SCORE = 0.5;
 
-export const ESTIMATOR_MAX_FILE_BYTES = 25 * 1024 * 1024;
+export const ESTIMATOR_MAX_FILE_BYTES = 10 * 1024 * 1024;
 /** Max trimmed project text length (chars). Roughly caps prompt size before Railway. */
-export const ESTIMATOR_MAX_TEXT_CHARS = 50_000;
+export const ESTIMATOR_MAX_TEXT_CHARS = 32_000;
 
 export const ESTIMATOR_ALLOWED_MIME_TYPES = [
   'application/pdf',

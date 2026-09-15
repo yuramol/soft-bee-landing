@@ -82,8 +82,8 @@ Optional request header on create: `Idempotency-Key` (forwarded to Railway). The
 
 | Input | Rules |
 |-------|--------|
-| Text | Optional if file present; min **10** characters; max **50,000** characters |
-| File | Optional if text present; max **25 MB** |
+| Text | Optional if file present; min **10** characters; max **32,000** characters |
+| File | Optional if text present; max **10 MB** |
 | Types | PDF, TXT, Markdown, DOC, DOCX |
 
 Client validates metadata early; server also sniffs content before forwarding to Railway.

@@ -44,7 +44,7 @@ export function validateEstimatorUpload(input: { text: string | null; file: File
 
   if (input.file) {
     if (input.file.size > ESTIMATOR_MAX_FILE_BYTES) {
-      return { ok: false, error: 'File must be 25 MB or smaller.' };
+      return { ok: false, error: 'File must be 10 MB or smaller.' };
     }
 
     if (hasSuspiciousDoubleExtension(input.file.name)) {

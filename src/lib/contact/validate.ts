@@ -154,7 +154,7 @@ function validateContactFileMetadata(file: File): ContactValidationResult | { ok
   }
 
   if (file.size > CONTACT_MAX_FILE_BYTES) {
-    return { ok: false, error: 'File must be 5 MB or smaller.' };
+    return { ok: false, error: 'File must be 10 MB or smaller.' };
   }
 
   if (hasSuspiciousDoubleExtension(file.name)) {

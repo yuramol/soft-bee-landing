@@ -84,8 +84,8 @@ Constants: `src/lib/estimator/constants.ts`.
 
 Server path: `validateEstimatorUploadWithContent`
 
-- Size ≤ 25 MB
-- Project text ≤ `ESTIMATOR_MAX_TEXT_CHARS` (50,000) when provided
+- Size ≤ 10 MB
+- Project text ≤ `ESTIMATOR_MAX_TEXT_CHARS` (32,000) when provided
 - MIME must match extension when MIME present
 - Dangerous trailing extensions (e.g. `.pdf.exe`) rejected
 - Magic sniff: PDF `%PDF-`, DOC OLE, DOCX ZIP/`PK`, text/markdown non-binary
@@ -128,7 +128,7 @@ If **Cloudflare** is in front: equivalent rate rule + bot mode. Prefer one prima
 | Rate limit by IP (daily) | ✅ 10 / 24h |
 | WAF / bot protection | ⚠️ Ops (Vercel/CF) — not in repo |
 | CAPTCHA before expensive op | ✅ reCAPTCHA v3 |
-| Hard AI input/output token caps | ✅ Partial in Next — text ≤ 50k chars, file ≤ 25 MB; **output / model token caps on Railway** |
+| Hard AI input/output token caps | ✅ Partial in Next — text ≤ 32k chars, file ≤ 10 MB; **output / model token caps on Railway** |
 | Global spend budget | ✅ Railway-side (not in this Next.js repo) |
 | Idempotency key | ✅ Forwarded; storage on Railway |
 

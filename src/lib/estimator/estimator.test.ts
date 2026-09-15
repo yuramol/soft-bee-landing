@@ -88,7 +88,7 @@ describe('validateEstimatorUpload', () => {
     }
   });
 
-  it('rejects files over 25 MB', () => {
+  it('rejects files over 10 MB', () => {
     const result = validateEstimatorUpload({
       text: 'x'.repeat(10),
       file: mockFile({
@@ -101,7 +101,7 @@ describe('validateEstimatorUpload', () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.error).toMatch(/25 MB/i);
+      expect(result.error).toMatch(/10 MB/i);
     }
   });
 
