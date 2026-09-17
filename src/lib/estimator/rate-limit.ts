@@ -13,7 +13,7 @@ export async function getPresentationRateLimitState(): Promise<RateLimitState> {
   });
 }
 
-export async function bumpPresentationRateLimit(_current: RateLimitState): Promise<void> {
+export async function bumpPresentationRateLimit(): Promise<void> {
   // No-op: the rate limit is now consumed in getPresentationRateLimitState via signed cookie
   // This function remains for backward compatibility but does nothing
 }

@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  buildContactEmailHtml,
-  buildContactEmailSubject,
-  buildContactEmailText
-} from './email-template';
+import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
 import { validateContactSubmission } from './validate';
 
@@ -19,9 +15,7 @@ describe('contact email template', () => {
   };
 
   it('builds project inquiry subject', () => {
-    expect(buildContactEmailSubject('discuss_project', 'Ada Lovelace', null)).toBe(
-      'Project inquiry — Ada Lovelace'
-    );
+    expect(buildContactEmailSubject('discuss_project', 'Ada Lovelace', null)).toBe('Project inquiry — Ada Lovelace');
   });
 
   it('builds vacancy subject with role', () => {
