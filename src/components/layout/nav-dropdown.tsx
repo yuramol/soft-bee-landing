@@ -45,21 +45,21 @@ export function NavDropdown({ label, subLinks, textColor }: NavDropdownProps) {
         onMouseLeave={handleMouseLeave}
       >
         <DropdownMenuTrigger asChild>
-          <div
+          <button
+            type='button'
             className={cn(
-              'text-16 flex cursor-pointer items-center gap-1 font-medium whitespace-nowrap transition-opacity outline-none hover:opacity-80',
+              'text-16 focus-visible:ring-brand-black/30 flex cursor-pointer items-center gap-1 font-medium whitespace-nowrap transition-opacity outline-none hover:opacity-80 focus-visible:opacity-80 focus-visible:ring-2',
               textColor
             )}
           >
             {label}
             <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', isOpen && 'rotate-180')} />
-          </div>
+          </button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
           className='flex min-w-29 flex-col gap-2 rounded-[16px] border-none bg-white px-3.5 py-3.75 shadow-[0px_1px_2px_0px_#0000001A]'
           sideOffset={8}
-          onCloseAutoFocus={(e) => e.preventDefault()}
         >
           {subLinks.map((subLink, index) => (
             <React.Fragment key={subLink.label}>

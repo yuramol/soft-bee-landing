@@ -14,11 +14,7 @@ export interface ContactEmailTemplateInput {
 
 const FONT_STACK = "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif";
 
-export function buildContactEmailSubject(
-  kind: ContactKind,
-  fullName: string,
-  roleTitle: string | null
-): string {
+export function buildContactEmailSubject(kind: ContactKind, fullName: string, roleTitle: string | null): string {
   const safeName = sanitizeEmailHeaderValue(fullName) ?? fullName;
 
   if (kind === 'vacancy_application') {
