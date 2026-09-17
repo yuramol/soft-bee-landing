@@ -1,7 +1,79 @@
 import { describe, expect, it } from 'vitest';
 
+import {
+  buildContactEmailHtml,
+  buildContactEmailSubject,
+  buildContactEmailText
+} from './email-template';
 import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
 import { validateContactSubmission } from './validate';
+
+describe('contact email template', () => {
+  const templateInput = {
+    kind: 'discuss_project' as const,
+    fullName: 'Ada Lovelace',
+    email: 'ada@example.com',
+    message: 'We need a mobile app.',
+    roleTitle: null,
+    fileName: null
+  };
+
+  it('builds project inquiry subject', () => {
+    expect(buildContactEmailSubject('discuss_project', 'Ada Lovelace', null)).toBe(
+      'Project inquiry — Ada Lovelace'
+    );
+  });
+
+  it('builds vacancy subject with role', () => {
+    expect(buildContactEmailSubject('vacancy_application', 'Ada Lovelace', 'Engineer')).toBe(
+      'Careers application: Engineer — Ada Lovelace'
+    );
+  });
+
+  it('renders branded html with landing logo, colors, and escaped content', () => {
+    const previousOrigins = process.env.SITE_ALLOWED_ORIGINS;
+    process.env.SITE_ALLOWED_ORIGINS = 'https://softbee.io';
+
+    try {
+      const html = buildContactEmailHtml({
+        ...templateInput,
+        fullName: 'Ada <script>',
+        message: 'Hello & welcome'
+      });
+
+      expect(html).toContain('alt="Soft Bee"');
+      expect(html).toContain('https://softbee.io/brand/logo-white.svg');
+      expect(html).toContain('https://softbee.io/backgrounds/main-gradient.webp');
+      expect(html).toContain('#1b1c23');
+      expect(html).toContain('#c3ff00');
+      expect(html).toContain('Discuss project');
+      expect(html).toContain('Ada &lt;script&gt;');
+      expect(html).toContain('Hello &amp; welcome');
+      expect(html).not.toContain('<script>');
+    } finally {
+      if (previousOrigins === undefined) {
+        delete process.env.SITE_ALLOWED_ORIGINS;
+      } else {
+        process.env.SITE_ALLOWED_ORIGINS = previousOrigins;
+      }
+    }
+  });
+
+  it('includes role and attachment in text body', () => {
+    const text = buildContactEmailText({
+      kind: 'vacancy_application',
+      fullName: 'Ada Lovelace',
+      email: 'ada@example.com',
+      message: 'Interested.',
+      roleTitle: 'Designer',
+      fileName: 'cv.pdf'
+    });
+
+    expect(text).toContain('Role: Designer');
+    expect(text).toContain('Attachment: cv.pdf');
+    expect(text).toContain('Interested.');
+  });
+});
 
 describe('escapeHtml / sanitizeEmailHeaderValue', () => {
   it('escapes HTML entities', () => {

@@ -1,6 +1,11 @@
 import { Resend } from 'resend';
 
-import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
+import {
+  buildContactEmailHtml,
+  buildContactEmailSubject,
+  buildContactEmailText
+} from './email-template';
+import { sanitizeEmailHeaderValue } from './escape';
 import { getContactFromAddress, getContactToAddress, getResendApiKey } from './secrets';
 import type { ContactKind } from './types';
 
@@ -30,14 +35,24 @@ export async function sendContactEmail(input: SendContactEmailInput): Promise<Se
     return { ok: false, error: 'Invalid sender details.' };
   }
 
-  const subject = buildSubject(input.kind, safeName, input.roleTitle);
-  const html = buildHtmlBody(input);
-  const text = buildTextBody(input);
+  const fileName = input.file ? sanitizeAttachmentName(input.file.name) : null;
+  const templateInput = {
+    kind: input.kind,
+    fullName: input.fullName,
+    email: input.email,
+    message: input.message,
+    roleTitle: input.roleTitle,
+    fileName
+  };
+
+  const subject = buildContactEmailSubject(input.kind, safeName, input.roleTitle);
+  const html = buildContactEmailHtml(templateInput);
+  const text = buildContactEmailText(templateInput);
 
   const attachments = input.file
     ? [
         {
-          filename: sanitizeAttachmentName(input.file.name),
+          filename: fileName ?? 'attachment',
           content: Buffer.from(await input.file.arrayBuffer())
         }
       ]
@@ -60,65 +75,6 @@ export async function sendContactEmail(input: SendContactEmailInput): Promise<Se
   }
 
   return { ok: true };
-}
-
-function buildSubject(kind: ContactKind, fullName: string, roleTitle: string | null): string {
-  if (kind === 'vacancy_application') {
-    const role = roleTitle ? sanitizeEmailHeaderValue(roleTitle) : 'Open role';
-    return `Careers application: ${role} — ${fullName}`;
-  }
-
-  return `Project inquiry — ${fullName}`;
-}
-
-function buildHtmlBody(input: SendContactEmailInput): string {
-  const rows: Array<[string, string]> = [
-    ['Type', input.kind === 'vacancy_application' ? 'Vacancy application' : 'Discuss project'],
-    ['Name', input.fullName],
-    ['Email', input.email]
-  ];
-
-  if (input.roleTitle) {
-    rows.push(['Role', input.roleTitle]);
-  }
-
-  if (input.file) {
-    rows.push(['Attachment', input.file.name]);
-  }
-
-  const meta = rows
-    .map(
-      ([label, value]) =>
-        `<tr><td style="padding:4px 12px 4px 0;vertical-align:top;color:#666;">${escapeHtml(label)}</td><td style="padding:4px 0;">${escapeHtml(value)}</td></tr>`
-    )
-    .join('');
-
-  return `
-    <div style="font-family:system-ui,sans-serif;line-height:1.5;color:#111;">
-      <table style="border-collapse:collapse;margin-bottom:16px;">${meta}</table>
-      <p style="margin:0 0 8px;color:#666;">Message</p>
-      <pre style="white-space:pre-wrap;font-family:inherit;margin:0;">${escapeHtml(input.message)}</pre>
-    </div>
-  `.trim();
-}
-
-function buildTextBody(input: SendContactEmailInput): string {
-  const lines = [
-    `Type: ${input.kind === 'vacancy_application' ? 'Vacancy application' : 'Discuss project'}`,
-    `Name: ${input.fullName}`,
-    `Email: ${input.email}`
-  ];
-
-  if (input.roleTitle) {
-    lines.push(`Role: ${input.roleTitle}`);
-  }
-
-  if (input.file) {
-    lines.push(`Attachment: ${input.file.name}`);
-  }
-
-  lines.push('', 'Message:', input.message);
-  return lines.join('\n');
 }
 
 function sanitizeAttachmentName(name: string): string {

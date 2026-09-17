@@ -5,9 +5,9 @@ export const Plus = (style: IconCommonProps) => (
     <path
       d='M4.11133 4.1123L9.88603 9.88701M9.88603 4.1123L4.11133 9.88701'
       stroke='#1B1C23'
-      stroke-opacity='0.5'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeOpacity='0.5'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 );
