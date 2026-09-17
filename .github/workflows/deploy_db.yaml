@@ -39,7 +39,8 @@ jobs:
       - name: Validate required secret
         run: |
           if [ -z "$SUPABASE_DB_URL" ]; then
-            echo "Missing required secret: SUPABASE_DB_URL" >> $GITHUB_STEP_SUMMARY
+            echo "Missing required secret: 
+            " >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
 
