@@ -22,7 +22,7 @@ const DEFAULT_BADGES: AwardItemBadge[] = [
     label: crownBadge.label
   },
   {
-    icon: <Image src='/images/home/star-plus.png' alt='Star Plus' width={40} height={40} className='size-7 shrink-0 lg:size-10.5' />,
+    icon: <Image src='/images/home/awards/star-plus.png' alt='Star Plus' width={40} height={40} className='size-7 shrink-0 lg:size-10.5' />,
     label: starPlusBadge.label
   }
 ];

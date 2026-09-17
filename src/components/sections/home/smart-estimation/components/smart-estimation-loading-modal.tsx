@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import smartEstimationContent from '../content.json';
 import { SmartEstimationSkeleton } from './smart-estimation-skeleton';
 
-export function SmartEstimationLoadingModal() {
+export function SmartEstimationLoadingModal({ progress, stage, onDismiss }: { progress?: number; stage?: string; onDismiss?: () => void }) {
   const { result } = smartEstimationContent;
   const [orderedPhrases] = useState(() => shuffleStrings(result.assessingLabels));
   const [playbackKey, setPlaybackKey] = useState(0);
@@ -19,6 +19,12 @@ export function SmartEstimationLoadingModal() {
   const visibleCount = prefersReducedMotion ? currentPhrase.length : typedCount;
   const visibleText = currentPhrase.slice(0, visibleCount);
   const showCaret = !prefersReducedMotion && currentPhrase.length > 0;
+  const progressLabel =
+    typeof progress === 'number' && Number.isFinite(progress) ? `${Math.max(0, Math.min(100, Math.round(progress)))}%` : null;
+
+  function handleDismissClick() {
+    onDismiss?.();
+  }
 
   useEffect(() => {
     if (orderedPhrases.length === 0) return undefined;
@@ -72,8 +78,13 @@ export function SmartEstimationLoadingModal() {
 
   return (
     <>
-      <div className='animate-in fade-in-0 fixed inset-0 z-20 bg-[#0000003d] duration-200' />
-      <div className='pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4' role='status' aria-live='polite'>
+      <div className='animate-in fade-in-0 fixed inset-0 z-20 bg-[#0000003d] duration-200' onClick={handleDismissClick} />
+      <div
+        className='pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4'
+        role='status'
+        aria-live='polite'
+        data-testid='smart-estimation-loading'
+      >
         <div className='animate-in fade-in-0 zoom-in-95 relative w-201.5 max-w-[calc(100vw-32px)] duration-200'>
           <div className='absolute -inset-2 -z-10 rounded-[45px] bg-linear-to-r from-[#C3FF00] to-[#00A2BB] opacity-60 blur-3xl' />
 
@@ -85,12 +96,12 @@ export function SmartEstimationLoadingModal() {
 
               <SmartEstimationSkeleton />
 
-              <div className='absolute inset-0 z-50 flex items-center justify-center'>
+              <div className='absolute inset-0 z-50 flex flex-col items-center justify-center gap-3'>
                 <div className='shadow-smart-assessing flex min-h-15 max-w-[calc(100%-1.5rem)] items-center justify-center gap-2.5 rounded-[200px] bg-[#C3FF00] px-5 py-3 font-medium text-black md:px-6'>
                   <span
                     key={playbackKey}
                     className={cn(
-                      'inline-flex origin-center',
+                      'inline-flex size-7 shrink-0 items-center justify-center origin-[50%_40%]',
                       !prefersReducedMotion && 'animate-[spin_0.7s_ease-in-out] motion-reduce:animate-none'
                     )}
                   >
@@ -108,9 +119,29 @@ export function SmartEstimationLoadingModal() {
                     </span>
                   </span>
                 </div>
+                {(stage || progressLabel) && (
+                  <p
+                    data-testid='smart-estimation-progress'
+                    className='text-foreground/80 max-w-[calc(100%-1.5rem)] text-center text-[12px] md:text-[14px]'
+                  >
+                    {[stage, progressLabel].filter(Boolean).join(' · ')}
+                  </p>
+                )}
               </div>
             </div>
           </div>
+
+          {onDismiss && (
+            <button
+              type='button'
+              onClick={handleDismissClick}
+              data-testid='smart-estimation-dismiss'
+              className='pointer-events-auto absolute -top-2 -right-2 z-70 flex size-10 items-center justify-center rounded-full bg-white text-black/70 shadow transition hover:bg-white/90'
+              aria-label={smartEstimationContent.hideLabel}
+            >
+              <Icon icon='X' className='size-4' />
+            </button>
+          )}
         </div>
       </div>
     </>

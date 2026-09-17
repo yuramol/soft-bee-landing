@@ -517,6 +517,42 @@ export type Database = {
           }
         ];
       };
+      estimation_logs: {
+        Row: {
+          created_at: string;
+          error_message: string | null;
+          file_name: string | null;
+          id: string;
+          ip: string | null;
+          job_id: string | null;
+          request_text: string | null;
+          status: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          error_message?: string | null;
+          file_name?: string | null;
+          id?: string;
+          ip?: string | null;
+          job_id?: string | null;
+          request_text?: string | null;
+          status: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          error_message?: string | null;
+          file_name?: string | null;
+          id?: string;
+          ip?: string | null;
+          job_id?: string | null;
+          request_text?: string | null;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           created_at: string;
