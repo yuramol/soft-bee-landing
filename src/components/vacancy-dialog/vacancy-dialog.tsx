@@ -223,7 +223,7 @@ export function VacancyDialog({
                       transition={{ duration: 0.3 }}
                       className='overflow-hidden'
                     >
-                      <FileUploadBadge file={file} onRemove={handleRemoveFile} />
+                      <FileUploadBadge file={file} onRemove={handleRemoveFile} disabled={isSubmitting} />
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -110,13 +110,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
 
   async function handleSubmit() {
     const validation = validateEstimatorUpload({ text, file });
-    if (
-      !validation.ok ||
-      step === 'loading' ||
-      isSubmittingRef.current ||
-      isPollingRef.current ||
-      isResumingRef.current
-    ) {
+    if (!validation.ok || step === 'loading' || isSubmittingRef.current || isPollingRef.current || isResumingRef.current) {
       if (!validation.ok) {
         setError(validation.error);
       }
