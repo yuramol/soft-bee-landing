@@ -1,14 +1,17 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { FileBadge } from '@/components/ui/file-badge';
-import { Icon } from '@/components/ui/icon';
-import { Button } from '@/components/ui/button';
-import { SmartEstimationLoadingModal } from './smart-estimation-loading-modal';
-import { SmartEstimationResultCard } from './smart-estimation-result-card';
 import { ChangeEvent, useRef, useState } from 'react';
 
+import { Button } from '@/components/ui/button';
+import { FileBadge } from '@/components/ui/file-badge';
+import { Icon } from '@/components/ui/icon';
+import { ESTIMATOR_FILE_ACCEPT } from '@/lib/estimator/constants';
+import type { ProposalEstimate } from '@/lib/estimator/types';
+import { cn } from '@/lib/utils';
+
 import smartEstimationContent from '../content.json';
+import { SmartEstimationLoadingModal } from './smart-estimation-loading-modal';
+import { SmartEstimationResultCard } from './smart-estimation-result-card';
 
 type Step = 'input' | 'loading' | 'success';
 
@@ -17,54 +20,76 @@ interface SmartEstimationInputProps {
   text: string;
   file: File | null;
   error?: string | null;
+  progress?: number;
+  stage?: string;
+  estimate?: ProposalEstimate | null;
+  isBackgroundPolling?: boolean;
   onTextChange: (text: string) => void;
   onFileChange: (file: File | null) => void;
   onSubmit: () => void;
   onEdit: () => void;
+  onDismissLoading: () => void;
+  onShowProgress: () => void;
+  onCancelPolling: () => void;
   onDownload: () => void;
 }
 
-export const SmartEstimationInput = ({
+export function SmartEstimationInput({
   step,
   text,
   file,
   error,
+  progress,
+  stage,
+  estimate,
+  isBackgroundPolling = false,
   onTextChange,
   onFileChange,
   onSubmit,
   onEdit,
+  onDismissLoading,
+  onShowProgress,
+  onCancelPolling,
   onDownload
-}: SmartEstimationInputProps) => {
+}: SmartEstimationInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isPaperclipHovered, setIsPaperclipHovered] = useState(false);
 
-  const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  function handleInput(e: ChangeEvent<HTMLTextAreaElement>) {
     onTextChange(e.target.value);
     e.target.style.height = 'auto';
     e.target.style.height = `${e.target.scrollHeight}px`;
-  };
+  }
 
-  const handleFileClick = () => {
+  function handleFileClick() {
     fileInputRef.current?.click();
-  };
+  }
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files.length > 0) {
-      onFileChange(e.target.files[0]);
+      onFileChange(e.target.files[0] ?? null);
     }
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-  };
+  }
 
-  const handleRemoveFile = () => {
+  function handleRemoveFile() {
     onFileChange(null);
-  };
+  }
+
+  function handlePaperclipMouseEnter() {
+    setIsPaperclipHovered(true);
+  }
+
+  function handlePaperclipMouseLeave() {
+    setIsPaperclipHovered(false);
+  }
 
   const isExpanded = text.length > 0 || file !== null;
   const MIN_TEXT_LENGTH = 10;
-  const isDisabled = !file && text.trim().length < MIN_TEXT_LENGTH;
+  const isDisabled = isBackgroundPolling || (!file && text.trim().length < MIN_TEXT_LENGTH);
 
   return (
     <div className='relative w-full max-w-181.25'>
@@ -90,6 +115,7 @@ export const SmartEstimationInput = ({
               value={text}
               onChange={handleInput}
               placeholder={smartEstimationContent.placeholder}
+              data-testid='smart-estimation-textarea'
               className={cn(
                 'text-foreground placeholder:text-foreground/50 m-0 max-h-18 min-h-6 w-full resize-none overflow-y-auto bg-transparent p-0 leading-6 font-normal transition-all duration-500 ease-out outline-none placeholder:text-[16px] placeholder:font-normal md:max-h-42 md:min-h-9 md:leading-9 md:placeholder:text-[24px] md:placeholder:font-medium',
                 text.length === 0 ? 'text-[16px] md:text-[24px]' : 'text-[16px] md:text-[18px]',
@@ -127,8 +153,8 @@ export const SmartEstimationInput = ({
         >
           <div
             onClick={handleFileClick}
-            onMouseEnter={() => setIsPaperclipHovered(true)}
-            onMouseLeave={() => setIsPaperclipHovered(false)}
+            onMouseEnter={handlePaperclipMouseEnter}
+            onMouseLeave={handlePaperclipMouseLeave}
             className='relative flex cursor-pointer items-center justify-center p-2'
           >
             <Icon icon='Paperclip' fill={isPaperclipHovered ? undefined : '#1B1C2380'} className='size-6 md:size-8' />
@@ -138,6 +164,8 @@ export const SmartEstimationInput = ({
             variant='icon'
             onClick={onSubmit}
             disabled={isDisabled}
+            data-testid='smart-estimation-submit'
+            aria-label='Submit estimate'
             className='disabled:bg-muted disabled:text-foreground size-10.5 shrink-0 transition-colors duration-500 disabled:opacity-100 md:size-15.5'
           >
             <Icon
@@ -149,9 +177,9 @@ export const SmartEstimationInput = ({
         </div>
       </div>
 
-      {step === 'loading' && <SmartEstimationLoadingModal />}
+      {step === 'loading' && <SmartEstimationLoadingModal progress={progress} stage={stage} onDismiss={onDismissLoading} />}
 
-      {step !== 'input' && (
+      {step === 'success' && (
         <div className='pointer-events-none absolute inset-0 z-30 flex items-center justify-center'>
           <div className='pointer-events-auto absolute top-6 right-6 z-60'>
             <Button
@@ -163,18 +191,50 @@ export const SmartEstimationInput = ({
             </Button>
           </div>
 
-          {step === 'success' && (
-            <div className='pointer-events-auto absolute inset-x-0 top-21.25 flex justify-center'>
-              <SmartEstimationResultCard isSuccess onDownload={onDownload} />
-            </div>
-          )}
+          <div className='pointer-events-auto absolute inset-x-0 top-21.25 flex justify-center'>
+            <SmartEstimationResultCard isSuccess estimate={estimate} onDownload={onDownload} />
+          </div>
         </div>
       )}
 
-      {error && <p className='text-destructive mt-3 text-center text-[12px] font-light md:mt-4 md:text-[14px]'>{error}</p>}
+      {isBackgroundPolling && step === 'input' && (
+        <div className='mt-4 flex flex-col items-center gap-2 text-center' data-testid='smart-estimation-background'>
+          <p className='text-foreground/70 text-[12px] md:text-[14px]'>{smartEstimationContent.backgroundGeneratingNote}</p>
+          <div className='flex gap-2'>
+            <Button
+              onClick={onShowProgress}
+              data-testid='smart-estimation-show-progress'
+              className='bg-accent hover:bg-accent/90 border-accent-dark h-9 border px-4 text-[13px] text-white shadow'
+            >
+              {smartEstimationContent.showProgressLabel}
+            </Button>
+            <Button
+              onClick={onCancelPolling}
+              data-testid='smart-estimation-cancel-polling'
+              variant='white'
+              className='h-9 border px-4 text-[13px]'
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <p data-testid='smart-estimation-error' className='text-destructive mt-3 text-center text-[12px] font-light md:mt-4 md:text-[14px]'>
+          {error}
+        </p>
+      )}
 
       <p className='text-foreground/50 mt-3.75 text-center text-[12px] md:mt-5 md:text-[16px]'>{smartEstimationContent.privacyNote}</p>
-      <input type='file' className='hidden' ref={fileInputRef} onChange={handleFileChange} />
+      <input
+        type='file'
+        className='hidden'
+        ref={fileInputRef}
+        accept={ESTIMATOR_FILE_ACCEPT}
+        data-testid='smart-estimation-file-input'
+        onChange={handleFileChange}
+      />
     </div>
   );
-};
+}

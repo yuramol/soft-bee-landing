@@ -33,7 +33,7 @@ export async function createServerClient() {
 }
 
 export function createServiceClient() {
-  return createServerClientLib(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+  return createServerClientLib<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
     cookies: {
       getAll() {
         return null;

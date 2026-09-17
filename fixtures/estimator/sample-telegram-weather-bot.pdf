@@ -1,0 +1,126 @@
+%PDF-1.4
+1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj
+2 0 obj<< /Type /Pages /Kids [4 0 R] /Count 1 >>endobj
+3 0 obj<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>endobj
+4 0 obj<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 3 0 R >> >> >>endobj
+5 0 obj<< /Length 2248 >>stream
+BT
+/F1 10 Tf
+54 738 Td
+13 TL
+(SoftBee Smart Estimation ? sample project brief \(manual test\)) Tj
+T*
+() Tj
+T*
+(Project name: Weather Ping Bot) Tj
+T*
+(Client type: Personal utility / MVP) Tj
+T*
+(Goal: Build a Telegram bot that sends me the current weather for my city as PDF and TXT) Tj
+T*
+(files on demand.) Tj
+T*
+() Tj
+T*
+(Problem) Tj
+T*
+(I check weather in multiple apps and want one bot command that delivers a short forecast I) Tj
+T*
+(can save or forward.) Tj
+T*
+() Tj
+T*
+(Must-have features) Tj
+T*
+(1. Telegram bot with /start, /help, and /weather commands) Tj
+T*
+(2. User sets default city once \(e.g. /setcity Kyiv\)) Tj
+T*
+(3. /weather returns current conditions: temperature, humidity, wind, short summary) Tj
+T*
+(4. Same response delivered as both .txt and .pdf attachments) Tj
+T*
+(5. Basic error handling for unknown city / API downtime) Tj
+T*
+(6. Simple rate limit: max 20 weather requests per user per day) Tj
+T*
+() Tj
+T*
+(Nice-to-have) Tj
+T*
+(- /forecast for next 3 days) Tj
+T*
+(- Inline city search suggestions) Tj
+T*
+(- Optional scheduled morning weather push) Tj
+T*
+() Tj
+T*
+(Technical preferences) Tj
+T*
+(- Node.js + TypeScript \(or Python FastAPI\)) Tj
+T*
+(- Telegram Bot API) Tj
+T*
+(- Any public weather API \(OpenWeatherMap or similar\)) Tj
+T*
+(- PDF generation via a lightweight library) Tj
+T*
+(- Deploy on a single small VPS or Railway) Tj
+T*
+() Tj
+T*
+(Non-functional requirements) Tj
+T*
+(- Target build in 1?2 weeks) Tj
+T*
+(- Single-user first, then up to ~50 users) Tj
+T*
+(- Response under 5s for /weather) Tj
+T*
+(- Store only telegram user id + preferred city) Tj
+T*
+() Tj
+T*
+(Out of scope for v1) Tj
+T*
+(- Multi-language UI) Tj
+T*
+(- Maps / radar imagery) Tj
+T*
+(- Native mobile app) Tj
+T*
+(- Payment / subscriptions) Tj
+T*
+() Tj
+T*
+(Acceptance criteria for estimate) Tj
+T*
+(Please return a preliminary hours range and budget range for design + engineering,) Tj
+T*
+(including QA and a short setup buffer. Call out risks \(Telegram file limits, PDF generation,) Tj
+T*
+(weather API quotas\) if they affect the estimate.) Tj
+T*
+() Tj
+T*
+(Sample user story) Tj
+T*
+(As a user, I want to send /weather and receive TXT + PDF with today?s conditions for my) Tj
+T*
+(saved city so I can quickly check and share the forecast.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000056 00000 n 
+0000000111 00000 n 
+0000000179 00000 n 
+0000000303 00000 n 
+trailer<< /Size 6 /Root 1 0 R >>
+startxref
+2601
+%%EOF

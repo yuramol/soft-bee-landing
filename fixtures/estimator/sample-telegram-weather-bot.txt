@@ -1,0 +1,47 @@
+SoftBee Smart Estimation — sample project brief (manual test)
+
+Project name: Weather Ping Bot
+Client type: Personal utility / MVP
+Goal: Build a Telegram bot that sends me the current weather for my city as PDF and TXT files on demand.
+
+Problem
+I check weather in multiple apps and want one bot command that delivers a short forecast I can save or forward.
+
+Must-have features
+1. Telegram bot with /start, /help, and /weather commands
+2. User sets default city once (e.g. /setcity Kyiv)
+3. /weather returns current conditions: temperature, humidity, wind, short summary
+4. Same response delivered as both .txt and .pdf attachments
+5. Basic error handling for unknown city / API downtime
+6. Simple rate limit: max 20 weather requests per user per day
+
+Nice-to-have
+- /forecast for next 3 days
+- Inline city search suggestions
+- Optional scheduled morning weather push
+
+Technical preferences
+- Node.js + TypeScript (or Python FastAPI)
+- Telegram Bot API
+- Any public weather API (OpenWeatherMap or similar)
+- PDF generation via a lightweight library
+- Deploy on a single small VPS or Railway
+
+Non-functional requirements
+- Target build in 1–2 weeks
+- Single-user first, then up to ~50 users
+- Response under 5s for /weather
+- Store only telegram user id + preferred city
+
+Out of scope for v1
+- Multi-language UI
+- Maps / radar imagery
+- Native mobile app
+- Payment / subscriptions
+
+Acceptance criteria for estimate
+Please return a preliminary hours range and budget range for design + engineering,
+including QA and a short setup buffer. Call out risks (Telegram file limits, PDF generation, weather API quotas) if they affect the estimate.
+
+Sample user story
+As a user, I want to send /weather and receive TXT + PDF with today’s conditions for my saved city so I can quickly check and share the forecast.
