@@ -101,7 +101,7 @@ export function SmartEstimationLoadingModal({ progress, stage, onDismiss }: { pr
                   <span
                     key={playbackKey}
                     className={cn(
-                      'inline-flex size-7 shrink-0 items-center justify-center origin-[50%_40%]',
+                      'inline-flex size-7 shrink-0 origin-[50%_40%] items-center justify-center',
                       !prefersReducedMotion && 'animate-[spin_0.7s_ease-in-out] motion-reduce:animate-none'
                     )}
                   >
