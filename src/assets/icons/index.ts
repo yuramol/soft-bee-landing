@@ -40,3 +40,4 @@ export { CheckCircle } from './check-circle';
 export { Plus } from './plus';
 export { DocumentFile } from './document-file';
 export { Check } from './check';
+export { Quote } from './quote';

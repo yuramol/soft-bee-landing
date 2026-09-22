@@ -36,7 +36,15 @@ function CaseStudiesItem({ item }: CaseStudiesItemProps) {
         </div>
       </div>
       <Link href={href} className='lg:max-w-auto relative w-145 max-w-full lg:min-w-1/2'>
-        <Image src={image} alt={title} width={945} height={684} className='w-full rounded-2xl' />
+        <Image
+          src={image}
+          alt={title}
+          width={945}
+          height={684}
+          sizes='(min-width: 1024px) 50vw, 100vw'
+          quality={75}
+          className='w-full rounded-2xl'
+        />
         <Button
           variant='icon'
           size='icon-md'
