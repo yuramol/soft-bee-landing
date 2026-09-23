@@ -1,6 +1,6 @@
 {
-  "title": ["Have a vision in mind?", "Let’s build the roadmap together"],
-  "cta": "Plan your project with us",
+  "title": ["Let's plan your next step"],
+  "cta": "Discuss your project",
   "location": "Kyiv",
   "contacts": [
     {
@@ -16,23 +16,27 @@
     {
       "title": "Home",
       "links": [
-        { "label": "Services", "href": "/services", "target": "_self" },
-        { "label": "Case studies", "href": "/case-studies", "target": "_self" },
-        { "label": "Insights", "href": "/insights", "target": "_self" }
+        { "label": "Services", "href": "/services" },
+        { "label": "Case studies", "href": "/case-studies" },
+        { "label": "Insights", "href": "/insights" }
       ]
     },
     {
       "title": "About",
       "links": [
-        { "label": "Company", "href": "/company", "target": "_blank" },
-        { "label": "Career", "href": "/career", "target": "_blank" }
+        { "label": "Company", "href": "/company" },
+        { "label": "Career", "href": "/careers" }
       ]
     },
     {
       "title": "Social media",
       "links": [
-        { "label": "Instagram", "href": "/instagram", "target": "_blank" },
-        { "label": "LinkedIn", "href": "/linkedin", "target": "_blank" }
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/soft.bee.io?igsh=MXY2ejFzYzltNXg0aQ%3D%3D&utm_source=qr",
+          "target": "_blank"
+        },
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/80949379/admin/dashboard/", "target": "_blank" }
       ]
     }
   ],
