@@ -216,14 +216,7 @@ yarn supabase logs
 
 **Via Seed File:**
 
-The seed file is generated from `scripts/generate-insights-seed.mjs`, which reads the mock data structure from `data.ts`.
-
-To add articles to the seed:
-1. Edit `scripts/generate-insights-seed.mjs` to modify the generation logic (or update `data.ts` mocks)
-2. Regenerate: `node scripts/generate-insights-seed.mjs > supabase/seeds/2_insights_articles.sql`
-3. Run `yarn supabase db reset`
-
-Note: The seed file contains all 90 articles from `mockInsights`. Do not hand-edit the SQL file.
+Edit `supabase/seeds/2_insights_articles.sql` directly (tags, articles, and article_tags). Then run `yarn supabase db reset`.
 
 **Via Supabase Studio:**
 1. Open http://localhost:54323

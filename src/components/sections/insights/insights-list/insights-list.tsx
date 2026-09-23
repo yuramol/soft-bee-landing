@@ -8,10 +8,12 @@ import { CustomPagination } from '@/components/ui/custom-pagination';
 import { InsightCard, InsightsTabs } from './components';
 import { ComponentContainer } from '@/components/layout';
 import { Loader } from '@/components/ui/loader';
+import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import { useWidth } from '@/hooks/use-width';
 import insightsContent from './content.json';
 
 const TABS = insightsContent.tabs;
+const SEARCH_DEBOUNCE_MS = 300;
 
 interface InsightsListProps {
   initialInsights: InsightArticle[];
@@ -33,8 +35,32 @@ export function InsightsList({ initialInsights, initialTotal, initialPage, initi
   const currentPage = Number(searchParams.get('page')) || initialPage;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
+  const debouncedSearchQuery = useDebouncedValue(localSearchQuery, SEARCH_DEBOUNCE_MS);
 
   const itemsPerPage = isMd ? 6 : 3;
+
+  // keep input in sync when URL search changes (e.g. browser back/forward)
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
+
+  // commit debounced search to the URL so each keystroke does not hit the server
+  useEffect(() => {
+    if (debouncedSearchQuery === searchQuery) {
+      return;
+    }
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (debouncedSearchQuery) {
+      params.set('q', debouncedSearchQuery);
+    } else {
+      params.delete('q');
+    }
+    params.set('page', '1');
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [debouncedSearchQuery, searchQuery, searchParams, pathname, router]);
 
   // trigger page transition for smooth loading state
   useEffect(() => {
@@ -77,10 +103,9 @@ export function InsightsList({ initialInsights, initialTotal, initialPage, initi
     scrollToTop();
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const q = e.target.value;
-    updateParams({ q: q ? q : null, page: '1' });
-  };
+  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setLocalSearchQuery(e.target.value);
+  }
 
   const handlePageChange = (page: number) => {
     updateParams({ page: page.toString() });
@@ -96,7 +121,7 @@ export function InsightsList({ initialInsights, initialTotal, initialPage, initi
           <SearchInput
             placeholder='Search'
             wrapperClassName='hidden md:w-83.75 lg:block'
-            value={searchQuery}
+            value={localSearchQuery}
             onChange={handleSearchChange}
           />
         </div>
