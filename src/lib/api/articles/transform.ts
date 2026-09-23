@@ -6,7 +6,7 @@ import type { InsightArticle, ArticleBlockContent } from '@/components/sections/
  */
 export function transformArticleToInsight(article: ArticleWithTags): InsightArticle {
   // parse content as ArticleBlockContent[]
-  const content = Array.isArray(article.content) ? (article.content as ArticleBlockContent[]) : [];
+  const content = Array.isArray(article.content) ? (article.content as unknown as ArticleBlockContent[]) : [];
 
   // format date as DD.MM.YYYY
   const dateObj = new Date(article.published_at);
