@@ -553,6 +553,120 @@ export type Database = {
         };
         Relationships: [];
       };
+      article_tags: {
+        Row: {
+          article_id: string;
+          created_at: string;
+          tag_id: string;
+        };
+        Insert: {
+          article_id: string;
+          created_at?: string;
+          tag_id: string;
+        };
+        Update: {
+          article_id?: string;
+          created_at?: string;
+          tag_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'article_tags_article_id_fkey';
+            columns: ['article_id'];
+            isOneToOne: false;
+            referencedRelation: 'articles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'article_tags_tag_id_fkey';
+            columns: ['tag_id'];
+            isOneToOne: false;
+            referencedRelation: 'tags';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      articles: {
+        Row: {
+          author_image: string;
+          author_name: string;
+          author_role: string;
+          category: string;
+          content: Json;
+          created_at: string;
+          description: string;
+          id: string;
+          image: string;
+          prioritized: boolean;
+          published_at: string;
+          read_time: string;
+          search_vector: unknown | null;
+          slug: string;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          author_image: string;
+          author_name: string;
+          author_role: string;
+          category: string;
+          content?: Json;
+          created_at?: string;
+          description: string;
+          id?: string;
+          image: string;
+          prioritized?: boolean;
+          published_at: string;
+          read_time: string;
+          search_vector?: unknown | null;
+          slug: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          author_image?: string;
+          author_name?: string;
+          author_role?: string;
+          category?: string;
+          content?: Json;
+          created_at?: string;
+          description?: string;
+          id?: string;
+          image?: string;
+          prioritized?: boolean;
+          published_at?: string;
+          read_time?: string;
+          search_vector?: unknown | null;
+          slug?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      tags: {
+        Row: {
+          created_at: string;
+          id: string;
+          name: string;
+          slug: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          name: string;
+          slug: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          name?: string;
+          slug?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           created_at: string;

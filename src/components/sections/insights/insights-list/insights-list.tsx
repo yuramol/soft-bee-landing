@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { mockInsights } from './data';
+import type { InsightArticle } from './data';
 import { SearchInput } from '@/components/ui/search-input';
 import { CustomPagination } from '@/components/ui/custom-pagination';
 import { InsightCard, InsightsTabs } from './components';
@@ -13,27 +13,36 @@ import insightsContent from './content.json';
 
 const TABS = insightsContent.tabs;
 
-export function InsightsList() {
+interface InsightsListProps {
+  initialInsights: InsightArticle[];
+  initialTotal: number;
+  initialPage: number;
+  initialTab: string;
+  initialSearchQuery: string;
+}
+
+export function InsightsList({ initialInsights, initialTotal, initialPage, initialTab, initialSearchQuery }: InsightsListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLElement>(null);
   const { isMd } = useWidth();
 
-  const activeTabId = searchParams.get('tab') || 'all';
-  const searchQuery = searchParams.get('q') || '';
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const activeTabId = searchParams.get('tab') || initialTab;
+  const searchQuery = searchParams.get('q') || initialSearchQuery;
+  const currentPage = Number(searchParams.get('page')) || initialPage;
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const itemsPerPage = isMd ? 6 : 3;
 
+  // trigger page transition for smooth loading state
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 300);
 
     return () => {
       clearTimeout(timer);
@@ -59,17 +68,9 @@ export function InsightsList() {
     }
   };
 
-  const filteredInsights = mockInsights.filter((insight) => {
-    const activeTabObj = TABS.find((t) => t.id === activeTabId);
-    const matchesTab = activeTabId === 'all' || insight.category === activeTabObj?.label;
-    const matchesSearch =
-      insight.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      insight.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesTab && matchesSearch;
-  });
-
-  const totalPages = Math.ceil(filteredInsights.length / itemsPerPage);
-  const paginatedInsights = filteredInsights.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  // use server-fetched data
+  const paginatedInsights = initialInsights;
+  const totalPages = Math.ceil(initialTotal / itemsPerPage);
 
   const handleTabClick = (tabId: string) => {
     updateParams({ tab: tabId === 'all' ? null : tabId, page: '1' });

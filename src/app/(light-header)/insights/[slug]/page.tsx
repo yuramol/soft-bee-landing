@@ -1,14 +1,18 @@
 import { notFound } from 'next/navigation';
 import { ArticleHero, ArticlePreview, ArticleContent, MoreInsights } from '@/components/sections/article';
-import { mockInsights } from '@/components/sections/insights/insights-list/data';
+import { getArticleBySlug, getMoreArticles } from '@/lib/api/articles';
+import { transformArticleToInsight, transformArticlesToInsights } from '@/lib/api/articles/transform';
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const article = mockInsights.find((a) => a.slug === slug);
-  if (!article) return notFound();
+  const articleData = await getArticleBySlug(slug);
+  if (!articleData) return notFound();
 
-  const moreArticles = mockInsights.filter((a) => a.slug !== slug).slice(0, 3);
+  const article = transformArticleToInsight(articleData);
+
+  const moreArticlesData = await getMoreArticles(slug, 3);
+  const moreArticles = transformArticlesToInsights(moreArticlesData);
 
   return (
     <>
