@@ -54,13 +54,13 @@ export const CaseStudies = () => {
 
           <div className='w-1/2 shrink-0'>
             <Link href={CASE_STUDIES[activeIndex].link} className='group block w-full'>
-              <div className='relative w-full overflow-hidden rounded-[16px] bg-gray-50 shadow-md transition-transform duration-500 group-hover:scale-[1.02]'>
+              <div className='relative aspect-4/3 w-full overflow-hidden rounded-[16px] transition-transform duration-500 group-hover:scale-[1.02]'>
                 <Image
                   src={CASE_STUDIES[activeIndex].image}
                   alt={`${CASE_STUDIES[activeIndex].title} case study`}
                   width={1000}
                   height={750}
-                  className='h-auto w-full object-cover'
+                  className='h-full w-full rounded-2xl object-contain'
                   sizes='50vw'
                   priority
                 />
