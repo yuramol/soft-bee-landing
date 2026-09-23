@@ -1,10 +1,6 @@
 import { Resend } from 'resend';
 
-import {
-  buildContactEmailHtml,
-  buildContactEmailSubject,
-  buildContactEmailText
-} from './email-template';
+import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { sanitizeEmailHeaderValue } from './escape';
 import { getContactFromAddress, getContactToAddress, getResendApiKey } from './secrets';
 import type { ContactKind } from './types';
