@@ -86,49 +86,94 @@ alter table public.tags enable row level security;
 alter table public.articles enable row level security;
 alter table public.article_tags enable row level security;
 
--- restrictive secure session policy (required for all tables)
-create policy "require secure session"
-  on public.tags
-  as restrictive
-  for all
-  using ((select private.is_secure()))
-  with check ((select private.is_secure()));
-
-create policy "require secure session"
-  on public.articles
-  as restrictive
-  for all
-  using ((select private.is_secure()))
-  with check ((select private.is_secure()));
-
-create policy "require secure session"
-  on public.article_tags
-  as restrictive
-  for all
-  using ((select private.is_secure()))
-  with check ((select private.is_secure()));
-
--- anon read access (public content)
--- note: service role bypasses RLS, so these policies apply to anon/authenticated only
-create policy "anon can select tags"
+-- public read (anon + authenticated)
+create policy "public can select tags"
   on public.tags
   for select
-  to anon
+  to anon, authenticated
   using (true);
 
-create policy "anon can select articles"
+create policy "public can select articles"
   on public.articles
   for select
-  to anon
+  to anon, authenticated
   using (true);
 
-create policy "anon can select article_tags"
+create policy "public can select article_tags"
   on public.article_tags
   for select
-  to anon
+  to anon, authenticated
   using (true);
 
--- revoke direct table access (defense in depth; service role and RLS policies control access)
+-- write gates for client roles (private.is_secure() is always false for clients;
+-- service_role bypasses rls and is the only writer)
+create policy "require secure session for insert"
+  on public.tags
+  as restrictive
+  for insert
+  to anon, authenticated
+  with check ((select private.is_secure()));
+
+create policy "require secure session for update"
+  on public.tags
+  as restrictive
+  for update
+  to anon, authenticated
+  using ((select private.is_secure()))
+  with check ((select private.is_secure()));
+
+create policy "require secure session for delete"
+  on public.tags
+  as restrictive
+  for delete
+  to anon, authenticated
+  using ((select private.is_secure()));
+
+create policy "require secure session for insert"
+  on public.articles
+  as restrictive
+  for insert
+  to anon, authenticated
+  with check ((select private.is_secure()));
+
+create policy "require secure session for update"
+  on public.articles
+  as restrictive
+  for update
+  to anon, authenticated
+  using ((select private.is_secure()))
+  with check ((select private.is_secure()));
+
+create policy "require secure session for delete"
+  on public.articles
+  as restrictive
+  for delete
+  to anon, authenticated
+  using ((select private.is_secure()));
+
+create policy "require secure session for insert"
+  on public.article_tags
+  as restrictive
+  for insert
+  to anon, authenticated
+  with check ((select private.is_secure()));
+
+create policy "require secure session for update"
+  on public.article_tags
+  as restrictive
+  for update
+  to anon, authenticated
+  using ((select private.is_secure()))
+  with check ((select private.is_secure()));
+
+create policy "require secure session for delete"
+  on public.article_tags
+  as restrictive
+  for delete
+  to anon, authenticated
+  using ((select private.is_secure()));
+
+-- revoke direct table access (defense in depth; service role and rls policies control access)
 revoke all on public.tags from anon, authenticated;
 revoke all on public.articles from anon, authenticated;
 revoke all on public.article_tags from anon, authenticated;

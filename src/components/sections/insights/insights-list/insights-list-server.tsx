@@ -1,6 +1,9 @@
-import { getArticles } from '@/lib/api/articles';
+import { getArticles, getTags } from '@/lib/api/articles';
 import { transformArticlesToInsights } from '@/lib/api/articles/transform';
 import { InsightsList } from './insights-list';
+import type { TabItem } from './components';
+
+const ALL_TAB: TabItem = { id: 'all', label: 'All' };
 
 interface InsightsListServerProps {
   searchParams: Promise<{
@@ -20,26 +23,19 @@ export async function InsightsListServer({ searchParams }: InsightsListServerPro
   const searchQuery = params.q || '';
   const currentPage = Number(params.page) || 1;
 
-  // map tab id to category
-  const categoryMap: Record<string, string> = {
-    all: 'All',
-    tech: 'Tech & Dev',
-    team: 'Team & Workflow',
-    company: 'Company news'
-  };
+  const tags = await getTags();
+  const activeTag = tags.find((tag) => tag.slug === activeTabId);
+  const category = activeTag?.name;
 
-  const category = categoryMap[activeTabId] || 'All';
-
-  // fetch articles from Supabase
   const result = await getArticles({
-    category: category === 'All' ? undefined : category,
+    category,
     searchQuery: searchQuery || undefined,
     page: currentPage,
     pageSize: 6
   });
 
-  // transform to UI format
   const insights = transformArticlesToInsights(result.articles);
+  const tabs: TabItem[] = [ALL_TAB, ...tags.map((tag) => ({ id: tag.slug, label: tag.name }))];
 
   return (
     <InsightsList
@@ -48,6 +44,7 @@ export async function InsightsListServer({ searchParams }: InsightsListServerPro
       initialPage={currentPage}
       initialTab={activeTabId}
       initialSearchQuery={searchQuery}
+      tabs={tabs}
     />
   );
 }

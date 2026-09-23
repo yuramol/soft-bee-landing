@@ -5,14 +5,12 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import type { InsightArticle } from './data';
 import { SearchInput } from '@/components/ui/search-input';
 import { CustomPagination } from '@/components/ui/custom-pagination';
-import { InsightCard, InsightsTabs } from './components';
+import { InsightCard, InsightsTabs, type TabItem } from './components';
 import { ComponentContainer } from '@/components/layout';
 import { Loader } from '@/components/ui/loader';
 import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import { useWidth } from '@/hooks/use-width';
-import insightsContent from './content.json';
 
-const TABS = insightsContent.tabs;
 const SEARCH_DEBOUNCE_MS = 300;
 
 interface InsightsListProps {
@@ -21,9 +19,17 @@ interface InsightsListProps {
   initialPage: number;
   initialTab: string;
   initialSearchQuery: string;
+  tabs: TabItem[];
 }
 
-export function InsightsList({ initialInsights, initialTotal, initialPage, initialTab, initialSearchQuery }: InsightsListProps) {
+export function InsightsList({
+  initialInsights,
+  initialTotal,
+  initialPage,
+  initialTab,
+  initialSearchQuery,
+  tabs
+}: InsightsListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -116,7 +122,7 @@ export function InsightsList({ initialInsights, initialTotal, initialPage, initi
     <section ref={sectionRef} className='z-20 bg-transparent px-4 pt-2.5 md:pt-8.75 lg:px-10.5'>
       <ComponentContainer>
         <div className='mb-2.5 flex flex-col items-start justify-between gap-6 md:mb-8.75 md:flex-row'>
-          <InsightsTabs tabs={TABS} activeTabId={activeTabId} onTabChange={handleTabClick} />
+          <InsightsTabs tabs={tabs} activeTabId={activeTabId} onTabChange={handleTabClick} />
 
           <SearchInput
             placeholder='Search'

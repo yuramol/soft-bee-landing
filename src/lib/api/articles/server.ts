@@ -24,6 +24,27 @@ export interface GetArticlesResult {
 }
 
 /**
+ * Fetch all article category tags ordered by creation (seed insert order).
+ */
+export async function getTags(): Promise<TagRow[]> {
+  const supabase = createServiceClient();
+
+  try {
+    const { data, error } = await supabase.from('tags').select('*').order('created_at', { ascending: true });
+
+    if (error) {
+      console.error('Failed to fetch tags:', error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (error) {
+    console.error('Failed to fetch tags:', error);
+    return [];
+  }
+}
+
+/**
  * Fetch articles with optional filtering, search, and pagination.
  * Articles are ordered by prioritized (desc) then published_at (desc) to ensure
  * prioritized DB articles rank above future AI-sourced articles in merged feeds.
