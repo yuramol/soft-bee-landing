@@ -21,7 +21,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
   return (
     <header
       className={cn(
-        'absolute top-0 right-0 left-0 z-50 mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-10.5',
+        'absolute top-0 right-0 left-0 z-50 mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-8',
         className
       )}
     >
@@ -31,7 +31,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
         </Link>
       </div>
 
-      <div className='flex items-center gap-20 xl:gap-31.25'>
+      <div className='flex items-center gap-20 xl:gap-62.25'>
         <nav className='hidden lg:block'>
           <ul className='flex items-center gap-11.25'>
             {MAIN_NAV_LINKS.map((link) => (
@@ -54,7 +54,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
         <div className='hidden items-center lg:flex'>
           <DiscussProjectButton
             variant={isLightText ? 'white' : 'primary'}
-            className='h-12 rounded-full px-6 font-medium'
+            className='rounded-full px-6 font-medium'
             text='Discuss project'
           />
         </div>
