@@ -1,2 +1,2 @@
 export { InsightCard } from './insight-card';
-export { InsightsTabs } from './insights-tabs';
+export { InsightsTabs, type TabItem } from './insights-tabs';

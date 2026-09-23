@@ -15,6 +15,7 @@ import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 const discussProjectSchema = z
   .object({
@@ -67,7 +68,6 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isPaperclipHovered, setIsPaperclipHovered] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const file = useWatch({ control, name: 'file' });
 
@@ -93,7 +93,6 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
 
   async function onSubmit(data: ProjectFormValues) {
     setSubmitError(null);
-    setSubmitSuccess(false);
 
     try {
       const captchaToken = await executeRecaptcha(CONTACT_RECAPTCHA_ACTIONS.discuss_project);
@@ -107,7 +106,11 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
         website: data.website ?? ''
       });
       reset();
-      setSubmitSuccess(true);
+      onOpenChange?.(false);
+      toast.success('Message sent', {
+        description: 'Thanks — we received your message and will get back to you soon.',
+        duration: 5000
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to send message.';
       setSubmitError(message);
@@ -181,7 +184,10 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
                   />
                   {!file && (
                     <div
-                      className='absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer'
+                      className={cn(
+                        'absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer',
+                        isSubmitting && 'pointer-events-none opacity-60'
+                      )}
                       onClick={handleFileClick}
                       onMouseEnter={handlePaperclipMouseEnter}
                       onMouseLeave={handlePaperclipMouseLeave}
@@ -204,16 +210,19 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
                     transition={{ duration: 0.3 }}
                     className='overflow-hidden'
                   >
-                    <FileUploadBadge file={file} onRemove={handleRemoveFile} />
+                    <FileUploadBadge file={file} onRemove={handleRemoveFile} disabled={isSubmitting} />
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
-          {submitError && <p className='text-destructive text-sm'>{submitError}</p>}
-          {submitSuccess && <p className='text-sm text-emerald-700'>Thanks — we received your message.</p>}
+          {submitError && (
+            <p role='alert' className='text-destructive text-sm'>
+              {submitError} Please try again.
+            </p>
+          )}
           <Button type='submit' variant='primary' disabled={isSubmitting}>
-            {isSubmitting ? 'Sending…' : 'Send'}
+            {isSubmitting ? 'Sending…' : submitError ? 'Try again' : 'Send'}
           </Button>
         </form>
       </DialogContent>

@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
 
-import { countContactAttemptsByIp, reserveContactSubmission, updateContactLog } from '@/lib/api/contact-logs';
-import { CONTACT_RATE_LIMIT_BURST_MAX, CONTACT_RATE_LIMIT_BURST_WINDOW_MS, CONTACT_RATE_LIMIT_MAX_PER_DAY, CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
+import { countContactAttemptsByIp, reserveContactSubmission } from '@/lib/api/contact-logs';
+import {
+  CONTACT_RATE_LIMIT_BURST_MAX,
+  CONTACT_RATE_LIMIT_BURST_WINDOW_MS,
+  CONTACT_RATE_LIMIT_MAX_PER_DAY,
+  CONTACT_RECAPTCHA_ACTIONS
+} from '@/lib/contact/constants';
 import { consumeContactRateLimitSlot } from '@/lib/contact/rate-limit';
 import { isContactMailConfigured } from '@/lib/contact/secrets';
 import { sendContactEmail } from '@/lib/contact/send';

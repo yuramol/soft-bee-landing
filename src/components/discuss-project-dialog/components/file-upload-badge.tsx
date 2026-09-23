@@ -6,9 +6,10 @@ import { MouseEvent, useEffect, useState } from 'react';
 interface FileUploadBadgeProps {
   file: File;
   onRemove: (e: MouseEvent) => void;
+  disabled?: boolean;
 }
 
-export function FileUploadBadge({ file, onRemove }: FileUploadBadgeProps) {
+export function FileUploadBadge({ file, onRemove, disabled }: FileUploadBadgeProps) {
   const [progress, setProgress] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -79,7 +80,9 @@ export function FileUploadBadge({ file, onRemove }: FileUploadBadgeProps) {
         <button
           type='button'
           onClick={onRemove}
-          className='absolute top-3 right-3 cursor-pointer rounded-full p-1 transition-colors outline-none hover:bg-black/5 focus:outline-none'
+          disabled={disabled}
+          aria-label='Remove attachment'
+          className='absolute top-3 right-3 cursor-pointer rounded-full p-1 transition-colors outline-none hover:bg-black/5 focus:outline-none disabled:pointer-events-none disabled:opacity-50'
         >
           <Icon icon='Plus' width={14} height={14} />
         </button>
