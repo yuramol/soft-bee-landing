@@ -17,7 +17,7 @@ yarn dev
 ## What Changed
 
 ### Before (Mocked Data)
-- 90 mock articles generated in-memory
+- 90 mock articles generated in-memory from `mockInsights` array
 - No database persistence
 - Hard-coded content in `data.ts`
 - Client-side filtering and pagination
@@ -26,7 +26,8 @@ yarn dev
 - Real database tables: `articles`, `tags`, `article_tags`
 - Server-side data fetching with service role client
 - Full-text search via PostgreSQL tsvector
-- 10 seed articles (can be expanded)
+- **All 90 seed articles** generated from the exact mock data structure
+- 8 prioritized articles: article-1, article-3, article-10, article-25, article-40, article-55, article-70, article-85
 - Future-ready for AI article merge via `prioritized` flag
 
 ## Database Schema
@@ -41,10 +42,13 @@ yarn dev
 
 **tags**
 - Tag definitions: name, slug
+- Three category-based tags: Tech & Dev, Team & Workflow, Company news
+- Each tag maps 1:1 to an article category
 - RLS enabled with public read access
 
 **article_tags**
 - Many-to-many junction: article_id, tag_id
+- Each article is linked to exactly one tag (its category)
 - RLS enabled with public read access
 
 ### Key Features
@@ -77,7 +81,11 @@ yarn supabase db diff
 
 # Check article count
 psql -h localhost -p 54322 -U postgres -d postgres -c "SELECT COUNT(*) FROM articles;"
-# Expected: 10
+# Expected: 90
+
+# Check prioritized count
+psql -h localhost -p 54322 -U postgres -d postgres -c "SELECT COUNT(*) FROM articles WHERE prioritized = true;"
+# Expected: 8
 ```
 
 ### 2. Insights List Page
@@ -86,16 +94,16 @@ psql -h localhost -p 54322 -U postgres -d postgres -c "SELECT COUNT(*) FROM arti
 
 - [ ] Page loads with 6 articles (on desktop)
 - [ ] Tabs work: All / Tech & Dev / Team & Workflow / Company news
-- [ ] Search works (try "architecture", "remote", "team")
-- [ ] Pagination works (should have 2 pages for "All")
+- [ ] Search works (try "friction", "honeycomb", "buzz")
+- [ ] Pagination works (should have 15 pages for "All")
 - [ ] Loading state appears during navigation
 - [ ] No console errors
 
 **Expected Counts by Category:**
-- All: 10 articles (2 pages)
-- Tech & Dev: 4 articles (1 page)
-- Team & Workflow: 3 articles (1 page)
-- Company news: 3 articles (1 page)
+- All: 90 articles (15 pages)
+- Tech & Dev: 30 articles (5 pages)
+- Team & Workflow: 30 articles (5 pages)
+- Company news: 30 articles (5 pages)
 
 ### 3. Article Detail Page
 
@@ -109,16 +117,17 @@ psql -h localhost -p 54322 -U postgres -d postgres -c "SELECT COUNT(*) FROM arti
 - [ ] No console errors
 
 **Try other slugs:**
-- http://localhost:3000/insights/article-1 (prioritized)
-- http://localhost:3000/insights/microservices-vs-monoliths-2024 (prioritized)
-- http://localhost:3000/insights/mastering-remote-collaboration
+- http://localhost:3000/insights/article-1 (prioritized, Tech & Dev)
+- http://localhost:3000/insights/article-10 (prioritized, Tech & Dev)
+- http://localhost:3000/insights/article-25 (prioritized, Tech & Dev)
+- http://localhost:3000/insights/article-50 (non-prioritized, Team & Workflow)
 
 ### 4. Search & Filtering
 
 **Search Queries:**
-- "architecture" → Should find articles with "architecture" in title/description
-- "remote" → Should find "Mastering Remote Collaboration"
-- "typescript" → Should find "TypeScript Best Practices"
+- "friction" → Should find "Building Without Friction" articles
+- "honeycomb" → Should find "The Honeycomb Structure" articles
+- "buzz" → Should find "Behind the Buzz" articles (article-3, etc.)
 - "gibberish" → Should show "No articles found" message
 
 **Tab + Search Combo:**
@@ -137,11 +146,14 @@ LIMIT 5;
 ```
 
 **Expected (on "All" tab):**
-1. Agile Workflows for Design Teams (prioritized, 2024-02-26)
-2. Microservices vs Monoliths (prioritized, 2024-02-12)
-3. Behind the Buzz (article-3, prioritized, 2024-01-15)
-4. The Honeycomb Structure (article-2, prioritized, 2024-01-08)
-5. Building Without Friction (article-1, prioritized, 2024-01-01)
+1. article-85: Mastering Remote Collaboration - Volume 15 (prioritized, 2024-03-25)
+2. article-70: Exploring the Future of Frontend Frameworks - Volume 12 (prioritized, 2024-03-10)
+3. article-55: Soft Bee Expands to New Office - Volume 10 (prioritized, 2024-02-24)
+4. article-40: Exploring the Future of Frontend Frameworks - Volume 7 (prioritized, 2024-02-09)
+5. article-25: Behind the Buzz - Volume 5 (prioritized, 2024-01-25)
+6. article-10: Exploring the Future of Frontend Frameworks - Volume 2 (prioritized, 2024-01-10)
+7. article-3: Behind the Buzz (prioritized, 2024-01-03)
+8. article-1: Building Without Friction (prioritized, 2024-01-01)
 
 ### 6. Performance
 
@@ -203,10 +215,15 @@ yarn supabase logs
 ### Adding New Articles
 
 **Via Seed File:**
-1. Edit `supabase/seeds/2_insights_articles.sql`
-2. Add new article INSERT
-3. Link to tags via article_tags INSERT
-4. Run `yarn supabase db reset`
+
+The seed file is generated from `scripts/generate-insights-seed.mjs`, which reads the mock data structure from `data.ts`.
+
+To add articles to the seed:
+1. Edit `scripts/generate-insights-seed.mjs` to modify the generation logic (or update `data.ts` mocks)
+2. Regenerate: `node scripts/generate-insights-seed.mjs > supabase/seeds/2_insights_articles.sql`
+3. Run `yarn supabase db reset`
+
+Note: The seed file contains all 90 articles from `mockInsights`. Do not hand-edit the SQL file.
 
 **Via Supabase Studio:**
 1. Open http://localhost:54323
@@ -313,11 +330,14 @@ const insights = transformArticlesToInsights(articlesWithTags);
 ## Future Enhancements
 
 ### Tag Filtering UI
-The database supports tags but the UI doesn't expose filtering by tag yet. To add:
+The database has category-based tags (Tech & Dev, Team & Workflow, Company news) that map 1:1 to article categories.
 
-1. Fetch all tags: `SELECT * FROM tags ORDER BY name`
-2. Add tag filter UI (e.g., dropdown or chips)
-3. Update `getArticles` to join on `article_tags` where `tag_id = ?`
+Currently, tag filtering is implemented via the category tab system. To add additional tag types:
+
+1. Expand `tags` table with new tags beyond categories
+2. Update seed to link articles to multiple tags
+3. Add tag filter UI (e.g., dropdown or chips)
+4. Update `getArticles` to support tag filtering alongside category
 
 ### Admin CRUD
 Currently articles can only be managed via:

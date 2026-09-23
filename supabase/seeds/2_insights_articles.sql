@@ -1,23 +1,15 @@
--- seed: insights articles with tags for local/dev testing
--- populates articles covering all three categories with multiple tags and prioritized examples
+-- seed: insights articles from mockInsights (data.ts)
+-- generated from the exact mock data structure with all 90 articles
+-- prioritized: article-1, article-3, article-10, article-25, article-40, article-55, article-70, article-85 (8 total)
 
--- insert tags
+-- insert category-based tags (derived from article categories)
 insert into public.tags (name, slug) values
-  ('Architecture', 'architecture'),
-  ('Performance', 'performance'),
-  ('Best Practices', 'best-practices'),
-  ('Team Culture', 'team-culture'),
-  ('Remote Work', 'remote-work'),
-  ('Product Updates', 'product-updates'),
-  ('Company Culture', 'company-culture'),
-  ('Frontend', 'frontend'),
-  ('Backend', 'backend'),
-  ('DevOps', 'devops'),
-  ('Design', 'design'),
-  ('Innovation', 'innovation')
+  ('Tech & Dev', 'tech-dev'),
+  ('Team & Workflow', 'team-workflow'),
+  ('Company news', 'company-news')
 on conflict (slug) do nothing;
 
--- insert articles
+-- insert articles (all 90 from mocks)
 insert into public.articles (
   slug,
   title,
@@ -42,36 +34,9 @@ insert into public.articles (
     'Anna Kovalenko',
     'Lead Developer',
     '/images/articles/article-author-img-1.webp',
-    '2024-01-01 10:00:00+00',
+    '2024-01-01T00:00:00.000Z',
     true,
-    '[
-      {
-        "id": "block-1-0",
-        "type": "text",
-        "heading": "The hidden cost of rigid systems",
-        "shortHeading": "The hidden cost",
-        "text": "Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\n\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."
-      },
-      {
-        "id": "block-1-1",
-        "type": "quote",
-        "text": "Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.",
-        "authorName": "Anna Kovalenko"
-      },
-      {
-        "id": "block-1-2",
-        "type": "image",
-        "image": "/images/services/services-img-2.webp",
-        "caption": "An illustrative view of modern workspace and technology."
-      },
-      {
-        "id": "block-1-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '[{"id":"block-0-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-0-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-0-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
     'article-2',
@@ -83,31 +48,9 @@ insert into public.articles (
     'Dmytro Petrenko',
     'Product Manager',
     '/images/articles/article-author-img-1.webp',
-    '2024-01-08 10:00:00+00',
-    true,
-    '[
-      {
-        "id": "block-2-0",
-        "type": "text",
-        "heading": "Finding the balance between structure and flexibility",
-        "shortHeading": "Balance",
-        "text": "Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."
-      },
-      {
-        "id": "block-2-1",
-        "type": "text",
-        "heading": "Why modern teams need adaptable workflows",
-        "shortHeading": "Workflows",
-        "text": "When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."
-      },
-      {
-        "id": "block-2-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."
-      }
-    ]'::jsonb
+    '2024-01-02T00:00:00.000Z',
+    false,
+    '[{"id":"block-1-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-1-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-1-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-1-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
     'article-3',
@@ -119,33 +62,12 @@ insert into public.articles (
     'Olena Shevchenko',
     'UI/UX Designer',
     '/images/articles/article-author-img-1.webp',
-    '2024-01-15 10:00:00+00',
+    '2024-01-03T00:00:00.000Z',
     true,
-    '[
-      {
-        "id": "block-3-0",
-        "type": "text",
-        "heading": "The evolution of digital product design",
-        "shortHeading": "Evolution",
-        "text": "Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."
-      },
-      {
-        "id": "block-3-1",
-        "type": "quote",
-        "text": "Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.",
-        "authorName": "Olena Shevchenko"
-      },
-      {
-        "id": "block-3-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '[{"id":"block-2-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-2-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-2-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-2-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-2-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'exploring-future-frontend-frameworks',
+    'article-4',
     'Exploring the Future of Frontend Frameworks',
     'A look into how modern frameworks are optimizing performance and developer experience.',
     '/images/services/services-img-4.webp',
@@ -154,33 +76,12 @@ insert into public.articles (
     'Anna Kovalenko',
     'Lead Developer',
     '/images/articles/article-author-img-1.webp',
-    '2024-01-22 10:00:00+00',
+    '2024-01-04T00:00:00.000Z',
     false,
-    '[
-      {
-        "id": "block-4-0",
-        "type": "text",
-        "heading": "Scaling your architecture without the pain",
-        "shortHeading": "Scaling",
-        "text": "By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."
-      },
-      {
-        "id": "block-4-1",
-        "type": "image",
-        "image": "/images/services/services-img-1.webp",
-        "caption": "An illustrative view of modern workspace and technology."
-      },
-      {
-        "id": "block-4-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '[{"id":"block-3-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-3-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-3-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'soft-bee-expands-new-office',
+    'article-5',
     'Soft Bee Expands to New Office',
     'We are thrilled to announce our new hub for innovation and collaboration.',
     '/images/services/services-img-1.webp',
@@ -189,27 +90,12 @@ insert into public.articles (
     'Dmytro Petrenko',
     'Product Manager',
     '/images/articles/article-author-img-1.webp',
-    '2024-01-29 10:00:00+00',
+    '2024-01-05T00:00:00.000Z',
     false,
-    '[
-      {
-        "id": "block-5-0",
-        "type": "text",
-        "heading": "Empathy in software engineering",
-        "shortHeading": "Empathy",
-        "text": "When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."
-      },
-      {
-        "id": "block-5-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."
-      }
-    ]'::jsonb
+    '[{"id":"block-4-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-4-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-4-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-4-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'mastering-remote-collaboration',
+    'article-6',
     'Mastering Remote Collaboration',
     'Essential tools and practices for keeping distributed teams aligned and productive.',
     '/images/services/services-img-2.webp',
@@ -218,191 +104,1202 @@ insert into public.articles (
     'Olena Shevchenko',
     'UI/UX Designer',
     '/images/articles/article-author-img-1.webp',
-    '2024-02-05 10:00:00+00',
+    '2024-01-06T00:00:00.000Z',
     false,
-    '[
-      {
-        "id": "block-6-0",
-        "type": "text",
-        "heading": "The hidden cost of rigid systems",
-        "shortHeading": "The hidden cost",
-        "text": "Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\n\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."
-      },
-      {
-        "id": "block-6-1",
-        "type": "quote",
-        "text": "Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.",
-        "authorName": "Olena Shevchenko"
-      },
-      {
-        "id": "block-6-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '[{"id":"block-5-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-5-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-5-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-5-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-5-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'microservices-vs-monoliths-2024',
-    'Microservices vs Monoliths: Making the Right Choice in 2024',
-    'An honest comparison of architectural patterns with real-world use cases and trade-offs.',
+    'article-7',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 2',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
     '/images/services/services-img-3.webp',
     'Tech & Dev',
-    '9 min read',
+    '5 min read',
     'Anna Kovalenko',
     'Lead Developer',
     '/images/articles/article-author-img-1.webp',
-    '2024-02-12 10:00:00+00',
-    true,
-    '[
-      {
-        "id": "block-7-0",
-        "type": "text",
-        "heading": "Finding the balance between structure and flexibility",
-        "shortHeading": "Balance",
-        "text": "Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."
-      },
-      {
-        "id": "block-7-1",
-        "type": "image",
-        "image": "/images/services/services-img-4.webp",
-        "caption": "An illustrative view of modern workspace and technology."
-      },
-      {
-        "id": "block-7-2",
-        "type": "text",
-        "heading": "Why modern teams need adaptable workflows",
-        "shortHeading": "Workflows",
-        "text": "When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."
-      },
-      {
-        "id": "block-7-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '2024-01-07T00:00:00.000Z',
+    false,
+    '[{"id":"block-6-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-6-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-6-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'our-journey-to-carbon-neutrality',
-    'Our Journey to Carbon Neutrality',
-    'How we reduced our carbon footprint and what we learned along the way.',
-    '/images/services/services-img-1.webp',
-    'Company news',
-    '5 min read',
+    'article-8',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 2',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
     'Dmytro Petrenko',
     'Product Manager',
     '/images/articles/article-author-img-1.webp',
-    '2024-02-19 10:00:00+00',
+    '2024-01-08T00:00:00.000Z',
     false,
-    '[
-      {
-        "id": "block-8-0",
-        "type": "text",
-        "heading": "The evolution of digital product design",
-        "shortHeading": "Evolution",
-        "text": "Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."
-      },
-      {
-        "id": "block-8-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."
-      }
-    ]'::jsonb
+    '[{"id":"block-7-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-7-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-7-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-7-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'agile-workflows-for-design-teams',
-    'Agile Workflows for Design Teams',
-    'Adapting agile methodologies to creative processes without sacrificing quality.',
-    '/images/services/services-img-2.webp',
-    'Team & Workflow',
-    '6 min read',
+    'article-9',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 2',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
     'Olena Shevchenko',
     'UI/UX Designer',
     '/images/articles/article-author-img-1.webp',
-    '2024-02-26 10:00:00+00',
-    true,
-    '[
-      {
-        "id": "block-9-0",
-        "type": "text",
-        "heading": "Scaling your architecture without the pain",
-        "shortHeading": "Scaling",
-        "text": "By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."
-      },
-      {
-        "id": "block-9-1",
-        "type": "quote",
-        "text": "The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.",
-        "authorName": "Anna Kovalenko"
-      },
-      {
-        "id": "block-9-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '2024-01-09T00:00:00.000Z',
+    false,
+    '[{"id":"block-8-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-8-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-8-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-8-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-8-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   ),
   (
-    'typescript-best-practices-2024',
-    'TypeScript Best Practices for Large Codebases',
-    'Proven patterns and conventions that help teams scale TypeScript projects effectively.',
-    '/images/services/services-img-3.webp',
+    'article-10',
+    'Exploring the Future of Frontend Frameworks - Volume 2',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
     'Tech & Dev',
-    '8 min read',
+    '6 min read',
     'Anna Kovalenko',
     'Lead Developer',
     '/images/articles/article-author-img-1.webp',
-    '2024-03-04 10:00:00+00',
+    '2024-01-10T00:00:00.000Z',
+    true,
+    '[{"id":"block-9-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-9-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-9-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-11',
+    'Soft Bee Expands to New Office - Volume 2',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-11T00:00:00.000Z',
     false,
-    '[
-      {
-        "id": "block-10-0",
-        "type": "text",
-        "heading": "The hidden cost of rigid systems",
-        "shortHeading": "The hidden cost",
-        "text": "Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\n\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."
-      },
-      {
-        "id": "block-10-1",
-        "type": "image",
-        "image": "/images/services/services-img-4.webp",
-        "caption": "An illustrative view of modern workspace and technology."
-      },
-      {
-        "id": "block-10-conclusion",
-        "type": "conclusion",
-        "heading": "Final thoughts",
-        "shortHeading": "Conclusion",
-        "text": "Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."
-      }
-    ]'::jsonb
+    '[{"id":"block-10-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-10-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-10-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-10-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-12',
+    'Mastering Remote Collaboration - Volume 2',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-12T00:00:00.000Z',
+    false,
+    '[{"id":"block-11-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-11-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-11-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-11-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-11-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-13',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 3',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-13T00:00:00.000Z',
+    false,
+    '[{"id":"block-12-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-12-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-12-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-14',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 3',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-14T00:00:00.000Z',
+    false,
+    '[{"id":"block-13-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-13-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-13-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-13-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-15',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 3',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-15T00:00:00.000Z',
+    false,
+    '[{"id":"block-14-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-14-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-14-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-14-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-14-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-16',
+    'Exploring the Future of Frontend Frameworks - Volume 3',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-16T00:00:00.000Z',
+    false,
+    '[{"id":"block-15-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-15-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-15-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-17',
+    'Soft Bee Expands to New Office - Volume 3',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-17T00:00:00.000Z',
+    false,
+    '[{"id":"block-16-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-16-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-16-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-16-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-18',
+    'Mastering Remote Collaboration - Volume 3',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-18T00:00:00.000Z',
+    false,
+    '[{"id":"block-17-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-17-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-17-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-17-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-17-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-19',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 4',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-19T00:00:00.000Z',
+    false,
+    '[{"id":"block-18-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-18-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-18-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-20',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 4',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-20T00:00:00.000Z',
+    false,
+    '[{"id":"block-19-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-19-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-19-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-19-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-21',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 4',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-21T00:00:00.000Z',
+    false,
+    '[{"id":"block-20-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-20-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-20-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-20-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-20-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-22',
+    'Exploring the Future of Frontend Frameworks - Volume 4',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-22T00:00:00.000Z',
+    false,
+    '[{"id":"block-21-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-21-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-21-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-23',
+    'Soft Bee Expands to New Office - Volume 4',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-23T00:00:00.000Z',
+    false,
+    '[{"id":"block-22-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-22-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-22-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-22-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-24',
+    'Mastering Remote Collaboration - Volume 4',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-24T00:00:00.000Z',
+    false,
+    '[{"id":"block-23-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-23-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-23-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-23-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-23-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-25',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 5',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-25T00:00:00.000Z',
+    true,
+    '[{"id":"block-24-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-24-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-24-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-26',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 5',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-26T00:00:00.000Z',
+    false,
+    '[{"id":"block-25-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-25-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-25-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-25-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-27',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 5',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-27T00:00:00.000Z',
+    false,
+    '[{"id":"block-26-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-26-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-26-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-26-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-26-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-28',
+    'Exploring the Future of Frontend Frameworks - Volume 5',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-28T00:00:00.000Z',
+    false,
+    '[{"id":"block-27-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-27-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-27-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-29',
+    'Soft Bee Expands to New Office - Volume 5',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-29T00:00:00.000Z',
+    false,
+    '[{"id":"block-28-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-28-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-28-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-28-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-30',
+    'Mastering Remote Collaboration - Volume 5',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-30T00:00:00.000Z',
+    false,
+    '[{"id":"block-29-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-29-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-29-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-29-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-29-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-31',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 6',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-01-31T00:00:00.000Z',
+    false,
+    '[{"id":"block-30-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-30-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-30-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-32',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 6',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-01T00:00:00.000Z',
+    false,
+    '[{"id":"block-31-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-31-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-31-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-31-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-33',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 6',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-02T00:00:00.000Z',
+    false,
+    '[{"id":"block-32-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-32-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-32-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-32-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-32-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-34',
+    'Exploring the Future of Frontend Frameworks - Volume 6',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-03T00:00:00.000Z',
+    false,
+    '[{"id":"block-33-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-33-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-33-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-35',
+    'Soft Bee Expands to New Office - Volume 6',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-04T00:00:00.000Z',
+    false,
+    '[{"id":"block-34-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-34-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-34-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-34-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-36',
+    'Mastering Remote Collaboration - Volume 6',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-05T00:00:00.000Z',
+    false,
+    '[{"id":"block-35-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-35-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-35-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-35-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-35-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-37',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 7',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-06T00:00:00.000Z',
+    false,
+    '[{"id":"block-36-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-36-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-36-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-38',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 7',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-07T00:00:00.000Z',
+    false,
+    '[{"id":"block-37-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-37-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-37-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-37-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-39',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 7',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-08T00:00:00.000Z',
+    false,
+    '[{"id":"block-38-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-38-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-38-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-38-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-38-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-40',
+    'Exploring the Future of Frontend Frameworks - Volume 7',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-09T00:00:00.000Z',
+    true,
+    '[{"id":"block-39-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-39-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-39-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-41',
+    'Soft Bee Expands to New Office - Volume 7',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-10T00:00:00.000Z',
+    false,
+    '[{"id":"block-40-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-40-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-40-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-40-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-42',
+    'Mastering Remote Collaboration - Volume 7',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-11T00:00:00.000Z',
+    false,
+    '[{"id":"block-41-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-41-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-41-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-41-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-41-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-43',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 8',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-12T00:00:00.000Z',
+    false,
+    '[{"id":"block-42-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-42-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-42-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-44',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 8',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-13T00:00:00.000Z',
+    false,
+    '[{"id":"block-43-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-43-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-43-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-43-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-45',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 8',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-14T00:00:00.000Z',
+    false,
+    '[{"id":"block-44-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-44-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-44-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-44-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-44-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-46',
+    'Exploring the Future of Frontend Frameworks - Volume 8',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-15T00:00:00.000Z',
+    false,
+    '[{"id":"block-45-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-45-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-45-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-47',
+    'Soft Bee Expands to New Office - Volume 8',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-16T00:00:00.000Z',
+    false,
+    '[{"id":"block-46-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-46-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-46-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-46-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-48',
+    'Mastering Remote Collaboration - Volume 8',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-17T00:00:00.000Z',
+    false,
+    '[{"id":"block-47-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-47-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-47-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-47-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-47-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-49',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 9',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-18T00:00:00.000Z',
+    false,
+    '[{"id":"block-48-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-48-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-48-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-50',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 9',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-19T00:00:00.000Z',
+    false,
+    '[{"id":"block-49-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-49-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-49-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-49-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-51',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 9',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-20T00:00:00.000Z',
+    false,
+    '[{"id":"block-50-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-50-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-50-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-50-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-50-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-52',
+    'Exploring the Future of Frontend Frameworks - Volume 9',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-21T00:00:00.000Z',
+    false,
+    '[{"id":"block-51-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-51-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-51-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-53',
+    'Soft Bee Expands to New Office - Volume 9',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-22T00:00:00.000Z',
+    false,
+    '[{"id":"block-52-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-52-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-52-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-52-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-54',
+    'Mastering Remote Collaboration - Volume 9',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-23T00:00:00.000Z',
+    false,
+    '[{"id":"block-53-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-53-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-53-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-53-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-53-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-55',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 10',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-24T00:00:00.000Z',
+    true,
+    '[{"id":"block-54-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-54-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-54-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-56',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 10',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-25T00:00:00.000Z',
+    false,
+    '[{"id":"block-55-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-55-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-55-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-55-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-57',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 10',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-26T00:00:00.000Z',
+    false,
+    '[{"id":"block-56-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-56-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-56-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-56-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-56-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-58',
+    'Exploring the Future of Frontend Frameworks - Volume 10',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-27T00:00:00.000Z',
+    false,
+    '[{"id":"block-57-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-57-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-57-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-59',
+    'Soft Bee Expands to New Office - Volume 10',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-28T00:00:00.000Z',
+    false,
+    '[{"id":"block-58-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-58-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-58-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-58-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-60',
+    'Mastering Remote Collaboration - Volume 10',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-02-29T00:00:00.000Z',
+    false,
+    '[{"id":"block-59-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-59-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-59-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-59-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-59-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-61',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 11',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-01T00:00:00.000Z',
+    false,
+    '[{"id":"block-60-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-60-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-60-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-62',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 11',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-02T00:00:00.000Z',
+    false,
+    '[{"id":"block-61-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-61-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-61-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-61-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-63',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 11',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-03T00:00:00.000Z',
+    false,
+    '[{"id":"block-62-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-62-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-62-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-62-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-62-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-64',
+    'Exploring the Future of Frontend Frameworks - Volume 11',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-04T00:00:00.000Z',
+    false,
+    '[{"id":"block-63-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-63-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-63-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-65',
+    'Soft Bee Expands to New Office - Volume 11',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-05T00:00:00.000Z',
+    false,
+    '[{"id":"block-64-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-64-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-64-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-64-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-66',
+    'Mastering Remote Collaboration - Volume 11',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-06T00:00:00.000Z',
+    false,
+    '[{"id":"block-65-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-65-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-65-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-65-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-65-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-67',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 12',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-07T00:00:00.000Z',
+    false,
+    '[{"id":"block-66-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-66-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-66-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-68',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 12',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-08T00:00:00.000Z',
+    false,
+    '[{"id":"block-67-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-67-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-67-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-67-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-69',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 12',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-09T00:00:00.000Z',
+    false,
+    '[{"id":"block-68-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-68-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-68-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-68-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-68-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-70',
+    'Exploring the Future of Frontend Frameworks - Volume 12',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-10T00:00:00.000Z',
+    true,
+    '[{"id":"block-69-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-69-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-69-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-71',
+    'Soft Bee Expands to New Office - Volume 12',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-11T00:00:00.000Z',
+    false,
+    '[{"id":"block-70-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-70-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-70-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-70-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-72',
+    'Mastering Remote Collaboration - Volume 12',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-12T00:00:00.000Z',
+    false,
+    '[{"id":"block-71-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-71-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-71-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-71-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-71-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-73',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 13',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-13T00:00:00.000Z',
+    false,
+    '[{"id":"block-72-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-72-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-72-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-74',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 13',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-14T00:00:00.000Z',
+    false,
+    '[{"id":"block-73-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-73-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-73-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-73-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-75',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 13',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-15T00:00:00.000Z',
+    false,
+    '[{"id":"block-74-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-74-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-74-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-74-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-74-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-76',
+    'Exploring the Future of Frontend Frameworks - Volume 13',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-16T00:00:00.000Z',
+    false,
+    '[{"id":"block-75-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-75-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-75-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-77',
+    'Soft Bee Expands to New Office - Volume 13',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-17T00:00:00.000Z',
+    false,
+    '[{"id":"block-76-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-76-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-76-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-76-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-78',
+    'Mastering Remote Collaboration - Volume 13',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-18T00:00:00.000Z',
+    false,
+    '[{"id":"block-77-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-77-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-77-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-77-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-77-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-79',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 14',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-3.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-19T00:00:00.000Z',
+    false,
+    '[{"id":"block-78-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-78-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Anna Kovalenko"},{"id":"block-78-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-80',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 14',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-20T00:00:00.000Z',
+    false,
+    '[{"id":"block-79-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-79-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Dmytro Petrenko"},{"id":"block-79-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-79-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-81',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 14',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-21T00:00:00.000Z',
+    false,
+    '[{"id":"block-80-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-80-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Olena Shevchenko"},{"id":"block-80-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-80-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-80-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-82',
+    'Exploring the Future of Frontend Frameworks - Volume 14',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-2.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-22T00:00:00.000Z',
+    false,
+    '[{"id":"block-81-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-81-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Anna Kovalenko"},{"id":"block-81-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-83',
+    'Soft Bee Expands to New Office - Volume 14',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-23T00:00:00.000Z',
+    false,
+    '[{"id":"block-82-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-82-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Dmytro Petrenko"},{"id":"block-82-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-82-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-84',
+    'Mastering Remote Collaboration - Volume 14',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-4.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-24T00:00:00.000Z',
+    false,
+    '[{"id":"block-83-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-83-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Olena Shevchenko"},{"id":"block-83-2","type":"image","image":"/images/services/services-img-2.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-83-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-83-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-85',
+    'Building Without Friction: Why "Soft" Technology is the Future of Innovation - Volume 15',
+    'Discover how flexible software architecture and empathetic design are shaping the next generation of digital products.',
+    '/images/services/services-img-1.webp',
+    'Tech & Dev',
+    '5 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-25T00:00:00.000Z',
+    true,
+    '[{"id":"block-84-0","type":"text","heading":"The hidden cost of rigid systems","shortHeading":"The hidden cost","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-84-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Anna Kovalenko"},{"id":"block-84-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-86',
+    'The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency - Volume 15',
+    'How to apply the geometric precision of bees to your team''s daily tasks, remote communication, and project management.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '8 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-26T00:00:00.000Z',
+    false,
+    '[{"id":"block-85-0","type":"text","heading":"Finding the balance between structure and flexibility","shortHeading":"Balance","text":"Many companies build their digital products with a fixed mindset, focusing only on current needs. While this might work in the short term, it creates massive technical debt later on. When new requirements emerge, a rigid architecture becomes brittle, making every single update expensive and time-consuming.\\n\\n· Scalability bottlenecks: Hardcoded features limit your ability to handle more users.\\n· Slow time-to-market: Deploying new updates feels like moving a mountain.\\n· Team frustration: Developers spend more time fixing legacy bugs than innovating."},{"id":"block-85-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Dmytro Petrenko"},{"id":"block-85-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-85-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-87',
+    'Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind - Volume 15',
+    'A deep dive into our development process. We''re sharing the challenges, the wins, and the code behind our newest update.',
+    '/images/services/services-img-3.webp',
+    'Company news',
+    '4 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-27T00:00:00.000Z',
+    false,
+    '[{"id":"block-86-0","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-86-1","type":"quote","text":"The best code is no code at all. Every line you write is a liability. Keep it simple, modular, and easy to delete.","authorName":"Olena Shevchenko"},{"id":"block-86-2","type":"image","image":"/images/services/services-img-1.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-86-3","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-86-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-88',
+    'Exploring the Future of Frontend Frameworks - Volume 15',
+    'A look into how modern frameworks are optimizing performance and developer experience.',
+    '/images/services/services-img-4.webp',
+    'Tech & Dev',
+    '6 min read',
+    'Anna Kovalenko',
+    'Lead Developer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-28T00:00:00.000Z',
+    false,
+    '[{"id":"block-87-0","type":"text","heading":"The evolution of digital product design","shortHeading":"Evolution","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure."},{"id":"block-87-1","type":"quote","text":"Creating a resilient system does not mean working without rules. On the contrary, it requires a smart, modular framework. Think of it as a well-organized ecosystem where every component has a clear purpose but can adapt or be replaced without breaking the entire structure.","authorName":"Anna Kovalenko"},{"id":"block-87-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-89',
+    'Soft Bee Expands to New Office - Volume 15',
+    'We are thrilled to announce our new hub for innovation and collaboration.',
+    '/images/services/services-img-1.webp',
+    'Company news',
+    '3 min read',
+    'Dmytro Petrenko',
+    'Product Manager',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-29T00:00:00.000Z',
+    false,
+    '[{"id":"block-88-0","type":"text","heading":"Scaling your architecture without the pain","shortHeading":"Scaling","text":"By investing in cross-functional collaboration, companies can reduce silos and foster an environment where ideas flow freely. The best products are built when designers, developers, and product managers share a unified vision from day one."},{"id":"block-88-1","type":"quote","text":"Innovation distinguishes between a leader and a follower. To stay ahead, we must continuously challenge our own assumptions and embrace change.","authorName":"Dmytro Petrenko"},{"id":"block-88-2","type":"image","image":"/images/services/services-img-3.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-88-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
+  ),
+  (
+    'article-90',
+    'Mastering Remote Collaboration - Volume 15',
+    'Essential tools and practices for keeping distributed teams aligned and productive.',
+    '/images/services/services-img-2.webp',
+    'Team & Workflow',
+    '7 min read',
+    'Olena Shevchenko',
+    'UI/UX Designer',
+    '/images/articles/article-author-img-1.webp',
+    '2024-03-30T00:00:00.000Z',
+    false,
+    '[{"id":"block-89-0","type":"text","heading":"Empathy in software engineering","shortHeading":"Empathy","text":"When we talk about future-proofing, we often think of technology choices. However, the most crucial element is the team''s ability to adapt. Providing developers with the right tools and a supportive culture is the foundation of any successful long-term project."},{"id":"block-89-1","type":"quote","text":"Design is not just what it looks like and feels like. Design is how it works. Our goal is to bridge the gap between aesthetics and functionality.","authorName":"Olena Shevchenko"},{"id":"block-89-2","type":"image","image":"/images/services/services-img-4.webp","caption":"An illustrative view of modern workspace and technology."},{"id":"block-89-3","type":"text","heading":"Why modern teams need adaptable workflows","shortHeading":"Workflows","text":"Automation is no longer a luxury—it''s a necessity. From testing to deployment, automating repetitive tasks frees up human creativity to solve complex, high-value problems."},{"id":"block-89-conclusion","type":"conclusion","heading":"Final thoughts","shortHeading":"Conclusion","text":"Building flexible software is not just a technical choice — it is a business strategy. By choosing adaptability over rigidity, you ensure that your product can grow, evolve, and stay relevant for years to come."}]'::jsonb
   )
 on conflict (slug) do nothing;
 
--- link articles to tags
+-- link articles to their category tags
 with article_slugs as (
-  select id, slug from public.articles
+  select id, slug, category from public.articles
 ),
 tag_slugs as (
-  select id, slug from public.tags
+  select id, slug, name from public.tags
 )
 insert into public.article_tags (article_id, tag_id)
-select a.id, t.id from article_slugs a, tag_slugs t
-where (a.slug = 'article-1' and t.slug in ('architecture', 'best-practices', 'innovation'))
-   or (a.slug = 'article-2' and t.slug in ('team-culture', 'best-practices'))
-   or (a.slug = 'article-3' and t.slug in ('product-updates', 'design', 'company-culture'))
-   or (a.slug = 'exploring-future-frontend-frameworks' and t.slug in ('frontend', 'performance'))
-   or (a.slug = 'soft-bee-expands-new-office' and t.slug in ('company-culture'))
-   or (a.slug = 'mastering-remote-collaboration' and t.slug in ('remote-work', 'team-culture'))
-   or (a.slug = 'microservices-vs-monoliths-2024' and t.slug in ('architecture', 'backend', 'best-practices'))
-   or (a.slug = 'our-journey-to-carbon-neutrality' and t.slug in ('company-culture'))
-   or (a.slug = 'agile-workflows-for-design-teams' and t.slug in ('team-culture', 'design'))
-   or (a.slug = 'typescript-best-practices-2024' and t.slug in ('frontend', 'best-practices'))
+select a.id, t.id 
+from article_slugs a
+join tag_slugs t on (
+  (a.category = 'Tech & Dev' and t.slug = 'tech-dev') or
+  (a.category = 'Team & Workflow' and t.slug = 'team-workflow') or
+  (a.category = 'Company news' and t.slug = 'company-news')
+)
 on conflict do nothing;
+
