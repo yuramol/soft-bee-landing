@@ -1,12 +1,8 @@
-import { createServiceClient } from '@/utils/supabase/server';
-import type { Database } from '@/types';
+import { createServerClient } from '@/utils/supabase/server';
+import { buildArticlesSearchOrFilter } from './search';
+import { toArticleWithTags, type ArticleWithTags, type TagRow } from './types';
 
-type ArticleRow = Database['public']['Tables']['articles']['Row'];
-type TagRow = Database['public']['Tables']['tags']['Row'];
-
-export interface ArticleWithTags extends ArticleRow {
-  tags: TagRow[];
-}
+export type { ArticleWithTags } from './types';
 
 export interface GetArticlesParams {
   category?: string;
@@ -27,7 +23,7 @@ export interface GetArticlesResult {
  * Fetch all article category tags ordered by creation (seed insert order).
  */
 export async function getTags(): Promise<TagRow[]> {
-  const supabase = createServiceClient();
+  const supabase = await createServerClient();
 
   try {
     const { data, error } = await supabase.from('tags').select('*').order('created_at', { ascending: true });
@@ -51,31 +47,24 @@ export async function getTags(): Promise<TagRow[]> {
  */
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
   const { category, searchQuery, page = 1, pageSize = 6 } = params;
-  const supabase = createServiceClient();
+  const supabase = await createServerClient();
 
   try {
     let query = supabase
       .from('articles')
-      .select('*, article_tags(tag_id, tags(*))', { count: 'exact' })
+      .select('*', { count: 'exact' })
       .order('prioritized', { ascending: false })
       .order('published_at', { ascending: false });
 
-    // filter by category if provided
     if (category && category !== 'All') {
       query = query.eq('category', category);
     }
 
-    // full-text search if query provided
-    if (searchQuery && searchQuery.trim()) {
-      const tsQuery = searchQuery
-        .trim()
-        .split(/\s+/)
-        .map((term) => `${term}:*`)
-        .join(' & ');
-      query = query.textSearch('search_vector', tsQuery);
+    const searchFilter = searchQuery ? buildArticlesSearchOrFilter(searchQuery) : null;
+    if (searchFilter) {
+      query = query.or(searchFilter);
     }
 
-    // pagination
     const from = (page - 1) * pageSize;
     const to = from + pageSize - 1;
     query = query.range(from, to);
@@ -87,18 +76,7 @@ export async function getArticles(params: GetArticlesParams = {}): Promise<GetAr
       return { articles: [], total: 0, page, pageSize, totalPages: 0 };
     }
 
-    // transform data to include tags array
-    const articles: ArticleWithTags[] = (data || []).map((article) => {
-      const articleTags = (article.article_tags || []) as Array<{
-        tag_id: string;
-        tags: TagRow | null;
-      }>;
-
-      return {
-        ...article,
-        tags: articleTags.map((at) => at.tags).filter((t): t is TagRow => t !== null)
-      };
-    });
+    const articles = (data || []).map((article) => toArticleWithTags(article));
 
     const total = count ?? 0;
     const totalPages = Math.ceil(total / pageSize);
@@ -114,27 +92,17 @@ export async function getArticles(params: GetArticlesParams = {}): Promise<GetAr
  * Fetch a single article by slug with its tags.
  */
 export async function getArticleBySlug(slug: string): Promise<ArticleWithTags | null> {
-  const supabase = createServiceClient();
+  const supabase = await createServerClient();
 
   try {
-    const { data, error } = await supabase.from('articles').select('*, article_tags(tag_id, tags(*))').eq('slug', slug).single();
+    const { data, error } = await supabase.from('articles').select('*').eq('slug', slug).single();
 
     if (error || !data) {
       console.error('Failed to fetch article by slug:', error?.message ?? 'not found');
       return null;
     }
 
-    const articleTags = (data.article_tags || []) as Array<{
-      tag_id: string;
-      tags: TagRow | null;
-    }>;
-
-    const article: ArticleWithTags = {
-      ...data,
-      tags: articleTags.map((at) => at.tags).filter((t): t is TagRow => t !== null)
-    };
-
-    return article;
+    return toArticleWithTags(data);
   } catch (error) {
     console.error('Failed to fetch article by slug:', error);
     return null;
@@ -146,12 +114,12 @@ export async function getArticleBySlug(slug: string): Promise<ArticleWithTags | 
  * Returns up to `limit` articles ordered by prioritized then published_at.
  */
 export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<ArticleWithTags[]> {
-  const supabase = createServiceClient();
+  const supabase = await createServerClient();
 
   try {
     const { data, error } = await supabase
       .from('articles')
-      .select('*, article_tags(tag_id, tags(*))')
+      .select('*')
       .neq('slug', excludeSlug)
       .order('prioritized', { ascending: false })
       .order('published_at', { ascending: false })
@@ -162,19 +130,7 @@ export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<A
       return [];
     }
 
-    const articles: ArticleWithTags[] = (data || []).map((article) => {
-      const articleTags = (article.article_tags || []) as Array<{
-        tag_id: string;
-        tags: TagRow | null;
-      }>;
-
-      return {
-        ...article,
-        tags: articleTags.map((at) => at.tags).filter((t): t is TagRow => t !== null)
-      };
-    });
-
-    return articles;
+    return (data || []).map((article) => toArticleWithTags(article));
   } catch (error) {
     console.error('Failed to fetch more articles:', error);
     return [];

@@ -1,23 +1,12 @@
-import type { ArticleWithTags } from './server';
-import type { InsightArticle, ArticleBlockContent } from '@/components/sections/insights/insights-list/data';
+import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
+import { formatDateUtc } from '@/lib/date';
+import { parseArticleContent } from './content';
+import type { ArticleWithTags } from './types';
 
 /**
  * Transform ArticleWithTags from database to InsightArticle for UI components.
  */
 export function transformArticleToInsight(article: ArticleWithTags): InsightArticle {
-  // parse content as ArticleBlockContent[]
-  const content = Array.isArray(article.content) ? (article.content as unknown as ArticleBlockContent[]) : [];
-
-  // format date as DD.MM.YYYY
-  const dateObj = new Date(article.published_at);
-  const formattedDate = dateObj
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-    .replace(/\//g, '.');
-
   return {
     id: article.id,
     image: article.image,
@@ -29,8 +18,8 @@ export function transformArticleToInsight(article: ArticleWithTags): InsightArti
     authorName: article.author_name,
     authorRole: article.author_role,
     authorImage: article.author_image,
-    date: formattedDate,
-    content
+    date: formatDateUtc(article.published_at),
+    content: parseArticleContent(article.content)
   };
 }
 

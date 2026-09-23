@@ -1,5 +1,6 @@
-import { getArticles, getTags } from '@/lib/api/articles';
+import { getArticles, getTags, resolveTabSlug } from '@/lib/api/articles';
 import { transformArticlesToInsights } from '@/lib/api/articles/transform';
+import { ARTICLES_PAGE_SIZE_DESKTOP } from '@/lib/api/articles/types';
 import { InsightsList } from './insights-list';
 import type { TabItem } from './components';
 
@@ -19,19 +20,21 @@ interface InsightsListServerProps {
  */
 export async function InsightsListServer({ searchParams }: InsightsListServerProps) {
   const params = await searchParams;
-  const activeTabId = params.tab || 'all';
+  const activeTabId = resolveTabSlug(params.tab || 'all');
   const searchQuery = params.q || '';
-  const currentPage = Number(params.page) || 1;
+  const currentPage = Number.parseInt(params.page ?? '', 10);
+  const page = Number.isFinite(currentPage) && currentPage > 0 ? currentPage : 1;
+  const pageSize = ARTICLES_PAGE_SIZE_DESKTOP;
 
   const tags = await getTags();
-  const activeTag = tags.find((tag) => tag.slug === activeTabId);
+  const activeTag = activeTabId === 'all' ? undefined : tags.find((tag) => tag.slug === activeTabId);
   const category = activeTag?.name;
 
   const result = await getArticles({
     category,
     searchQuery: searchQuery || undefined,
-    page: currentPage,
-    pageSize: 6
+    page,
+    pageSize
   });
 
   const insights = transformArticlesToInsights(result.articles);
@@ -41,7 +44,8 @@ export async function InsightsListServer({ searchParams }: InsightsListServerPro
     <InsightsList
       initialInsights={insights}
       initialTotal={result.total}
-      initialPage={currentPage}
+      initialPage={page}
+      initialPageSize={pageSize}
       initialTab={activeTabId}
       initialSearchQuery={searchQuery}
       tabs={tabs}
