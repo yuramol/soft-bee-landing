@@ -1,8 +1,8 @@
 /**
- * Escape `%`, `_`, and `\` so user search input is treated literally in ILIKE patterns.
+ * Escape `%`, `_`, `\`, and `"` so user search input is safe in ILIKE / PostgREST filters.
  */
 export function escapeIlikePattern(value: string): string {
-  return value.replace(/\\/g, '\\\\').replace(/%/g, '\\%').replace(/_/g, '\\_');
+  return value.replace(/\\/g, '\\\\').replace(/%/g, '\\%').replace(/_/g, '\\_').replace(/"/g, '""');
 }
 
 /**

@@ -4,7 +4,7 @@ export { resolveTabSlug, isLegacyTabSlug } from './tab-slug';
 export {
   ARTICLES_PAGE_SIZE_MOBILE,
   ARTICLES_PAGE_SIZE_DESKTOP,
-  type ArticleWithTags,
+  type ArticleRow,
   type ArticlesListResponse,
   type FetchArticlesParams
 } from './types';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import type { InsightArticle } from './data';
 import { SearchInput } from '@/components/ui/search-input';
@@ -57,13 +57,26 @@ export function InsightsList({
   const category = activeTabId === 'all' ? undefined : tabs.find((tab) => tab.id === activeTabId)?.label;
   const initialCategory = initialTab === 'all' ? undefined : tabs.find((tab) => tab.id === initialTab)?.label;
 
-  const initialData: ArticlesListResponse = {
-    articles: initialInsights,
-    total: initialTotal,
-    page: initialPage,
-    pageSize: initialPageSize,
-    totalPages: Math.ceil(initialTotal / initialPageSize) || 0
-  };
+  const initialData = useMemo<ArticlesListResponse>(
+    () => ({
+      articles: initialInsights,
+      total: initialTotal,
+      page: initialPage,
+      pageSize: initialPageSize,
+      totalPages: Math.ceil(initialTotal / initialPageSize) || 0
+    }),
+    [initialInsights, initialTotal, initialPage, initialPageSize]
+  );
+
+  const initialParams = useMemo(
+    () => ({
+      category: initialCategory,
+      searchQuery: initialSearchQuery,
+      page: initialPage,
+      pageSize: initialPageSize
+    }),
+    [initialCategory, initialSearchQuery, initialPage, initialPageSize]
+  );
 
   const articlesQuery = useArticlesQuery({
     category,
@@ -71,17 +84,15 @@ export function InsightsList({
     page: currentPage,
     pageSize,
     initialData,
-    initialParams: {
-      category: initialCategory,
-      searchQuery: initialSearchQuery,
-      page: initialPage,
-      pageSize: initialPageSize
-    }
+    initialParams
   });
 
-  const paginatedInsights = articlesQuery.data?.articles ?? initialInsights;
+  const queryArticles = articlesQuery.data?.articles ?? initialInsights;
+  // While mobile pageSize (3) is refetching after SSR (6), avoid flashing all 6 cards.
+  const paginatedInsights = articlesQuery.isFetching && queryArticles.length > pageSize ? queryArticles.slice(0, pageSize) : queryArticles;
   const totalPages = articlesQuery.data?.totalPages ?? Math.ceil(initialTotal / pageSize);
   const isLoading = articlesQuery.isFetching;
+  const hasQueryError = articlesQuery.isError;
 
   // canonicalize legacy ?tab=tech|team|company to current tag slugs
   useEffect(() => {
@@ -161,38 +172,43 @@ export function InsightsList({
         <div className='mb-2.5 flex flex-col items-start justify-between gap-6 md:mb-8.75 md:flex-row'>
           <InsightsTabs tabs={tabs} activeTabId={activeTabId} onTabChange={handleTabClick} />
 
-          <SearchInput
-            placeholder='Search'
-            wrapperClassName='hidden md:w-83.75 lg:block'
-            value={localSearchQuery}
-            onChange={handleSearchChange}
-          />
+          <SearchInput placeholder='Search' wrapperClassName='w-full md:w-83.75' value={localSearchQuery} onChange={handleSearchChange} />
         </div>
 
         <div className='relative mb-5 md:mb-10'>
-          <div
-            className={`grid grid-cols-1 gap-2.5 transition-opacity duration-300 md:grid-cols-2 xl:grid-cols-3 ${
-              isLoading ? 'pointer-events-none opacity-50' : 'opacity-100'
-            }`}
-          >
-            {paginatedInsights.map((article) => (
-              <InsightCard key={article.id} article={article} />
-            ))}
-            {paginatedInsights.length === 0 && !isLoading && (
-              <div className='col-span-full py-12 text-center text-gray-500'>No articles found matching your criteria.</div>
-            )}
-          </div>
+          {hasQueryError ? (
+            <div className='col-span-full py-12 text-center text-gray-500'>Could not load articles. Please try again.</div>
+          ) : (
+            <>
+              <div
+                className={`grid grid-cols-1 gap-2.5 transition-opacity duration-300 md:grid-cols-2 xl:grid-cols-3 ${
+                  isLoading ? 'pointer-events-none opacity-50' : 'opacity-100'
+                }`}
+              >
+                {paginatedInsights.map((article) => (
+                  <InsightCard key={article.id} article={article} />
+                ))}
+                {paginatedInsights.length === 0 && !isLoading && (
+                  <div className='col-span-full py-12 text-center text-gray-500'>No articles found matching your criteria.</div>
+                )}
+              </div>
 
-          {isLoading && (
-            <div className='absolute inset-0 z-10 flex items-start justify-center pt-[25%]'>
-              <Loader className='text-brand-black h-12 w-12' />
-            </div>
+              {isLoading && (
+                <div className='absolute inset-0 z-10 flex items-start justify-center pt-[25%]'>
+                  <Loader className='text-brand-black h-12 w-12' />
+                </div>
+              )}
+            </>
           )}
         </div>
 
-        <div className={`transition-opacity duration-300 ${isLoading ? 'pointer-events-none invisible opacity-0' : 'visible opacity-100'}`}>
-          <CustomPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
+        {!hasQueryError && (
+          <div
+            className={`transition-opacity duration-300 ${isLoading ? 'pointer-events-none invisible opacity-0' : 'visible opacity-100'}`}
+          >
+            <CustomPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          </div>
+        )}
       </ComponentContainer>
     </section>
   );

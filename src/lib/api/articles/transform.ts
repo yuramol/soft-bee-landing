@@ -1,12 +1,12 @@
 import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
 import { formatDateUtc } from '@/lib/date';
 import { parseArticleContent } from './content';
-import type { ArticleWithTags } from './types';
+import type { ArticleRow } from './types';
 
 /**
- * Transform ArticleWithTags from database to InsightArticle for UI components.
+ * Transform an articles row from the database to InsightArticle for UI components.
  */
-export function transformArticleToInsight(article: ArticleWithTags): InsightArticle {
+export function transformArticleToInsight(article: ArticleRow): InsightArticle {
   return {
     id: article.id,
     image: article.image,
@@ -26,6 +26,6 @@ export function transformArticleToInsight(article: ArticleWithTags): InsightArti
 /**
  * Transform multiple articles to insights.
  */
-export function transformArticlesToInsights(articles: ArticleWithTags[]): InsightArticle[] {
+export function transformArticlesToInsights(articles: ArticleRow[]): InsightArticle[] {
   return articles.map(transformArticleToInsight);
 }
