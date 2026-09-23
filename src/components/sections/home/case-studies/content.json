@@ -2,21 +2,31 @@
   "badge": "Case studies",
   "title": [
     {
-      "text": "Technical precision, applied to real business problems. "
-    },
-    {
-      "text": "Here's what that looks like.",
-      "className": "text-foreground/50"
+      "text": "See what we have built "
     }
   ],
-  "cta": "View more",
+  "cta": "View all case studies",
   "items": [
     {
-      "title": "E-commerce & High-Load Platform",
-      "description": "We transformed a legacy retail platform into a high-octane digital ecosystem. Our focus was on eliminating bottlenecks and ensuring the architecture could handle massive traffic spikes during seasonal peaks.",
-      "tools": ["E-commerce", "React.js", "Node.js", "Microservices", "AWS", "HighLoad", "PostgreSQL", "Scalability"],
-      "image": "/images/home/case-studies/case-1.webp",
-      "href": "/case-studies/e-commerce-and-high-load-platform"
+      "title": "AI governance and prompt operations",
+      "description": "We helped Ellavox develop Elacity Control Plane, a platform for managing prompts and AI agents. Our work covered approval workflows, monitoring, notifications, provider integrations and subscription billing.",
+      "tools": ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
+      "image": "/images/home/case-studies/ella.webp",
+      "href": "/case-studies/elacity-control-plane"
+    },
+    {
+      "title": "AI-powered drug repurposing research",
+      "description": "We helped build Orchard, a research platform for Every Cure. Researchers can search drug–disease data, apply detailed filters, share their findings and coordinate reviews as they explore new uses for existing medicines.",
+      "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
+      "image": "/images/home/case-studies/every-cure.webp",
+      "href": "/case-studies/every-cure-orchard"
+    },
+    {
+      "title": "AI-powered clinical trial research",
+      "description": "We helped build an AI-powered research workspace for Confyde. It brings clinical trial search, study comparison and interactive data views together, helping researchers explore evidence and investigate clinical development questions.",
+      "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
+      "image": "/images/home/case-studies/confyde.webp",
+      "href": "/case-studies/confyde"
     }
   ]
 }

@@ -11,7 +11,7 @@ export interface ToolsProps {
 
 export function Tools({ title }: ToolsProps) {
   return (
-    <section className={cn('flex w-full flex-col pt-8.25', 'lg:pt-45 lg:pb-64.75', 'xl:h-screen xl:overflow-hidden xl:pt-12 xl:pb-16')}>
+    <section className={cn('flex w-full flex-col pt-8.25', 'lg:pt-45 lg:pb-64.75', 'xl:h-screen xl:overflow-hidden xl:pt-12 xl:pb-20')}>
       <div className='w-full md:mb-10 xl:mb-0 xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:justify-center'>
         <ToolsWave />
       </div>
