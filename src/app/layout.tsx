@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import { Footer, MainLayout } from '@/components/layout';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
+import { Providers } from './providers';
 
 const fixel = localFont({
   src: [
@@ -48,9 +49,11 @@ export default function RootLayout({
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
       <body className='flex min-h-screen flex-col'>
-        <MainLayout>{children}</MainLayout>
-        <Footer />
-        <Toaster />
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+          <Footer />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
