@@ -28,8 +28,8 @@ export const FooterNav = () => {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  target={link.target}
-                  rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  target={'target' in link ? link.target : undefined}
+                  rel={'target' in link && link.target === '_blank' ? 'noopener noreferrer' : undefined}
                   className='text-foreground/60 hover:text-foreground transition-colors'
                 >
                   {link.label}

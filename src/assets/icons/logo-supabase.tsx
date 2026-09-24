@@ -1,37 +1,44 @@
 import { IconCommonProps } from '@/components/ui/icon';
 
 export const LogoSupabase = (style: IconCommonProps) => (
-  <svg
-    width='128'
-    height='128'
-    viewBox='0 0 128 128'
-    fill='none'
-    xmlns='http://www.w3.org/2000/svg'
-    style={style}
-    className={style.className}
-  >
-    <path
-      d='M71.9603 107.478C69.6218 110.425 64.8803 108.81 64.8239 105.047L64 50H100.981C107.679 50 111.414 57.7433 107.249 62.9938L71.9603 107.478Z'
-      fill='url(#paint0_linear_552_3391)'
-    />
-    <path
-      d='M71.9603 107.478C69.6218 110.425 64.8803 108.81 64.8239 105.047L64 50H100.981C107.679 50 111.414 57.7433 107.249 62.9938L71.9603 107.478Z'
-      fill='url(#paint1_linear_552_3391)'
-      fillOpacity='0.2'
-    />
-    <path
-      d='M56.4246 19.5223C58.7874 16.5745 63.5783 18.1897 63.6352 21.9533L64 77H27.103C20.3351 77 16.5605 69.2567 20.769 64.0062L56.4246 19.5223Z'
-      fill='#3ECF8E'
-    />
+  <svg width='128' height='128' viewBox='0 0 128 128' style={style} className={style.className} xmlns='http://www.w3.org/2000/svg'>
     <defs>
-      <linearGradient id='paint0_linear_552_3391' x1='64' y1='62.2053' x2='96.8757' y2='75.981' gradientUnits='userSpaceOnUse'>
-        <stop stopColor='#249361' />
-        <stop offset='1' stopColor='#3ECF8E' />
+      <linearGradient
+        id='a'
+        x1='53.974'
+        x2='94.163'
+        y1='54.974'
+        y2='71.829'
+        gradientTransform='translate(29.387 60.096) scale(1.1436)'
+        gradientUnits='userSpaceOnUse'
+      >
+        <stop offset='0' stop-color='#249361' />
+        <stop offset='1' stop-color='#3ecf8e' />
       </linearGradient>
-      <linearGradient id='paint1_linear_552_3391' x1='49.4285' y1='42.2365' x2='64.4384' y2='70.4667' gradientUnits='userSpaceOnUse'>
-        <stop />
+      <linearGradient
+        id='b'
+        x1='36.156'
+        x2='54.484'
+        y1='30.578'
+        y2='65.081'
+        gradientTransform='translate(29.387 60.096) scale(1.1436)'
+        gradientUnits='userSpaceOnUse'
+      >
+        <stop offset='0' />
         <stop offset='1' stopOpacity='0' />
       </linearGradient>
     </defs>
+    <path
+      fill='url(#a)'
+      d='M102.24 186.21c-3.267 4.117-9.904 1.862-9.977-3.397l-1.156-76.906h51.715c9.365 0 14.587 10.817 8.763 18.149z'
+      transform='translate(-27.722 -60.338)'
+    />
+    <path
+      fill='url(#b)'
+      fillOpacity='.2'
+      d='M102.24 186.21c-3.267 4.117-9.904 1.862-9.977-3.397l-1.156-76.906h51.715c9.365 0 14.587 10.817 8.763 18.149z'
+      transform='translate(-27.722 -60.338)'
+    />
+    <path fill='#3ecf8e' d='M53.484 2.128c3.267-4.117 9.905-1.862 9.977 3.396l.508 76.907H12.902c-9.365 0-14.587-10.817-8.764-18.149z' />
   </svg>
 );

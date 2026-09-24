@@ -36,7 +36,7 @@ export const CaseStudies = () => {
                     activeIndex === index ? 'text-brand-black' : 'text-brand-black/40 group-hover:text-brand-black/80'
                   )}
                 >
-                  {study.title}
+                  {study.shortTitle || study.title}
                 </Typography>
                 <Typography
                   variant='body2'
@@ -54,13 +54,13 @@ export const CaseStudies = () => {
 
           <div className='w-1/2 shrink-0'>
             <Link href={CASE_STUDIES[activeIndex].link} className='group block w-full'>
-              <div className='relative aspect-4/3 w-full overflow-hidden rounded-[16px] transition-transform duration-500 group-hover:scale-[1.02]'>
+              <div className='relative aspect-1673/940 w-full overflow-hidden rounded-[16px] transition-transform duration-500 group-hover:scale-[1.02]'>
                 <Image
                   src={CASE_STUDIES[activeIndex].image}
                   alt={`${CASE_STUDIES[activeIndex].title} case study`}
                   width={1000}
                   height={750}
-                  className='h-full w-full rounded-2xl object-contain'
+                  className='h-full w-full rounded-2xl object-cover'
                   sizes='50vw'
                   priority
                 />

@@ -11,21 +11,21 @@
       "title": "AI governance and prompt operations",
       "description": "We helped Ellavox develop Elacity Control Plane, a platform for managing prompts and AI agents. Our work covered approval workflows, monitoring, notifications, provider integrations and subscription billing.",
       "tools": ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
-      "image": "/images/home/case-studies/ella.webp",
+      "image": "/images/case-studies/elicity/el1.webp",
       "href": "/case-studies/elacity-control-plane"
     },
     {
       "title": "AI-powered drug repurposing research",
       "description": "We helped build Orchard, a research platform for Every Cure. Researchers can search drug–disease data, apply detailed filters, share their findings and coordinate reviews as they explore new uses for existing medicines.",
       "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
-      "image": "/images/home/case-studies/every-cure.webp",
+      "image": "/images/case-studies/orchard/evr1.webp",
       "href": "/case-studies/every-cure-orchard"
     },
     {
       "title": "AI-powered clinical trial research",
       "description": "We helped build an AI-powered research workspace for Confyde. It brings clinical trial search, study comparison and interactive data views together, helping researchers explore evidence and investigate clinical development questions.",
       "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
-      "image": "/images/home/case-studies/confyde.webp",
+      "image": "/images/case-studies/confyde/confy1.webp",
       "href": "/case-studies/confyde"
     }
   ]

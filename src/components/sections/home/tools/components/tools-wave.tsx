@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils';
 import toolsContent from '../content.json';
 import { ToolItem } from './tool-item';
 
+import { CaseStudyTool } from '../../../case-studies/data';
+
 interface Tool {
   name: string;
   description: string;
@@ -16,7 +18,7 @@ interface Tool {
   invertOnHover?: boolean;
 }
 
-const TOOLS = toolsContent.tools as Tool[];
+const DEFAULT_TOOLS = toolsContent.tools as Tool[];
 
 const WAVE_STAGGER_S = 0.22;
 const AUTO_SCROLL_SPEED_PX_PER_S = 48;
@@ -30,7 +32,12 @@ const trackWrapperClassName = cn(
 
 const trackClassName = cn('flex w-max items-center gap-4', 'sm:gap-5 lg:gap-6');
 
-export function ToolsWave() {
+export interface ToolsWaveProps {
+  tools?: CaseStudyTool[];
+}
+
+export function ToolsWave({ tools }: ToolsWaveProps) {
+  const activeTools = (tools || DEFAULT_TOOLS) as Tool[];
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
@@ -142,17 +149,17 @@ export function ToolsWave() {
   return (
     <div ref={containerRef} className='w-full overflow-x-clip'>
       <motion.div ref={trackRef} style={{ x }} className={cn(trackWrapperClassName, openToolsCount > 0 && 'tools-wave-paused')}>
-        {renderToolSet(0, handleToolOpenChange)}
-        {renderToolSet(TOOLS.length, handleToolOpenChange, true)}
+        {renderToolSet(activeTools, 0, handleToolOpenChange)}
+        {renderToolSet(activeTools, activeTools.length, handleToolOpenChange, true)}
       </motion.div>
     </div>
   );
 }
 
-function renderToolSet(copyOffset: number, onToolOpenChange: (isOpen: boolean) => void, ariaHidden = false) {
+function renderToolSet(activeTools: Tool[], copyOffset: number, onToolOpenChange: (isOpen: boolean) => void, ariaHidden = false) {
   return (
     <ul aria-hidden={ariaHidden || undefined} className={trackClassName}>
-      {TOOLS.map(function renderTool(tool, index) {
+      {activeTools.map(function renderTool(tool, index) {
         const itemIndex = copyOffset + index;
 
         return (
