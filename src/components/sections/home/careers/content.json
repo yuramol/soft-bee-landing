@@ -1,7 +1,8 @@
 {
   "badge": "Careers",
-  "title": "Join the team. We're looking for talented minds to build the future together.",
+  "title": "Build thoughtful software with us",
   "cta": "Explore careers",
+  "emptyStateMessage": "There are no roles listed here at the moment. Please check back for updates.",
   "cards": [
     {
       "id": 0,

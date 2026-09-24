@@ -2,7 +2,7 @@
   {
     "id": "web-app-development",
     "title": "Web App Development",
-    "description": "We build high-performance web applications tailored specifically to your business logic. From corporate portals to automated workflows, our development process ensures high speed, bulletproof security, and an architecture ready to grow alongside your user base.",
+    "description": "We build web applications around the way your business works. From customer portals to internal systems, we connect interfaces, business logic, and data in one product. We help define the scope, develop the application, and prepare it for release, with attention to performance, access control, and the features your users need every day.",
     "bgClass": "bg-foreground-secondary",
     "textClass": "text-white",
     "articles": [
@@ -32,7 +32,7 @@
   {
     "id": "front-end-development",
     "title": "Front-End Development",
-    "description": "Creating intuitive, responsive, and highly engaging user interfaces using modern web technologies. Our front-end solutions focus on delivering seamless user experiences across all devices and platforms.",
+    "description": "We turn designs into responsive interfaces that make complex tasks easier to complete. Our work covers reusable components, forms, dashboards, and connections to your existing systems. We pay attention to accessibility, loading speed, and behavior across screen sizes, so your team can keep improving the product without rebuilding the interface for every new feature.",
     "bgClass": "bg-primary-light",
     "textClass": "text-foreground",
     "articles": [
@@ -55,7 +55,7 @@
   {
     "id": "saas-b2b-d2c",
     "title": "SaaS & B2B/D2C Platforms",
-    "description": "We build high-performance web applications tailored specifically to your business logic. From corporate portals to automated workflows, our development process ensures high speed, bulletproof security, and an architecture ready to grow alongside your user base.",
+    "description": "We develop subscription products, business platforms, and direct customer experiences around your operating model. That can include account management, user roles, payments, reporting, and workflows shared across organizations. We help organize the product and its architecture so you can launch the essential features first, then expand as customers and business requirements grow.",
     "bgClass": "bg-accent",
     "textClass": "text-background",
     "articles": [
@@ -85,7 +85,7 @@
   {
     "id": "ui-ux-design",
     "title": "UI/UX Design",
-    "description": "Our design team crafts visually stunning and user-centric interfaces. We focus on understanding your users to create designs that not only look beautiful but also drive engagement and conversions.",
+    "description": "We help turn product requirements into clear journeys and practical interfaces. Starting with user needs and existing workflows, we map key screens, create prototypes, and develop the visual design. The result is a consistent set of layouts and components that helps people complete their tasks and gives developers a clear basis for implementation.",
     "bgClass": "bg-accent-dark",
     "textClass": "text-background",
     "articles": [
@@ -108,7 +108,7 @@
   {
     "id": "mobile-app-development",
     "title": "Mobile App Development",
-    "description": "Developing robust and scalable mobile applications for iOS and Android. We utilize cross-platform and native technologies to deliver apps that perform flawlessly on any device.",
+    "description": "We build mobile applications for iOS and Android, with shared development where it fits the product. We connect the app to your services and shape its navigation, forms, notifications, and core workflows for mobile use. From the first working version to release, we focus on a clear experience and a codebase your team can maintain.",
     "bgClass": "bg-primary",
     "textClass": "text-foreground",
     "articles": [
@@ -138,7 +138,7 @@
   {
     "id": "back-end-development",
     "title": "Back-End Development",
-    "description": "Building secure, scalable, and efficient server-side architectures. Our backend solutions power complex applications, ensuring data integrity, fast processing, and seamless integrations.",
+    "description": "We build the services that keep your application working: business logic, databases, APIs, and integrations. Our work includes organizing data, managing permissions, and connecting the systems your business relies on. We design the architecture around expected usage and future requirements, with attention to reliable processing, maintainability, and visibility into how the system behaves.",
     "bgClass": "bg-background-inverse",
     "textClass": "text-white",
     "articles": [
@@ -161,7 +161,7 @@
   {
     "id": "ai-integrations",
     "title": "AI Integrations",
-    "description": "Leveraging artificial intelligence to automate processes, analyze data, and create smarter applications. We integrate cutting-edge AI models tailored to solve your specific business challenges.",
+    "description": "We add AI features to products and workflows where they can solve a clear business problem. This can include searching company knowledge, processing documents, or assisting users with routine tasks. We connect suitable models to your application and data, define how results are reviewed, and account for response quality, operating costs, and failure handling.",
     "bgClass": "bg-accent",
     "textClass": "text-background",
     "articles": [
@@ -191,7 +191,7 @@
   {
     "id": "product-support-scaling",
     "title": "Product Support & Scaling",
-    "description": "Providing ongoing maintenance, support, and infrastructure scaling to ensure your product grows smoothly with your business and continues to deliver value to your users over time.",
+    "description": "We help existing products keep working as users, features, and business needs change. Our work includes fixing issues, improving performance, updating dependencies, and extending the application. We review the current code and infrastructure, agree on priorities, and make changes in manageable steps so your team can plan improvements alongside the day-to-day operation of the product.",
     "bgClass": "bg-accent-dark",
     "textClass": "text-background",
     "articles": [

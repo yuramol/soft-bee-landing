@@ -24,22 +24,15 @@
       "id": "upwork",
       "logoIcon": "LogoUpwork",
       "logoClassName": "h-8 w-auto lg:h-16",
-      "description": "As a Top Rated Plus agency on Upwork, we’ve delivered 50+ projects with a flawless 100% Job Success Score. Dozens of 5-star reviews and thousands of logged hours prove our commitment to clean code and transparent partnership.",
+      "description": "Explore our agency profile to learn about our services and past work. You can also contact us through Upwork to discuss your project.",
       "profileUrl": "https://www.upwork.com"
     },
     {
       "id": "clutch",
       "logoIcon": "LogoClutch",
       "logoClassName": "h-6 w-auto lg:h-11",
-      "description": "Recognized on Clutch for consistent delivery and client satisfaction, Soft Bee maintains a 5-star rating across enterprise and startup engagements. Our reviews highlight technical depth, clear communication, and measurable business outcomes.",
+      "description": "Read client reviews and learn more about the projects we have delivered. Our Clutch profile brings together feedback on the work and the experience of working with our team.",
       "profileUrl": "https://www.clutch.co"
-    },
-    {
-      "id": "upwork1",
-      "logoIcon": "LogoUpwork",
-      "logoClassName": "h-8 w-auto lg:h-16",
-      "description": "As a Top Rated Plus agency on Upwork, we’ve delivered 50+ projects with a flawless 100% Job Success Score. Dozens of 5-star reviews and thousands of logged hours prove our commitment to clean code and transparent partnership.",
-      "profileUrl": "https://www.upwork.com"
     }
   ],
   "itemBadges": [
