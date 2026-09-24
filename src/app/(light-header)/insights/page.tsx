@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Insights | Soft Bee',
+  description:
+    'Articles on software architecture, AI integrations, SaaS development, and product scaling — practical lessons from the Soft Bee engineering team.'
+};
 import { Hero } from '@/components/sections/home';
 import { InsightsListServer } from '@/components/sections/insights/insights-list/insights-list-server';
 import { Loader } from '@/components/ui/loader';

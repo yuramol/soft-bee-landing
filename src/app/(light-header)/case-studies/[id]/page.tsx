@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CASE_STUDIES } from '@/components/sections/case-studies/data';
 import {
@@ -14,6 +15,20 @@ export function generateStaticParams() {
   return CASE_STUDIES.map((study) => ({
     id: study.id
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const caseStudy = CASE_STUDIES.find((c) => c.id === id);
+
+  if (!caseStudy) {
+    return {};
+  }
+
+  return {
+    title: `${caseStudy.title} | Soft Bee`,
+    description: Array.isArray(caseStudy.overviewDescription) ? caseStudy.overviewDescription[0] : caseStudy.overviewDescription
+  };
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ id: string }> }) {
