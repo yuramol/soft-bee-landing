@@ -4,57 +4,57 @@
   "cards": [
     {
       "id": 0,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "We worked with Yurii and team for several months. They were a fantastic asset to the team and a pleasure to work with. They had clear communication with engineers and the team, raised issues early, and really grew to understand the codebase and the product deeply",
+      "avatar": "/images/home/testimonials/every-cure-avatar.jpg",
+      "name": "Pascal Brokmeier",
+      "role": "Head of Engineering | BioTech X Investment X AI",
+      "logo": "/images/home/testimonials/every-cure-logo.jpg",
+      "link": "https://clutch.co/profile/softbee-0"
     },
     {
       "id": 1,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "Yurij and his team did an exceptional job. They are amazing developers and we will definitely use them again on future projects",
+      "avatar": "/images/home/testimonials/ellavo-avatar.jpg",
+      "name": "Rich Waidmann",
+      "role": "Successful Tech Entrepreneur | Co-Founder Ellavox AI",
+      "logo": "/images/home/testimonials/elavox-logo.jpg",
+      "link": "https://clutch.co/profile/softbee-0"
     },
     {
       "id": 2,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "We've had a great experience working with the SoftBee team. From the start, they demonstrated strong technical expertise, reliability, and commitment to the project. Despite working from Ukraine during challenging circumstances, communication remained consistent, deadlines were met, and the project stayed on track. I would confidently recommend SoftBee to anyone looking for a skilled and dependable development team.",
+      "avatar": "/images/home/testimonials/trove-avatar.jpg",
+      "name": "Ian Hucklesby",
+      "role": "Technical Director at Trovr",
+      "logo": "/images/home/testimonials/trovr-logo.jpg",
+      "link": "https://clutch.co/profile/softbee-0"
     },
     {
       "id": 3,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "Yurij and the SoftBee team are highly professional and reliable. They turned our AI-generated prototype into a production-ready Next.js application with real-time editing powered by Supabase and AG Grid.The engineering quality, project management, and communication were excellent throughout. Regular demos, milestone updates, and transparent timesheets kept us fully informed, and everything was delivered to spec. Highly recommend Yurij and SoftBee to anyone looking for reliable, high-caliber development talent!",
+      "avatar": "/images/home/testimonials/fast-quote-avatar.jpg",
+      "name": "Philip Podgorski",
+      "role": "General Manager Technology",
+      "logo": "/images/home/testimonials/heatleys-SIH-logo.png",
+      "link": "https://clutch.co/profile/softbee-0"
     },
     {
       "id": 4,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "Yurij and team were excellent, agile, and responsive. I had no complaints whatsoever.",
+      "avatar": "/images/home/testimonials/confyde-avatar.jpg",
+      "name": "Taha Mokfi",
+      "role": "Co-founder Confyde AI",
+      "logo": "/images/home/testimonials/confyde-logo.png",
+      "link": "https://clutch.co/profile/softbee-0"
     },
     {
       "id": 5,
-      "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-      "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-      "name": "Mark R",
-      "role": "Founder at NexaStream",
-      "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-      "link": "https://clutch.co/profile/soft-bee"
+      "quote": "Yurij and his team are professional, thorough, and efficient. I cannot say enough great things about my experience working with them. The communication and execution to build out a successful prototype and MVP with me was a dream come true!",
+      "avatar": "/images/home/testimonials/join-peel-avatar.jpg",
+      "name": "Emily Schromm",
+      "role": "Founder",
+      "logo": "/images/home/testimonials/join-peel-logo.jpg",
+      "link": "https://clutch.co/profile/softbee-0"
     }
   ]
 }

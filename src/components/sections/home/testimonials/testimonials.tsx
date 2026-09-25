@@ -11,7 +11,7 @@ import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BREAKPOINTS } from '@/constants';
-import { getInitialTranslate } from '@/lib/utils';
+import { cn, getInitialTranslate } from '@/lib/utils';
 import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import { TestimonialCard } from './testimonial-card';
@@ -76,6 +76,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
   const translateX = useTransform(scrollYProgress, [0, 1], [startTranslate, -maxTranslate]);
 
   useSwiperPeekAnimation(swiperInstance);
+  const hasScroll = cards.length > INITIAL_VISIBLE_CARDS;
 
   return (
     <section className='relative z-10 -mb-10 md:-mb-10'>
@@ -83,11 +84,16 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
         <div className='w-full overflow-x-clip rounded-lg bg-white pb-4.25 md:rounded-2xl md:pb-18.75'>
           <div
             ref={targetRef}
-            className='relative w-full md:h-(--scroll-height)'
-            style={{ '--scroll-height': `calc(100vh + ${(cards.length - 1) * 60}vh)` } as React.CSSProperties}
+            className={cn('relative w-full', hasScroll && 'md:h-(--scroll-height)')}
+            style={hasScroll ? ({ '--scroll-height': `calc(100vh + ${(cards.length - 1) * 60}vh)` } as React.CSSProperties) : undefined}
           >
-            <div className='z-10 w-full px-4 pt-18.25 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75'>
-              <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>
+            <div
+              className={cn(
+                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75',
+                hasScroll ? 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]' : 'md:min-h-[calc(100vh-20px)]'
+              )}
+            >
+              <div className={cn('mb-12 flex flex-col md:flex-row md:items-start md:justify-between', !hasScroll && 'md:mb-12')}>
                 <div>
                   <Badge title={testimonialsContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
                   <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-210'>
@@ -99,19 +105,15 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
               <div className='md:pl-10.5'>
                 <motion.div
                   ref={carouselRef}
-                  className='hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
-                  style={{ x: translateX }}
+                  className={cn(
+                    'hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0',
+                    !hasScroll && 'w-full md:justify-end'
+                  )}
+                  style={{ x: hasScroll ? translateX : 0 }}
                 >
                   {cards.map((card) => (
                     <div key={card.id} className='snap-start'>
-                      <TestimonialCard
-                        quote={card.quote}
-                        avatar={card.avatar}
-                        name={card.name}
-                        role={card.role}
-                        logo={card.logo}
-                        link={card.link}
-                      />
+                      <TestimonialCard quote={card.quote} avatar={card.avatar} name={card.name} role={card.role} logo={card.logo} />
                     </div>
                   ))}
                 </motion.div>
@@ -126,14 +128,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
                   >
                     {cards.map((card) => (
                       <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
-                        <TestimonialCard
-                          quote={card.quote}
-                          avatar={card.avatar}
-                          name={card.name}
-                          role={card.role}
-                          logo={card.logo}
-                          link={card.link}
-                        />
+                        <TestimonialCard quote={card.quote} avatar={card.avatar} name={card.name} role={card.role} logo={card.logo} />
                       </SwiperSlide>
                     ))}
                   </Swiper>
