@@ -29,16 +29,11 @@
     },
     {
       "id": "06",
-      "title": "UI/UX Design",
-      "description": "Interfaces designed around real user workflows, not templates."
-    },
-    {
-      "id": "07",
       "title": "SaaS & B2B/D2C Platforms",
       "description": "Multi-tenant systems, marketplaces, and internal tools built for growth."
     },
     {
-      "id": "08",
+      "id": "07",
       "title": "Product Support & Scaling",
       "description": "Long-term evolution of existing products: refactoring, performance, new features."
     }
