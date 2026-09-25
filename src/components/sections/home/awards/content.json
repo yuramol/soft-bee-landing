@@ -25,14 +25,20 @@
       "logoIcon": "LogoUpwork",
       "logoClassName": "h-8 w-auto lg:h-16",
       "description": "Explore our agency profile to learn about our services and past work. You can also contact us through Upwork to discuss your project.",
-      "profileUrl": "https://www.upwork.com"
+      "profileUrl": "https://www.upwork.com/freelancers/~01dc05c3dd4817bee4"
     },
     {
       "id": "clutch",
       "logoIcon": "LogoClutch",
       "logoClassName": "h-6 w-auto lg:h-11",
       "description": "Read client reviews and learn more about the projects we have delivered. Our Clutch profile brings together feedback on the work and the experience of working with our team.",
-      "profileUrl": "https://www.clutch.co"
+      "profileUrl": "https://clutch.co/profile/softbee-0",
+      "stats": {
+        "rating": "5.0",
+        "ratingLabel": "Overall Rating",
+        "reviews": "5",
+        "reviewsLabel": "Client Reviews"
+      }
     }
   ],
   "itemBadges": [

@@ -32,10 +32,11 @@ export interface AwardsItemProps {
   description: string;
   profileUrl?: string;
   badges?: AwardItemBadge[];
+  customFooter?: ReactNode;
   className?: string;
 }
 
-export function AwardsItem({ logo, description, profileUrl, badges = DEFAULT_BADGES, className }: AwardsItemProps) {
+export function AwardsItem({ logo, description, profileUrl, badges = DEFAULT_BADGES, customFooter, className }: AwardsItemProps) {
   return (
     <Link href={profileUrl ?? ''} target='_blank' rel='noopener noreferrer'>
       <Card
@@ -54,11 +55,15 @@ export function AwardsItem({ logo, description, profileUrl, badges = DEFAULT_BAD
             {description}
           </Typography>
 
-          <div className='flex flex-wrap items-center gap-3 lg:gap-x-6'>
-            {badges.map((badge) => (
-              <AwardItemBadge key={badge.label} icon={badge.icon} label={badge.label} />
-            ))}
-          </div>
+          {customFooter ? (
+            customFooter
+          ) : (
+            <div className='flex flex-wrap items-center gap-3 lg:gap-x-6'>
+              {badges.map((badge) => (
+                <AwardItemBadge key={badge.label} icon={badge.icon} label={badge.label} />
+              ))}
+            </div>
+          )}
         </div>
       </Card>
     </Link>

@@ -6,6 +6,8 @@ import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { CASE_STUDIES } from '@/components/sections/case-studies/data';
 
+import content from '../content.json';
+
 interface PointerPosition {
   x: number;
   y: number;
@@ -52,19 +54,19 @@ export function DesktopCard({ c, index, isDesktopPointer, onClick }: DesktopCard
         onPointerMove={(e) => handlePointerMove(e, e.currentTarget)}
         onClick={onClick}
       >
-        <Image src={c.image} alt={c.title} fill className='object-cover' />
+        <Image src={c.moreCasesImage || c.image} alt={c.title} fill className='object-cover' />
 
-        <div className='pointer-events-none absolute top-10.5 left-10.5 mix-blend-difference'>
-          <Typography variant='body2' className='tracking-widest text-white/80 uppercase'>
-            [KEEP SCROLLING TO SEE MORE]
+        <div className='pointer-events-none absolute top-10.5 left-10.5'>
+          <Typography variant='body2' className='tracking-widest text-black uppercase'>
+            [{content.topText}]
           </Typography>
         </div>
 
-        <div className='pointer-events-none absolute right-16 bottom-16 flex items-baseline gap-6 mix-blend-difference'>
-          <Typography variant='h1' className='text-[96px] leading-none font-normal text-white'>
+        <div className='pointer-events-none absolute right-16 bottom-16 flex items-baseline gap-6'>
+          <Typography variant='h1' className='text-[96px] leading-none font-normal text-black'>
             {c.title}
           </Typography>
-          <Typography variant='body1' className='text-[24px] font-normal text-white/80'>
+          <Typography variant='body1' className='text-[24px] font-normal text-black/80'>
             [{c.year}]
           </Typography>
         </div>
@@ -78,7 +80,7 @@ export function DesktopCard({ c, index, isDesktopPointer, onClick }: DesktopCard
               transform: `translate(calc(${position.x}px - 50%), calc(${position.y}px - 50%))`
             }}
           >
-            Show next case
+            {content.hoverButtonText}
           </Button>
         )}
       </div>

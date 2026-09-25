@@ -10,22 +10,11 @@ interface CareersCardProps {
   title: string;
   description: string;
   roleDescription: string;
-  responsibilities: string[];
 }
 
-export const CareersCard = ({ badge, title, description, roleDescription, responsibilities }: CareersCardProps) => {
+export const CareersCard = ({ badge, title, description, roleDescription }: CareersCardProps) => {
   return (
-    <VacancyDialog
-      title={title}
-      roleDescription={roleDescription}
-      responsibilities={
-        <ol className='marker:text-foreground/50 list-decimal space-y-4 pl-8'>
-          {responsibilities.map((responsibility) => (
-            <li key={responsibility}>{responsibility}</li>
-          ))}
-        </ol>
-      }
-    >
+    <VacancyDialog title={title} roleDescription={roleDescription}>
       <button className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:p-8'>
         <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
           <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />

@@ -5,62 +5,62 @@
   "members": [
     {
       "id": 1,
-      "name": "Alex",
+      "name": "Andrii Havryliuk",
       "role": "Co-founder",
-      "description": "A visionary leader with 10+ years in tech, Alex ensures every project aligns with business goals. He believes that great software is built on transparency and relentless attention to detail.",
+      "description": "A visionary leader with 10+ years in tech, Andrii ensures every project aligns with business goals. He believes that great software is built on transparency, robust engineering, and a relentless attention to detail. His strategic approach drives our team to consistently deliver exceptional value.",
       "image": "/images/home/team/team-member-01.webp"
     },
     {
       "id": 2,
-      "name": "Yurii",
+      "name": "Yurii Moldavchuk",
       "role": "Co-founder",
-      "description": "As a co-founder, Yurii brings strategic visions to life, ensuring our solutions are both highly functional and user-centric. He bridges the gap between business strategy, user needs, and product excellence.",
+      "description": "As a co-founder, Yurii brings strategic visions to life, ensuring our solutions are both highly functional and user-centric. He bridges the gap between business strategy, user needs, and product excellence, driving innovation and maintaining a high standard of quality across all our digital products.",
       "image": "/images/home/team/team-member-02.webp"
     },
     {
       "id": 3,
-      "name": "Vitaliy Pushkarov",
-      "role": "Frontend Developer",
-      "description": "Develops modern user interfaces with a focus on usability, performance, and consistency.",
-      "image": "/images/home/team/team-member-vitaliy-pu.webp"
-    },
-    {
-      "id": 4,
-      "name": "Anton Mazurenko",
-      "role": "React Native Developer",
-      "description": "Builds cross-platform mobile applications with a focus on performance and user experience.",
-      "image": "/images/home/team/team-member-anton-m.webp"
-    },
-    {
-      "id": 5,
       "name": "Mykyta Kaidash",
       "role": "Lead Fullstack Developer",
-      "description": "Designs system architecture, leads implementation, and supports engineering quality across projects.",
+      "description": "Designs system architecture, leads implementation, and supports engineering quality across projects. Mykyta ensures the technical foundation is robust and built to handle future growth, while mentoring developers and championing best practices.",
       "image": "/images/home/team/team-member-mykyta-ka.webp"
     },
     {
+      "id": 4,
+      "name": "Vitaliy Pushkarov",
+      "role": "Frontend Developer",
+      "description": "Develops modern user interfaces with a focus on usability, performance, and consistency. Vitaliy is passionate about creating pixel-perfect, accessible, and highly interactive frontend experiences that delight users. His attention to detail bridges the gap between design and seamless functionality.",
+      "image": "/images/home/team/team-member-vitaliy-pu.webp"
+    },
+    {
+      "id": 5,
+      "name": "Anton Mazurenko",
+      "role": "React Native Developer",
+      "description": "Builds cross-platform mobile applications with a focus on performance and user experience. Anton leverages React Native to deliver fluid, native-like mobile experiences on both iOS and Android. He consistently optimizes complex animations and ensures smooth data synchronization across devices.",
+      "image": "/images/home/team/team-member-anton-m.webp"
+    },
+    {
       "id": 6,
+      "name": "Polina Samokysh",
+      "role": "Branding",
+      "description": "Develops brand positioning, identity, and communication consistency across channels. Polina creates compelling visual narratives that resonate with our target audience and elevate the company's presence. She ensures every touchpoint reflects our core values and aesthetic vision.",
+      "image": "/images/home/team/team-member-polina-s.webp"
+    }
+  ],
+  "members_reserve": [
+    {
+      "id": 1,
       "name": "Denys Bykov",
       "role": "Lead Fullstack Developer",
       "description": "Drives technical execution, mentors developers, and ensures code quality standards.",
       "image": "/images/home/team/team-member-denys-by.webp"
     },
     {
-      "id": 7,
+      "id": 2,
       "name": "Mykola Bobryk",
       "role": "Project Manager",
       "description": "Coordinates project delivery, timelines, and communication between clients and teams.",
       "image": "/images/home/team/team-member-mykola-b.webp"
     },
-    {
-      "id": 8,
-      "name": "Polina Samokysh",
-      "role": "Branding",
-      "description": "Develops brand positioning, identity, and communication consistency across channels.",
-      "image": "/images/home/team/team-member-polina-s.webp"
-    }
-  ],
-  "members_reserve": [
     {
       "id": 3,
       "name": "Vitaliy Hula",

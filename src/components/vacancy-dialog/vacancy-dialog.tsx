@@ -35,7 +35,6 @@ interface VacancyDialogProps {
   location?: string;
   type?: string;
   roleDescription?: ReactNode;
-  responsibilities?: ReactNode;
 }
 
 export function VacancyDialog({
@@ -46,8 +45,7 @@ export function VacancyDialog({
   title = 'Client director',
   location = 'Kyiv, Ukraine',
   type = 'Full-time',
-  roleDescription,
-  responsibilities
+  roleDescription
 }: VacancyDialogProps) {
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -245,20 +243,9 @@ export function VacancyDialog({
                 <Typography variant='h4' className='text-foreground max-w-42.25 text-[24px] font-medium'>
                   The role
                 </Typography>
-                <Typography variant='h4' className='text-foreground/50 max-w-183.75'>
+                <Typography variant='h4' className='text-foreground/50 max-w-183.75 whitespace-pre-line'>
                   {roleDescription}
                 </Typography>
-              </div>
-
-              <div className='bg-foreground/50 my-9 h-px w-full shrink-0' />
-
-              <div className='flex flex-col gap-4 pb-4 sm:flex-row sm:justify-between sm:gap-8'>
-                <Typography variant='h4' className='text-foreground max-w-42.25 text-[24px] font-medium'>
-                  Your responsibilities
-                </Typography>
-                <div className='text-foreground/50 flex max-w-183.75 flex-col gap-4 text-[24px] leading-[1.6] font-normal'>
-                  {responsibilities}
-                </div>
               </div>
             </>
           )}

@@ -27,6 +27,7 @@ export interface CaseStudy {
   shortTitle?: string;
   year: string;
   image: string;
+  moreCasesImage?: string;
   link: string;
   client: string;
   projectType: string;
