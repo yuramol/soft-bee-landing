@@ -2,206 +2,81 @@
   {
     "id": "web-app-development",
     "title": "Web App Development",
-    "description": "We build web applications around the way your business works. From customer portals to internal systems, we connect interfaces, business logic, and data in one product. We help define the scope, develop the application, and prepare it for release, with attention to performance, access control, and the features your users need every day.",
+    "description": "We built a high-scale clinical research platform and the Orchard analytical ecosystem for exploring 30M+ drug–disease pairs. The solution includes advanced search and dynamic filtering, persistent URL-based views, secure role-based access, admin tools, and automated E2E testing.",
     "bgClass": "bg-foreground-secondary",
     "textClass": "text-white",
-    "articles": [
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "Team & Workflow",
-        "readTime": "8 min read",
-        "title": "The Honeycomb Structure: Organizing Team Workflows for Maximum Efficiency",
-        "link": "/insights/article-2"
-      },
-      {
-        "image": "/images/services/services-img-2.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      },
-      {
-        "image": "/images/services/services-img-3.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "Every Cure",
+      "images": ["/images/services/evr1.webp", "/images/services/evr2.webp"],
+      "link": "/case-studies/every-cure-orchard"
+    }
   },
   {
     "id": "front-end-development",
     "title": "Front-End Development",
-    "description": "We turn designs into responsive interfaces that make complex tasks easier to complete. Our work covers reusable components, forms, dashboards, and connections to your existing systems. We pay attention to accessibility, loading speed, and behavior across screen sizes, so your team can keep improving the product without rebuilding the interface for every new feature.",
+    "description": "We delivered a full website redesign covering the Homepage, Search page, Property page, and the complete booking flow. The backend integration was built using the external Streamline API together with Supabase. The frontend was developed with Next.js, with a strong focus on performance optimization, achieving Lighthouse scores of 85+ on mobile and 95+ on desktop.",
     "bgClass": "bg-primary-light",
     "textClass": "text-foreground",
-    "articles": [
-      {
-        "image": "/images/services/services-img-2.webp",
-        "tag": "Tech & Dev",
-        "readTime": "6 min read",
-        "title": "Exploring the Future of Frontend Frameworks",
-        "link": "/insights/article-4"
-      },
-      {
-        "image": "/images/services/services-img-4.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "SweetGrass",
+      "images": ["/images/services/sweetgrass1.webp", "/images/services/sweetgrass2.webp"]
+    }
   },
   {
     "id": "saas-b2b-d2c",
     "title": "SaaS & B2B/D2C Platforms",
-    "description": "We develop subscription products, business platforms, and direct customer experiences around your operating model. That can include account management, user roles, payments, reporting, and workflows shared across organizations. We help organize the product and its architecture so you can launch the essential features first, then expand as customers and business requirements grow.",
+    "description": "We built an AI-native platform for managing and deploying LLM-powered workflows at scale. The solution structures prompts into reusable and versioned assets, supports multiple AI providers, and includes automation, observability, governance, policy enforcement, and production safeguards.",
     "bgClass": "bg-accent",
     "textClass": "text-background",
-    "articles": [
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "Team & Workflow",
-        "readTime": "7 min read",
-        "title": "Mastering Remote Collaboration",
-        "link": "/insights/article-6"
-      },
-      {
-        "image": "/images/services/services-img-4.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      },
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
-  },
-  {
-    "id": "ui-ux-design",
-    "title": "UI/UX Design",
-    "description": "We help turn product requirements into clear journeys and practical interfaces. Starting with user needs and existing workflows, we map key screens, create prototypes, and develop the visual design. The result is a consistent set of layouts and components that helps people complete their tasks and gives developers a clear basis for implementation.",
-    "bgClass": "bg-accent-dark",
-    "textClass": "text-background",
-    "articles": [
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "Company news",
-        "readTime": "4 min read",
-        "title": "Behind the Buzz: How We Built Our Latest Feature with User Comfort in Mind",
-        "link": "/insights/article-3"
-      },
-      {
-        "image": "/images/services/services-img-3.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "Ellavox",
+      "images": ["/images/services/ellavox1.webp", "/images/services/ellavox2.webp"],
+      "link": "/case-studies/elacity-control-plane"
+    }
   },
   {
     "id": "mobile-app-development",
     "title": "Mobile App Development",
-    "description": "We build mobile applications for iOS and Android, with shared development where it fits the product. We connect the app to your services and shape its navigation, forms, notifications, and core workflows for mobile use. From the first working version to release, we focus on a clear experience and a codebase your team can maintain.",
+    "description": "We developed the Trovr and Trovr Merchant mobile ecosystem for a recycling rewards program. The apps support QR/barcode scanning, reward redemption, push notifications, location tracking, deep linking, and synchronization between the consumer and merchant experiences.",
     "bgClass": "bg-primary",
     "textClass": "text-foreground",
-    "articles": [
-      {
-        "image": "/images/services/services-img-2.webp",
-        "tag": "Tech & Dev",
-        "readTime": "6 min read",
-        "title": "Exploring the Future of Frontend Frameworks - Volume 2",
-        "link": "/insights/article-10"
-      },
-      {
-        "image": "/images/services/services-img-4.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      },
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "Trovr Merchant",
+      "images": ["/images/services/trovr1.webp", "/images/services/trovr2.webp"]
+    }
   },
   {
     "id": "back-end-development",
     "title": "Back-End Development",
-    "description": "We build the services that keep your application working: business logic, databases, APIs, and integrations. Our work includes organizing data, managing permissions, and connecting the systems your business relies on. We design the architecture around expected usage and future requirements, with attention to reliable processing, maintainability, and visibility into how the system behaves.",
+    "description": "We built the backend architecture for a secure tender and quote management platform, replacing spreadsheet-based workflows with structured, real-time collaboration. The solution includes Supabase/PostgreSQL data models, row-level locking, ERP integrations for pricing, stock and suppliers, server-side calculations, scheduled jobs, and APIs supporting an Excel-like quote-building experience.",
     "bgClass": "bg-background-inverse",
     "textClass": "text-white",
-    "articles": [
-      {
-        "image": "/images/services/services-img-4.webp",
-        "tag": "Tech & Dev",
-        "readTime": "5 min read",
-        "title": "Building Without Friction: Why \"Soft\" Technology is the Future of Innovation",
-        "link": "/insights/article-1"
-      },
-      {
-        "image": "/images/services/services-img-2.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "Fast Quote",
+      "images": ["/images/services/fast-quote1.webp", "/images/services/fast-quote2.webp"]
+    }
   },
   {
     "id": "ai-integrations",
     "title": "AI Integrations",
-    "description": "We add AI features to products and workflows where they can solve a clear business problem. This can include searching company knowledge, processing documents, or assisting users with routine tasks. We connect suitable models to your application and data, define how results are reviewed, and account for response quality, operating costs, and failure handling.",
+    "description": "We built an AI-powered oncology platform that uses RAG and LLMs to help teams discover, compare, and generate insights from complex clinical trial data. The platform combines AI-driven workflows with structured data exploration for clinical research teams.",
     "bgClass": "bg-accent",
     "textClass": "text-background",
-    "articles": [
-      {
-        "image": "/images/services/services-img-4.webp",
-        "tag": "Tech & Dev",
-        "readTime": "5 min read",
-        "title": "Building Without Friction: Why \"Soft\" Technology is the Future of Innovation - Volume 2",
-        "link": "/insights/article-7"
-      },
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      },
-      {
-        "image": "/images/services/services-img-3.webp",
-        "tag": "",
-        "readTime": "",
-        "title": "",
-        "link": ""
-      }
-    ]
+    "project": {
+      "title": "Confyde",
+      "images": ["/images/services/confyde1.webp", "/images/services/confyde2.webp"],
+      "link": "/case-studies/confyde"
+    }
   },
   {
     "id": "product-support-scaling",
     "title": "Product Support & Scaling",
-    "description": "We help existing products keep working as users, features, and business needs change. Our work includes fixing issues, improving performance, updating dependencies, and extending the application. We review the current code and infrastructure, agree on priorities, and make changes in manageable steps so your team can plan improvements alongside the day-to-day operation of the product.",
+    "description": "We built a scalable multi-tenant recruitment platform for complex, high-volume hiring workflows. It includes real-time chat, analytics, multi-step applications, automated invitation flows, secure organization-level data isolation, and architecture optimized for performance and reliability.",
     "bgClass": "bg-accent-dark",
     "textClass": "text-background",
-    "articles": [
-      {
-        "image": "/images/services/services-img-1.webp",
-        "tag": "Company news",
-        "readTime": "3 min read",
-        "title": "Soft Bee Expands to New Office",
-        "link": "/insights/article-5"
-      }
-    ]
+    "project": {
+      "title": "CuedIn",
+      "images": ["/images/services/cuedin1.webp", "/images/services/cuedin2.webp"]
+    }
   }
 ]

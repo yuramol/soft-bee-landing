@@ -1,15 +1,11 @@
 {
   "title": ["Let's plan your next step"],
   "cta": "Discuss your project",
-  "location": "Kyiv",
+  "location": "Tallinn",
   "contacts": [
     {
-      "label": "hello@softbee.com",
-      "href": "mailto:hello@softbee.com"
-    },
-    {
-      "label": "(+00) 0000 000 0",
-      "href": "tel:+0000000000"
+      "label": "info@softbee.io",
+      "href": "mailto:info@softbee.io"
     }
   ],
   "navSections": [
@@ -33,16 +29,26 @@
       "links": [
         {
           "label": "Instagram",
-          "href": "https://www.instagram.com/soft.bee.io?igsh=MXY2ejFzYzltNXg0aQ%3D%3D&utm_source=qr",
+          "href": "https://www.instagram.com/ai.softbee",
           "target": "_blank"
         },
-        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/80949379/admin/dashboard/", "target": "_blank" }
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/softbeeio", "target": "_blank" },
+        { "label": "Clutch", "href": "https://clutch.co/profile/softbee-0", "target": "_blank" },
+        { "label": "Upwork", "href": "https://www.upwork.com/freelancers/~01dc05c3dd4817bee4", "target": "_blank" }
       ]
     }
   ],
   "legalLinks": [
-    { "label": "Terms of use", "href": "#" },
-    { "label": "Privacy policy", "href": "#" }
+    {
+      "label": "Terms of use",
+      "href": "https://docs.google.com/document/d/1e3uDPBb8RkFaDPT6B0Exm7xX39lEhd_fZS_huqoQ6IU/edit?tab=t.0#heading=h.d1vy2iqiqyjk",
+      "target": "_blank"
+    },
+    {
+      "label": "Privacy policy",
+      "href": "https://docs.google.com/document/d/1JYaWJ3jiEHnTmNDygoCx9XrBgVutHpjDeUS5lyYfxME/edit?tab=t.0#heading=h.ja9uupp4ct7v",
+      "target": "_blank"
+    }
   ],
   "copyright": "Soft Bee © All rights reserved,"
 }
