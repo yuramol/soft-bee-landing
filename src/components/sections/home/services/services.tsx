@@ -14,7 +14,8 @@ import { getInitialTranslate } from '@/lib/utils';
 import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import servicesContent from './content.json';
-import { ServiceCard } from './service-card';
+import { ServiceCard, ViewMoreServiceCard } from './service-card';
+import { IconName } from '@/components/ui/icon';
 
 const INITIAL_VISIBLE_CARDS = 2;
 
@@ -85,9 +86,12 @@ export const Services = () => {
           >
             {servicesContent.cards.map((card) => (
               <div key={card.id} className='flex snap-start self-stretch'>
-                <ServiceCard title={card.title} description={card.description} />
+                <ServiceCard title={card.title} description={card.description} icon={card.icon as IconName} />
               </div>
             ))}
+            <div className='flex snap-start self-stretch'>
+              <ViewMoreServiceCard />
+            </div>
           </motion.div>
 
           {/* Mobile Swiper */}
@@ -95,9 +99,12 @@ export const Services = () => {
             <Swiper loop={true} slidesPerView='auto' spaceBetween={10} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
               {servicesContent.cards.map((card) => (
                 <SwiperSlide key={`mobile-${card.id}`} className='flex h-auto! w-full!'>
-                  <ServiceCard title={card.title} description={card.description} />
+                  <ServiceCard title={card.title} description={card.description} icon={card.icon as IconName} />
                 </SwiperSlide>
               ))}
+              <SwiperSlide key='mobile-view-more' className='flex h-auto! w-full!'>
+                <ViewMoreServiceCard />
+              </SwiperSlide>
             </Swiper>
           </div>
         </div>

@@ -17,7 +17,6 @@ import { cn, getInitialTranslate } from '@/lib/utils';
 import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import { CareersCard } from './careers-card';
-import { CareersVideo } from './careers-video';
 import careersContent from './content.json';
 import { CareersCardData } from './types';
 
@@ -25,6 +24,7 @@ const INITIAL_VISIBLE_CARDS = 2;
 
 const CAREERS_CARDS: CareersCardData[] = careersContent.cards;
 const hasCards = CAREERS_CARDS.length > 0;
+const hasMultipleCards = CAREERS_CARDS.length > 1;
 
 interface CareersProps {
   className?: string;
@@ -78,11 +78,11 @@ export const Careers = ({ className }: CareersProps) => {
     <section className={cn('bg-muted relative', className)}>
       <ComponentContainer>
         <div className='relative z-20 w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
-          <div ref={targetRef} className={cn('relative w-full', hasCards ? 'md:h-[400vh]' : 'md:h-[50vh]')}>
+          <div ref={targetRef} className={cn('relative w-full', hasMultipleCards ? 'md:h-[400vh]' : 'md:h-auto')}>
             <div
               className={cn(
                 'z-10 w-full px-4 py-18.25 pb-23.5 md:flex md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15',
-                hasCards && 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]'
+                hasMultipleCards ? 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]' : hasCards ? 'md:min-h-[calc(100vh-20px)]' : ''
               )}
             >
               <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>
@@ -104,8 +104,11 @@ export const Careers = ({ className }: CareersProps) => {
                   <>
                     <motion.div
                       ref={carouselRef}
-                      className='hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0'
-                      style={{ x: translateX }}
+                      className={cn(
+                        'hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0',
+                        !hasMultipleCards && 'w-full md:justify-end'
+                      )}
+                      style={{ x: hasMultipleCards ? translateX : 0 }}
                     >
                       {CAREERS_CARDS.map((card) => (
                         <div key={card.id} className='snap-start'>
@@ -114,7 +117,6 @@ export const Careers = ({ className }: CareersProps) => {
                             title={card.title}
                             description={card.description}
                             roleDescription={card.vacancyDetails.roleDescription}
-                            responsibilities={card.vacancyDetails.responsibilities}
                           />
                         </div>
                       ))}
@@ -122,7 +124,7 @@ export const Careers = ({ className }: CareersProps) => {
 
                     <div className='block overflow-hidden md:hidden'>
                       <Swiper
-                        loop={true}
+                        loop={hasMultipleCards}
                         slidesPerView='auto'
                         spaceBetween={10}
                         className='w-full overflow-visible!'
@@ -135,7 +137,6 @@ export const Careers = ({ className }: CareersProps) => {
                               title={card.title}
                               description={card.description}
                               roleDescription={card.vacancyDetails.roleDescription}
-                              responsibilities={card.vacancyDetails.responsibilities}
                             />
                           </SwiperSlide>
                         ))}
@@ -157,7 +158,7 @@ export const Careers = ({ className }: CareersProps) => {
             </div>
           </div>
 
-          <CareersVideo />
+          {/* <CareersVideo /> */}
         </div>
       </ComponentContainer>
     </section>

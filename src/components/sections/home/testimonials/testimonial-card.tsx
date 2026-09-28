@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
@@ -10,17 +9,11 @@ interface TestimonialCardProps {
   name: string;
   role: string;
   logo: string;
-  link: string;
 }
 
-export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: TestimonialCardProps) => {
+export const TestimonialCard = ({ quote, avatar, name, role, logo }: TestimonialCardProps) => {
   return (
-    <Link
-      href={link}
-      target='_blank'
-      rel='noopener noreferrer'
-      className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 flex-col justify-between overflow-hidden rounded-lg p-6 md:w-149.75 md:max-w-149.75 md:p-8'
-    >
+    <div className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 flex-col justify-between overflow-hidden rounded-lg p-6 md:w-149.75 md:max-w-149.75 md:p-8'>
       <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
         <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
       </div>
@@ -30,7 +23,7 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
         {quote}
       </Typography>
 
-      <div className='relative z-10 flex items-center justify-between transition-colors duration-500 group-hover:border-transparent'>
+      <div className='relative z-10 flex items-center justify-between gap-3 transition-colors duration-500 group-hover:border-transparent'>
         <div className='flex items-center gap-3'>
           <div className='relative size-12.5 shrink-0 overflow-hidden rounded-full bg-gray-200'>
             <Image src={avatar} alt={name} fill className='object-cover' />
@@ -44,10 +37,20 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo, link }: Testi
             </Typography>
           </div>
         </div>
-        <div className='relative h-8 w-20 shrink-0'>
-          <Image src={logo} alt='Company Logo' fill className='object-contain object-right' />
+        <div className='relative flex h-11 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white'>
+          <div
+            className={`relative flex items-center justify-center ${
+              logo.includes('confyde')
+                ? 'h-full w-full scale-[1.5]'
+                : logo.includes('trovr') || logo.includes('join-peel')
+                  ? 'h-8 w-8 overflow-hidden rounded-md'
+                  : 'h-full w-full'
+            }`}
+          >
+            <Image src={logo} alt='Company Logo' fill className={logo.includes('trovr') ? 'object-cover' : 'object-contain'} />
+          </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
