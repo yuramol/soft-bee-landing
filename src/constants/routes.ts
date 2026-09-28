@@ -6,7 +6,9 @@ export const ROUTES = {
   CAREERS: '/careers',
   SERVICES: '/services',
   CASE_STUDIES: '/case-studies',
-  INSIGHTS: '/insights'
+  INSIGHTS: '/insights',
+  PRIVACY_POLICY: '/privacy-policy',
+  TERMS_OF_USE: '/terms-of-use'
 } as const;
 
 /** Paths anonymous users must reach (OAuth must hit /auth/callback before session exists). */

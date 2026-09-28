@@ -1,0 +1,257 @@
+{
+  "title": "Terms of Use",
+  "metadataTitle": "Terms of Use | Soft Bee",
+  "lastUpdated": "Last updated: 24 September 2026",
+  "intro": [
+    "These Terms of Use (“Terms”) govern your access to and use of the website operated by SOFTBEE OÜ (“SoftBee”, “we”, “us”, or “our”), including softbee.io and its related pages (the “Website”).",
+    "By accessing or using the Website, you agree to these Terms. If you do not agree with these Terms, please do not use the Website."
+  ],
+  "sections": [
+    {
+      "title": "1. About SoftBee",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The Website is operated by:"
+        },
+        {
+          "type": "ul",
+          "style": "none",
+          "items": [
+            "<strong>SOFTBEE OÜ</strong>",
+            "Registry code: <strong>17469617</strong>",
+            "VAT number: <strong>EE102980853</strong>",
+            "Registered address: Harju maakond, Tallinn, Kesklinna linnaosa, Kaupmehe tn 7-120, 10114, Estonia",
+            "Email:  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 underline'> info@softbee.io </a>"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "2. Purpose of the Website",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The Website provides information about SoftBee, our software development capabilities, services, expertise, case studies, projects, and related business activities."
+        },
+        {
+          "type": "p",
+          "content": "The information available on the Website is provided for general informational and promotional purposes."
+        },
+        {
+          "type": "p",
+          "content": "Nothing on the Website constitutes a binding offer or creates a contractual relationship between you and SoftBee."
+        },
+        {
+          "type": "p",
+          "content": "Any software development, consulting, design, support, or other professional services provided by SoftBee are subject to separate agreements between SoftBee and the relevant client."
+        },
+        {
+          "type": "p",
+          "content": "If there is any conflict between these Terms and a separate written agreement entered into with SoftBee, the separate agreement will prevail with respect to the services covered by that agreement."
+        }
+      ]
+    },
+    {
+      "title": "3. Use of the Website",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "You may access and use the Website for lawful purposes."
+        },
+        {
+          "type": "p",
+          "content": "You agree not to:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "use the Website in violation of applicable laws or regulations;",
+            "attempt to gain unauthorised access to the Website, its infrastructure, systems, or networks;",
+            "interfere with or disrupt the operation or security of the Website;",
+            "introduce malicious software, viruses, scripts, or other harmful technologies;",
+            "use automated means to excessively access, scrape, copy, or interfere with the Website;",
+            "impersonate SoftBee or misrepresent your relationship with SoftBee;",
+            "use Website content in a way that infringes intellectual property or other rights."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "We may restrict or block access to the Website where reasonably necessary to protect the Website, our systems, our rights, or other users."
+        }
+      ]
+    },
+    {
+      "title": "4. Intellectual Property",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "Unless otherwise stated, the Website and its content, including text, graphics, illustrations, visual elements, layouts, software, branding, logos, icons, case study materials, and other materials, are owned by or licensed to SoftBee and are protected by applicable intellectual property laws."
+        },
+        {
+          "type": "p",
+          "content": "You may view and use Website content for personal or internal business informational purposes."
+        },
+        {
+          "type": "p",
+          "content": "You may not reproduce, distribute, modify, publish, commercially exploit, sell, license, or create derivative works based on Website content without prior written permission from SoftBee, except where such use is permitted by applicable law."
+        },
+        {
+          "type": "p",
+          "content": "Third-party trademarks, logos, company names, products, screenshots, and other materials appearing in case studies or elsewhere on the Website remain the property of their respective owners."
+        }
+      ]
+    },
+    {
+      "title": "5. Case Studies and Portfolio Information",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The Website may contain descriptions of projects, client engagements, products, technologies, or results achieved as part of past work."
+        },
+        {
+          "type": "p",
+          "content": "Such information is provided to illustrate our experience and capabilities."
+        },
+        {
+          "type": "p",
+          "content": "Project results, performance, timelines, costs, technical solutions, or other outcomes described in case studies should not be interpreted as a guarantee that identical or similar results will be achieved for another project."
+        }
+      ]
+    },
+    {
+      "title": "6. Third-Party Websites and Services",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The Website may contain links to websites, platforms, social networks, client websites, or services operated by third parties."
+        },
+        {
+          "type": "p",
+          "content": "These third-party services are not controlled by SoftBee."
+        },
+        {
+          "type": "p",
+          "content": "We are not responsible for their content, availability, security, privacy practices, or terms of use. Access to third-party websites is subject to the terms and policies established by the relevant third party."
+        }
+      ]
+    },
+    {
+      "title": "7. Accuracy and Availability",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We aim to keep the information on the Website accurate and up to date, but we do not guarantee that all information will always be complete, current, accurate, or free from errors."
+        },
+        {
+          "type": "p",
+          "content": "Information about our services, technologies, team, projects, availability, or other matters may change without notice."
+        },
+        {
+          "type": "p",
+          "content": "We may modify, suspend, discontinue, or restrict access to any part of the Website at any time."
+        },
+        {
+          "type": "p",
+          "content": "We do not guarantee uninterrupted or error-free availability of the Website."
+        }
+      ]
+    },
+    {
+      "title": "8. Disclaimer",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "To the extent permitted by applicable law, the Website and its content are provided on an “as is” and “as available” basis."
+        },
+        {
+          "type": "p",
+          "content": "SoftBee makes no warranties, express or implied, regarding the Website or its content, including warranties relating to accuracy, availability, reliability, suitability for a particular purpose, or non-infringement."
+        },
+        {
+          "type": "p",
+          "content": "Information published on the Website should not be treated as technical, legal, financial, or other professional advice for your specific circumstances."
+        }
+      ]
+    },
+    {
+      "title": "9. Limitation of Liability",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "To the maximum extent permitted by applicable law, SoftBee will not be liable for indirect, incidental, consequential, special, or similar losses arising from or related to your use of, or inability to use, the Website."
+        },
+        {
+          "type": "p",
+          "content": "This includes, where applicable, loss of data, revenue, profits, business opportunities, or goodwill."
+        },
+        {
+          "type": "p",
+          "content": "Nothing in these Terms excludes or limits liability where such liability cannot lawfully be excluded or limited."
+        }
+      ]
+    },
+    {
+      "title": "10. Privacy",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "Your use of the Website may involve the processing of personal data."
+        },
+        {
+          "type": "p",
+          "content": "Information about how SoftBee collects and processes personal data is available in our Privacy Policy."
+        }
+      ]
+    },
+    {
+      "title": "11. Changes to These Terms",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We may update these Terms from time to time to reflect changes to the Website, our business, applicable law, or our practices."
+        },
+        {
+          "type": "p",
+          "content": "The updated version will be published on the Website together with the revised “Last updated” date."
+        },
+        {
+          "type": "p",
+          "content": "Your continued use of the Website after changes become effective constitutes acceptance of the updated Terms."
+        }
+      ]
+    },
+    {
+      "title": "12. Governing Law",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "These Terms are governed by the laws of the Republic of Estonia, without prejudice to any mandatory rights you may have under applicable law."
+        },
+        {
+          "type": "p",
+          "content": "Any disputes relating to these Terms or the use of the Website will be handled by the competent courts in Estonia unless applicable mandatory law provides otherwise."
+        }
+      ]
+    },
+    {
+      "title": "13. Contact",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "If you have questions regarding these Terms, you can contact us at:"
+        },
+        {
+          "type": "ul",
+          "style": "none",
+          "items": [
+            "<strong>SOFTBEE OÜ</strong>",
+            "Harju maakond, Tallinn, Kesklinna linnaosa, Kaupmehe tn 7-120, 10114, Estonia",
+            "Email:  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 font-bold underline'> info@softbee.io </a>"
+          ]
+        }
+      ]
+    }
+  ]
+}
