@@ -53,51 +53,41 @@ export async function getTags(): Promise<TagRow[]> {
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
   const page = params.page ?? 1;
   const pageSize = clampArticlesPageSize(params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX);
-  const searchQuery = params.searchQuery?.trim() ?? '';
-  const category = params.category;
-
-  const [dbRows, aiRanked] = await Promise.all([fetchDbArticlesForMerge(category), fetchAiRankedForMerge(category)]);
-
-  let rankedDb = toRankedDbInsights(dbRows);
-  let rankedAi = aiRanked;
-
-  if (searchQuery) {
-    const filtered = filterInsightsBySearch(
-      [...rankedDb, ...rankedAi].map((entry) => entry.article),
-      searchQuery
-    );
-    const allowed = new Set(filtered.map((article) => article.slug));
-    rankedDb = rankedDb.filter((entry) => allowed.has(entry.article.slug));
-    rankedAi = rankedAi.filter((entry) => allowed.has(entry.article.slug));
-  }
-
-  const merged = mergeRankedInsights(rankedDb, rankedAi);
+  const merged = await getMergedInsights({
+    category: params.category,
+    searchQuery: params.searchQuery
+  });
   return paginateInsights(merged, page, pageSize);
 }
 
 /**
- * Resolve an insight by slug from DB first, then Soft Bee News.
+ * Resolve an insight by slug with the same tier preference as the merged list:
+ * prioritized DB → Soft Bee News → remaining DB.
+ * Non-404 Soft Bee News failures propagate (do not masquerade as missing articles).
  */
 export async function getInsightBySlug(slug: string): Promise<InsightArticle | null> {
   const dbArticle = await getArticleBySlug(slug);
+
+  if (dbArticle?.prioritized) {
+    return transformArticleToInsight(dbArticle);
+  }
+
+  if (isNewsConfigured()) {
+    try {
+      const newsArticle = await getNewsArticle(slug, NEWS_DEFAULT_LANGUAGE);
+      return transformNewsArticleToInsight(newsArticle);
+    } catch (error) {
+      if (!(error instanceof NewsApiError && error.status === 404)) {
+        throw error;
+      }
+    }
+  }
+
   if (dbArticle) {
     return transformArticleToInsight(dbArticle);
   }
 
-  if (!isNewsConfigured()) {
-    return null;
-  }
-
-  try {
-    const newsArticle = await getNewsArticle(slug, NEWS_DEFAULT_LANGUAGE);
-    return transformNewsArticleToInsight(newsArticle);
-  } catch (error) {
-    if (error instanceof NewsApiError && error.status === 404) {
-      return null;
-    }
-    console.error('Failed to fetch Soft Bee News article:', error);
-    return null;
-  }
+  return null;
 }
 
 /**
@@ -116,11 +106,33 @@ export async function getArticleBySlug(slug: string): Promise<ArticleRow | null>
 }
 
 /**
- * More Insights: merged feed excluding the current slug.
+ * More Insights: full merged feed excluding the current slug (not limited by list pageSize).
  */
 export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<InsightArticle[]> {
-  const result = await getArticles({ page: 1, pageSize: NEWS_MERGE_DB_FETCH_LIMIT });
-  return result.articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
+  const merged = await getMergedInsights({});
+  return merged.filter((article) => article.slug !== excludeSlug).slice(0, limit);
+}
+
+async function getMergedInsights(params: { category?: string; searchQuery?: string } = {}): Promise<InsightArticle[]> {
+  const searchQuery = params.searchQuery?.trim() ?? '';
+  const category = params.category;
+
+  const [dbRows, aiRanked] = await Promise.all([fetchDbArticlesForMerge(category), fetchAiRankedForMerge(category)]);
+
+  let rankedDb = toRankedDbInsights(dbRows);
+  let rankedAi = aiRanked;
+
+  if (searchQuery) {
+    const filtered = filterInsightsBySearch(
+      [...rankedDb, ...rankedAi].map((entry) => entry.article),
+      searchQuery
+    );
+    const allowed = new Set(filtered.map((article) => article.slug));
+    rankedDb = rankedDb.filter((entry) => allowed.has(entry.article.slug));
+    rankedAi = rankedAi.filter((entry) => allowed.has(entry.article.slug));
+  }
+
+  return mergeRankedInsights(rankedDb, rankedAi);
 }
 
 async function fetchDbArticlesForMerge(category: string | undefined): Promise<ArticleRow[]> {

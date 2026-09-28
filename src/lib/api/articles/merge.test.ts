@@ -44,7 +44,7 @@ describe('mergeRankedInsights', () => {
     expect(merged.map((item) => item.slug)).toEqual(['db-prio', 'ai-mid', 'db-fresh']);
   });
 
-  it('dedupes by slug preferring the earlier tier entry', () => {
+  it('dedupes by slug preferring prioritized DB over AI', () => {
     const merged = mergeRankedInsights(
       [ranked({ slug: 'same', title: 'DB', prioritized: true, publishedAtMs: 10, source: 'db' })],
       [ranked({ slug: 'same', title: 'AI', prioritized: false, publishedAtMs: 99, source: 'ai' })]
@@ -52,6 +52,16 @@ describe('mergeRankedInsights', () => {
 
     expect(merged).toHaveLength(1);
     expect(merged[0]?.title).toBe('DB');
+  });
+
+  it('dedupes by slug preferring AI over non-prioritized DB', () => {
+    const merged = mergeRankedInsights(
+      [ranked({ slug: 'same', title: 'DB', prioritized: false, publishedAtMs: 10, source: 'db' })],
+      [ranked({ slug: 'same', title: 'AI', prioritized: false, publishedAtMs: 99, source: 'ai' })]
+    );
+
+    expect(merged).toHaveLength(1);
+    expect(merged[0]?.title).toBe('AI');
   });
 });
 
