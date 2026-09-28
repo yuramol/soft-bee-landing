@@ -7,73 +7,11 @@
     {
       "id": 0,
       "badge": "Development",
-      "title": "Full-stack Developer 0",
-      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
+      "title": "Full Stack Developer with BE Focus",
+      "description": "This role is for a true full-stack engineer, not just a frontend developer who connects to an API. The ideal candidate is backend-strong, confident on the frontend, and able to design and build systems from scratch.",
       "vacancyDetails": {
-        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
-        "responsibilities": [
-          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
-          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
-          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
-          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
-          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
-          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
-          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
-        ]
-      }
-    },
-    {
-      "id": 1,
-      "badge": "Development",
-      "title": "Full-stack Developer 1",
-      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
-      "vacancyDetails": {
-        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
-        "responsibilities": [
-          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
-          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
-          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
-          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
-          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
-          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
-          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
-        ]
-      }
-    },
-    {
-      "id": 2,
-      "badge": "Development",
-      "title": "Full-stack Developer 2",
-      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
-      "vacancyDetails": {
-        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
-        "responsibilities": [
-          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
-          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
-          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
-          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
-          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
-          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
-          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
-        ]
-      }
-    },
-    {
-      "id": 3,
-      "badge": "Development",
-      "title": "Full-stack Developer 3",
-      "description": "High-performance code is our standard. Join us to build scalable web applications using the latest tech stacks and agile methodologies.",
-      "vacancyDetails": {
-        "roleDescription": "You're a seasoned Client Services professional who thrives at the intersection of relationships, process, and creative excellence. With a knack for building trust and a meticulous eye for detail, you guide clients and teams through every stage of the branding journey. You balance the big picture with the small details, always to deliver work that is not only exceptional but impactful.",
-        "responsibilities": [
-          "Lead & Deliver Exceptional Work. Manage multiple branding projects, balancing scope, budget, and timelines without compromising quality. You move effortlessly between fast-paced startups and more complex, established organizations.",
-          "Shape the Client Experience. Build strong, long-term relationships with clients, serving as their go-to partner. You advocate for both the client and the agency, ensuring successful outcomes.",
-          "Strategic Guidance. Provide strategic counsel to clients, helping them navigate complex branding challenges and seize new opportunities.",
-          "Team Mentorship. Mentor and guide junior team members, fostering a culture of continuous learning and professional growth within the Client Services team.",
-          "Business Development. Identify and pursue new business opportunities, contributing to the agency's growth and expansion.",
-          "Process Optimization. Continuously evaluate and improve internal workflows and processes to maximize efficiency and project profitability.",
-          "Quality Assurance. Ensure all deliverables meet the highest standards of quality and align with the client's strategic objectives."
-        ]
+        "roleDescription": "We are looking for a Full Stack Developer (Middle / Senior) to join our team on a part-time or full-time basis.\n\nWhat we are looking for:\n- Strong knowledge of both backend and frontend development\n- Backend-first mindset, with the ability to work confidently on the frontend\n- Solid architectural thinking\n- Ability to design and build systems from scratch\n- Experience in laying a strong foundation and planning for future extensibility\n- Understanding of clean architecture, scalability, and maintainability\n\nRequirements:\n- React.js (4+ years), Next.js (2+ years), TypeScript (4+ years). Bonus if you know React Native.\n- Supabase (1.5+ years) and GraphQL or REST APIs.\n- PostgreSQL (3+ years) - strong knowledge beyond ORM level (queries, indexing, performance, data modeling).\n- Bonus if you know Node.js, Nest.js, Express.js.\n- Language requirements: Conversational English is required (B1). Ukrainian (B2) and Russian (B2).\n\nIf you enjoy building well-architected systems, thinking beyond just implementation, and owning features end-to-end, we’d be happy to talk.",
+        "responsibilities": []
       }
     }
   ],

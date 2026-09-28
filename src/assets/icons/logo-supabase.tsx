@@ -12,8 +12,8 @@ export const LogoSupabase = (style: IconCommonProps) => (
         gradientTransform='translate(29.387 60.096) scale(1.1436)'
         gradientUnits='userSpaceOnUse'
       >
-        <stop offset='0' stop-color='#249361' />
-        <stop offset='1' stop-color='#3ecf8e' />
+        <stop offset='0' stopColor='#249361' />
+        <stop offset='1' stopColor='#3ecf8e' />
       </linearGradient>
       <linearGradient
         id='b'

@@ -1,5 +1,12 @@
+'use client';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+
 import { ComponentContainer } from '@/components/layout';
-import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
@@ -8,6 +15,8 @@ import CaseStudiesItem from './components/case-studies-item';
 import caseStudiesContent from './content.json';
 import { ROUTES } from '@/constants';
 import Link from 'next/link';
+
+import './style.css';
 
 export function CaseStudies() {
   return (
@@ -27,13 +36,39 @@ export function CaseStudies() {
             <Link href={ROUTES.CASE_STUDIES}>{caseStudiesContent.cta}</Link>
           </Button>
         </div>
-        {caseStudiesContent.items
-          .filter((item) => item.title)
-          .map((item, index) => (
-            <div key={index} className={cn(index > 0 && 'lg:hidden')}>
-              <CaseStudiesItem item={item} />
-            </div>
-          ))}
+
+        <div className='flex w-full flex-col gap-y-17 lg:hidden'>
+          {caseStudiesContent.items
+            .filter((item) => item.title)
+            .map((item, index) => (
+              <div key={index}>
+                <CaseStudiesItem item={item} />
+              </div>
+            ))}
+        </div>
+
+        <div className='hidden w-full lg:block [&_.swiper-pagination]:bottom-0 [&_.swiper-wrapper]:pb-16'>
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            loop={true}
+            autoplay={{
+              delay: 7000,
+              disableOnInteraction: false
+            }}
+            pagination={{ clickable: true }}
+            spaceBetween={30}
+            slidesPerView={1}
+            className='case-studies-swiper w-full'
+          >
+            {caseStudiesContent.items
+              .filter((item) => item.title)
+              .map((item, index) => (
+                <SwiperSlide key={index}>
+                  <CaseStudiesItem item={item} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
       </ComponentContainer>
     </section>
   );

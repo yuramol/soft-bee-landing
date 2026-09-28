@@ -5,6 +5,7 @@
     "shortTitle": "Elacity",
     "year": "2026",
     "image": "/images/case-studies/elicity/el1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/elacity1.webp",
     "link": "/case-studies/elacity-control-plane",
     "client": "Ellavox AI",
     "projectType": "AI governance and prompt operations",
@@ -144,31 +145,13 @@
     ],
     "testimonials": [
       {
-        "id": "plumbid-0",
-        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Alex B",
-        "role": "CEO at plumBid Corp",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "plumbid-1",
-        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Sarah J",
-        "role": "CTO at plumBid Corp",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "plumbid-2",
-        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Michael T",
-        "role": "Product Manager at plumBid Corp",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
+        "id": "elacity-0",
+        "quote": "Yurij and his team did an exceptional job. They are amazing developers and we will definitely use them again on future projects",
+        "avatar": "/images/home/testimonials/ellavo-avatar.jpg",
+        "name": "Rich Waidmann",
+        "role": "Successful Tech Entrepreneur | Co-Founder Ellavox AI",
+        "logo": "/images/home/testimonials/elavox-logo.jpg",
+        "link": "https://clutch.co/profile/softbee-0"
       }
     ]
   },
@@ -177,6 +160,7 @@
     "title": "Orchard",
     "year": "2025",
     "image": "/images/case-studies/orchard/evr1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/evr1.webp",
     "link": "/case-studies/every-cure-orchard",
     "client": "Every Cure",
     "projectType": "AI-powered drug repurposing research",
@@ -314,31 +298,13 @@
     ],
     "testimonials": [
       {
-        "id": "autobro-0",
-        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Alex B",
-        "role": "CEO at AutoBro Inc.",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "autobro-1",
-        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Sarah J",
-        "role": "CTO at AutoBro Inc.",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "autobro-2",
-        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Michael T",
-        "role": "Product Manager at AutoBro Inc.",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
+        "id": "every-cure-0",
+        "quote": "We worked with Yurii and team for several months. They were a fantastic asset to the team and a pleasure to work with. They had clear communication with engineers and the team, raised issues early, and really grew to understand the codebase and the product deeply",
+        "avatar": "/images/home/testimonials/every-cure-avatar.jpg",
+        "name": "Pascal Brokmeier",
+        "role": "Head of Engineering | BioTech X Investment X AI",
+        "logo": "/images/home/testimonials/every-cure-logo.jpg",
+        "link": "https://clutch.co/profile/softbee-0"
       }
     ]
   },
@@ -347,6 +313,7 @@
     "title": "Confyde",
     "year": "2025",
     "image": "/images/case-studies/confyde/confy1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/confyde1.webp",
     "link": "/case-studies/confyde",
     "client": "Confyde AI",
     "projectType": "AI-powered clinical trial research",
@@ -481,31 +448,13 @@
     ],
     "testimonials": [
       {
-        "id": "gapnurse-0",
-        "quote": "Working with Soft Bee felt like adding an elite engineering engine to our team. They didn't just write code; they optimized our entire development workflow, allowing us to hit the market two months ahead of schedule.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Alex B",
-        "role": "CEO at GapNurse LLC",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "gapnurse-1",
-        "quote": "The level of professionalism and technical expertise demonstrated by Soft Bee was exceptional. They seamlessly integrated with our team and delivered a highly scalable product.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Sarah J",
-        "role": "CTO at GapNurse LLC",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
-      },
-      {
-        "id": "gapnurse-2",
-        "quote": "Our user engagement went through the roof after Soft Bee completely revamped our platform. Their attention to detail and UX knowledge is unmatched.",
-        "avatar": "/images/home/testimonials/testimonial-avatar-01.webp",
-        "name": "Michael T",
-        "role": "Product Manager at GapNurse LLC",
-        "logo": "/images/home/testimonials/testimonial-logo-01.webp",
-        "link": "https://clutch.co/profile/soft-bee"
+        "id": "confyde-0",
+        "quote": "Yurij and team were excellent, agile, and responsive. I had no complaints whatsoever.",
+        "avatar": "/images/home/testimonials/confyde-avatar.jpg",
+        "name": "Taha Mokfi",
+        "role": "Co-founder Confyde AI",
+        "logo": "/images/home/testimonials/confyde-logo.png",
+        "link": "https://clutch.co/profile/softbee-0"
       }
     ]
   }

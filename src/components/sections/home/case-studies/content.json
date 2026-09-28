@@ -8,25 +8,25 @@
   "cta": "View all case studies",
   "items": [
     {
-      "title": "AI governance and prompt operations",
-      "description": "We helped Ellavox develop Elacity Control Plane, a platform for managing prompts and AI agents. Our work covered approval workflows, monitoring, notifications, provider integrations and subscription billing.",
-      "tools": ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
-      "image": "/images/case-studies/elicity/el1.webp",
+      "title": "AI-Powered Clinical Research Platform",
+      "description": "We built a data-intensive platform that helps research teams explore, compare, and analyze complex clinical data using AI-powered workflows. The solution combines advanced search and dynamic filtering with RAG and LLM capabilities, allowing users to quickly discover relevant information and generate insights from large datasets. The architecture was designed for high performance, secure role-based access, and scalable data processing, with reliable workflows for research teams working with critical information.",
+      "tools": ["AI", "RAG", "Next.js", "FastAPI", "PostgreSQL", "LLM", "Data Analytics", "High Load"],
+      "image": "/images/home/case-studies/case1.webp",
+      "href": "/case-studies/confyde"
+    },
+    {
+      "title": "Multi-Tenant B2B SaaS Platform",
+      "description": "We developed a scalable SaaS platform for managing complex workflows across multiple organizations within a single ecosystem. The solution includes structured multi-step processes, real-time communication, analytics dashboards, role-based access, and strict tenant-level data isolation. The architecture enables organizations to operate independently while sharing the same infrastructure, providing a secure foundation for high-volume business operations and future product growth.",
+      "tools": ["B2B SaaS", "Next.js", "Supabase", "PostgreSQL", "Multi-tenant", "Real-time", "RBAC", "Scalability"],
+      "image": "/images/home/case-studies/case2.webp",
       "href": "/case-studies/elacity-control-plane"
     },
     {
-      "title": "AI-powered drug repurposing research",
-      "description": "We helped build Orchard, a research platform for Every Cure. Researchers can search drug–disease data, apply detailed filters, share their findings and coordinate reviews as they explore new uses for existing medicines.",
-      "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
-      "image": "/images/case-studies/orchard/evr1.webp",
+      "title": "E-commerce & Operations Automation Platform",
+      "description": "We transformed complex retail operations into a connected digital ecosystem combining e-commerce, CRM, inventory management, supplier integrations, and automated order processing. The platform synchronizes customer orders with internal business workflows, automatically updates order statuses, integrates external suppliers, and provides detailed inventory tracking down to warehouse locations. The solution reduced manual operations and created a scalable foundation for processing a large product catalog and growing order volumes.",
+      "tools": ["E-commerce", "React", "Next.js", "Node.js", "PostgreSQL", "API Integrations", "CRM", "Automation"],
+      "image": "/images/home/case-studies/case3.webp",
       "href": "/case-studies/every-cure-orchard"
-    },
-    {
-      "title": "AI-powered clinical trial research",
-      "description": "We helped build an AI-powered research workspace for Confyde. It brings clinical trial search, study comparison and interactive data views together, helping researchers explore evidence and investigate clinical development questions.",
-      "tools": ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
-      "image": "/images/case-studies/confyde/confy1.webp",
-      "href": "/case-studies/confyde"
     }
   ]
 }
