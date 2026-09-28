@@ -1,7 +1,24 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArticleHero, ArticlePreview, ArticleContent, MoreInsights } from '@/components/sections/article';
 import { getArticleBySlug, getMoreArticles } from '@/lib/api/articles';
 import { transformArticleToInsight, transformArticlesToInsights } from '@/lib/api/articles/transform';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const articleData = await getArticleBySlug(slug);
+
+  if (!articleData) {
+    return {};
+  }
+
+  const article = transformArticleToInsight(articleData);
+
+  return {
+    title: `${article.title} | Soft Bee`,
+    description: article.description
+  };
+}
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

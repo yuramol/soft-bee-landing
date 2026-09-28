@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 import awardsContent from '../content.json';
 import { AwardsItem } from './awards-item';
+import { Typography } from '@/components/ui/typography';
 
 const AUTO_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_TRANSITION_S = 0.6;
@@ -19,6 +20,12 @@ interface AwardItemData {
   logoClassName: string;
   description: string;
   profileUrl: string;
+  stats?: {
+    rating: string;
+    ratingLabel: string;
+    reviews: string;
+    reviewsLabel: string;
+  };
 }
 
 const AWARDS_ITEMS = awardsContent.items as AwardItemData[];
@@ -187,11 +194,50 @@ function CarouselTrack({ items, isActive, className }: CarouselTrackProps) {
 }
 
 function renderAwardItem(item: AwardItemData) {
+  let customFooter;
+
+  if (item.id === 'clutch') {
+    customFooter = (
+      <div className='mt-2 flex items-center gap-5 lg:gap-8'>
+        <div className='flex items-center gap-3'>
+          <div className='flex size-10 shrink-0 items-center justify-center rounded-full bg-[#FFF1F1] text-[#E34A3E] lg:size-12'>
+            <Icon icon='StarOutlined' className='size-5 lg:size-6' />
+          </div>
+          <div className='flex flex-col gap-1'>
+            <Typography variant='h4' className='text-foreground leading-none font-bold'>
+              {item.stats?.rating}
+            </Typography>
+            <Typography variant='description' className='text-foreground-secondary'>
+              {item.stats?.ratingLabel}
+            </Typography>
+          </div>
+        </div>
+
+        <div className='bg-border h-12 w-px shrink-0'></div>
+
+        <div className='flex items-center gap-3'>
+          <div className='flex size-10 shrink-0 items-center justify-center rounded-full bg-[#F0F5FF] text-[#2B6AF4] lg:size-12'>
+            <Icon icon='ChatBubbleOutlined' className='size-5 lg:size-6' />
+          </div>
+          <div className='flex flex-col gap-1'>
+            <Typography variant='h4' className='text-foreground leading-none font-bold'>
+              {item.stats?.reviews}
+            </Typography>
+            <Typography variant='description' className='text-foreground-secondary'>
+              {item.stats?.reviewsLabel}
+            </Typography>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <AwardsItem
       logo={<Icon icon={item.logoIcon} className={item.logoClassName} />}
       description={item.description}
       profileUrl={item.profileUrl}
+      customFooter={customFooter}
     />
   );
 }

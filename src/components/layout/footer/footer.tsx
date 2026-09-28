@@ -43,7 +43,12 @@ export const Footer = () => {
             <ul className='flex w-full flex-col justify-between gap-5 md:w-auto md:flex-row md:justify-start md:gap-5.75'>
               {footerContent.legalLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className='text-foreground text-16 font-medium transition-colors md:font-normal'>
+                  <Link
+                    href={link.href}
+                    target={'target' in link ? link.target : undefined}
+                    rel={'target' in link && link.target === '_blank' ? 'noopener noreferrer' : undefined}
+                    className='text-foreground text-16 font-medium transition-colors md:font-normal'
+                  >
                     {link.label}
                   </Link>
                 </li>

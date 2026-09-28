@@ -72,7 +72,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
                   </Typography>
                 </div>
                 <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
-                  <Image src={c.image} alt={c.title} fill className='object-cover' />
+                  <Image src={c.moreCasesImage || c.image} alt={c.title} fill className='object-cover' />
                 </div>
               </Link>
             </SwiperSlide>
