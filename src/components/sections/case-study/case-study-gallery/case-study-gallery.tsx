@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import { ComponentContainer } from '@/components/layout';
 
 interface CaseStudyGalleryProps {
@@ -9,7 +10,7 @@ export const CaseStudyGallery = ({ images }: CaseStudyGalleryProps) => {
   if (!images || images.length !== 3) return null;
 
   return (
-    <section className='pt-9 pb-20 md:pt-40 xl:pb-32'>
+    <section className='pb-20 xl:pb-32'>
       <ComponentContainer>
         <div className='flex flex-col gap-2.5 xl:gap-8.75'>
           <div className='w-full'>
