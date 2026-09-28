@@ -1,18 +1,14 @@
 import { notFound } from 'next/navigation';
 import { ArticleHero, ArticlePreview, ArticleContent, MoreInsights } from '@/components/sections/article';
-import { getArticleBySlug, getMoreArticles } from '@/lib/api/articles';
-import { transformArticleToInsight, transformArticlesToInsights } from '@/lib/api/articles/transform';
+import { getInsightBySlug, getMoreArticles } from '@/lib/api/articles';
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const articleData = await getArticleBySlug(slug);
-  if (!articleData) return notFound();
+  const article = await getInsightBySlug(slug);
+  if (!article) return notFound();
 
-  const article = transformArticleToInsight(articleData);
-
-  const moreArticlesData = await getMoreArticles(slug, 3);
-  const moreArticles = transformArticlesToInsights(moreArticlesData);
+  const moreArticles = await getMoreArticles(slug, 3);
 
   return (
     <>
@@ -25,7 +21,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         readTime={article.readTime}
         date={article.date}
       />
-      <ArticlePreview image={article.image} title={article.title} />
+      <ArticlePreview image={article.image} title={article.title} unoptimized={article.source === 'ai'} />
       <ArticleContent content={article.content} />
       <MoreInsights articles={moreArticles} />
     </>

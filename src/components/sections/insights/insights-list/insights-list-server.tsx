@@ -1,5 +1,4 @@
 import { getArticles, getTags, resolveTabSlug } from '@/lib/api/articles';
-import { transformArticlesToInsights } from '@/lib/api/articles/transform';
 import { ARTICLES_PAGE_SIZE_DESKTOP } from '@/lib/api/articles/types';
 import { InsightsList } from './insights-list';
 import type { TabItem } from './components';
@@ -15,7 +14,7 @@ interface InsightsListServerProps {
 }
 
 /**
- * Server component wrapper that fetches articles from Supabase
+ * Server component wrapper that fetches merged Insights (DB + Soft Bee News)
  * and passes them to the client InsightsList component.
  */
 export async function InsightsListServer({ searchParams }: InsightsListServerProps) {
@@ -37,12 +36,11 @@ export async function InsightsListServer({ searchParams }: InsightsListServerPro
     pageSize
   });
 
-  const insights = transformArticlesToInsights(result.articles);
   const tabs: TabItem[] = [ALL_TAB, ...tags.map((tag) => ({ id: tag.slug, label: tag.name }))];
 
   return (
     <InsightsList
-      initialInsights={insights}
+      initialInsights={result.articles}
       initialTotal={result.total}
       initialPage={page}
       initialPageSize={pageSize}

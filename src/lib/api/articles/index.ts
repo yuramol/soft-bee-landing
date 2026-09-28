@@ -1,4 +1,12 @@
-export { getArticles, getArticleBySlug, getMoreArticles, getTags, type GetArticlesParams, type GetArticlesResult } from './server';
+export {
+  getArticles,
+  getArticleBySlug,
+  getInsightBySlug,
+  getMoreArticles,
+  getTags,
+  type GetArticlesParams,
+  type GetArticlesResult
+} from './server';
 
 export { resolveTabSlug, isLegacyTabSlug } from './tab-slug';
 export {
