@@ -13,6 +13,7 @@ export type {
 
 export {
   AI_INSIGHTS_CATEGORY,
+  NEWS_ARCHIVE_CACHE_TTL_MS,
   NEWS_ARCHIVE_LIST_LIMIT,
   NEWS_DEFAULT_LANGUAGE,
   NEWS_DEFAULT_REFRESH_COUNT,
@@ -29,7 +30,9 @@ export {
   createArticleRequest,
   getArticleRequest,
   getNewsArticle,
+  invalidateNewsArchiveCache,
   listNewsArticles,
+  parseRetryAfterMs,
   requestAndWaitForArticles,
   waitForArticleRequest
 } from './client';

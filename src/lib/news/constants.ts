@@ -8,6 +8,8 @@ export const NEWS_DEFAULT_REFRESH_COUNT = 5;
 export const NEWS_ARCHIVE_LIST_LIMIT = 100;
 /** Upper bound when loading DB rows for in-memory merge + pagination. */
 export const NEWS_MERGE_DB_FETCH_LIMIT = 500;
+/** In-process TTL for Soft Bee News archive reads (page views). */
+export const NEWS_ARCHIVE_CACHE_TTL_MS = 30_000;
 
 export const NEWS_REQUEST_TIMEOUT_MS = 30_000;
 export const NEWS_POLL_INTERVAL_MS = 5_000;

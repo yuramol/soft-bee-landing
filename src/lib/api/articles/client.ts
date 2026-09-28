@@ -74,13 +74,14 @@ function parseInsightArticle(value: JsonValue): InsightArticle | null {
   const image = readString(value, 'image');
   const category = readString(value, 'category');
   const readTime = readString(value, 'readTime');
-  const description = readString(value, 'description');
+  // excerpt may be empty from Soft Bee News — keep the card on client refetch
+  const description = readString(value, 'description', { allowEmpty: true });
   const authorName = readString(value, 'authorName');
-  const authorRole = readString(value, 'authorRole');
+  const authorRole = readString(value, 'authorRole', { allowEmpty: true }) ?? '';
   const authorImage = readString(value, 'authorImage');
   const date = readString(value, 'date');
 
-  if (!id || !slug || !title || !image || !category || !readTime || !description || !authorName || !authorRole || !authorImage || !date) {
+  if (!id || !slug || !title || !image || !category || !readTime || description === undefined || !authorName || !authorImage || !date) {
     return null;
   }
 
@@ -104,9 +105,15 @@ function parseInsightArticle(value: JsonValue): InsightArticle | null {
   };
 }
 
-function readString(payload: JsonObject, key: string): string | undefined {
+function readString(payload: JsonObject, key: string, options: { allowEmpty?: boolean } = {}): string | undefined {
   const value = payload[key];
-  return typeof value === 'string' && value.length > 0 ? value : undefined;
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+  if (!options.allowEmpty && value.length === 0) {
+    return undefined;
+  }
+  return value;
 }
 
 function readNumber(payload: JsonObject, key: string): number | undefined {

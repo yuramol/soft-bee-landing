@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID, timingSafeEqual } from 'crypto';
 import { NextResponse } from 'next/server';
 
 import { isJsonObject, parseJsonValue, type JsonObject } from '@/lib/security/json';
@@ -68,7 +68,14 @@ function isAuthorized(request: Request): boolean {
     return false;
   }
 
-  return header.slice('Bearer '.length) === secret;
+  const token = header.slice('Bearer '.length);
+  const left = Buffer.from(token);
+  const right = Buffer.from(secret);
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return timingSafeEqual(left, right);
 }
 
 async function readBody(request: Request): Promise<RefreshBody> {

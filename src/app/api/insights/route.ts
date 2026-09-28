@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { getArticles } from '@/lib/api/articles';
-import { ARTICLES_PAGE_SIZE_DESKTOP } from '@/lib/api/articles/types';
+import { clampArticlesPageSize } from '@/lib/api/articles/merge';
+import { ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX } from '@/lib/api/articles/types';
 
 export const runtime = 'nodejs';
 
@@ -15,7 +16,11 @@ export async function GET(request: Request) {
     const category = searchParams.get('category') ?? undefined;
     const searchQuery = searchParams.get('q') ?? undefined;
     const page = parsePositiveInt(searchParams.get('page'), 1);
-    const pageSize = parsePositiveInt(searchParams.get('pageSize'), ARTICLES_PAGE_SIZE_DESKTOP);
+    const pageSize = clampArticlesPageSize(
+      parsePositiveInt(searchParams.get('pageSize'), ARTICLES_PAGE_SIZE_DESKTOP),
+      ARTICLES_PAGE_SIZE_DESKTOP,
+      ARTICLES_PAGE_SIZE_MAX
+    );
 
     const result = await getArticles({
       category,
@@ -24,7 +29,12 @@ export async function GET(request: Request) {
       pageSize
     });
 
-    return NextResponse.json(result);
+    return NextResponse.json(result, {
+      headers: {
+        // Short private cache — news archive is also cached in-process for ~30s.
+        'Cache-Control': 'private, max-age=30, stale-while-revalidate=60'
+      }
+    });
   } catch (error) {
     console.error('GET /api/insights failed:', error);
     return NextResponse.json({ error: 'Failed to load insights.' }, { status: 500 });

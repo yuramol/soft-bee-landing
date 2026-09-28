@@ -1,6 +1,7 @@
 import { isJsonObject, readResponseJson, type JsonObject, type JsonValue } from '@/lib/security/json';
 
 import {
+  NEWS_ARCHIVE_CACHE_TTL_MS,
   NEWS_ARCHIVE_LIST_LIMIT,
   NEWS_DEFAULT_LANGUAGE,
   NEWS_POLL_INTERVAL_MS,
@@ -26,13 +27,23 @@ import type {
 
 export class NewsApiError extends Error {
   readonly status: number;
+  readonly retryAfterMs: number | null;
 
-  constructor(message: string, status: number) {
+  constructor(message: string, status: number, retryAfterMs: number | null = null) {
     super(message);
     this.name = 'NewsApiError';
     this.status = status;
+    this.retryAfterMs = retryAfterMs;
   }
 }
+
+interface NewsArchiveCacheEntry {
+  language: string;
+  cards: NewsArticleCard[];
+  expiresAt: number;
+}
+
+let newsArchiveCache: NewsArchiveCacheEntry | null = null;
 
 /**
  * Unauthenticated readiness probe.
@@ -54,14 +65,20 @@ export async function checkNewsReady(): Promise<boolean> {
 
 /**
  * Archive of ready articles — does not start generation. Use for site page views.
+ * Short in-process cache reduces duplicate Railway hits on tab/search/SSR.
  */
 export async function listNewsArticles(params: ListArticlesParams = {}): Promise<NewsArticleCard[]> {
-  const { baseUrl, apiKey } = getNewsConfig();
   const language = params.language ?? NEWS_DEFAULT_LANGUAGE;
   const limit = clampInt(params.limit ?? NEWS_ARCHIVE_LIST_LIMIT, 1, 100);
 
+  const cached = newsArchiveCache;
+  if (cached && cached.language === language && cached.expiresAt > Date.now()) {
+    return cached.cards.slice(0, limit);
+  }
+
+  const { baseUrl, apiKey } = getNewsConfig();
   const url = new URL(`${baseUrl}/v1/articles`);
-  url.searchParams.set('limit', String(limit));
+  url.searchParams.set('limit', String(NEWS_ARCHIVE_LIST_LIMIT));
   url.searchParams.set('language', language);
 
   const response = await fetchWithTimeout(url.toString(), {
@@ -71,11 +88,23 @@ export async function listNewsArticles(params: ListArticlesParams = {}): Promise
   });
 
   if (!response.ok) {
-    throw new NewsApiError(await readErrorMessage(response), response.status);
+    throw new NewsApiError(await readErrorMessage(response), response.status, parseRetryAfterMs(response));
   }
 
   const payload = await readJsonObject(response);
-  return parseArticleCards(payload.data);
+  const cards = parseArticleCards(payload.data);
+  newsArchiveCache = {
+    language,
+    cards,
+    expiresAt: Date.now() + NEWS_ARCHIVE_CACHE_TTL_MS
+  };
+
+  return cards.slice(0, limit);
+}
+
+/** Clear archive cache after a successful refresh so page views see new cards. */
+export function invalidateNewsArchiveCache(): void {
+  newsArchiveCache = null;
 }
 
 export async function getNewsArticle(slug: string, language: NewsLanguage = NEWS_DEFAULT_LANGUAGE): Promise<NewsArticle> {
@@ -90,7 +119,7 @@ export async function getNewsArticle(slug: string, language: NewsLanguage = NEWS
   });
 
   if (!response.ok) {
-    throw new NewsApiError(await readErrorMessage(response), response.status);
+    throw new NewsApiError(await readErrorMessage(response), response.status, parseRetryAfterMs(response));
   }
 
   const payload = await readJsonObject(response);
@@ -122,26 +151,18 @@ export async function createArticleRequest(input: CreateArticleRequestInput): Pr
   });
 
   if (!response.ok && response.status !== 202) {
-    throw new NewsApiError(await readErrorMessage(response), response.status);
+    throw new NewsApiError(await readErrorMessage(response), response.status, parseRetryAfterMs(response));
   }
 
   return parseRequestResponse(await readJsonObject(response));
 }
 
 export async function getArticleRequest(requestId: string): Promise<NewsRequestResponse> {
-  const { baseUrl, apiKey } = getNewsConfig();
-
-  const response = await fetchWithTimeout(`${baseUrl}/v1/article-requests/${encodeURIComponent(requestId)}`, {
-    method: 'GET',
-    headers: newsHeaders(apiKey),
-    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
-  });
-
-  if (!response.ok) {
-    throw new NewsApiError(await readErrorMessage(response), response.status);
+  const polled = await pollArticleRequest(requestId);
+  if (polled.kind === 'rate_limited') {
+    throw new NewsApiError('News request rate limited.', 429, polled.retryAfterMs);
   }
-
-  return parseRequestResponse(await readJsonObject(response));
+  return polled.body;
 }
 
 export interface WaitForArticleRequestOptions {
@@ -150,25 +171,38 @@ export interface WaitForArticleRequestOptions {
 }
 
 /**
- * Poll until completed / partial / failed. Respects Retry-After when present.
+ * Poll until completed / partial / failed.
+ * Uses Retry-After when present (including HTTP 429).
  */
 export async function waitForArticleRequest(requestId: string, options: WaitForArticleRequestOptions = {}): Promise<NewsRequestResponse> {
   const pollIntervalMs = options.pollIntervalMs ?? NEWS_POLL_INTERVAL_MS;
   const maxWaitMs = options.maxWaitMs ?? NEWS_POLL_MAX_MS;
   const startedAt = Date.now();
 
-  let latest = await getArticleRequest(requestId);
+  let latest: NewsRequestResponse | null = null;
 
-  while (isPendingStatus(latest.meta.status)) {
-    if (Date.now() - startedAt >= maxWaitMs) {
-      throw new NewsApiError(`News request ${requestId} timed out while ${latest.meta.status}.`, 504);
+  while (true) {
+    const remainingMs = maxWaitMs - (Date.now() - startedAt);
+    if (remainingMs <= 0) {
+      const status = latest?.meta.status ?? 'unknown';
+      throw new NewsApiError(`News request ${requestId} timed out while ${status}.`, 504);
     }
 
-    await sleep(pollIntervalMs);
-    latest = await getArticleRequest(requestId);
-  }
+    const polled = await pollArticleRequest(requestId);
 
-  return latest;
+    if (polled.kind === 'rate_limited') {
+      await sleep(Math.min(polled.retryAfterMs || pollIntervalMs, remainingMs));
+      continue;
+    }
+
+    latest = polled.body;
+    if (!isPendingStatus(latest.meta.status)) {
+      return latest;
+    }
+
+    const waitMs = Math.min(polled.retryAfterMs ?? pollIntervalMs, remainingMs);
+    await sleep(waitMs);
+  }
 }
 
 /**
@@ -180,13 +214,58 @@ export async function requestAndWaitForArticles(
 ): Promise<NewsRequestResponse> {
   const created = await createArticleRequest(input);
   if (!isPendingStatus(created.meta.status)) {
+    invalidateNewsArchiveCache();
     return created;
   }
 
-  return waitForArticleRequest(created.meta.requestId, options);
+  const finished = await waitForArticleRequest(created.meta.requestId, options);
+  if (finished.meta.status === 'completed' || finished.meta.status === 'partial') {
+    invalidateNewsArchiveCache();
+  }
+  return finished;
 }
 
 export { isNewsConfigured };
+
+interface ArticleRequestOk {
+  kind: 'ok';
+  body: NewsRequestResponse;
+  retryAfterMs: number | null;
+}
+
+interface ArticleRequestRateLimited {
+  kind: 'rate_limited';
+  retryAfterMs: number;
+}
+
+async function pollArticleRequest(requestId: string): Promise<ArticleRequestOk | ArticleRequestRateLimited> {
+  const { baseUrl, apiKey } = getNewsConfig();
+
+  const response = await fetchWithTimeout(`${baseUrl}/v1/article-requests/${encodeURIComponent(requestId)}`, {
+    method: 'GET',
+    headers: newsHeaders(apiKey),
+    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
+  });
+
+  const retryAfterMs = parseRetryAfterMs(response);
+
+  if (response.status === 429) {
+    return {
+      kind: 'rate_limited',
+      retryAfterMs: retryAfterMs ?? NEWS_POLL_INTERVAL_MS
+    };
+  }
+
+  if (!response.ok) {
+    throw new NewsApiError(await readErrorMessage(response), response.status, retryAfterMs);
+  }
+
+  return {
+    kind: 'ok',
+    body: parseRequestResponse(await readJsonObject(response)),
+    retryAfterMs
+  };
+}
 
 function getNewsConfig(): { baseUrl: string; apiKey: string } {
   const baseUrl = getNewsServiceUrl();
@@ -225,6 +304,25 @@ async function fetchWithTimeout(url: string, init: RequestInit & { timeoutMs: nu
   } finally {
     clearTimeout(timeoutId);
   }
+}
+
+/**
+ * Parse Retry-After as seconds or HTTP-date. Returns milliseconds, or null.
+ */
+export function parseRetryAfterMs(response: Response): number | null {
+  const header = response.headers.get('retry-after');
+  if (!header) return null;
+
+  const asSeconds = Number.parseInt(header, 10);
+  if (Number.isFinite(asSeconds) && asSeconds >= 0) {
+    return asSeconds * 1000;
+  }
+
+  const asDateMs = Date.parse(header);
+  if (!Number.isFinite(asDateMs)) return null;
+
+  const delta = asDateMs - Date.now();
+  return delta > 0 ? delta : 0;
 }
 
 async function readErrorMessage(response: Response): Promise<string> {

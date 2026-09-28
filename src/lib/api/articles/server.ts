@@ -13,11 +13,18 @@ import {
   transformNewsCardToInsight
 } from '@/lib/news';
 
-import { filterInsightsBySearch, mergeRankedInsights, paginateInsights, publishedAtToMs, type RankedInsight } from './merge';
+import {
+  filterInsightsBySearch,
+  mergeRankedInsights,
+  paginateInsights,
+  publishedAtToMs,
+  clampArticlesPageSize,
+  type RankedInsight
+} from './merge';
 import { queryArticlesList } from './query';
 import { transformArticleToInsight } from './transform';
 import type { ArticleRow, ArticlesListResponse, FetchArticlesParams, TagRow } from './types';
-import { ARTICLES_PAGE_SIZE_DESKTOP } from './types';
+import { ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX } from './types';
 
 export type GetArticlesParams = FetchArticlesParams;
 
@@ -39,13 +46,13 @@ export async function getTags(): Promise<TagRow[]> {
 }
 
 /**
- * Merged Insights feed: prioritized DB articles, then Soft Bee News (Tech & Dev),
- * then remaining DB articles — all by published date within each tier.
+ * Merged Insights feed (three tiers):
+ * prioritized DB → Soft Bee News (Tech & Dev) → remaining DB, each by published date.
  * Page views only read the news archive; they never create generation jobs.
  */
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
   const page = params.page ?? 1;
-  const pageSize = params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP;
+  const pageSize = clampArticlesPageSize(params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX);
   const searchQuery = params.searchQuery?.trim() ?? '';
   const category = params.category;
 

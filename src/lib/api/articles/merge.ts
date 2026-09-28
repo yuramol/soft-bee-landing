@@ -7,21 +7,24 @@ export interface RankedInsight {
 }
 
 /**
- * Prioritized DB articles first, then everything else by published date (desc).
- * AI news is never prioritized. Duplicate slugs prefer the DB/prioritized entry.
+ * Three-tier merge:
+ * 1. Prioritized DB articles (by published date desc)
+ * 2. Soft Bee News / AI articles (by published date desc)
+ * 3. Remaining DB articles (by published date desc)
+ *
+ * AI news is never prioritized. Duplicate slugs prefer the earlier tier entry.
  */
 export function mergeRankedInsights(dbArticles: RankedInsight[], aiArticles: RankedInsight[]): InsightArticle[] {
-  const sorted = [...dbArticles, ...aiArticles].sort((a, b) => {
-    if (a.prioritized !== b.prioritized) {
-      return a.prioritized ? -1 : 1;
-    }
-    return b.publishedAtMs - a.publishedAtMs;
-  });
+  const byDateDesc = (a: RankedInsight, b: RankedInsight) => b.publishedAtMs - a.publishedAtMs;
+
+  const prioritized = dbArticles.filter((entry) => entry.prioritized).sort(byDateDesc);
+  const aiSorted = [...aiArticles].sort(byDateDesc);
+  const restDb = dbArticles.filter((entry) => !entry.prioritized).sort(byDateDesc);
 
   const seenSlugs = new Set<string>();
   const merged: InsightArticle[] = [];
 
-  for (const entry of sorted) {
+  for (const entry of [...prioritized, ...aiSorted, ...restDb]) {
     if (seenSlugs.has(entry.article.slug)) {
       continue;
     }
@@ -63,4 +66,11 @@ export function paginateInsights(
 export function publishedAtToMs(iso: string): number {
   const ms = Date.parse(iso);
   return Number.isFinite(ms) ? ms : 0;
+}
+
+export function clampArticlesPageSize(pageSize: number, fallback: number, max: number): number {
+  if (!Number.isFinite(pageSize) || pageSize <= 0) {
+    return fallback;
+  }
+  return Math.min(max, Math.trunc(pageSize));
 }

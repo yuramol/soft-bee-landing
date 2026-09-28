@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
 
-import { filterInsightsBySearch, mergeRankedInsights, paginateInsights, type RankedInsight } from './merge';
+import { clampArticlesPageSize, filterInsightsBySearch, mergeRankedInsights, paginateInsights, type RankedInsight } from './merge';
 
 function article(partial: Partial<InsightArticle> & Pick<InsightArticle, 'slug' | 'title'>): InsightArticle {
   return {
@@ -31,19 +31,20 @@ function ranked(entry: { slug: string; title: string; prioritized: boolean; publ
 }
 
 describe('mergeRankedInsights', () => {
-  it('ranks prioritized DB articles above AI and non-prioritized DB', () => {
+  it('uses three tiers: prioritized DB → AI → remaining DB', () => {
     const merged = mergeRankedInsights(
       [
-        ranked({ slug: 'db-old', title: 'Old DB', prioritized: false, publishedAtMs: 100, source: 'db' }),
+        ranked({ slug: 'db-fresh', title: 'Fresh DB', prioritized: false, publishedAtMs: 300, source: 'db' }),
         ranked({ slug: 'db-prio', title: 'Prio DB', prioritized: true, publishedAtMs: 50, source: 'db' })
       ],
-      [ranked({ slug: 'ai-new', title: 'AI New', prioritized: false, publishedAtMs: 200, source: 'ai' })]
+      [ranked({ slug: 'ai-mid', title: 'AI Mid', prioritized: false, publishedAtMs: 200, source: 'ai' })]
     );
 
-    expect(merged.map((item) => item.slug)).toEqual(['db-prio', 'ai-new', 'db-old']);
+    // Non-prio DB is newer than AI, but AI still ranks in the middle tier.
+    expect(merged.map((item) => item.slug)).toEqual(['db-prio', 'ai-mid', 'db-fresh']);
   });
 
-  it('dedupes by slug preferring the earlier sorted entry (prioritized/db)', () => {
+  it('dedupes by slug preferring the earlier tier entry', () => {
     const merged = mergeRankedInsights(
       [ranked({ slug: 'same', title: 'DB', prioritized: true, publishedAtMs: 10, source: 'db' })],
       [ranked({ slug: 'same', title: 'AI', prioritized: false, publishedAtMs: 99, source: 'ai' })]
@@ -54,7 +55,7 @@ describe('mergeRankedInsights', () => {
   });
 });
 
-describe('filterInsightsBySearch / paginateInsights', () => {
+describe('filterInsightsBySearch / paginateInsights / clampArticlesPageSize', () => {
   it('filters by title or description', () => {
     const items = [
       article({ slug: 'a', title: 'Honeycomb APIs', description: 'scale' }),
@@ -71,5 +72,11 @@ describe('filterInsightsBySearch / paginateInsights', () => {
     expect(page.articles.map((item) => item.slug)).toEqual(['s-3', 's-4']);
     expect(page.total).toBe(5);
     expect(page.totalPages).toBe(3);
+  });
+
+  it('clamps page size', () => {
+    expect(clampArticlesPageSize(999, 6, 24)).toBe(24);
+    expect(clampArticlesPageSize(0, 6, 24)).toBe(6);
+    expect(clampArticlesPageSize(3, 6, 24)).toBe(3);
   });
 });
