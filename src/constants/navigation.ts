@@ -10,5 +10,6 @@ export const MAIN_NAV_LINKS = [
     ]
   },
   { label: 'Case studies', href: '/case-studies' },
-  { label: 'Insights', href: '/insights' }
+  { label: 'Insights', href: '/insights' },
+  { label: 'Partnership', href: '/partnership' }
 ];

@@ -1,0 +1,144 @@
+{
+  "hero": {
+    "eyebrow": "Agency partnerships",
+    "titleLine1": "You design it.",
+    "titleLine2": "We build it.",
+    "description": "Web, mobile and AI engineering for agencies that need a delivery partner.",
+    "actions": {
+      "primary": "Discuss a partnership",
+      "secondary": "See how it works"
+    },
+    "capabilities": ["Web & SaaS", "Mobile apps", "AI integrations", "Backend systems", "QA & release"]
+  },
+  "whoItsFor": {
+    "badge": "Who it’s for",
+    "titleLine1": "Your next project.",
+    "titleLine2": "Our engineering team.",
+    "intro": "Refer a client or bring us into your delivery team.",
+    "cards": [
+      {
+        "label": "Design agencies",
+        "titleLine1": "Take designs",
+        "titleLine2": "through to launch.",
+        "description": "Development, testing and release without hiring an in-house engineering team.",
+        "youBring": "Design + client context",
+        "weHandle": "Build + QA + release"
+      },
+      {
+        "label": "Development agencies",
+        "titleLine1": "Add capacity.",
+        "titleLine2": "Keep projects moving.",
+        "description": "Extra engineers for a full project or a part of the build that needs specialist skills.",
+        "youBring": "Brief + delivery context",
+        "weHandle": "Agreed engineering scope"
+      }
+    ],
+    "caseStudy": {
+      "eyebrow": "Selected work",
+      "title": "Elacity Control Plane",
+      "description": "Elacity Control Plane is an Ellavox AI product for managing prompts and AI agents across providers.",
+      "stack": "React · Next.js · Supabase · PostgreSQL",
+      "linkText": "View case study"
+    }
+  },
+  "howItWorks": {
+    "badge": "How it works",
+    "titleLine1": "A brief. A call.",
+    "titleLine2": "A plan to build.",
+    "steps": [
+      {
+        "title": "Share a brief",
+        "description": "Your agency, the project and where you need help."
+      },
+      {
+        "title": "Meet our leadership",
+        "description": "A call with our CEO or a co-owner."
+      },
+      {
+        "title": "Agree the setup",
+        "description": "Scope, client communication and commercial terms."
+      },
+      {
+        "title": "Start delivery",
+        "description": "Engineering, testing and release by SoftBee."
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Let’s work together",
+    "titleLine1": "What are you",
+    "titleLine2": "working on?",
+    "description": "Our CEO or a co-owner will discuss the project, responsibilities and commercial terms with you.",
+    "questions": [
+      {
+        "question": "Can you work under our brand?",
+        "answer": "Branding and client communication are agreed for each project. White label arrangements are discussed individually."
+      },
+      {
+        "question": "How is the partner reward agreed?",
+        "answer": "Individually with our CEO or a co-owner, based on the opportunity and your role. Terms are agreed before work starts."
+      },
+      {
+        "question": "What can SoftBee take on?",
+        "answer": "Web and SaaS products, mobile apps, AI integrations, backend systems, product modernization and ongoing engineering."
+      }
+    ]
+  },
+  "form": {
+    "validation": {
+      "nameRequired": "Please enter your name.",
+      "companyRequired": "Please enter your company or agency name.",
+      "emailRequired": "Please enter your work email.",
+      "partnershipTypeRequired": "Please select a partnership type.",
+      "emailInvalid": "Please enter a valid email address, such as name@company.com.",
+      "websiteInvalid": "Please enter a full website address, such as https://example.com.",
+      "genericError": "Please check this field."
+    },
+    "success": {
+      "title": "Preview complete.",
+      "message": "Thanks for reaching out. We’ll review your request and get back to you to discuss the next steps.",
+      "prototypeNotice": "Prototype preview — no request has been sent.",
+      "buttonText": "Start another request"
+    },
+    "intro": {
+      "title": "Your details",
+      "requiredTextPrefix": "Fields marked",
+      "requiredTextAsteriskLabel": "with an asterisk",
+      "requiredTextSuffix": "are required."
+    },
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Work Email",
+        "placeholder": "name@company.com"
+      },
+      "company": {
+        "label": "Company / Agency",
+        "placeholder": "Company name"
+      },
+      "website": {
+        "label": "Website",
+        "optionalText": "(optional)",
+        "placeholder": "https://"
+      },
+      "partnershipType": {
+        "label": "Partnership Type",
+        "placeholder": "Select partnership type",
+        "options": ["Refer a client", "Need a development partner", "Other partnership"]
+      },
+      "message": {
+        "label": "Message",
+        "optionalText": "(optional)",
+        "placeholder": "Tell us briefly about your agency or the opportunity."
+      }
+    },
+    "footer": {
+      "errorSummary": "Please check the highlighted fields before continuing.",
+      "submitButton": "Submit Partnership Request",
+      "prototypeNotice": "Prototype preview only. No request will be sent."
+    }
+  }
+}

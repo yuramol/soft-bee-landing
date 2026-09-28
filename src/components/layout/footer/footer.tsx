@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { DiscussProjectButton } from '@/components/discuss-project-button';
 import { ComponentContainer } from '@/components/layout';
@@ -8,28 +11,34 @@ import { Typography } from '@/components/ui/typography';
 
 import { FooterNav, LogoMedusae } from './components';
 import footerContent from './content.json';
+import { ROUTES } from '@/constants';
+import { cn } from '@/lib/utils';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isPartnership = pathname === ROUTES.PARTNERSHIP;
 
   return (
     <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
-      <FooterAnimatedBackground className='-top-82.5 h-312.5' />
+      {!isPartnership && <FooterAnimatedBackground className='-top-82.5 h-312.5' />}
 
-      <div className='relative z-10 w-full pt-31.25 pb-17 md:pt-80 md:pb-10'>
+      <div className={cn('relative z-10 w-full pb-17 md:pb-10', isPartnership ? 'pt-0' : 'pt-31.25 md:pt-80')}>
         <ComponentContainer>
-          <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
-            <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
-              {footerContent.title.map((line, index) => (
-                <span key={line}>
-                  {index > 0 ? <br /> : null}
-                  {line}
-                </span>
-              ))}
-            </Typography>
+          {!isPartnership && (
+            <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
+              <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
+                {footerContent.title.map((line, index) => (
+                  <span key={line}>
+                    {index > 0 ? <br /> : null}
+                    {line}
+                  </span>
+                ))}
+              </Typography>
 
-            <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text={footerContent.cta} />
-          </div>
+              <DiscussProjectButton className='text-14 w-full md:max-w-70.5' text={footerContent.cta} />
+            </div>
+          )}
 
           <Divider />
 
