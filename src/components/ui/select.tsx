@@ -8,16 +8,16 @@ import { cn } from '@/lib/utils';
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from 'lucide-react';
 
 const selectTriggerVariants = cva(
-  'border-input focus-visible:ring-ring data-placeholder:text-muted-foreground flex w-full min-w-0 max-w-full items-center justify-between gap-1.5 truncate rounded-[6px] border bg-transparent px-3 py-1 text-sm whitespace-nowrap shadow-sm transition-colors outline-none select-none focus-visible:ring-1 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4 [&_[data-slot=select-value]]:min-w-0 [&_[data-slot=select-value]]:truncate',
+  'focus-visible:ring-ring flex w-full min-w-0 max-w-full items-center justify-between gap-1.5 truncate rounded-full border border-border focus:border-brand-black/50 bg-transparent pl-[22px] pr-5 py-1 whitespace-nowrap transition-colors outline-none select-none focus-visible:outline-none data-placeholder:text-brand-black/50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4 [&_[data-slot=select-value]]:min-w-0 [&_[data-slot=select-value]]:truncate',
   {
     variants: {
       variant: {
-        primary: 'text-foreground data-placeholder:text-muted-foreground',
-        secondary: 'text-foreground data-placeholder:text-foreground'
+        primary: 'text-brand-black text-16',
+        secondary: 'text-black data-placeholder:text-black text-16'
       },
       size: {
-        default: 'h-10',
-        sm: 'h-8'
+        default: 'h-[52px]',
+        sm: 'h-10'
       }
     },
     defaultVariants: {
@@ -59,8 +59,9 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = 'item-aligned',
+  position = 'popper',
   align = 'center',
+  sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -69,13 +70,14 @@ function SelectContent({
         data-slot='select-content'
         data-align-trigger={position === 'item-aligned'}
         className={cn(
-          'bg-popover text-popover-foreground border-input data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 relative z-[100] max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-[6px] border p-1 duration-100 data-[align-trigger=true]:animate-none',
+          'text-brand-black border-border data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 relative z-[100] max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-3xl border bg-white p-2 shadow-md duration-100 data-[align-trigger=true]:animate-none',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className
         )}
         position={position}
         align={align}
+        sideOffset={sideOffset}
         {...props}
       >
         <SelectScrollUpButton />
@@ -106,7 +108,7 @@ function SelectItem({ className, children, value, ...props }: React.ComponentPro
       data-slot='select-item'
       value={value}
       className={cn(
-        "focus:bg-muted hover:bg-muted relative flex w-full cursor-pointer items-center gap-1.5 rounded-[4px] py-1.5 pr-8 pl-2 text-sm outline-hidden transition-colors select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-muted hover:bg-muted text-16 relative flex w-full cursor-pointer items-center gap-1.5 rounded-2xl py-2 pr-8 pl-4 outline-hidden transition-colors select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
