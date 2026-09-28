@@ -125,7 +125,7 @@
       "/images/case-studies/elicity/el5.webp",
       "/images/case-studies/elicity/el6.webp"
     ],
-    "resultsDescription": ["Development: Soft Bee", "Integrations: Soft Bee"],
+
     "resultsCards": [
       {
         "id": 1,
@@ -278,7 +278,7 @@
       "/images/case-studies/orchard/evr5.webp",
       "/images/case-studies/orchard/evr6.webp"
     ],
-    "resultsDescription": ["Development: Soft Bee", "Testing: Soft Bee"],
+
     "resultsCards": [
       {
         "id": 1,
@@ -428,7 +428,7 @@
       "/images/case-studies/confyde/confy5.webp",
       "/images/case-studies/confyde/confy6.webp"
     ],
-    "resultsDescription": ["Development: Soft Bee"],
+
     "resultsCards": [
       {
         "id": 1,

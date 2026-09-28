@@ -39,7 +39,6 @@ export interface CaseStudy {
   toolsTitle?: string;
   tools?: CaseStudyTool[];
   galleryImages?: string[];
-  resultsDescription?: string[];
   resultsCards?: CaseStudyResultCard[];
   testimonials?: TestimonialItem[];
 }

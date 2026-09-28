@@ -103,7 +103,7 @@ export function Team({ hideCoFounders }: TeamProps) {
                 }}
                 className='team-swiper h-full w-full overflow-visible!'
               >
-                {Array.from({ length: 3 }, (_, copyIndex) =>
+                {Array.from({ length: 20 }, (_, copyIndex) =>
                   filteredMembers.map((member) => (
                     <SwiperSlide
                       key={`${member.id}-${copyIndex}`}

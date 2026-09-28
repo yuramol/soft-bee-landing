@@ -17,11 +17,10 @@ import caseStudyResultsContent from './content.json';
 
 interface CaseStudyResultsProps {
   className?: string;
-  description?: string[];
   cards?: CaseStudyResultCard[];
 }
 
-export const CaseStudyResults = ({ className, description = [], cards = [] }: CaseStudyResultsProps) => {
+export const CaseStudyResults = ({ className, cards = [] }: CaseStudyResultsProps) => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
   useSwiperPeekAnimation(swiperInstance);
@@ -30,19 +29,8 @@ export const CaseStudyResults = ({ className, description = [], cards = [] }: Ca
     <section className={cn('bg-muted relative px-4 pt-29.25 pb-23.75 md:pt-20 md:pb-37.5 lg:px-10.5', className)}>
       <ComponentContainer>
         <div className='flex flex-col xl:flex-row xl:justify-between'>
-          <div className='contents w-full flex-col justify-between xl:flex xl:w-[35%]'>
-            <div className='order-1 mb-16.5 xl:mb-0'>
-              <h2 className='text-foreground mb-6 text-[32px] leading-tight font-semibold xl:mb-8'>{caseStudyResultsContent.title}</h2>
-              <div className='flex flex-col gap-1'>
-                {description.map((line, idx) => (
-                  <p key={idx} className='text-foreground text-[20px] leading-normal font-normal'>
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className='order-3 mx-auto lg:mx-0 xl:mt-auto xl:pt-0'>
+          <div className='contents w-full flex-col xl:flex xl:w-[25%]'>
+            <div className='order-1 mx-auto mb-16.5 lg:mx-0 xl:mb-0'>
               <h2 className='text-foreground mb-6 text-[32px] leading-tight font-semibold xl:mb-6'>{caseStudyResultsContent.ctaTitle}</h2>
               <DiscussProjectButton text={caseStudyResultsContent.ctaText} variant='default' size='default' className='w-full lg:w-fit' />
             </div>
