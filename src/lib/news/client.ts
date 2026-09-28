@@ -3,23 +3,17 @@ import { isJsonObject, readResponseJson, type JsonObject, type JsonValue } from 
 import {
   NEWS_ARCHIVE_CACHE_TTL_MS,
   NEWS_ARCHIVE_LIST_LIMIT,
+  NEWS_ARCHIVE_REVALIDATE_SECONDS,
   NEWS_DEFAULT_LANGUAGE,
-  NEWS_POLL_INTERVAL_MS,
-  NEWS_POLL_MAX_MS,
   NEWS_REQUEST_TIMEOUT_MS
 } from './constants';
 import { getNewsApiKey, getNewsServiceUrl, isNewsConfigured } from './secrets';
 import type {
-  CreateArticleRequestInput,
   ListArticlesParams,
   NewsArticle,
   NewsArticleCard,
   NewsCover,
   NewsLanguage,
-  NewsPeriod,
-  NewsRequestMeta,
-  NewsRequestResponse,
-  NewsRequestStatus,
   NewsSection,
   NewsSectionBlock,
   NewsSource
@@ -46,26 +40,8 @@ interface NewsArchiveCacheEntry {
 let newsArchiveCache: NewsArchiveCacheEntry | null = null;
 
 /**
- * Unauthenticated readiness probe.
- */
-export async function checkNewsReady(): Promise<boolean> {
-  const baseUrl = getNewsServiceUrl();
-  if (!baseUrl) return false;
-
-  try {
-    const response = await fetchWithTimeout(`${baseUrl}/ready`, {
-      method: 'GET',
-      timeoutMs: NEWS_REQUEST_TIMEOUT_MS
-    });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Archive of ready articles — does not start generation. Use for site page views.
- * Short in-process cache reduces duplicate Railway hits on tab/search/SSR.
+ * Archive of ready articles. Soft Bee News generates on its own schedule;
+ * this landing only reads and merges. Cached ~1 day to avoid extra API hits.
  */
 export async function listNewsArticles(params: ListArticlesParams = {}): Promise<NewsArticleCard[]> {
   const language = params.language ?? NEWS_DEFAULT_LANGUAGE;
@@ -84,7 +60,8 @@ export async function listNewsArticles(params: ListArticlesParams = {}): Promise
   const response = await fetchWithTimeout(url.toString(), {
     method: 'GET',
     headers: newsHeaders(apiKey),
-    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
+    timeoutMs: NEWS_REQUEST_TIMEOUT_MS,
+    revalidateSeconds: NEWS_ARCHIVE_REVALIDATE_SECONDS
   });
 
   if (!response.ok) {
@@ -102,11 +79,6 @@ export async function listNewsArticles(params: ListArticlesParams = {}): Promise
   return cards.slice(0, limit);
 }
 
-/** Clear archive cache after a successful refresh so page views see new cards. */
-export function invalidateNewsArchiveCache(): void {
-  newsArchiveCache = null;
-}
-
 export async function getNewsArticle(slug: string, language: NewsLanguage = NEWS_DEFAULT_LANGUAGE): Promise<NewsArticle> {
   const { baseUrl, apiKey } = getNewsConfig();
   const url = new URL(`${baseUrl}/v1/articles/${encodeURIComponent(slug)}`);
@@ -115,7 +87,8 @@ export async function getNewsArticle(slug: string, language: NewsLanguage = NEWS
   const response = await fetchWithTimeout(url.toString(), {
     method: 'GET',
     headers: newsHeaders(apiKey),
-    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
+    timeoutMs: NEWS_REQUEST_TIMEOUT_MS,
+    revalidateSeconds: NEWS_ARCHIVE_REVALIDATE_SECONDS
   });
 
   if (!response.ok) {
@@ -131,141 +104,7 @@ export async function getNewsArticle(slug: string, language: NewsLanguage = NEWS
   return article;
 }
 
-/**
- * Start a new generation batch (or resume via idempotency key).
- */
-export async function createArticleRequest(input: CreateArticleRequestInput): Promise<NewsRequestResponse> {
-  const { baseUrl, apiKey } = getNewsConfig();
-  const language = input.language ?? NEWS_DEFAULT_LANGUAGE;
-  const count = clampInt(input.count, 1, 20);
-
-  const response = await fetchWithTimeout(`${baseUrl}/v1/article-requests`, {
-    method: 'POST',
-    headers: {
-      ...newsHeaders(apiKey),
-      'Content-Type': 'application/json',
-      'Idempotency-Key': input.idempotencyKey
-    },
-    body: JSON.stringify({ count, language }),
-    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
-  });
-
-  if (!response.ok && response.status !== 202) {
-    throw new NewsApiError(await readErrorMessage(response), response.status, parseRetryAfterMs(response));
-  }
-
-  return parseRequestResponse(await readJsonObject(response));
-}
-
-export async function getArticleRequest(requestId: string): Promise<NewsRequestResponse> {
-  const polled = await pollArticleRequest(requestId);
-  if (polled.kind === 'rate_limited') {
-    throw new NewsApiError('News request rate limited.', 429, polled.retryAfterMs);
-  }
-  return polled.body;
-}
-
-export interface WaitForArticleRequestOptions {
-  pollIntervalMs?: number;
-  maxWaitMs?: number;
-}
-
-/**
- * Poll until completed / partial / failed.
- * Uses Retry-After when present (including HTTP 429).
- */
-export async function waitForArticleRequest(requestId: string, options: WaitForArticleRequestOptions = {}): Promise<NewsRequestResponse> {
-  const pollIntervalMs = options.pollIntervalMs ?? NEWS_POLL_INTERVAL_MS;
-  const maxWaitMs = options.maxWaitMs ?? NEWS_POLL_MAX_MS;
-  const startedAt = Date.now();
-
-  let latest: NewsRequestResponse | null = null;
-
-  while (true) {
-    const remainingMs = maxWaitMs - (Date.now() - startedAt);
-    if (remainingMs <= 0) {
-      const status = latest?.meta.status ?? 'unknown';
-      throw new NewsApiError(`News request ${requestId} timed out while ${status}.`, 504);
-    }
-
-    const polled = await pollArticleRequest(requestId);
-
-    if (polled.kind === 'rate_limited') {
-      await sleep(Math.min(polled.retryAfterMs || pollIntervalMs, remainingMs));
-      continue;
-    }
-
-    latest = polled.body;
-    if (!isPendingStatus(latest.meta.status)) {
-      return latest;
-    }
-
-    const waitMs = Math.min(polled.retryAfterMs ?? pollIntervalMs, remainingMs);
-    await sleep(waitMs);
-  }
-}
-
-/**
- * Create (or resume) a batch and wait for a terminal status.
- */
-export async function requestAndWaitForArticles(
-  input: CreateArticleRequestInput,
-  options?: WaitForArticleRequestOptions
-): Promise<NewsRequestResponse> {
-  const created = await createArticleRequest(input);
-  if (!isPendingStatus(created.meta.status)) {
-    invalidateNewsArchiveCache();
-    return created;
-  }
-
-  const finished = await waitForArticleRequest(created.meta.requestId, options);
-  if (finished.meta.status === 'completed' || finished.meta.status === 'partial') {
-    invalidateNewsArchiveCache();
-  }
-  return finished;
-}
-
 export { isNewsConfigured };
-
-interface ArticleRequestOk {
-  kind: 'ok';
-  body: NewsRequestResponse;
-  retryAfterMs: number | null;
-}
-
-interface ArticleRequestRateLimited {
-  kind: 'rate_limited';
-  retryAfterMs: number;
-}
-
-async function pollArticleRequest(requestId: string): Promise<ArticleRequestOk | ArticleRequestRateLimited> {
-  const { baseUrl, apiKey } = getNewsConfig();
-
-  const response = await fetchWithTimeout(`${baseUrl}/v1/article-requests/${encodeURIComponent(requestId)}`, {
-    method: 'GET',
-    headers: newsHeaders(apiKey),
-    timeoutMs: NEWS_REQUEST_TIMEOUT_MS
-  });
-
-  const retryAfterMs = parseRetryAfterMs(response);
-
-  if (response.status === 429) {
-    return {
-      kind: 'rate_limited',
-      retryAfterMs: retryAfterMs ?? NEWS_POLL_INTERVAL_MS
-    };
-  }
-
-  if (!response.ok) {
-    throw new NewsApiError(await readErrorMessage(response), response.status, retryAfterMs);
-  }
-
-  return {
-    kind: 'ok',
-    body: parseRequestResponse(await readJsonObject(response)),
-    retryAfterMs
-  };
-}
 
 function getNewsConfig(): { baseUrl: string; apiKey: string } {
   const baseUrl = getNewsServiceUrl();
@@ -285,8 +124,11 @@ function newsHeaders(apiKey: string): HeadersInit {
   };
 }
 
-async function fetchWithTimeout(url: string, init: RequestInit & { timeoutMs: number }): Promise<Response> {
-  const { timeoutMs, ...requestInit } = init;
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit & { timeoutMs: number; revalidateSeconds?: number }
+): Promise<Response> {
+  const { timeoutMs, revalidateSeconds, ...requestInit } = init;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -294,7 +136,9 @@ async function fetchWithTimeout(url: string, init: RequestInit & { timeoutMs: nu
     return await fetch(url, {
       ...requestInit,
       signal: controller.signal,
-      cache: 'no-store'
+      ...(revalidateSeconds !== undefined
+        ? { next: { revalidate: revalidateSeconds } }
+        : { cache: 'no-store' as RequestCache })
     });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
@@ -349,48 +193,6 @@ async function readJsonObject(response: Response): Promise<JsonObject> {
     throw new NewsApiError('News service returned a non-object JSON body.', 502);
   }
   return payload;
-}
-
-function parseRequestResponse(payload: JsonObject): NewsRequestResponse {
-  const meta = parseRequestMeta(payload.meta);
-  if (!meta) {
-    throw new NewsApiError('News request response missing meta.', 502);
-  }
-
-  return {
-    data: parseArticleCards(payload.data),
-    meta
-  };
-}
-
-function parseRequestMeta(value: JsonValue | undefined): NewsRequestMeta | null {
-  if (value === undefined || !isJsonObject(value)) return null;
-
-  const requestId = readString(value, ['requestId', 'id']);
-  const status = readString(value, ['status']);
-  if (!requestId || !status) return null;
-
-  return {
-    requestId,
-    status: status as NewsRequestStatus,
-    requestedCount: readNumber(value, ['requestedCount']) ?? 0,
-    returnedCount: readNumber(value, ['returnedCount']) ?? 0,
-    complete: value.complete === true,
-    language: readString(value, ['language']) ?? NEWS_DEFAULT_LANGUAGE,
-    period: parsePeriod(value.period),
-    reason: readString(value, ['reason']) ?? null,
-    createdAt: readString(value, ['createdAt']) ?? new Date().toISOString(),
-    finishedAt: readString(value, ['finishedAt']) ?? null,
-    statusUrl: readString(value, ['statusUrl']) ?? `/v1/article-requests/${requestId}`
-  };
-}
-
-function parsePeriod(value: JsonValue | undefined): NewsPeriod | null {
-  if (value === undefined || !isJsonObject(value)) return null;
-  const from = readString(value, ['from']);
-  const to = readString(value, ['to']);
-  if (!from || !to) return null;
-  return { from, to };
 }
 
 function parseArticleCards(value: JsonValue | undefined): NewsArticleCard[] {
@@ -528,10 +330,6 @@ function parseSources(value: JsonValue | undefined): NewsSource[] {
   return sources;
 }
 
-function isPendingStatus(status: NewsRequestStatus): boolean {
-  return status === 'queued' || status === 'running';
-}
-
 function readString(payload: JsonObject, keys: string[]): string | undefined {
   for (const key of keys) {
     const value = payload[key];
@@ -555,10 +353,4 @@ function readNumber(payload: JsonObject, keys: string[]): number | undefined {
 function clampInt(value: number, min: number, max: number): number {
   if (!Number.isFinite(value)) return min;
   return Math.min(max, Math.max(min, Math.trunc(value)));
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
 }

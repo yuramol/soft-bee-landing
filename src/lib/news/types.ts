@@ -1,7 +1,5 @@
 export type NewsLanguage = 'en' | 'uk';
 
-export type NewsRequestStatus = 'queued' | 'running' | 'completed' | 'partial' | 'failed' | string;
-
 export interface NewsCover {
   url: string;
   alt: string | null;
@@ -56,36 +54,6 @@ export interface NewsArticle extends NewsArticleCard {
   tableOfContents: { id: string; title: string }[];
   related: NewsArticleCard[];
   sources: NewsSource[];
-}
-
-export interface NewsPeriod {
-  from: string;
-  to: string;
-}
-
-export interface NewsRequestMeta {
-  requestId: string;
-  status: NewsRequestStatus;
-  requestedCount: number;
-  returnedCount: number;
-  complete: boolean;
-  language: NewsLanguage | string;
-  period: NewsPeriod | null;
-  reason: string | null;
-  createdAt: string;
-  finishedAt: string | null;
-  statusUrl: string;
-}
-
-export interface NewsRequestResponse {
-  data: NewsArticleCard[];
-  meta: NewsRequestMeta;
-}
-
-export interface CreateArticleRequestInput {
-  count: number;
-  language?: NewsLanguage;
-  idempotencyKey: string;
 }
 
 export interface ListArticlesParams {

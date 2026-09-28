@@ -8,7 +8,7 @@ export const runtime = 'nodejs';
 
 /**
  * Public Insights list (merged DB + Soft Bee News archive).
- * Does not start news generation.
+ * Soft Bee News is read-only here; archive fetches are cached ~1 day.
  */
 export async function GET(request: Request) {
   try {
@@ -31,8 +31,8 @@ export async function GET(request: Request) {
 
     return NextResponse.json(result, {
       headers: {
-        // Short private cache — news archive is also cached in-process for ~30s.
-        'Cache-Control': 'private, max-age=30, stale-while-revalidate=60'
+        // Short browser/CDN cache for merged feed; news archive itself revalidates ~1 day.
+        'Cache-Control': 'private, max-age=60, stale-while-revalidate=300'
       }
     });
   } catch (error) {

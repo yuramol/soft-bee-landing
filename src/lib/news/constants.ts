@@ -4,17 +4,14 @@ import type { NewsLanguage } from './types';
 export const AI_INSIGHTS_CATEGORY = 'Tech & Dev';
 
 export const NEWS_DEFAULT_LANGUAGE: NewsLanguage = 'en';
-export const NEWS_DEFAULT_REFRESH_COUNT = 5;
 export const NEWS_ARCHIVE_LIST_LIMIT = 100;
 /** Upper bound when loading DB rows for in-memory merge + pagination. */
 export const NEWS_MERGE_DB_FETCH_LIMIT = 500;
-/** In-process TTL for Soft Bee News archive reads (page views). */
-export const NEWS_ARCHIVE_CACHE_TTL_MS = 30_000;
+/** How long Soft Bee News archive responses may be reused before re-fetching. */
+export const NEWS_ARCHIVE_REVALIDATE_SECONDS = 60 * 60 * 24;
+export const NEWS_ARCHIVE_CACHE_TTL_MS = NEWS_ARCHIVE_REVALIDATE_SECONDS * 1000;
 
 export const NEWS_REQUEST_TIMEOUT_MS = 30_000;
-export const NEWS_POLL_INTERVAL_MS = 5_000;
-/** Cap for website-triggered refresh polling (Vercel maxDuration budget). */
-export const NEWS_POLL_MAX_MS = 240_000;
 
 export const NEWS_DEFAULT_AUTHOR_NAME = 'Soft Bee News';
 export const NEWS_DEFAULT_AUTHOR_ROLE = 'Tech & Dev';

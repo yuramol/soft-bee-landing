@@ -14,15 +14,3 @@ export function getNewsApiKey(): string | null {
 export function isNewsConfigured(): boolean {
   return Boolean(getNewsServiceUrl() && getNewsApiKey());
 }
-
-/**
- * Secret for `POST /api/insights/refresh` (Vercel Cron / manual ops).
- * Prefer NEWS_REFRESH_SECRET; fall back to CRON_SECRET.
- */
-export function getNewsRefreshSecret(): string | null {
-  const dedicated = process.env.NEWS_REFRESH_SECRET?.trim();
-  if (dedicated) return dedicated;
-
-  const cron = process.env.CRON_SECRET?.trim();
-  return cron && cron.length > 0 ? cron : null;
-}

@@ -48,7 +48,7 @@ export async function getTags(): Promise<TagRow[]> {
 /**
  * Merged Insights feed (three tiers):
  * prioritized DB → Soft Bee News (Tech & Dev) → remaining DB, each by published date.
- * Page views only read the news archive; they never create generation jobs.
+ * Soft Bee News is read-only (service generates on its own); archive is cached ~1 day.
  */
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
   const page = params.page ?? 1;
