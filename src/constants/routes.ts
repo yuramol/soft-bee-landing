@@ -8,7 +8,8 @@ export const ROUTES = {
   CASE_STUDIES: '/case-studies',
   INSIGHTS: '/insights',
   PRIVACY_POLICY: '/privacy-policy',
-  TERMS_OF_USE: '/terms-of-use'
+  TERMS_OF_USE: '/terms-of-use',
+  PARTNERSHIP: '/partnership'
 } as const;
 
 /** Paths anonymous users must reach (OAuth must hit /auth/callback before session exists). */

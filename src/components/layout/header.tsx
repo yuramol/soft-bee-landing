@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Icon } from '@/components/ui/icon';
+import { Button } from '@/components/ui/button';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
 
@@ -14,14 +18,24 @@ export interface HeaderProps {
 }
 
 export function Header({ className, theme = 'light' }: HeaderProps) {
+  const pathname = usePathname();
   const isLightText = theme === 'dark';
   const textColor = isLightText ? 'text-white' : 'text-foreground';
   const burgerColor = isLightText ? 'var(--brand-white)' : 'var(--foreground)';
 
+  const handleDiscussPartnership = () => {
+    const target = document.getElementById('partnership-form');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const focusTarget = document.getElementById('partner-name') ?? target.querySelector<HTMLElement>('[tabindex="-1"]');
+      focusTarget?.focus({ preventScroll: true });
+    }
+  };
+
   return (
     <header
       className={cn(
-        'absolute top-0 right-0 left-0 z-50 mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 lg:pr-5.5 lg:pl-8',
+        'absolute top-0 right-0 left-0 z-50 mx-auto flex w-full max-w-470 items-center justify-between bg-transparent px-5.25 py-7.25 min-[1200px]:pr-5.5 min-[1200px]:pl-8',
         className
       )}
     >
@@ -31,8 +45,8 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
         </Link>
       </div>
 
-      <div className='flex items-center gap-20 xl:gap-62.25'>
-        <nav className='hidden lg:block'>
+      <div className='flex items-center gap-20 min-[1375px]:gap-62.25'>
+        <nav className='hidden min-[1200px]:block'>
           <ul className='flex items-center gap-11.25'>
             {MAIN_NAV_LINKS.map((link) => (
               <li key={link.label}>
@@ -51,12 +65,23 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
           </ul>
         </nav>
 
-        <div className='hidden items-center lg:flex'>
-          <DiscussProjectButton
-            variant={isLightText ? 'white' : 'primary'}
-            className='rounded-full px-6 font-medium'
-            text='Discuss project'
-          />
+        <div className='hidden items-center min-[1200px]:flex'>
+          {pathname === '/partnership' ? (
+            <Button
+              variant={isLightText ? 'white' : 'primary'}
+              className='rounded-full px-6 font-medium'
+              rightIcon={<Icon icon='ArrowRight' />}
+              onClick={handleDiscussPartnership}
+            >
+              Discuss a partnership
+            </Button>
+          ) : (
+            <DiscussProjectButton
+              variant={isLightText ? 'white' : 'primary'}
+              className='rounded-full px-6 font-medium'
+              text='Discuss project'
+            />
+          )}
         </div>
 
         <MobileNav burgerColor={burgerColor} />

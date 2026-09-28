@@ -18,19 +18,23 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
 
-  const hideFooterAnimatedBackground = pathname === ROUTES.PRIVACY_POLICY || pathname === ROUTES.TERMS_OF_USE;
+  const isPartnership = pathname === ROUTES.PARTNERSHIP;
+  const isLegalPage = pathname === ROUTES.PRIVACY_POLICY || pathname === ROUTES.TERMS_OF_USE;
+  const hideTopSection = isPartnership || isLegalPage;
 
   return (
     <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
-      {!hideFooterAnimatedBackground && <FooterAnimatedBackground className='-top-82.5 h-312.5' />}
+      {!hideTopSection && <FooterAnimatedBackground className='-top-82.5 h-312.5' />}
 
       <div
-        className={cn('relative z-10 w-full pt-31.25 pb-17 transition-all duration-500 md:pt-80 md:pb-10', {
-          'pt-20 md:pt-20': pathname === ROUTES.PRIVACY_POLICY || pathname === ROUTES.TERMS_OF_USE
+        className={cn('relative z-10 w-full pb-17 transition-all duration-500 md:pb-10', {
+          'pt-0': isPartnership,
+          'pt-20 md:pt-20': isLegalPage,
+          'pt-31.25 md:pt-80': !isPartnership && !isLegalPage
         })}
       >
         <ComponentContainer>
-          {!hideFooterAnimatedBackground && (
+          {!hideTopSection && (
             <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
               <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
                 {footerContent.title.map((line, index) => (

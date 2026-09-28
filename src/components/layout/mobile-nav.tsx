@@ -38,16 +38,28 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
     setTimeout(() => setIsProjectDialogOpen(true), 150);
   };
 
+  const handleDiscussPartnership = () => {
+    handleClose();
+    setTimeout(() => {
+      const target = document.getElementById('partnership-form');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const focusTarget = document.getElementById('partner-name') ?? target.querySelector<HTMLElement>('[tabindex="-1"]');
+        focusTarget?.focus({ preventScroll: true });
+      }
+    }, 150);
+  };
+
   return (
     <>
       <Drawer open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction='right' shouldScaleBackground={false}>
         <DrawerTrigger asChild>
-          <button type='button' className='cursor-pointer lg:hidden'>
+          <button type='button' className='cursor-pointer min-[1200px]:hidden'>
             <Icon icon='Burger' width={32} height={32} color={burgerColor} />
           </button>
         </DrawerTrigger>
 
-        <DrawerContent className='bg-brand-white z-60 w-full flex-col px-4 pt-7.25 pb-6.25 lg:hidden'>
+        <DrawerContent className='bg-brand-white z-60 w-full flex-col px-4 pt-7.25 pb-6.25 min-[1200px]:hidden'>
           <div className='mb-8.5 flex items-center justify-between'>
             <Link href='/' onClick={handleClose}>
               <Icon icon='Logo' width={165} height={37} />
@@ -98,9 +110,15 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
           </nav>
 
           <div>
-            <Button variant='primary' className='w-full' onClick={handleDiscussProject}>
-              Discuss project
-            </Button>
+            {pathname === '/partnership' ? (
+              <Button variant='primary' className='w-full' onClick={handleDiscussPartnership}>
+                Discuss a partnership
+              </Button>
+            ) : (
+              <Button variant='primary' className='w-full' onClick={handleDiscussProject}>
+                Discuss project
+              </Button>
+            )}
           </div>
         </DrawerContent>
       </Drawer>

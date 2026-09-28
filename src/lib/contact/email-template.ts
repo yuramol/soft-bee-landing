@@ -149,7 +149,9 @@ export function buildContactEmailText(input: ContactEmailTemplateInput): string 
 }
 
 function kindLabel(kind: ContactKind): string {
-  return kind === 'vacancy_application' ? 'Vacancy application' : 'Discuss project';
+  if (kind === 'vacancy_application') return 'Vacancy application';
+  if (kind === 'partnership') return 'Partnership request';
+  return 'Discuss project';
 }
 
 function buildMetaRows(input: ContactEmailTemplateInput): Array<[string, string]> {
