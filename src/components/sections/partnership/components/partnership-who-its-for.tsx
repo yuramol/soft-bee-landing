@@ -111,7 +111,7 @@ export default function PartnershipWhoItsFor() {
         <Link href='/case-studies/elacity-control-plane' className='proof-strip' aria-labelledby='case-title'>
           <Image
             className='proof-image'
-            src='/images/case-studies/elicity/el1.webp'
+            src='/images/case-studies/elacity/el1.webp'
             width={285}
             height={328}
             sizes='(max-width: 767px) 100vw, 155px'

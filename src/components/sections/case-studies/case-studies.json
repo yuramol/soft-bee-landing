@@ -4,7 +4,7 @@
     "title": "Elacity Control Plane",
     "shortTitle": "Elacity",
     "year": "2026",
-    "image": "/images/case-studies/elicity/el1.webp",
+    "image": "/images/case-studies/elacity/el1.webp",
     "moreCasesImage": "/images/case-studies/more-cases/elacity1.webp",
     "link": "/case-studies/elacity-control-plane",
     "client": "Ellavox AI",
@@ -34,7 +34,7 @@
       "Operating these systems requires more than prompt editing. Teams need to see what agents are doing, receive useful alerts and respond when something changes. Approval processes, execution logs and provider integrations have to work together across the platform.",
       "We developed notifications and automated action channels, integrated observability and guardrails, and implemented prompt policy checks and approval workflows. We also connected AI providers and added Stripe subscriptions and usage-based billing to support the commercial side of the product."
     ],
-    "overviewImages": ["/images/case-studies/elicity/el3.webp", "/images/case-studies/elicity/el4.webp"],
+    "overviewImages": ["/images/case-studies/elacity/el3.webp", "/images/case-studies/elacity/el4.webp"],
     "toolsTitle": "The technology behind Elacity Control Plane",
     "tools": [
       {
@@ -121,9 +121,9 @@
       }
     ],
     "galleryImages": [
-      "/images/case-studies/elicity/el2.webp",
-      "/images/case-studies/elicity/el5.webp",
-      "/images/case-studies/elicity/el6.webp"
+      "/images/case-studies/elacity/el2.webp",
+      "/images/case-studies/elacity/el5.webp",
+      "/images/case-studies/elacity/el6.webp"
     ],
 
     "resultsCards": [
