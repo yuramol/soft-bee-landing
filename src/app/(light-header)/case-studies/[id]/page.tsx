@@ -57,7 +57,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
       />
       <Tools title={caseStudy.toolsTitle} tools={caseStudy.tools} />
       <CaseStudyGallery images={caseStudy.galleryImages} />
-      <CaseStudyResults description={caseStudy.resultsDescription} cards={caseStudy.resultsCards} />
+      <CaseStudyResults cards={caseStudy.resultsCards} />
       <Testimonials cards={caseStudy.testimonials} />
       <MoreCases currentId={caseStudy.id} />
     </>

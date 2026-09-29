@@ -10,6 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { MAIN_NAV_LINKS } from '@/constants/navigation';
+import layoutContent from './content.json';
 
 const DiscussProjectDialog = nextDynamic(
   () => import('@/components/discuss-project-dialog').then((module) => module.DiscussProjectDialog),
@@ -54,17 +55,22 @@ export function MobileNav({ burgerColor }: MobileNavProps) {
     <>
       <Drawer open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction='right' shouldScaleBackground={false}>
         <DrawerTrigger asChild>
-          <button type='button' className='cursor-pointer min-[1200px]:hidden'>
+          <button type='button' aria-label={layoutContent.mobileMenu.openAriaLabel} className='cursor-pointer min-[1200px]:hidden'>
             <Icon icon='Burger' width={32} height={32} color={burgerColor} />
           </button>
         </DrawerTrigger>
 
         <DrawerContent className='bg-brand-white z-60 w-full flex-col px-4 pt-7.25 pb-6.25 min-[1200px]:hidden'>
           <div className='mb-8.5 flex items-center justify-between'>
-            <Link href='/' onClick={handleClose}>
+            <Link href='/' aria-label={layoutContent.mobileMenu.homeAriaLabel} onClick={handleClose}>
               <Icon icon='Logo' width={165} height={37} />
             </Link>
-            <button type='button' className='flex cursor-pointer items-center justify-center' onClick={handleClose}>
+            <button
+              type='button'
+              aria-label={layoutContent.mobileMenu.closeAriaLabel}
+              className='flex cursor-pointer items-center justify-center'
+              onClick={handleClose}
+            >
               <Icon icon='X' width={24} height={24} fill='#1B1C23' />
             </button>
           </div>

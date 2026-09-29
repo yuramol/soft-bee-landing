@@ -95,7 +95,10 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
             >
               <div className={cn('mb-12 flex flex-col md:flex-row md:items-start md:justify-between', !hasScroll && 'md:mb-12')}>
                 <div>
-                  <Badge title={testimonialsContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
+                  <Badge
+                    title={cards.length === 1 ? testimonialsContent.badgeSingular : testimonialsContent.badge}
+                    className='bg-muted/50 mb-7.5 w-fit md:mb-10'
+                  />
                   <Typography variant='h2' className='text-foreground md:max-w-175 xl:max-w-210'>
                     {testimonialsContent.title}
                   </Typography>

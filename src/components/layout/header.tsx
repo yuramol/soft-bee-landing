@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { NavDropdown } from './nav-dropdown';
 import { DiscussProjectButton } from '../discuss-project-button';
 import { MobileNav } from './mobile-nav';
+import layoutContent from './content.json';
 
 export interface HeaderProps {
   className?: string;
@@ -40,7 +41,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
       )}
     >
       <div className='flex items-center'>
-        <Link href='/'>
+        <Link href='/' aria-label={layoutContent.header.homeAriaLabel}>
           <Icon icon={isLightText ? 'LogoWhite' : 'Logo'} width={165} height={37} />
         </Link>
       </div>

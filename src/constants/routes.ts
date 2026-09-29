@@ -7,6 +7,8 @@ export const ROUTES = {
   SERVICES: '/services',
   CASE_STUDIES: '/case-studies',
   INSIGHTS: '/insights',
+  PRIVACY_POLICY: '/privacy-policy',
+  TERMS_OF_USE: '/terms-of-use',
   PARTNERSHIP: '/partnership'
 } as const;
 

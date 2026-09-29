@@ -6,7 +6,10 @@ import footerContent from '../content.json';
 
 export const FooterNav = () => {
   return (
-    <nav className='text-foreground mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between' aria-label='Footer Navigation'>
+    <nav
+      className='text-foreground mb-7.25 flex flex-col gap-11.25 md:mb-9 md:flex-row md:justify-between'
+      aria-label={footerContent.navigationAriaLabel}
+    >
       <div className='flex flex-col gap-5'>
         <Typography variant='description'>{footerContent.location}</Typography>
         <ul className='flex flex-col gap-5'>
