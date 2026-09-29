@@ -89,8 +89,8 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
           >
             <div
               className={cn(
-                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75',
-                hasScroll ? 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]' : 'md:min-h-[calc(100vh-20px)]'
+                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:gap-75 md:px-10.5 md:pb-10 xl:pt-28.75',
+                hasScroll ? 'md:sticky md:top-2.5' : ''
               )}
             >
               <div className={cn('mb-12 flex flex-col md:flex-row md:items-start md:justify-between', !hasScroll && 'md:mb-12')}>
