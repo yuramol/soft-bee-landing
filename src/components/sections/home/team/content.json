@@ -2,6 +2,8 @@
   "badge": "Team",
   "title": "Meet the minds behind Soft Bee",
   "coFounderRole": "Co-founder",
+  "previousSlideAriaLabel": "Previous slide",
+  "nextSlideAriaLabel": "Next slide",
   "members": [
     {
       "id": 1,

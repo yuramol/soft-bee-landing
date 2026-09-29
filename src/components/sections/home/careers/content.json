@@ -3,6 +3,7 @@
   "title": "Build thoughtful software with us",
   "cta": "Explore careers",
   "emptyStateMessage": "There are no roles listed here at the moment. Please check back for updates.",
+  "playVideoAriaLabel": "Play video",
   "cards": [
     {
       "id": 0,

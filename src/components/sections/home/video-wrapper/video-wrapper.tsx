@@ -5,6 +5,7 @@ import { PointerEvent, useEffect, useRef, useState, useSyncExternalStore } from 
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
+import content from './content.json';
 
 interface PointerPosition {
   x: number;
@@ -179,7 +180,7 @@ export function VideoWrapper() {
         <Button
           type='button'
           variant='white'
-          aria-label={isPlaying ? 'Stop video' : 'Play video'}
+          aria-label={isPlaying ? content.stopVideoAriaLabel : content.playVideoAriaLabel}
           tabIndex={0}
           onClick={handlePlayClick}
           className={cn(
