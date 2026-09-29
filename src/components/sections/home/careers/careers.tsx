@@ -81,8 +81,8 @@ export const Careers = ({ className }: CareersProps) => {
           <div ref={targetRef} className={cn('relative w-full', hasMultipleCards ? 'md:h-[400vh]' : 'md:h-auto')}>
             <div
               className={cn(
-                'z-10 w-full px-4 py-18.25 pb-23.5 md:flex md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15',
-                hasMultipleCards ? 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]' : hasCards ? 'md:min-h-[calc(100vh-20px)]' : ''
+                'z-10 w-full px-4 py-18.25 pb-23.5 md:flex md:flex-col md:gap-75 md:px-10.5 xl:pt-28.75 xl:pb-15',
+                hasMultipleCards ? 'md:sticky md:top-2.5' : ''
               )}
             >
               <div className='mb-12 flex flex-col md:mb-0 md:flex-row md:items-start md:justify-between'>

@@ -7,7 +7,7 @@ export default function PartnershipHowItWorks() {
   const { howItWorks } = content;
 
   return (
-    <section id='how-it-works' className='process-section px-4 py-12 md:px-10 md:py-24' aria-labelledby='process-title'>
+    <section id='how-it-works' className='process-section relative z-10 px-4 py-12 md:px-10 md:py-24' aria-labelledby='process-title'>
       <ComponentContainer>
         <Badge title={howItWorks.badge} className='mb-6 w-fit' />
         <Typography variant='h2' id='process-title'>
