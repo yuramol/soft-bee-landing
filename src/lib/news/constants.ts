@@ -4,7 +4,8 @@ import type { NewsLanguage } from './types';
 export const AI_INSIGHTS_CATEGORY = 'Tech & Dev';
 
 export const NEWS_DEFAULT_LANGUAGE: NewsLanguage = 'en';
-export const NEWS_ARCHIVE_LIST_LIMIT = 100;
+/** Soft Bee News `/v1/articles` rejects `limit` above 20 (400 Invalid request). */
+export const NEWS_ARCHIVE_LIST_LIMIT = 20;
 /** Upper bound when loading DB rows for in-memory merge + pagination. */
 export const NEWS_MERGE_DB_FETCH_LIMIT = 500;
 /** How long Soft Bee News archive responses may be reused before re-fetching. */
