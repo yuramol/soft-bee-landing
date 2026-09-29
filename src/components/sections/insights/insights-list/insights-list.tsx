@@ -23,6 +23,7 @@ interface InsightsListProps {
   initialPageSize: number;
   initialTab: string;
   initialSearchQuery: string;
+  initialNewsUnavailable?: boolean;
   tabs: TabItem[];
 }
 
@@ -33,6 +34,7 @@ export function InsightsList({
   initialPageSize,
   initialTab,
   initialSearchQuery,
+  initialNewsUnavailable = false,
   tabs
 }: InsightsListProps) {
   const router = useRouter();
@@ -63,9 +65,10 @@ export function InsightsList({
       total: initialTotal,
       page: initialPage,
       pageSize: initialPageSize,
-      totalPages: Math.ceil(initialTotal / initialPageSize) || 0
+      totalPages: Math.ceil(initialTotal / initialPageSize) || 0,
+      ...(initialNewsUnavailable ? { newsUnavailable: true } : {})
     }),
-    [initialInsights, initialTotal, initialPage, initialPageSize]
+    [initialInsights, initialTotal, initialPage, initialPageSize, initialNewsUnavailable]
   );
 
   const initialParams = useMemo(
@@ -94,6 +97,8 @@ export function InsightsList({
   const totalPages = Math.ceil((articlesQuery.data?.total ?? initialTotal) / pageSize);
   const isLoading = articlesQuery.isFetching;
   const hasQueryError = articlesQuery.isError;
+  const isNewsUnavailable =
+    articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
 
   // canonicalize legacy ?tab=tech|team|company to current tag slugs
   useEffect(() => {
@@ -181,6 +186,12 @@ export function InsightsList({
             <div className='col-span-full py-12 text-center text-gray-500'>Could not load articles. Please try again.</div>
           ) : (
             <>
+              {isNewsUnavailable && (
+                <div className='mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900 md:mb-6'>
+                  Could not load Tech & Dev news right now. Please try again later.
+                </div>
+              )}
+
               <div
                 className={`grid grid-cols-1 gap-2.5 transition-opacity duration-300 md:grid-cols-2 xl:grid-cols-3 ${
                   isLoading ? 'pointer-events-none opacity-50' : 'opacity-100'

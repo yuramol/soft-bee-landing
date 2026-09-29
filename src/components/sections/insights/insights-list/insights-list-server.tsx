@@ -46,6 +46,7 @@ export async function InsightsListServer({ searchParams }: InsightsListServerPro
       initialPageSize={pageSize}
       initialTab={activeTabId}
       initialSearchQuery={searchQuery}
+      initialNewsUnavailable={result.newsUnavailable === true}
       tabs={tabs}
     />
   );

@@ -53,11 +53,14 @@ export async function getTags(): Promise<TagRow[]> {
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
   const page = params.page ?? 1;
   const pageSize = clampArticlesPageSize(params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX);
-  const merged = await getMergedInsights({
+  const { articles, newsUnavailable } = await getMergedInsights({
     category: params.category,
     searchQuery: params.searchQuery
   });
-  return paginateInsights(merged, page, pageSize);
+  return {
+    ...paginateInsights(articles, page, pageSize),
+    ...(newsUnavailable ? { newsUnavailable: true } : {})
+  };
 }
 
 /**
@@ -109,18 +112,28 @@ export async function getArticleBySlug(slug: string): Promise<ArticleRow | null>
  * More Insights: full merged feed excluding the current slug (not limited by list pageSize).
  */
 export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<InsightArticle[]> {
-  const merged = await getMergedInsights({});
-  return merged.filter((article) => article.slug !== excludeSlug).slice(0, limit);
+  const { articles } = await getMergedInsights({});
+  return articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
 }
 
-async function getMergedInsights(params: { category?: string; searchQuery?: string } = {}): Promise<InsightArticle[]> {
+interface MergedInsightsResult {
+  articles: InsightArticle[];
+  newsUnavailable: boolean;
+}
+
+interface AiNewsFetchResult {
+  ranked: RankedInsight[];
+  newsUnavailable: boolean;
+}
+
+async function getMergedInsights(params: { category?: string; searchQuery?: string } = {}): Promise<MergedInsightsResult> {
   const searchQuery = params.searchQuery?.trim() ?? '';
   const category = params.category;
 
-  const [dbRows, aiRanked] = await Promise.all([fetchDbArticlesForMerge(category), fetchAiRankedForMerge(category)]);
+  const [dbRows, aiResult] = await Promise.all([fetchDbArticlesForMerge(category), fetchAiRankedForMerge(category)]);
 
   let rankedDb = toRankedDbInsights(dbRows);
-  let rankedAi = aiRanked;
+  let rankedAi = aiResult.ranked;
 
   if (searchQuery) {
     const filtered = filterInsightsBySearch(
@@ -132,7 +145,10 @@ async function getMergedInsights(params: { category?: string; searchQuery?: stri
     rankedAi = rankedAi.filter((entry) => allowed.has(entry.article.slug));
   }
 
-  return mergeRankedInsights(rankedDb, rankedAi);
+  return {
+    articles: mergeRankedInsights(rankedDb, rankedAi),
+    newsUnavailable: aiResult.newsUnavailable
+  };
 }
 
 async function fetchDbArticlesForMerge(category: string | undefined): Promise<ArticleRow[]> {
@@ -145,9 +161,9 @@ async function fetchDbArticlesForMerge(category: string | undefined): Promise<Ar
   return result.articles;
 }
 
-async function fetchAiRankedForMerge(category: string | undefined): Promise<RankedInsight[]> {
+async function fetchAiRankedForMerge(category: string | undefined): Promise<AiNewsFetchResult> {
   if (!shouldIncludeAiNews(category) || !isNewsConfigured()) {
-    return [];
+    return { ranked: [], newsUnavailable: false };
   }
 
   try {
@@ -156,14 +172,17 @@ async function fetchAiRankedForMerge(category: string | undefined): Promise<Rank
       limit: NEWS_ARCHIVE_LIST_LIMIT
     });
 
-    return cards.map((card) => ({
-      article: transformNewsCardToInsight(card),
-      prioritized: false,
-      publishedAtMs: publishedAtToMs(card.publishedAt)
-    }));
+    return {
+      ranked: cards.map((card) => ({
+        article: transformNewsCardToInsight(card),
+        prioritized: false,
+        publishedAtMs: publishedAtToMs(card.publishedAt)
+      })),
+      newsUnavailable: false
+    };
   } catch (error) {
     console.error('Failed to load Soft Bee News archive:', error);
-    return [];
+    return { ranked: [], newsUnavailable: true };
   }
 }
 
