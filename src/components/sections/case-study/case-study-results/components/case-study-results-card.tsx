@@ -1,12 +1,13 @@
 'use client';
 
+import { Typography } from '@/components/ui/typography';
 import { animate, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
-interface CaseStudyResultsCardProps {
+export interface CaseStudyResultsCardProps {
   title: string;
   description: string;
-  bottomText: string;
+  bottomText?: string;
 }
 
 function formatStatValue(value: number, decimals: number) {
@@ -43,10 +44,16 @@ export function CaseStudyResultsCard({ title, description, bottomText }: CaseStu
   const displayTitle = targetValue === 0 ? title : `${formatStatValue(animatedValue, decimals)}${suffix}`;
 
   return (
-    <div ref={ref} className='bg-accent-dark text-muted flex h-full w-73.5 shrink-0 flex-col rounded-3xl p-6'>
-      <div className='mb-28.75 text-[32px] font-semibold'>{displayTitle}</div>
-      <p className='mb-28.75 text-[20px] leading-tight font-normal'>{description}</p>
-      <p className='mt-auto text-[20px] leading-tight font-normal uppercase'>{bottomText}</p>
+    <div ref={ref} className='bg-accent-dark text-muted flex h-full w-73.5 shrink-0 flex-col rounded-3xl p-6 sm:p-8'>
+      <Typography variant='h4' className='mb-12 leading-tight font-medium sm:mb-20'>
+        {displayTitle}
+      </Typography>
+      <Typography className='text-[18px] leading-tight font-normal sm:text-[20px]'>{description}</Typography>
+      {bottomText && (
+        <Typography variant='body3' className='mt-auto pt-12 text-[18px] leading-tight font-normal uppercase sm:pt-20 sm:text-[20px]'>
+          {bottomText}
+        </Typography>
+      )}
     </div>
   );
 }

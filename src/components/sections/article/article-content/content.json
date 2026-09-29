@@ -1,7 +1,10 @@
 {
   "socialShare": {
     "title": "Social share buttons",
+    "linkedinAriaLabel": "Share on LinkedIn",
     "instagramAriaLabel": "Share on Instagram",
+    "threadsAriaLabel": "Share on Threads",
+    "xAriaLabel": "Share on X",
     "copyLinkAriaLabel": "Copy link"
   },
   "sidebar": {

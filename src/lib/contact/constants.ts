@@ -1,8 +1,9 @@
-export const CONTACT_KINDS = ['discuss_project', 'vacancy_application'] as const;
+export const CONTACT_KINDS = ['discuss_project', 'vacancy_application', 'partnership'] as const;
 
 export const CONTACT_RECAPTCHA_ACTIONS = {
   discuss_project: 'discuss_project',
-  vacancy_application: 'vacancy_apply'
+  vacancy_application: 'vacancy_apply',
+  partnership: 'partnership_apply'
 } as const;
 
 export const CONTACT_RATE_LIMIT_COOKIE_NAME = 'rate_limit_contact';

@@ -16,6 +16,7 @@ import { Typography } from '@/components/ui/typography';
 import { TeamAnimatedBackground } from './components';
 import teamContent from './content.json';
 import { TeamMemberCard } from './team-member-card';
+import content from './content.json';
 
 interface TeamProps {
   hideCoFounders?: boolean;
@@ -103,7 +104,7 @@ export function Team({ hideCoFounders }: TeamProps) {
                 }}
                 className='team-swiper h-full w-full overflow-visible!'
               >
-                {Array.from({ length: 3 }, (_, copyIndex) =>
+                {Array.from({ length: 20 }, (_, copyIndex) =>
                   filteredMembers.map((member) => (
                     <SwiperSlide
                       key={`${member.id}-${copyIndex}`}
@@ -118,12 +119,14 @@ export function Team({ hideCoFounders }: TeamProps) {
               <div className='pointer-events-none absolute right-0 bottom-6 left-0 z-30 flex justify-between px-4 sm:bottom-10.25 xl:-right-16 xl:bottom-12 xl:-left-16 xl:px-0'>
                 <button
                   onClick={handleSlidePrev}
+                  aria-label={content.previousSlideAriaLabel}
                   className='border-muted pointer-events-auto flex size-12.5 shrink-0 cursor-pointer items-center justify-center rounded-full border bg-white shadow-sm transition-colors hover:bg-gray-100'
                 >
                   <ArrowLeft className='text-foreground h-5 w-5' />
                 </button>
                 <button
                   onClick={handleSlideNext}
+                  aria-label={content.nextSlideAriaLabel}
                   className='border-muted pointer-events-auto flex size-12.5 shrink-0 cursor-pointer items-center justify-center rounded-full border bg-white shadow-sm transition-colors hover:bg-gray-100'
                 >
                   <ArrowRight className='text-foreground h-5 w-5' />

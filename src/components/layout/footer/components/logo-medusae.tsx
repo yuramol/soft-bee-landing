@@ -5,6 +5,7 @@ import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
 
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
+import content from '../content.json';
 
 const FooterMedusae = dynamic(() => import('./footer-medusae').then((module) => module.FooterMedusae), {
   ssr: false,
@@ -50,7 +51,7 @@ export function LogoMedusae({ className }: LogoMedusaeProps) {
       onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
       onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn('relative mb-5 w-full overflow-hidden', canRenderMedusae && 'aspect-165/72', className)}
-      aria-label='Soft Bee'
+      aria-label={content.logoAriaLabel}
       role='img'
     >
       {canRenderMedusae ? (

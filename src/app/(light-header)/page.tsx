@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
+
+export const metadata: Metadata = {
+  title: 'Soft Bee | Custom Software Development',
+  description:
+    'Web, mobile, and AI products for ambitious businesses — from MVP to global scale. 27 engineers, designers, and analysts. 120+ projects delivered since 2019.'
+};
 
 import { ComponentContainer } from '@/components/layout';
 import { AboutUs, Careers, CaseStudies, Hero, Services, Team, Testimonials } from '@/components/sections/home';

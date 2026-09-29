@@ -1,14 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
-
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
 export interface CaseStudyItemData {
-  href: string;
   title: string;
   description: string;
   tools: string[];
@@ -20,7 +15,7 @@ interface CaseStudiesItemProps {
 }
 
 function CaseStudiesItem({ item }: CaseStudiesItemProps) {
-  const { title, description, tools, image, href } = item;
+  const { title, description, tools, image } = item;
 
   return (
     <div className={cn('flex flex-col-reverse items-center gap-x-5 gap-y-7', 'lg:flex-row 2xl:gap-x-45')}>
@@ -35,7 +30,7 @@ function CaseStudiesItem({ item }: CaseStudiesItemProps) {
           ))}
         </div>
       </div>
-      <Link href={href} className='lg:max-w-auto relative w-145 max-w-full lg:min-w-1/2'>
+      <div className='lg:max-w-auto relative w-145 max-w-full lg:min-w-1/2'>
         <Image
           src={image}
           alt={title}
@@ -45,14 +40,7 @@ function CaseStudiesItem({ item }: CaseStudiesItemProps) {
           quality={75}
           className='w-full rounded-2xl'
         />
-        <Button
-          variant='icon'
-          size='icon-md'
-          className='text-foreground lg:bg-foreground pointer-events-none absolute right-2 bottom-2 bg-white lg:right-12.5 lg:bottom-12.5 lg:text-white'
-        >
-          <Icon icon='ArrowUpRight' className='size-4.5' />
-        </Button>
-      </Link>
+      </div>
     </div>
   );
 }

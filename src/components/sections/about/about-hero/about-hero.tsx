@@ -2,6 +2,7 @@ import { getImageProps } from 'next/image';
 
 import { ComponentContainer } from '@/components/layout/component-container';
 import { Typography } from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
 
 export const AboutHero = () => {
   const common = {
@@ -28,7 +29,7 @@ export const AboutHero = () => {
   });
 
   return (
-    <section className='relative min-h-dvh w-full overflow-hidden rounded-2xl'>
+    <section className={cn('relative h-[calc(100vh-10px)] w-full overflow-hidden rounded-2xl', 'md:h-[calc(100vh-20px)]')}>
       <div className='absolute inset-0 z-0'>
         <picture>
           <source media='(min-width: 768px)' srcSet={desktop} />

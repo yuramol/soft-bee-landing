@@ -57,45 +57,51 @@ export function ServicesDesktopCard({ service, index, allServices }: DesktopCard
             ))}
           </div>
 
-          {/* Top Right Articles */}
-          <Link
-            href={service.articles[0].link}
-            className={cn('group absolute top-10.5 flex flex-col', service.articles.length > 1 ? 'left-1/2' : 'right-10.5 w-111.75')}
-          >
-            <div
-              className={cn(
-                'overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-                service.articles.length > 1 ? 'w-[50vw]' : 'w-auto'
-              )}
-            >
-              <div className={cn('flex gap-2', service.articles.length > 1 ? 'w-max pr-10.5' : 'w-full')}>
-                {service.articles.map((article, idx) => (
-                  <div key={idx} className='relative h-93.75 w-111.75 shrink-0 overflow-hidden rounded-2xl'>
-                    <Image
-                      src={article.image}
-                      alt={service.articles[0].title}
-                      fill
-                      className='object-cover transition-transform duration-500 group-hover:scale-105'
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Top Right Project */}
+          {(() => {
+            const className = cn(
+              'group absolute top-10.5 flex flex-col',
+              service.project.images.length > 1 ? 'left-1/2' : 'right-10.5 w-111.75'
+            );
 
-            <div className='mt-3.5 w-111.75'>
-              <div className='mb-1.75 flex justify-between'>
-                <Typography variant='description' className={cn(service.textClass)}>
-                  {service.articles[0].tag}
-                </Typography>
-                <Typography variant='description' className={cn(service.textClass)}>
-                  {service.articles[0].readTime}
-                </Typography>
-              </div>
-              <Typography variant='body1' className={cn('font-medium', service.textClass)}>
-                {service.articles[0].title}
-              </Typography>
-            </div>
-          </Link>
+            const content = (
+              <>
+                <div
+                  className={cn(
+                    'overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                    service.project.images.length > 1 ? 'w-[50vw]' : 'w-auto'
+                  )}
+                >
+                  <div className={cn('flex gap-2', service.project.images.length > 1 ? 'w-max pr-10.5' : 'w-full')}>
+                    {service.project.images.map((imgSrc, idx) => (
+                      <div key={idx} className='relative h-93.75 w-111.75 shrink-0 overflow-hidden rounded-2xl'>
+                        <Image
+                          src={imgSrc}
+                          alt={service.project.title}
+                          fill
+                          className='object-cover transition-transform duration-500 group-hover:scale-105'
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className='mt-3.5 w-111.75'>
+                  <Typography variant='body1' className={cn('font-medium', service.textClass)}>
+                    {service.project.title}
+                  </Typography>
+                </div>
+              </>
+            );
+
+            return service.project.link ? (
+              <Link href={service.project.link} className={className}>
+                {content}
+              </Link>
+            ) : (
+              <div className={className}>{content}</div>
+            );
+          })()}
 
           {/* Bottom Left Title */}
           <div className='absolute bottom-14.5 left-10.5 xl:bottom-29'>

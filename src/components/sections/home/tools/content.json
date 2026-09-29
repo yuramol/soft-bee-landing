@@ -2,10 +2,10 @@
   "badge": "Tools",
   "title": [
     {
-      "text": "We don’t chase trends — we choose technologies "
+      "text": "We choose technologies that fit your product, your team, and the work ahead. "
     },
     {
-      "text": "with a track record. Our stack is stable enough to trust in healthcare and fintech, and flexible enough to grow with your product.",
+      "text": "Our focus is on clear architecture, maintainable code, and a foundation that can support new features as your needs grow.",
       "className": "text-foreground/50"
     }
   ],
