@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArticleHero, ArticlePreview, ArticleContent, MoreInsights } from '@/components/sections/article';
-import { getInsightBySlug, getMoreArticles } from '@/lib/api/articles';
+
+import { ArticleContent, ArticleHero, ArticlePreview, MoreInsights } from '@/components/sections/article';
+import { getArticleBySlug, getInsightBySlug, getMoreArticles } from '@/lib/api/articles';
+import { transformArticleToInsight } from '@/lib/api/articles/transform';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
