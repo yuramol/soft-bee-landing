@@ -40,7 +40,7 @@ export function Header({ className, theme = 'light' }: HeaderProps) {
       )}
     >
       <div className='flex items-center'>
-        <Link href='/'>
+        <Link href='/' aria-label='Home'>
           <Icon icon={isLightText ? 'LogoWhite' : 'Logo'} width={165} height={37} />
         </Link>
       </div>

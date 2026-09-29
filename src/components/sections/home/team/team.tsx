@@ -118,12 +118,14 @@ export function Team({ hideCoFounders }: TeamProps) {
               <div className='pointer-events-none absolute right-0 bottom-6 left-0 z-30 flex justify-between px-4 sm:bottom-10.25 xl:-right-16 xl:bottom-12 xl:-left-16 xl:px-0'>
                 <button
                   onClick={handleSlidePrev}
+                  aria-label='Previous slide'
                   className='border-muted pointer-events-auto flex size-12.5 shrink-0 cursor-pointer items-center justify-center rounded-full border bg-white shadow-sm transition-colors hover:bg-gray-100'
                 >
                   <ArrowLeft className='text-foreground h-5 w-5' />
                 </button>
                 <button
                   onClick={handleSlideNext}
+                  aria-label='Next slide'
                   className='border-muted pointer-events-auto flex size-12.5 shrink-0 cursor-pointer items-center justify-center rounded-full border bg-white shadow-sm transition-colors hover:bg-gray-100'
                 >
                   <ArrowRight className='text-foreground h-5 w-5' />
