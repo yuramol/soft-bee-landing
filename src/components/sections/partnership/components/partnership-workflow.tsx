@@ -2,7 +2,7 @@ export default function PartnershipWorkflow() {
   return (
     <figure className='partnership-visual'>
       <video
-        src='/videos/partnership/partnership-ribbons.mp4'
+        src='/videos/partnership/partnership-ribbons.webm'
         autoPlay
         loop
         muted

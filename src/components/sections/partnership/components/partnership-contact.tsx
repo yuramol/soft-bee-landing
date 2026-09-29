@@ -8,7 +8,7 @@ export default function PartnershipContact() {
   const { contact } = content;
 
   return (
-    <section className='contact-section px-4 py-12 md:px-10 md:py-24' aria-labelledby='contact-title'>
+    <section className='contact-section relative z-10 px-4 py-12 md:px-10 md:py-24' aria-labelledby='contact-title'>
       <ComponentContainer className='contact-layout'>
         <div className='contact-copy'>
           <Badge title={contact.badge} className='mb-6 w-fit' />
