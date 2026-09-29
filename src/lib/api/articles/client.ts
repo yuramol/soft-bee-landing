@@ -62,7 +62,9 @@ function parseArticlesListResponse(value: JsonValue): ArticlesListResponse | nul
     return null;
   }
 
-  return { articles, total, page, pageSize, totalPages };
+  const newsUnavailable = value.newsUnavailable === true ? true : undefined;
+
+  return { articles, total, page, pageSize, totalPages, ...(newsUnavailable ? { newsUnavailable } : {}) };
 }
 
 function parseInsightArticle(value: JsonValue): InsightArticle | null {

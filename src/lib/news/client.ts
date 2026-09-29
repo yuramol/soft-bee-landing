@@ -45,7 +45,7 @@ let newsArchiveCache: NewsArchiveCacheEntry | null = null;
  */
 export async function listNewsArticles(params: ListArticlesParams = {}): Promise<NewsArticleCard[]> {
   const language = params.language ?? NEWS_DEFAULT_LANGUAGE;
-  const limit = clampInt(params.limit ?? NEWS_ARCHIVE_LIST_LIMIT, 1, 100);
+  const limit = clampInt(params.limit ?? NEWS_ARCHIVE_LIST_LIMIT, 1, NEWS_ARCHIVE_LIST_LIMIT);
 
   const cached = newsArchiveCache;
   if (cached && cached.language === language && cached.expiresAt > Date.now()) {
