@@ -1,0 +1,10 @@
+{
+  "mobileMenu": {
+    "openAriaLabel": "Open mobile menu",
+    "closeAriaLabel": "Close mobile menu",
+    "homeAriaLabel": "Home"
+  },
+  "header": {
+    "homeAriaLabel": "Home"
+  }
+}

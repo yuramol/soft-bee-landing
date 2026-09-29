@@ -11,7 +11,12 @@ import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { CoFounderCard } from './components';
-import { FOUNDERS } from './data';
+import teamContent from '@/components/sections/home/team/content.json';
+
+const yuriiData = teamContent.members.find((m) => m.name.includes('Yurii'))!;
+const andriiData = teamContent.members.find((m) => m.name.includes('Andrii'))!;
+
+const FOUNDERS = [yuriiData, andriiData];
 
 export const Founders = () => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);

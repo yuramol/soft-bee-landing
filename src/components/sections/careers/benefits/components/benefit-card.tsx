@@ -60,7 +60,7 @@ export const BenefitCard = ({ title, description, type, layout = 'bottom', image
           {layout === 'top' && (
             <Typography
               variant='body3'
-              className={cn('text-[14px] leading-snug md:text-[16px]', isDarkBg ? 'text-foreground-inverse/50' : 'text-foreground/50')}
+              className={cn('text-[14px] leading-snug md:text-[16px]', isDarkBg ? 'text-foreground/70' : 'text-foreground/50')}
             >
               {description}
             </Typography>
@@ -78,9 +78,10 @@ export const BenefitCard = ({ title, description, type, layout = 'bottom', image
               {title}
             </Typography>
           )}
+
           <Typography
             variant='body3'
-            className={cn('text-[14px] leading-snug md:text-[16px]', isDarkBg ? 'text-foreground-inverse/50' : 'text-foreground/50')}
+            className={cn('text-[14px] leading-snug md:text-[16px]', isDarkBg ? 'text-foreground-inverse/70' : 'text-foreground/50')}
           >
             {description}
           </Typography>

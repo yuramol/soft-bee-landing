@@ -1,0 +1,403 @@
+{
+  "title": "Privacy Policy",
+  "metadataTitle": "Privacy Policy | Soft Bee",
+  "lastUpdated": "Last updated: 24 September 2026",
+  "intro": [
+    "This Privacy Policy explains how <strong>SOFTBEE OÜ</strong> (“SoftBee”, “we”, “us”, or “our”) collects, uses, stores, and protects personal data when you visit <strong>softbee.io</strong> and its related pages (the “Website”) or communicate with us.",
+    "We respect your privacy and process personal data in accordance with applicable data protection laws, including the  <strong>General Data Protection Regulation (EU) 2016/679 (“GDPR”)</strong>."
+  ],
+  "sections": [
+    {
+      "title": "1. Data Controller",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The controller responsible for the processing of personal data described in this Privacy Policy is:"
+        },
+        {
+          "type": "ul",
+          "style": "none",
+          "items": [
+            "<strong>SOFTBEE OÜ</strong>",
+            "Registry code: <strong>17469617</strong>",
+            "VAT number: <strong>EE102980853</strong>",
+            "Registered address: Harju maakond, Tallinn, Kesklinna linnaosa, Kaupmehe tn 7-120, 10114, Estonia",
+            "Email:  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 font-bold underline'> info@softbee.io </a>"
+          ]
+        },
+        {
+          "type": "p",
+          "content": "For questions concerning your personal data or this Privacy Policy, please contact us at  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 font-bold underline'> info@softbee.io </a> ."
+        }
+      ]
+    },
+    {
+      "title": "2. Personal Data We May Collect",
+      "blocks": [
+        {
+          "type": "h5",
+          "content": "Information You Provide to Us"
+        },
+        {
+          "type": "p",
+          "content": "When you contact us through the Website, by email, or through another communication channel, we may receive information such as:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "your name;",
+            "email address;",
+            "telephone number, if provided;",
+            "company name and position;",
+            "information about your project or business requirements;",
+            "the content of your message;",
+            "any other information you voluntarily provide."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Please avoid submitting sensitive personal data unless it is necessary for your communication with us."
+        },
+        {
+          "type": "h5",
+          "content": "Technical Information"
+        },
+        {
+          "type": "p",
+          "content": "When you access the Website, certain technical information may be processed automatically by our hosting, infrastructure, or security systems."
+        },
+        {
+          "type": "p",
+          "content": "This may include:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "IP address;",
+            "browser type and version;",
+            "device and operating system information;",
+            "date and time of requests;",
+            "requested pages;",
+            "technical logs and security information."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "We use such information where necessary to operate, secure, troubleshoot, and maintain the Website."
+        }
+      ]
+    },
+    {
+      "title": "3. How We Use Personal Data",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We may process personal data for the following purposes:"
+        },
+        {
+          "type": "h5",
+          "content": "Responding to Enquiries"
+        },
+        {
+          "type": "p",
+          "content": "We process information you provide to respond to questions, project enquiries, requests for proposals, or other communications."
+        },
+        {
+          "type": "p",
+          "content": "The legal basis may be:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "taking steps at your request before entering into a contract;",
+            "performing a contract where applicable; or",
+            "our legitimate interest in communicating with potential clients, partners, and other business contacts."
+          ]
+        },
+        {
+          "type": "h5",
+          "content": "Providing and Managing Services"
+        },
+        {
+          "type": "p",
+          "content": "If communication develops into a business relationship, we may process relevant personal data for preparing proposals, negotiating agreements, providing services, managing the client relationship, and related business administration."
+        },
+        {
+          "type": "p",
+          "content": "The legal basis is generally the performance of a contract, steps taken before entering into a contract, our legitimate interests, and compliance with legal obligations."
+        },
+        {
+          "type": "h5",
+          "content": "Operating and Securing the Website"
+        },
+        {
+          "type": "p",
+          "content": "Technical data may be processed to:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "operate and maintain the Website;",
+            "protect our infrastructure;",
+            "detect and prevent misuse, fraud, or security incidents;",
+            "diagnose technical problems;",
+            "maintain system and network security."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "We process this information based on our legitimate interest in maintaining a secure and reliable Website."
+        },
+        {
+          "type": "h5",
+          "content": "Complying with Legal Obligations"
+        },
+        {
+          "type": "p",
+          "content": "We may process or retain information where necessary to comply with applicable laws, accounting requirements, tax obligations, regulatory requirements, court orders, or other legally binding requests."
+        },
+        {
+          "type": "p",
+          "content": "The legal basis is compliance with our legal obligations."
+        },
+        {
+          "type": "h5",
+          "content": "Establishing or Defending Legal Claims"
+        },
+        {
+          "type": "p",
+          "content": "Where necessary, we may process relevant information to establish, exercise, or defend legal rights and claims."
+        },
+        {
+          "type": "p",
+          "content": "The legal basis is our legitimate interest in protecting our legal and business interests."
+        }
+      ]
+    },
+    {
+      "title": "4. Cookies and Tracking Technologies",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "At the date of this Privacy Policy, the Website does  <strong> not use analytics, advertising, behavioural profiling, or marketing tracking tools such as Google Analytics 4, Meta Pixel, or Microsoft Clarity. </strong>"
+        },
+        {
+          "type": "p",
+          "content": "We do not currently use cookies for advertising or behavioural tracking purposes."
+        },
+        {
+          "type": "p",
+          "content": "Certain strictly necessary technical functionality may process limited information where required to operate, secure, or deliver the Website."
+        },
+        {
+          "type": "p",
+          "content": "If we introduce analytics, advertising, or other non-essential tracking technologies in the future, we will update this Privacy Policy and, where required by law, implement an appropriate consent mechanism."
+        }
+      ]
+    },
+    {
+      "title": "5. Sharing Personal Data",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We do not sell personal data."
+        },
+        {
+          "type": "p",
+          "content": "Personal data may be shared only where reasonably necessary with categories of recipients such as:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "hosting and infrastructure providers;",
+            "email and communication service providers;",
+            "IT and security service providers;",
+            "contractors or service providers supporting our business operations;",
+            "professional advisers, including lawyers, accountants, and auditors;",
+            "public authorities or regulators where disclosure is required by law."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Where third parties process personal data on our behalf, we take appropriate measures to ensure that the processing is subject to suitable data protection obligations."
+        }
+      ]
+    },
+    {
+      "title": "6. International Data Transfers",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "Some service providers used by SoftBee may process data outside Estonia or the European Economic Area (“EEA”)."
+        },
+        {
+          "type": "p",
+          "content": "Where personal data is transferred outside the EEA to a country that has not been recognised as providing an adequate level of data protection, we use appropriate safeguards required by applicable data protection law, where applicable."
+        },
+        {
+          "type": "p",
+          "content": "These safeguards may include European Commission Standard Contractual Clauses or another lawful transfer mechanism under the GDPR."
+        }
+      ]
+    },
+    {
+      "title": "7. Data Retention",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We retain personal data only for as long as reasonably necessary for the purposes for which it was collected."
+        },
+        {
+          "type": "p",
+          "content": "The relevant retention period may depend on:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "the nature of your communication with us;",
+            "whether a business relationship is established;",
+            "contractual requirements;",
+            "legal, tax, accounting, or regulatory obligations;",
+            "the need to establish, exercise, or defend legal claims."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "When personal data is no longer required, we will delete or anonymise it, subject to applicable legal obligations."
+        }
+      ]
+    },
+    {
+      "title": "8. Data Security",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We use reasonable technical and organisational measures designed to protect personal data against accidental or unlawful destruction, loss, alteration, unauthorised disclosure, access, or misuse."
+        },
+        {
+          "type": "p",
+          "content": "However, no website, online service, or method of electronic transmission can guarantee absolute security."
+        }
+      ]
+    },
+    {
+      "title": "9. Your Rights",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "Depending on the circumstances and applicable law, you may have the right to:"
+        },
+        {
+          "type": "ul",
+          "style": "disc",
+          "items": [
+            "request access to your personal data;",
+            "request correction of inaccurate or incomplete personal data;",
+            "request deletion of your personal data;",
+            "request restriction of processing;",
+            "object to processing based on legitimate interests;",
+            "receive certain personal data in a structured, commonly used, and machine-readable format and request its transfer where the right to data portability applies;",
+            "withdraw consent at any time where processing is based on consent."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Withdrawal of consent does not affect the lawfulness of processing carried out before consent was withdrawn."
+        },
+        {
+          "type": "p",
+          "content": "Some rights are subject to conditions and exceptions under applicable data protection law."
+        },
+        {
+          "type": "p",
+          "content": "To exercise your rights, contact us at  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 underline'> info@softbee.io </a> ."
+        },
+        {
+          "type": "p",
+          "content": "We may need to verify your identity before processing a request in order to protect personal data from unauthorised access."
+        }
+      ]
+    },
+    {
+      "title": "10. Right to Lodge a Complaint",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "If you believe that your personal data has been processed in violation of applicable data protection law, you have the right to lodge a complaint with a competent supervisory authority."
+        },
+        {
+          "type": "p",
+          "content": "SoftBee is established in Estonia, where the relevant supervisory authority is:"
+        },
+        {
+          "type": "ul",
+          "style": "none",
+          "items": ["<strong>Estonian Data Protection Inspectorate</strong>", "(Andmekaitse Inspektsioon)"]
+        },
+        {
+          "type": "p",
+          "content": "You may also contact us first at  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 underline'> info@softbee.io </a> , and we will aim to address your concern."
+        }
+      ]
+    },
+    {
+      "title": "11. Automated Decision-Making",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We do not use personal data collected through the Website to make decisions based solely on automated processing that produce legal or similarly significant effects on individuals."
+        }
+      ]
+    },
+    {
+      "title": "12. Third-Party Websites",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "The Website may contain links to websites or services operated by third parties."
+        },
+        {
+          "type": "p",
+          "content": "SoftBee is not responsible for how third parties collect or process personal data. We recommend reviewing the privacy policies of any third-party websites you visit."
+        }
+      ]
+    },
+    {
+      "title": "13. Changes to This Privacy Policy",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "We may update this Privacy Policy from time to time to reflect changes to our Website, services, technologies, data processing practices, or legal requirements."
+        },
+        {
+          "type": "p",
+          "content": "When we make changes, we will publish the updated version on the Website and change the “Last updated” date."
+        }
+      ]
+    },
+    {
+      "title": "14. Contact Us",
+      "blocks": [
+        {
+          "type": "p",
+          "content": "For questions about this Privacy Policy or the processing of your personal data, please contact:"
+        },
+        {
+          "type": "ul",
+          "style": "none",
+          "items": [
+            "<strong>SOFTBEE OÜ</strong>",
+            "Harju maakond, Tallinn, Kesklinna linnaosa, Kaupmehe tn 7-120, 10114, Estonia",
+            "Email:  <a href='mailto:info@softbee.io' className='hover:text-brand-black/70 underline'> info@softbee.io </a>"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -13,6 +13,7 @@ export function InsightCard({ article }: { article: InsightArticle }) {
           src={article.image}
           alt={article.title}
           fill
+          unoptimized={article.source === 'ai' || isRemoteImage(article.image)}
           className='object-cover transition-transform duration-300 group-hover:scale-105'
         />
       </div>
@@ -43,4 +44,8 @@ export function InsightCard({ article }: { article: InsightArticle }) {
       </div>
     </Link>
   );
+}
+
+function isRemoteImage(src: string): boolean {
+  return src.startsWith('http://') || src.startsWith('https://');
 }

@@ -37,17 +37,18 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo }: Testimonial
             </Typography>
           </div>
         </div>
-        <div className='relative flex h-11 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white'>
-          <div
-            className={`relative flex items-center justify-center ${
-              logo.includes('confyde')
-                ? 'h-full w-full scale-[1.5]'
-                : logo.includes('trovr') || logo.includes('join-peel')
-                  ? 'h-8 w-8 overflow-hidden rounded-md'
-                  : 'h-full w-full'
-            }`}
-          >
-            <Image src={logo} alt='Company Logo' fill className={logo.includes('trovr') ? 'object-cover' : 'object-contain'} />
+        <div
+          className={`relative flex h-11 shrink-0 items-center justify-center overflow-hidden bg-white ${
+            logo.includes('trovr') || logo.includes('join-peel') ? 'w-11 rounded-full' : 'w-24 rounded-xl'
+          }`}
+        >
+          <div className={`relative flex h-full w-full items-center justify-center ${logo.includes('confyde') ? 'scale-[1.5]' : ''}`}>
+            <Image
+              src={logo}
+              alt='Company Logo'
+              fill
+              className={logo.includes('trovr') || logo.includes('join-peel') ? 'object-cover' : 'object-contain'}
+            />
           </div>
         </div>
       </div>

@@ -41,14 +41,16 @@
   "legalLinks": [
     {
       "label": "Terms of use",
-      "href": "https://docs.google.com/document/d/1e3uDPBb8RkFaDPT6B0Exm7xX39lEhd_fZS_huqoQ6IU/edit?tab=t.0#heading=h.d1vy2iqiqyjk",
-      "target": "_blank"
+      "href": "/terms-of-use",
+      "target": "_self"
     },
     {
       "label": "Privacy policy",
-      "href": "https://docs.google.com/document/d/1JYaWJ3jiEHnTmNDygoCx9XrBgVutHpjDeUS5lyYfxME/edit?tab=t.0#heading=h.ja9uupp4ct7v",
-      "target": "_blank"
+      "href": "/privacy-policy",
+      "target": "_self"
     }
   ],
-  "copyright": "Soft Bee © All rights reserved,"
+  "copyright": "Soft Bee © All rights reserved",
+  "logoAriaLabel": "Soft Bee",
+  "navigationAriaLabel": "Footer Navigation"
 }
