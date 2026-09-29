@@ -10,6 +10,8 @@ export interface ArticlesListResponse {
   page: number;
   pageSize: number;
   totalPages: number;
+  /** True when Soft Bee News (Tech & Dev) was requested but the archive API failed. */
+  newsUnavailable?: boolean;
 }
 
 export interface FetchArticlesParams {
