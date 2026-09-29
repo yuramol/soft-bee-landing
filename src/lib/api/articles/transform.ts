@@ -19,7 +19,8 @@ export function transformArticleToInsight(article: ArticleRow): InsightArticle {
     authorRole: article.author_role,
     authorImage: article.author_image,
     date: formatDateUtc(article.published_at),
-    content: parseArticleContent(article.content)
+    content: parseArticleContent(article.content),
+    source: 'db'
   };
 }
 
