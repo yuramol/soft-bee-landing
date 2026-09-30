@@ -6,12 +6,10 @@ import { Button } from '@/components/ui/button';
 import { FileBadge } from '@/components/ui/file-badge';
 import { Icon } from '@/components/ui/icon';
 import { ESTIMATOR_FILE_ACCEPT } from '@/lib/estimator/constants';
-import type { ProposalEstimate } from '@/lib/estimator/types';
 import { cn } from '@/lib/utils';
 
 import smartEstimationContent from '../content.json';
 import { SmartEstimationLoadingModal } from './smart-estimation-loading-modal';
-import { SmartEstimationResultCard } from './smart-estimation-result-card';
 
 type Step = 'input' | 'loading' | 'success';
 
@@ -22,16 +20,13 @@ interface SmartEstimationInputProps {
   error?: string | null;
   progress?: number;
   stage?: string;
-  estimate?: ProposalEstimate | null;
   isBackgroundPolling?: boolean;
   onTextChange: (text: string) => void;
   onFileChange: (file: File | null) => void;
   onSubmit: () => void;
-  onEdit: () => void;
   onDismissLoading: () => void;
   onShowProgress: () => void;
   onCancelPolling: () => void;
-  onDownload: () => void;
 }
 
 export function SmartEstimationInput({
@@ -41,16 +36,13 @@ export function SmartEstimationInput({
   error,
   progress,
   stage,
-  estimate,
   isBackgroundPolling = false,
   onTextChange,
   onFileChange,
   onSubmit,
-  onEdit,
   onDismissLoading,
   onShowProgress,
-  onCancelPolling,
-  onDownload
+  onCancelPolling
 }: SmartEstimationInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -178,24 +170,6 @@ export function SmartEstimationInput({
       </div>
 
       {step === 'loading' && <SmartEstimationLoadingModal progress={progress} stage={stage} onDismiss={onDismissLoading} />}
-
-      {step === 'success' && (
-        <div className='pointer-events-none absolute inset-0 z-30 flex items-center justify-center'>
-          <div className='pointer-events-auto absolute top-6 right-6 z-60'>
-            <Button
-              onClick={onEdit}
-              className='bg-accent hover:bg-accent/90 border-accent-dark h-10.5 gap-2.5 border px-4 py-1.5 pr-4 pl-6 text-[14px] text-white shadow'
-              rightIcon={<Icon icon='PencilSimple' className='opacity-50' width={22} height={22} />}
-            >
-              {smartEstimationContent.editLabel}
-            </Button>
-          </div>
-
-          <div className='pointer-events-auto absolute inset-x-0 top-21.25 flex justify-center'>
-            <SmartEstimationResultCard isSuccess estimate={estimate} onDownload={onDownload} />
-          </div>
-        </div>
-      )}
 
       {isBackgroundPolling && step === 'input' && (
         <div className='mt-4 flex flex-col items-center gap-2 text-center' data-testid='smart-estimation-background'>

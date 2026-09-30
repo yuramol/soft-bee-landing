@@ -12,7 +12,7 @@ import { executeEstimatorRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { validateEstimatorUpload } from '@/lib/estimator/validate-upload';
 import { cn } from '@/lib/utils';
 
-import { EstimationAnimatedBackground, SmartEstimationInput } from './components';
+import { EstimationAnimatedBackground, SmartEstimationInput, SmartEstimationResultCard } from './components';
 import smartEstimationContent from './content.json';
 
 interface SmartEstimationProps {
@@ -429,31 +429,45 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
         <div className='flex flex-col items-start justify-center px-4 md:items-center md:px-0'>
           <Badge title={smartEstimationContent.badge} className='mb-7.5 w-fit md:mb-10' />
 
-          <Typography variant='h2' className='text-foreground mb-14.25 max-w-264.5 text-left md:mb-19.75 md:text-center'>
-            {step === 'success' ? (
-              <>{smartEstimationContent.title.success}</>
-            ) : (
-              <>
-                {smartEstimationContent.title.input.map((segment, index) =>
-                  segment.gradient ? (
-                    <span
-                      key={index}
-                      className='bg-clip-text text-transparent'
-                      style={{
-                        backgroundImage: 'linear-gradient(94.31deg, #C3FF00 -13.39%, #00A2BB 106.35%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
-                      }}
-                    >
-                      {segment.text}
-                    </span>
-                  ) : (
-                    <span key={index}>{segment.text}</span>
-                  )
-                )}
-              </>
-            )}
-          </Typography>
+          <div className='mb-14.25 grid max-w-264.5 md:mb-19.75'>
+            <Typography
+              variant='h2'
+              className={cn(
+                'text-foreground text-left transition-opacity duration-300 md:text-center',
+                step === 'success' ? 'opacity-100' : 'pointer-events-none opacity-0'
+              )}
+              style={{ gridArea: '1/1' }}
+            >
+              {smartEstimationContent.title.success}
+            </Typography>
+
+            <Typography
+              variant='h2'
+              className={cn(
+                'text-foreground text-left transition-opacity duration-300 md:text-center',
+                step !== 'success' ? 'opacity-100' : 'pointer-events-none opacity-0'
+              )}
+              style={{ gridArea: '1/1' }}
+            >
+              {smartEstimationContent.title.input.map((segment, index) =>
+                segment.gradient ? (
+                  <span
+                    key={index}
+                    className='bg-clip-text text-transparent'
+                    style={{
+                      backgroundImage: 'linear-gradient(94.31deg, #C3FF00 -13.39%, #00A2BB 106.35%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}
+                  >
+                    {segment.text}
+                  </span>
+                ) : (
+                  <span key={index}>{segment.text}</span>
+                )
+              )}
+            </Typography>
+          </div>
 
           <SmartEstimationInput
             step={step}
@@ -462,19 +476,24 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
             error={error}
             progress={progress}
             stage={stage}
-            estimate={estimate}
             isBackgroundPolling={isBackgroundPolling}
             onTextChange={handleTextChange}
             onFileChange={handleFileChange}
             onSubmit={onSubmit}
-            onEdit={onEdit}
             onDismissLoading={onDismissLoading}
             onShowProgress={onShowProgress}
             onCancelPolling={onCancelPolling}
-            onDownload={onDownload}
           />
         </div>
       </ComponentContainer>
+
+      {step === 'success' && (
+        <div className='pointer-events-none absolute inset-x-0 bottom-0 z-40 flex justify-center'>
+          <div className='pointer-events-auto flex w-full justify-center'>
+            <SmartEstimationResultCard isSuccess estimate={estimate} onDownload={onDownload} onEdit={onEdit} onClose={onEdit} />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
