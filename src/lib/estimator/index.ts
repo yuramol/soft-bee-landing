@@ -3,6 +3,7 @@ export type {
   CreateProposalResult,
   DownloadProposalResult,
   ProposalEstimate,
+  ProposalOutputs,
   ProposalStatus,
   ProposalStatusResult
 } from './types';
@@ -22,6 +23,12 @@ export { formatEstimateHours, formatEstimatePrice } from './format-estimate';
 export { isAllowedEstimatorOrigin, isAllowedRequestOrigin } from './origin';
 export { getLatestOwnedJobId, isOwnershipSecretConfigured, ownsJobId, rememberOwnedJobId } from './ownership';
 export { consumePresentationPollSlot } from './poll-rate-limit';
+export {
+  getProposalDownloadUrl,
+  getProposalFileName,
+  parseContentDispositionFileName,
+  resolveProposalDownloadFileName
+} from './proposal-outputs';
 export { getPresentationRateLimitState } from './rate-limit';
 export { verifyRecaptchaV3Token } from './recaptcha';
 export { validateEstimatorUpload, validateEstimatorUploadWithContent } from './validate-upload';

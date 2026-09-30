@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { mockPresentationApis, openSmartEstimation, stubRecaptcha, submitEstimateBrief } from './helpers/presentation-mocks';
+import { MOCK_JOB_ID, mockPresentationApis, openSmartEstimation, stubRecaptcha, submitEstimateBrief } from './helpers/presentation-mocks';
 
 const SAMPLE_BRIEF =
   'Create a Telegram bot that sends me daily weather as TXT and PDF attachments for my saved city.';
@@ -38,15 +38,21 @@ test.describe('Smart Estimation', () => {
         hoursMax: 40,
         priceMin: 960,
         priceMax: 1600
+      },
+      outputs: {
+        pdfUrl: `https://estimator.example/v1/proposals/${MOCK_JOB_ID}/download`,
+        fileName: 'Example-project-proposal.pdf',
+        expiresAt: null
       }
     });
 
     await expect(page.getByText(/Your custom estimate is done/i)).toBeVisible({ timeout: 20_000 });
     await expect(page.getByTestId('smart-estimation-download')).toBeVisible();
+    await expect(page.getByTestId('smart-estimation-download')).toHaveText(/Download proposal/i);
     await expect(page.getByText(/Estimate:/i)).toBeVisible();
 
     const download = await downloadPromise;
-    expect(download.suggestedFilename()).toMatch(/estimation\.pptx/i);
+    expect(download.suggestedFilename()).toMatch(/Example-project-proposal\.pdf/i);
   });
 
   test('can hide loading modal and resume progress from background state', async ({ page }) => {
@@ -82,6 +88,11 @@ test.describe('Smart Estimation', () => {
       estimate: {
         hours: '30-50 hours',
         price: '$1,200 - $2,000'
+      },
+      outputs: {
+        pdfUrl: `https://estimator.example/v1/proposals/${MOCK_JOB_ID}/download`,
+        fileName: 'Example-project-proposal.pdf',
+        expiresAt: null
       }
     });
 
@@ -117,6 +128,11 @@ test.describe('Smart Estimation', () => {
         hoursMax: 28,
         priceMin: 640,
         priceMax: 1120
+      },
+      outputs: {
+        pdfUrl: `https://estimator.example/v1/proposals/${MOCK_JOB_ID}/download`,
+        fileName: 'Example-project-proposal.pdf',
+        expiresAt: null
       }
     });
 
