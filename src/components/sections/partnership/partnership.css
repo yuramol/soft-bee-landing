@@ -751,13 +751,6 @@ details[open] .disclosure-icon::after {
   gap: 12px;
 }
 
-.pf-prototypeNotice {
-  margin: 0;
-  color: var(--graphite-gray);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-}
-
 .pf-success {
   display: flex;
   min-height: 380px;

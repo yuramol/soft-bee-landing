@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import { Footer, MainLayout } from '@/components/layout';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
+import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from './providers';
 
 const fixel = localFont({
@@ -52,6 +53,7 @@ export default function RootLayout({
         <Providers>
           <MainLayout>{children}</MainLayout>
           <Footer />
+          <ScrollToTop />
           <Toaster />
         </Providers>
       </body>
