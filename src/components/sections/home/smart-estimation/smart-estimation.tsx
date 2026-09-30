@@ -6,6 +6,7 @@ import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { createPresentationJob, downloadPresentationJob, getActivePresentationJob, getPresentationJob } from '@/lib/api/presentation';
+import { getProposalFileName } from '@/lib/estimator/proposal-outputs';
 import type { ProposalEstimate } from '@/lib/estimator/types';
 import { executeEstimatorRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { validateEstimatorUpload } from '@/lib/estimator/validate-upload';
@@ -30,6 +31,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
   const [error, setError] = useState<string | null>(null);
   const [jobId, setJobId] = useState<string | null>(null);
   const [estimate, setEstimate] = useState<ProposalEstimate | null>(null);
+  const [downloadFileName, setDownloadFileName] = useState<string | null>(null);
   const [progress, setProgress] = useState<number | undefined>(undefined);
   const [stage, setStage] = useState<string | undefined>(undefined);
   const [isBackgroundPolling, setIsBackgroundPolling] = useState(false);
@@ -89,7 +91,9 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
       writeStoredActiveJobId(active.jobId);
 
       if (active.status === 'completed') {
+        const fileName = getProposalFileName(active.outputs) ?? null;
         setEstimate(active.estimate ?? null);
+        setDownloadFileName(fileName);
         setStep('success');
         setIsBackgroundPolling(false);
         clearStoredActiveJobId();
@@ -123,6 +127,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     hasAutoDownloadedRef.current = false;
     setError(null);
     setEstimate(null);
+    setDownloadFileName(null);
     setProgress(undefined);
     setStage(undefined);
     setJobId(null);
@@ -227,11 +232,13 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
         setStage(status.stage);
 
         if (status.status === 'completed') {
+          const fileName = getProposalFileName(status.outputs) ?? null;
           setEstimate(status.estimate ?? null);
+          setDownloadFileName(fileName);
           setIsBackgroundPolling(false);
           setStep('success');
           clearStoredActiveJobId();
-          await downloadPresentation(activeJobId, { isAuto: true });
+          await downloadPresentation(activeJobId, { isAuto: true, preferredFileName: fileName ?? undefined });
           return;
         }
 
@@ -310,18 +317,20 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     if (error) setError(null);
   }
 
-  async function downloadPresentation(activeJobId: string, options?: { isAuto?: boolean }) {
+  async function downloadPresentation(activeJobId: string, options?: { isAuto?: boolean; preferredFileName?: string }) {
     if (options?.isAuto) {
       if (hasAutoDownloadedRef.current) return;
       hasAutoDownloadedRef.current = true;
     }
 
     try {
-      const blob = await downloadPresentationJob(activeJobId);
+      const { blob, fileName } = await downloadPresentationJob(activeJobId, {
+        preferredFileName: options?.preferredFileName ?? downloadFileName ?? undefined
+      });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'estimation.pptx';
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
