@@ -26,6 +26,7 @@ export async function GET() {
       progress: proposal.progress,
       stage: proposal.stage,
       estimate: proposal.estimate,
+      outputs: proposal.outputs,
       error: proposal.error
     });
   } catch (error) {

@@ -1,6 +1,6 @@
 # Smart Estimation (feature)
 
-Public landing feature that turns a short project brief (text and/or file) into an AI-backed **hours/price estimate** and a downloadable **PPTX** proposal.
+Public landing feature that turns a short project brief (text and/or file) into an AI-backed **hours/price estimate** and a downloadable **proposal** (PDF for new jobs; legacy jobs remain PPTX).
 
 Backend work runs on **Railway** (`ESTIMATOR_*`). This Next.js app is the **browser-facing proxy**: UI, captcha, ownership cookies, rate limits, and ops logging.
 
@@ -12,7 +12,7 @@ Backend work runs on **Railway** (`ESTIMATOR_*`). This Next.js app is the **brow
 2. Enters project text (≥ 10 chars) and/or attaches a supported file.
 3. Submits → invisible **reCAPTCHA v3** → `POST /api/presentation/generate`.
 4. Loading UI polls job status until `completed` or `failed`.
-5. On success: shows estimate ranges and downloads the PPTX (auto + manual).
+5. On success: shows estimate ranges and downloads the proposal (auto + manual). Filename comes from Railway `outputs.fileName` / `Content-Disposition` (`.pdf` for new jobs, `.pptx` for legacy).
 6. Refresh / return: `GET /api/presentation/active` can resume an in-flight or just-completed job for this browser.
 
 Local resume helper: `sessionStorage` key `estimator_active_job_id` (UX only; real auth is the signed ownership cookie).
@@ -48,7 +48,7 @@ Browser (SmartEstimation)
 | `POST` | `/api/presentation/generate` | Create job (multipart: `text`, `file`, `captchaToken`) |
 | `GET` | `/api/presentation/active` | Latest owned in-progress/completed job for this cookie |
 | `GET` | `/api/presentation/[jobId]` | Poll status + estimate |
-| `GET` | `/api/presentation/[jobId]/download` | Stream PPTX |
+| `GET` | `/api/presentation/[jobId]/download` | Stream proposal file (PDF or legacy PPTX) |
 
 Optional request header on create: `Idempotency-Key` (forwarded to Railway). The UI sends a new `crypto.randomUUID()` per submit.
 
@@ -72,10 +72,16 @@ Optional request header on create: `Idempotency-Key` (forwarded to Railway). The
     "priceMin": 960,
     "priceMax": 1600
   },
+  "outputs": {
+    "pdfUrl": "https://…/v1/proposals/…/download",
+    "fileName": "Example-project-proposal.pdf",
+    "expiresAt": null
+  },
   "error": null
 }
 ```
 
+New completed jobs include `outputs.pdfUrl` + `.pdf` `fileName`. Legacy jobs may still return `outputs.pptxUrl` and a `.pptx` name. The website always downloads via its own `/download` proxy (never links the browser to Railway). PDF conversion failures surface as a failed job (`error` / `PDF_CONVERSION_FAILED`).
 ---
 
 ## Inputs

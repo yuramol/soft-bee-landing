@@ -1,6 +1,15 @@
 import { ESTIMATOR_DOWNLOAD_TIMEOUT_MS, ESTIMATOR_REQUEST_TIMEOUT_MS } from './constants';
 import { isJsonObject, readResponseJson, type JsonObject, type JsonValue } from './json';
-import type { CreateProposalInput, CreateProposalResult, DownloadProposalResult, ProposalEstimate, ProposalStatusResult } from './types';
+import type {
+  CreateProposalInput,
+  CreateProposalResult,
+  DownloadProposalResult,
+  ProposalEstimate,
+  ProposalOutputs,
+  ProposalStatusResult
+} from './types';
+
+const DEFAULT_DOWNLOAD_CONTENT_TYPE = 'application/octet-stream';
 
 export async function createProposal(input: CreateProposalInput): Promise<CreateProposalResult> {
   const { baseUrl, apiKey } = getEstimatorConfig();
@@ -68,6 +77,7 @@ export async function getProposal(jobId: string): Promise<ProposalStatusResult> 
     progress: readNumber(payload, ['progress']),
     stage: readString(payload, ['stage']),
     estimate: readEstimate(payload.estimate),
+    outputs: readOutputs(payload.outputs),
     error: readErrorMessageFromPayload(payload)
   };
 }
@@ -99,7 +109,7 @@ export async function downloadProposal(jobId: string): Promise<DownloadProposalR
 
   return {
     body: response.body,
-    contentType: response.headers.get('content-type') ?? 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    contentType: response.headers.get('content-type') ?? DEFAULT_DOWNLOAD_CONTENT_TYPE,
     contentDisposition: response.headers.get('content-disposition'),
     contentLength: response.headers.get('content-length')
   };
@@ -167,7 +177,7 @@ async function downloadViaHttpsRedirect(location: string, maxHops = 5): Promise<
 
   return {
     body: response.body,
-    contentType: response.headers.get('content-type') ?? 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    contentType: response.headers.get('content-type') ?? DEFAULT_DOWNLOAD_CONTENT_TYPE,
     contentDisposition: response.headers.get('content-disposition'),
     contentLength: response.headers.get('content-length')
   };
@@ -258,6 +268,20 @@ function readEstimate(value: JsonValue | undefined): ProposalEstimate | undefine
   if (typeof value.hoursMax === 'number') result.hoursMax = value.hoursMax;
   if (typeof value.priceMin === 'number') result.priceMin = value.priceMin;
   if (typeof value.priceMax === 'number') result.priceMax = value.priceMax;
+
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
+function readOutputs(value: JsonValue | undefined): ProposalOutputs | undefined {
+  if (!value || !isJsonObject(value)) return undefined;
+
+  const result: ProposalOutputs = {};
+
+  if (typeof value.pdfUrl === 'string' && value.pdfUrl.length > 0) result.pdfUrl = value.pdfUrl;
+  if (typeof value.pptxUrl === 'string' && value.pptxUrl.length > 0) result.pptxUrl = value.pptxUrl;
+  if (typeof value.fileName === 'string' && value.fileName.length > 0) result.fileName = value.fileName;
+  if (value.expiresAt === null) result.expiresAt = null;
+  if (typeof value.expiresAt === 'string') result.expiresAt = value.expiresAt;
 
   return Object.keys(result).length > 0 ? result : undefined;
 }
