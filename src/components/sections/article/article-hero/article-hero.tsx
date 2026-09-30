@@ -94,10 +94,10 @@ export function ArticleHero({ topic, title, authorName, authorRole, authorImage,
               alt={authorName}
             />
             <div className='flex flex-col gap-0.5 whitespace-nowrap'>
-              <Typography variant='body2' className='text-foreground font-semibold'>
+              <Typography variant='body2' className='text-foreground font-semibold lg:max-w-[25ch] lg:whitespace-break-spaces'>
                 {authorName}
               </Typography>
-              <Typography variant='body2' className='text-foreground/50'>
+              <Typography variant='body2' className='text-foreground/50 lg:max-w-[25ch] lg:whitespace-break-spaces'>
                 {authorRole}
               </Typography>
             </div>
