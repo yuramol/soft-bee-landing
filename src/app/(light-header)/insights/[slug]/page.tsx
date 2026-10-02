@@ -17,7 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${article.title} | Soft Bee`,
-    description: article.description
+    description: article.description,
+    openGraph: {
+      images: [article.image]
+    }
   };
 }
 

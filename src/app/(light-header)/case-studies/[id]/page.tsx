@@ -27,7 +27,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   return {
     title: `${caseStudy.title} | Soft Bee`,
-    description: Array.isArray(caseStudy.overviewDescription) ? caseStudy.overviewDescription[0] : caseStudy.overviewDescription
+    description: Array.isArray(caseStudy.overviewDescription) ? caseStudy.overviewDescription[0] : caseStudy.overviewDescription,
+    openGraph: {
+      images: [caseStudy.image]
+    }
   };
 }
 
