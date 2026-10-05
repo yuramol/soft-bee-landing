@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { Icon, IconName } from '@/components/ui/icon';
@@ -17,9 +16,7 @@ export const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
       href={ROUTES.SERVICES}
       className='group bg-muted relative flex h-full w-full shrink-0 flex-col overflow-hidden rounded-lg p-8 md:max-w-100 md:min-w-112.75'
     >
-      <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-        <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
-      </div>
+      <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
       <div className='relative z-10 mb-auto flex size-24 items-center justify-center rounded-2xl bg-[#8A8A8A17] shadow-sm md:bg-white'>
         <Icon icon={icon} size={48} className='text-foreground' />
@@ -44,9 +41,7 @@ export const ViewMoreServiceCard = () => {
       href={ROUTES.SERVICES}
       className='group bg-muted relative flex h-full w-full shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg p-8 md:max-w-100 md:min-w-112.75'
     >
-      <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-        <Image src='/backgrounds/card-gradient.webp' alt='Hover background' fill className='object-cover' quality={100} />
-      </div>
+      <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
       <div className='relative z-10 flex flex-col items-center gap-6 transition-transform duration-300 group-hover:-translate-y-2'>
         <div className='flex size-16 items-center justify-center rounded-full bg-white shadow-[0px_2px_8px_rgba(0,0,0,0.08)]'>

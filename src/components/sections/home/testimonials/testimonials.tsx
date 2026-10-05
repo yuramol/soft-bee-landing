@@ -79,7 +79,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
   const hasScroll = cards.length > INITIAL_VISIBLE_CARDS;
 
   return (
-    <section className='relative z-10 -mb-10 md:-mb-10'>
+    <section className='cv-auto relative z-10 -mb-10 md:-mb-10'>
       <ComponentContainer>
         <div className='w-full overflow-x-clip rounded-lg bg-white pb-4.25 md:rounded-2xl md:pb-18.75'>
           <div
