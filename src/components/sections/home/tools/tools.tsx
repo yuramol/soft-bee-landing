@@ -1,10 +1,18 @@
+'use client';
+
+import nextDynamic from 'next/dynamic';
+
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 
 import { CaseStudyTool } from '../../case-studies/data';
-import { ToolsWave } from './components';
 import toolsContent from './content.json';
+
+const ToolsWave = nextDynamic(() => import('./components/tools-wave').then((module) => module.ToolsWave), {
+  ssr: false,
+  loading: ToolsWavePlaceholder
+});
 
 export interface ToolsProps {
   title?: string;
@@ -13,7 +21,7 @@ export interface ToolsProps {
 
 export function Tools({ title, tools }: ToolsProps) {
   return (
-    <section className={cn('flex w-full flex-col pt-8.25', 'xl:h-screen xl:overflow-hidden xl:pt-6 xl:pb-10')}>
+    <section className={cn('cv-auto flex w-full flex-col pt-8.25', 'xl:h-screen xl:overflow-hidden xl:pt-6 xl:pb-10')}>
       <div className='w-full xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:justify-center'>
         <ToolsWave tools={tools} />
       </div>
@@ -41,4 +49,8 @@ export function Tools({ title, tools }: ToolsProps) {
       </div>
     </section>
   );
+}
+
+function ToolsWavePlaceholder() {
+  return <div className='min-h-[278px] w-full flex-1 lg:min-h-[432px] xl:min-h-[248px]' aria-hidden />;
 }

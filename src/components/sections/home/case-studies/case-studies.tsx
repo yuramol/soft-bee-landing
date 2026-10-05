@@ -20,7 +20,7 @@ import './style.css';
 
 export function CaseStudies() {
   return (
-    <section className='flex w-full flex-col pt-17 lg:pt-45'>
+    <section className='cv-auto flex w-full flex-col pt-17 lg:pt-45'>
       <ComponentContainer className='flex flex-col gap-y-17 lg:gap-y-40'>
         <div className='flex flex-col items-start px-4 lg:items-center lg:px-0 lg:text-center'>
           <Badge title={caseStudiesContent.badge} className='mb-7.5 w-fit lg:mb-10' />

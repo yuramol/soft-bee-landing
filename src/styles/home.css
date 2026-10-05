@@ -1,4 +1,19 @@
 @layer components {
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+
+  .card-hover-gradient {
+    background-position: center;
+    background-size: cover;
+  }
+
+  .group:hover .card-hover-gradient,
+  .group:focus-visible .card-hover-gradient {
+    background-image: url('/backgrounds/card-gradient.webp');
+  }
+
   .type-caret {
     display: inline-block;
     width: 0.055em;
