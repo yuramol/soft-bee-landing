@@ -1,4 +1,5 @@
-import Image from 'next/image';
+'use client';
+
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -7,11 +8,14 @@ import { Typography } from '@/components/ui/typography';
 import { DiscussProjectButton } from '@/components/discuss-project-button';
 import { cn } from '@/lib/utils';
 
+import { DeferredImage } from './deferred-image';
 import type { Service } from '../types';
 
 interface ServicesMobileCardProps {
   service: Service;
 }
+
+const PROJECT_IMAGE_SIZES = '(max-width: 415px) 85vw, 360px';
 
 export function ServicesMobileCard({ service }: ServicesMobileCardProps) {
   return (
@@ -39,13 +43,13 @@ export function ServicesMobileCard({ service }: ServicesMobileCardProps) {
                   {service.project.link ? (
                     <Link href={service.project.link} className='flex flex-col gap-2'>
                       <div className='relative h-73 w-full overflow-hidden rounded-xl max-[415px]:aspect-360/292 max-[415px]:h-auto'>
-                        <Image src={imgSrc} alt={service.project.title} fill className='object-cover' />
+                        <DeferredImage src={imgSrc} alt={service.project.title} sizes={PROJECT_IMAGE_SIZES} className='object-cover' />
                       </div>
                     </Link>
                   ) : (
                     <div className='flex flex-col gap-2'>
                       <div className='relative h-73 w-full overflow-hidden rounded-xl max-[415px]:aspect-360/292 max-[415px]:h-auto'>
-                        <Image src={imgSrc} alt={service.project.title} fill className='object-cover' />
+                        <DeferredImage src={imgSrc} alt={service.project.title} sizes={PROJECT_IMAGE_SIZES} className='object-cover' />
                       </div>
                     </div>
                   )}
