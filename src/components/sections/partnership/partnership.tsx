@@ -1,10 +1,15 @@
+import nextDynamic from 'next/dynamic';
+
 import './partnership.css';
+
 import PartnershipHero from './components/partnership-hero';
 import PartnershipWhoItsFor from './components/partnership-who-its-for';
 import PartnershipHowItWorks from './components/partnership-how-it-works';
 import PartnershipContact from './components/partnership-contact';
 
-import { TeamAnimatedBackground } from '@/components/sections/home/team/components/team-animated-background';
+const TeamAnimatedBackground = nextDynamic(() =>
+  import('@/components/sections/home/team/components/team-animated-background').then((module) => module.TeamAnimatedBackground)
+);
 
 export function Partnership() {
   return (

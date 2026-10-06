@@ -7,6 +7,16 @@ export interface CaseStudyCard {
   description: string;
 }
 
+export interface CaseStudyListing {
+  id: string;
+  title: string;
+  shortTitle?: string;
+  year: string;
+  image: string;
+  mobileImage: string;
+  link: string;
+}
+
 export interface CaseStudyResultCard {
   id: number;
   title: string;
@@ -44,3 +54,19 @@ export interface CaseStudy {
 }
 
 export const CASE_STUDIES: CaseStudy[] = caseStudiesData as CaseStudy[];
+
+function toMobileImagePath(image: string) {
+  return image.replace(/\.webp$/i, '-mobile.webp');
+}
+
+export function getCaseStudyListings(): CaseStudyListing[] {
+  return CASE_STUDIES.map(({ id, title, shortTitle, year, image, link }) => ({
+    id,
+    title,
+    shortTitle,
+    year,
+    image,
+    mobileImage: toMobileImagePath(image),
+    link
+  }));
+}
