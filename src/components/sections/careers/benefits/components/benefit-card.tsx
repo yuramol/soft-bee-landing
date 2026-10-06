@@ -1,5 +1,6 @@
-import Image from 'next/image';
+'use client';
 
+import { DeferredImage } from '@/components/sections/services/services-list/components/deferred-image';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
@@ -16,7 +17,9 @@ interface BenefitCardProps {
   className?: string;
 }
 
-export const BenefitCard = ({ title, description, type, layout = 'bottom', image, className }: BenefitCardProps) => {
+const BENEFIT_IMAGE_SIZES = '(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 25vw';
+
+export function BenefitCard({ title, description, type, layout = 'bottom', image, className }: BenefitCardProps) {
   const isDarkBg = type === 'cyan' || type === 'image';
 
   return (
@@ -34,9 +37,7 @@ export const BenefitCard = ({ title, description, type, layout = 'bottom', image
     >
       {type === 'image' && image && (
         <>
-          <div className='absolute inset-0 z-0'>
-            <Image src={image} alt={title} fill className='object-cover' quality={100} />
-          </div>
+          <DeferredImage src={image} alt={title} sizes={BENEFIT_IMAGE_SIZES} className='object-cover' />
           <div className='absolute inset-0 z-0 backdrop-blur-[20px]' />
         </>
       )}
@@ -89,4 +90,4 @@ export const BenefitCard = ({ title, description, type, layout = 'bottom', image
       )}
     </div>
   );
-};
+}
