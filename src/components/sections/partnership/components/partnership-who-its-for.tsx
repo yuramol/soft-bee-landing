@@ -110,11 +110,21 @@ export default function PartnershipWhoItsFor() {
         </div>
         <Link href='/case-studies/elacity-control-plane' className='proof-strip' aria-labelledby='case-title'>
           <Image
-            className='proof-image'
+            className='proof-image hidden md:block'
             src='/images/case-studies/elacity/el1.webp'
             width={285}
             height={328}
-            sizes='(max-width: 767px) 100vw, 155px'
+            sizes='155px'
+            loading='lazy'
+            alt='Elacity Control Plane dashboard showing AI governance and prompt operations.'
+          />
+          <Image
+            className='proof-image md:hidden'
+            src='/images/case-studies/elacity/el1-mobile.webp'
+            width={285}
+            height={328}
+            sizes='100vw'
+            loading='lazy'
             alt='Elacity Control Plane dashboard showing AI governance and prompt operations.'
           />
           <div>
