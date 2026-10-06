@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
-import { Hero } from '@/components/sections/home';
+import nextDynamic from 'next/dynamic';
+
+import { Hero } from '@/components/sections/home/hero';
 
 export const metadata: Metadata = {
   title: 'Careers | Soft Bee',
   description:
     'Join 27 people building SaaS, healthtech, and AI products. Real ownership from day one, senior mentorship, modern stack, and projects complex enough to grow on.'
 };
-import { Benefits, Vacancies } from '@/components/sections/careers';
+
+const Benefits = nextDynamic(() => import('@/components/sections/careers/benefits').then((module) => module.Benefits));
+const Vacancies = nextDynamic(() => import('@/components/sections/careers/vacancies').then((module) => module.Vacancies));
+
+export const dynamic = 'force-static';
 
 export default function CareersPage() {
   return (
