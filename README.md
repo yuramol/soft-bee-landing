@@ -12,7 +12,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Smart Estimation
 
-AI-backed project estimate + PPTX download (Railway backend, Next.js proxy).
+AI-backed project estimate + proposal download (PDF for new jobs; legacy PPTX still works). Railway backend, Next.js proxy.
 
 | Doc | Contents |
 |-----|----------|
@@ -24,7 +24,7 @@ Quick env list: see `.example.env` and the feature doc. PRs for this work should
 ### Smoke checklist
 
 1. Railway `/health` OK  
-2. From the prod domain: reCAPTCHA → create → poll → download PPTX  
+2. From the prod domain: reCAPTCHA → create → poll → download proposal (PDF for new jobs)  
 3. Reject before Railway: bad captcha, bad Origin, over IP/cookie caps (429)  
 4. Vercel Firewall rule on `POST /api/presentation/generate` (see security doc)  
 5. Do not commit live API keys  

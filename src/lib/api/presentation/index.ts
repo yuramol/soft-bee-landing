@@ -3,5 +3,6 @@ export {
   downloadPresentationJob,
   getActivePresentationJob,
   getPresentationJob,
-  type ActivePresentationJobResult
+  type ActivePresentationJobResult,
+  type DownloadPresentationResult
 } from './client';

@@ -91,13 +91,12 @@
       "emailRequired": "Please enter your work email.",
       "partnershipTypeRequired": "Please select a partnership type.",
       "emailInvalid": "Please enter a valid email address, such as name@company.com.",
-      "websiteInvalid": "Please enter a full website address, such as https://example.com.",
+      "websiteInvalid": "Please enter a valid website address, such as example.com.",
       "genericError": "Please check this field."
     },
     "success": {
-      "title": "Preview complete.",
+      "title": "Request sent.",
       "message": "Thanks for reaching out. We’ll review your request and get back to you to discuss the next steps.",
-      "prototypeNotice": "Prototype preview — no request has been sent.",
       "buttonText": "Start another request"
     },
     "intro": {
@@ -137,8 +136,7 @@
     },
     "footer": {
       "errorSummary": "Please check the highlighted fields before continuing.",
-      "submitButton": "Submit Partnership Request",
-      "prototypeNotice": "Prototype preview only. No request will be sent."
+      "submitButton": "Submit Partnership Request"
     }
   }
 }

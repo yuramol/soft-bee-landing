@@ -9,6 +9,14 @@ export interface ProposalEstimate {
   priceMax?: number;
 }
 
+/** New jobs expose pdfUrl; legacy jobs keep pptxUrl. */
+export interface ProposalOutputs {
+  pdfUrl?: string;
+  pptxUrl?: string;
+  fileName?: string;
+  expiresAt?: string | null;
+}
+
 export interface CreateProposalInput {
   projectText?: string;
   file?: File | Blob;
@@ -27,6 +35,7 @@ export interface ProposalStatusResult {
   progress?: number;
   stage?: string;
   estimate?: ProposalEstimate;
+  outputs?: ProposalOutputs;
   error?: string;
 }
 

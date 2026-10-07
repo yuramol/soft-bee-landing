@@ -79,7 +79,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
   const hasScroll = cards.length > INITIAL_VISIBLE_CARDS;
 
   return (
-    <section className='relative z-10 -mb-10 md:-mb-10'>
+    <section className='cv-auto relative z-10 -mb-10 md:-mb-10'>
       <ComponentContainer>
         <div className='w-full overflow-x-clip rounded-lg bg-white pb-4.25 md:rounded-2xl md:pb-18.75'>
           <div
@@ -89,8 +89,8 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
           >
             <div
               className={cn(
-                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:justify-between md:px-10.5 md:pb-10 xl:pt-28.75',
-                hasScroll ? 'md:sticky md:top-2.5 md:h-[calc(100vh-20px)]' : 'md:min-h-[calc(100vh-20px)]'
+                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:px-10.5 md:pb-10 xl:pt-28.75',
+                hasScroll ? 'md:sticky md:top-2.5 md:h-[calc(100dvh-10px)] md:max-h-225 md:justify-between xl:max-h-250' : 'md:gap-75'
               )}
             >
               <div className={cn('mb-12 flex flex-col md:flex-row md:items-start md:justify-between', !hasScroll && 'md:mb-12')}>

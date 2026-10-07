@@ -20,7 +20,10 @@ const partnershipSchema = z.object({
   name: z.string().min(1, f.validation.nameRequired),
   email: z.email(f.validation.emailInvalid),
   company: z.string().min(1, f.validation.companyRequired),
-  website: z.union([z.literal(''), z.string().url(f.validation.websiteInvalid)]).optional(),
+  website: z
+    .string()
+    .refine((val) => !val || /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/.test(val), f.validation.websiteInvalid)
+    .optional(),
   partnershipType: z.string().min(1, f.validation.partnershipTypeRequired),
   message: z.string().optional()
 });
@@ -131,9 +134,7 @@ export default function PartnershipForm() {
             <Typography variant='body2' className='pf-successMessage' tag='p'>
               {f.success.message}
             </Typography>
-            <Typography variant='caption' className='pf-prototypeNotice' tag='p'>
-              {f.success.prototypeNotice}
-            </Typography>
+
             <Button variant='primary' type='button' onClick={startAgain}>
               {f.success.buttonText}
             </Button>

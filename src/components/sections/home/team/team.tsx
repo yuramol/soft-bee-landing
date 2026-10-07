@@ -102,18 +102,17 @@ export function Team({ hideCoFounders }: TeamProps) {
                   768: { spaceBetween: -120, slidesOffsetBefore: 0 },
                   1536: { spaceBetween: -180, slidesOffsetBefore: 0 }
                 }}
+                loopAdditionalSlides={4}
                 className='team-swiper h-full w-full overflow-visible!'
               >
-                {Array.from({ length: 20 }, (_, copyIndex) =>
-                  filteredMembers.map((member) => (
-                    <SwiperSlide
-                      key={`${member.id}-${copyIndex}`}
-                      className='group relative h-full w-full overflow-visible! opacity-40 transition-opacity duration-500 [clip-path:inset(0_-50vw_0_-50vw)] [&.swiper-slide-active]:opacity-100'
-                    >
-                      <TeamMemberPortrait image={member.image} name={member.name} />
-                    </SwiperSlide>
-                  ))
-                )}
+                {filteredMembers.map((member) => (
+                  <SwiperSlide
+                    key={member.id}
+                    className='group relative h-full w-full overflow-visible! opacity-40 transition-opacity duration-500 [clip-path:inset(0_-50vw_0_-50vw)] [&.swiper-slide-active]:opacity-100'
+                  >
+                    <TeamMemberPortrait image={member.image} name={member.name} />
+                  </SwiperSlide>
+                ))}
               </Swiper>
 
               <div className='pointer-events-none absolute right-0 bottom-6 left-0 z-30 flex justify-between px-4 sm:bottom-10.25 xl:-right-16 xl:bottom-12 xl:-left-16 xl:px-0'>

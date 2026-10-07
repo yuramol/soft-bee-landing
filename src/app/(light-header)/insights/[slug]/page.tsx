@@ -2,22 +2,22 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { ArticleContent, ArticleHero, ArticlePreview, MoreInsights } from '@/components/sections/article';
-import { getArticleBySlug, getInsightBySlug, getMoreArticles } from '@/lib/api/articles';
-import { transformArticleToInsight } from '@/lib/api/articles/transform';
+import { getInsightBySlug, getMoreArticles } from '@/lib/api/articles';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const articleData = await getArticleBySlug(slug);
+  const article = await getInsightBySlug(slug);
 
-  if (!articleData) {
+  if (!article) {
     return {};
   }
 
-  const article = transformArticleToInsight(articleData);
-
   return {
     title: `${article.title} | Soft Bee`,
-    description: article.description
+    description: article.description,
+    openGraph: {
+      images: [article.image]
+    }
   };
 }
 

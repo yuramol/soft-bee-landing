@@ -92,11 +92,13 @@ h2 {
   max-width: 520px;
   justify-self: end;
 }
-.partnership-visual > img {
+.partnership-visual > img,
+.partnership-visual > video {
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: contain;
+  background: transparent;
 }
 .partnership-visual figcaption {
   display: flex;
@@ -749,13 +751,6 @@ details[open] .disclosure-icon::after {
   align-items: flex-start;
   flex-direction: column;
   gap: 12px;
-}
-
-.pf-prototypeNotice {
-  margin: 0;
-  color: var(--graphite-gray);
-  font-size: 0.8125rem;
-  line-height: 1.5;
 }
 
 .pf-success {

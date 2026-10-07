@@ -181,12 +181,14 @@ interface ParticleUniforms {
 
 interface ParticlesProps {
   isHovering: boolean;
+  radiusScale?: number;
 }
 
 interface MedusaeProps {
   eventSource: RefObject<HTMLElement | null>;
   isHovering: boolean;
   className?: string;
+  radiusScale?: number;
 }
 
 function createParticleUniforms(): ParticleUniforms {
@@ -199,7 +201,7 @@ function createParticleUniforms(): ParticleUniforms {
   };
 }
 
-function Particles({ isHovering }: ParticlesProps) {
+function Particles({ isHovering, radiusScale = 1 }: ParticlesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport, size } = useThree();
   const hoveringRef = useRef(isHovering);
@@ -276,7 +278,7 @@ function Particles({ isHovering }: ParticlesProps) {
     const current = nextUniforms.uMouse.value;
 
     nextUniforms.uTime.value = clock.getElapsedTime();
-    nextUniforms.uRadius.value = Math.min(viewport.width, viewport.height) * 0.442;
+    nextUniforms.uRadius.value = Math.min(viewport.width, viewport.height) * 0.442 * radiusScale;
     nextUniforms.uOpacity.value = 1;
 
     // Follow pointer while hovering; stay put when the pointer leaves.
@@ -292,7 +294,7 @@ function Particles({ isHovering }: ParticlesProps) {
   return <instancedMesh ref={meshRef} args={[geometry, material, count]} />;
 }
 
-export function Medusae({ eventSource, isHovering, className }: MedusaeProps) {
+export function Medusae({ eventSource, isHovering, className, radiusScale = 1 }: MedusaeProps) {
   return (
     <Canvas
       className={className}
@@ -306,7 +308,7 @@ export function Medusae({ eventSource, isHovering, className }: MedusaeProps) {
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ pointerEvents: 'none' }}
     >
-      <Particles isHovering={isHovering} />
+      <Particles isHovering={isHovering} radiusScale={radiusScale} />
     </Canvas>
   );
 }

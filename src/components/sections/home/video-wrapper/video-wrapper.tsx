@@ -1,18 +1,14 @@
 'use client';
 
 import { PointerEvent, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { motion, useSpring, useMotionValue, useScroll, useTransform } from 'framer-motion';
 
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 import content from './content.json';
 
-interface PointerPosition {
-  x: number;
-  y: number;
-}
-
-const VIDEO_SRC = '/videos/home.mp4';
+const VIDEO_SRC = '/videos/home.webm';
 const VIDEO_POSTER = '/videos/home-poster.webp';
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
@@ -34,7 +30,11 @@ export function VideoWrapper() {
   const [isHovering, setIsHovering] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSourceReady, setIsSourceReady] = useState(false);
-  const [position, setPosition] = useState<PointerPosition>({ x: 0, y: 0 });
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const mouseX = useSpring(cursorX, springConfig);
+  const mouseY = useSpring(cursorY, springConfig);
 
   const isDesktopPointer = useSyncExternalStore(
     (onStoreChange) => subscribeMediaQuery(DESKTOP_POINTER_QUERY, onStoreChange),
@@ -115,9 +115,19 @@ export function VideoWrapper() {
     });
   }
 
-  function handlePointerEnter() {
+  function handlePointerEnter(event: PointerEvent<HTMLDivElement>) {
     if (!isDesktopPointer) return;
     setIsHovering(true);
+    const container = containerRef.current;
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      cursorX.set(x);
+      cursorY.set(y);
+      mouseX.jump(x);
+      mouseY.jump(y);
+    }
   }
 
   function handlePointerLeave() {
@@ -131,10 +141,8 @@ export function VideoWrapper() {
     if (!container) return;
 
     const rect = container.getBoundingClientRect();
-    setPosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
-    });
+    cursorX.set(event.clientX - rect.left);
+    cursorY.set(event.clientY - rect.top);
   }
 
   function handlePlayClick() {
@@ -155,50 +163,58 @@ export function VideoWrapper() {
   const showMobileButton = !isDesktopPointer && !isPlaying;
   const showButton = showDesktopButton || showMobileButton;
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end end']
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.65, 1]);
+
   return (
-    <section
+    <div
       ref={containerRef}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
       onPointerMove={handlePointerMove}
       className={cn(
-        'relative aspect-video w-full overflow-hidden rounded-2xl bg-[#d9d9d9]',
+        'relative aspect-video w-full',
+        'max-h-[calc(100dvh-10px)] md:max-h-[calc(100dvh-20px)]',
         isDesktopPointer && isHovering && 'cursor-none'
       )}
     >
-      <video
-        ref={videoRef}
-        poster={VIDEO_POSTER}
-        preload='none'
-        playsInline
-        src={isSourceReady ? VIDEO_SRC : undefined}
-        onEnded={handleVideoEnded}
-        className='absolute inset-0 size-full object-cover'
-      />
+      <motion.section style={{ scale }} className='relative h-full w-full origin-center overflow-hidden rounded-2xl bg-[#d9d9d9]'>
+        <video
+          ref={videoRef}
+          poster={VIDEO_POSTER}
+          preload='none'
+          playsInline
+          muted
+          src={isSourceReady ? VIDEO_SRC : undefined}
+          onEnded={handleVideoEnded}
+          className='absolute inset-0 size-full object-cover'
+        />
+      </motion.section>
 
       {showButton ? (
-        <Button
-          type='button'
-          variant='white'
-          aria-label={isPlaying ? content.stopVideoAriaLabel : content.playVideoAriaLabel}
-          tabIndex={0}
-          onClick={handlePlayClick}
-          className={cn(
-            'absolute z-10 gap-2 shadow-sm',
-            isDesktopPointer ? 'top-0 left-0 transition-opacity duration-150' : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-          )}
-          style={
-            isDesktopPointer
-              ? {
-                  transform: `translate(calc(${position.x}px - 50%), calc(${position.y}px - 50%))`
-                }
-              : undefined
-          }
-          leftIcon={isPlaying ? undefined : <Icon icon='Play' width={16} height={16} />}
+        <motion.div
+          className={cn('absolute z-10', isDesktopPointer ? 'top-0 left-0' : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2')}
+          style={isDesktopPointer ? { x: mouseX, y: mouseY } : undefined}
         >
-          {isPlaying ? 'Stop video' : 'Play video'}
-        </Button>
+          <Button
+            type='button'
+            variant='white'
+            aria-label={isPlaying ? content.stopVideoAriaLabel : content.playVideoAriaLabel}
+            tabIndex={0}
+            onClick={handlePlayClick}
+            className={cn(
+              'gap-2 shadow-sm',
+              isDesktopPointer && '-translate-x-1/2 -translate-y-1/2 cursor-none transition-opacity duration-150'
+            )}
+            leftIcon={isPlaying ? undefined : <Icon icon='Play' width={16} height={16} />}
+          >
+            {isPlaying ? 'Stop video' : 'Play video'}
+          </Button>
+        </motion.div>
       ) : null}
-    </section>
+    </div>
   );
 }
