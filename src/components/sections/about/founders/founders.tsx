@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,6 +7,7 @@ import 'swiper/css';
 
 import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 import { ComponentContainer } from '@/components/layout';
+import { DeferredImage } from '@/components/sections/services/services-list/components/deferred-image';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { CoFounderCard } from './components';
@@ -62,13 +62,11 @@ export const Founders = () => {
               </div>
 
               <div className='relative -mx-4 -mt-8 aspect-10/11 w-[calc(100%+32px)] md:mx-0 md:-mt-40 md:w-full lg:-mt-55 xl:mt-0 xl:aspect-auto xl:h-187.5'>
-                <Image
+                <DeferredImage
                   src='/images/about/founders.webp'
                   alt='Founders'
-                  fill
-                  className='origin-bottom translate-x-[24%] scale-[2.5] object-contain object-bottom md:translate-x-[20%] md:scale-[2.2] xl:translate-x-[12%] xl:scale-[1.6]'
-                  quality={100}
                   sizes='100vw'
+                  className='origin-bottom translate-x-[24%] scale-[2.5] object-contain object-bottom md:translate-x-[20%] md:scale-[2.2] xl:translate-x-[12%] xl:scale-[1.6]'
                 />
 
                 <div className='absolute bottom-17.5 left-25 z-10 hidden drop-shadow-[0_4px_40px_rgba(0,0,0,0.06)] xl:block 2xl:bottom-30 2xl:left-45'>
