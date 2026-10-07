@@ -8,7 +8,7 @@ import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 import content from './content.json';
 
-const VIDEO_SRC = '/videos/home.mp4';
+const VIDEO_SRC = '/videos/home.webm';
 const VIDEO_POSTER = '/videos/home-poster.webp';
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
@@ -187,6 +187,7 @@ export function VideoWrapper() {
           poster={VIDEO_POSTER}
           preload='none'
           playsInline
+          muted
           src={isSourceReady ? VIDEO_SRC : undefined}
           onEnded={handleVideoEnded}
           className='absolute inset-0 size-full object-cover'
