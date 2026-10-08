@@ -21,12 +21,12 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo }: Testimonial
         {quote}
       </Typography>
 
-      <div className='relative z-10 flex items-center justify-between gap-3 transition-colors duration-500 group-hover:border-transparent'>
-        <div className='flex items-center gap-3'>
+      <div className='relative z-10 mt-8 flex items-center justify-between gap-3 transition-colors duration-500 group-hover:border-transparent'>
+        <div className='flex min-w-0 flex-1 items-center gap-3'>
           <div className='relative size-12.5 shrink-0 overflow-hidden rounded-full bg-gray-200'>
             <Image src={avatar} alt={name} fill className='object-cover' />
           </div>
-          <div className='flex flex-col'>
+          <div className='flex min-w-0 flex-col'>
             <Typography variant='body3' className='text-foreground-secondary font-semibold md:font-medium'>
               {name}
             </Typography>
@@ -36,7 +36,7 @@ export const TestimonialCard = ({ quote, avatar, name, role, logo }: Testimonial
           </div>
         </div>
         <div
-          className={`relative flex h-11 shrink-0 items-center justify-center overflow-hidden bg-white ${
+          className={`relative hidden h-11 shrink-0 items-center justify-center overflow-hidden bg-white md:flex ${
             logo.includes('trovr') || logo.includes('join-peel') ? 'w-11 rounded-full' : 'w-24 rounded-xl'
           }`}
         >
