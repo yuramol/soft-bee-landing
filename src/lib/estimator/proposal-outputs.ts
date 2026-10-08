@@ -33,9 +33,6 @@ export function resolveProposalDownloadFileName(options?: {
   fallback?: string;
 }): string {
   return (
-    parseContentDispositionFileName(options?.contentDisposition) ??
-    getProposalFileName(options?.outputs) ??
-    options?.fallback ??
-    'proposal'
+    parseContentDispositionFileName(options?.contentDisposition) ?? getProposalFileName(options?.outputs) ?? options?.fallback ?? 'proposal'
   );
 }

@@ -48,7 +48,19 @@ export function AwardsCarousel({ className }: AwardsCarouselProps) {
   }
 
   if (items.length === 1) {
-    return <div className={cn('w-full max-w-150', className)}>{renderAwardItem(items[0])}</div>;
+    return (
+      <>
+        <StaticList items={items} className={className} />
+        <div
+          className={cn(
+            'relative z-10 mt-60 hidden w-full max-w-150 overflow-hidden xl:absolute xl:right-11.25 xl:bottom-10 xl:block xl:w-auto',
+            className
+          )}
+        >
+          {renderAwardItem(items[0])}
+        </div>
+      </>
+    );
   }
 
   return (
