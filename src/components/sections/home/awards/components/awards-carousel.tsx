@@ -19,7 +19,7 @@ interface AwardItemData {
   logoIcon: IconName;
   logoClassName: string;
   description: string;
-  profileUrl: string;
+  profileUrl?: string;
   stats?: {
     rating: string;
     ratingLabel: string;

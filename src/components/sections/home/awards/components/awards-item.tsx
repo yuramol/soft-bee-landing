@@ -37,35 +37,43 @@ export interface AwardsItemProps {
 }
 
 export function AwardsItem({ logo, description, profileUrl, badges = DEFAULT_BADGES, customFooter, className }: AwardsItemProps) {
-  return (
-    <Link href={profileUrl ?? ''} target='_blank' rel='noopener noreferrer'>
-      <Card
-        className={cn(
-          'bg-background flex w-full max-w-full flex-col gap-y-21 rounded-[16px] border-0 p-4 md:max-w-150 lg:gap-y-52.5 lg:p-8',
-          className
+  const card = (
+    <Card
+      className={cn(
+        'bg-background flex w-full max-w-full flex-col gap-y-21 rounded-[16px] border-0 p-4 md:max-w-150 lg:gap-y-52.5 lg:p-8',
+        className
+      )}
+    >
+      <div data-slot='award-header' className='flex items-center justify-between gap-4'>
+        <div className='shrink-0'>{logo}</div>
+        <Icon icon='Stars' className='h-4.5 w-auto shrink-0 lg:h-7.5' />
+      </div>
+
+      <div className='flex flex-col gap-5.5'>
+        <Typography variant='body3' className='text-foreground-secondary'>
+          {description}
+        </Typography>
+
+        {customFooter ? (
+          customFooter
+        ) : (
+          <div className='flex flex-wrap items-center gap-3 lg:gap-x-6'>
+            {badges.map((badge) => (
+              <AwardItemBadge key={badge.label} icon={badge.icon} label={badge.label} />
+            ))}
+          </div>
         )}
-      >
-        <div data-slot='award-header' className='flex items-center justify-between gap-4'>
-          <div className='shrink-0'>{logo}</div>
-          <Icon icon='Stars' className='h-4.5 w-auto shrink-0 lg:h-7.5' />
-        </div>
+      </div>
+    </Card>
+  );
 
-        <div className='flex flex-col gap-5.5'>
-          <Typography variant='body3' className='text-foreground-secondary'>
-            {description}
-          </Typography>
+  if (!profileUrl) {
+    return card;
+  }
 
-          {customFooter ? (
-            customFooter
-          ) : (
-            <div className='flex flex-wrap items-center gap-3 lg:gap-x-6'>
-              {badges.map((badge) => (
-                <AwardItemBadge key={badge.label} icon={badge.icon} label={badge.label} />
-              ))}
-            </div>
-          )}
-        </div>
-      </Card>
+  return (
+    <Link href={profileUrl} target='_blank' rel='noopener noreferrer'>
+      {card}
     </Link>
   );
 }

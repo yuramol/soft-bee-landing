@@ -21,6 +21,12 @@
   ],
   "items": [
     {
+      "id": "upwork",
+      "logoIcon": "LogoUpwork",
+      "logoClassName": "h-8 w-auto lg:h-16",
+      "description": "Explore our agency profile to learn about our services and past work. You can also contact us through Upwork to discuss your project."
+    },
+    {
       "id": "clutch",
       "logoIcon": "LogoClutch",
       "logoClassName": "h-6 w-auto lg:h-11",
