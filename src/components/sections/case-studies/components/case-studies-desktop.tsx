@@ -7,16 +7,24 @@ import { cn } from '@/lib/utils';
 import { DeferredImage } from '@/components/sections/services/services-list/components/deferred-image';
 import type { CaseStudyListing } from '../data';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import type { Swiper as SwiperClass } from 'swiper';
+import 'swiper/css';
+
 interface CaseStudiesDesktopProps {
   caseStudies: CaseStudyListing[];
 }
 
 export function CaseStudiesDesktop({ caseStudies }: CaseStudiesDesktopProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeStudy = caseStudies[activeIndex];
+  const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
   function handleActivate(index: number) {
     setActiveIndex(index);
+    if (swiperInstance) {
+      swiperInstance.slideToLoop(index);
+    }
   }
 
   return (
@@ -54,17 +62,25 @@ export function CaseStudiesDesktop({ caseStudies }: CaseStudiesDesktopProps) {
       </div>
 
       <div className='w-1/2 shrink-0'>
-        <Link href={activeStudy.link} className='group block w-full'>
-          <div className='relative aspect-1673/940 w-full overflow-hidden rounded-[16px] transition-transform duration-500 group-hover:scale-[1.02]'>
-            <DeferredImage
-              key={activeStudy.id}
-              src={activeStudy.image}
-              alt={`${activeStudy.title} case study`}
-              sizes='50vw'
-              className='rounded-2xl object-cover'
-            />
-          </div>
-        </Link>
+        <Swiper
+          modules={[Autoplay]}
+          direction='vertical'
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={true}
+          onSwiper={setSwiperInstance}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          className='aspect-1673/940 w-full overflow-hidden rounded-[16px]'
+        >
+          {caseStudies.map((study) => (
+            <SwiperSlide key={study.id}>
+              <Link href={study.link} className='group block w-full'>
+                <div className='relative aspect-1673/940 w-full overflow-hidden rounded-[16px] transition-transform duration-500 group-hover:scale-[1.02]'>
+                  <DeferredImage src={study.image} alt={`${study.title} case study`} sizes='50vw' className='rounded-2xl object-cover' />
+                </div>
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );

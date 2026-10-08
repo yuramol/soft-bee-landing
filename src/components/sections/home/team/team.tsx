@@ -27,11 +27,19 @@ export function Team({ hideCoFounders }: TeamProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
 
-  const filteredMembers = hideCoFounders
+  const baseMembers = hideCoFounders
     ? teamContent.members.filter((member) => member.role !== teamContent.coFounderRole)
     : teamContent.members;
 
-  const activeMember = filteredMembers[currentIndex % filteredMembers.length];
+  // Swiper needs enough slides to loop smoothly, especially with overflow visible.
+  // We ensure there are at least 6 slides by repeating the array if necessary.
+  const MIN_SLIDES = 6;
+  const repeatCount = baseMembers.length > 0 ? Math.max(1, Math.ceil(MIN_SLIDES / baseMembers.length)) : 1;
+  const displayMembers = Array.from({ length: repeatCount }).flatMap((_, iteration) =>
+    baseMembers.map((m) => ({ ...m, uniqueId: `${m.id}-${iteration}` }))
+  );
+
+  const activeMember = baseMembers[currentIndex % baseMembers.length];
 
   const handleSlideChange = useCallback((swiper: SwiperClass) => {
     setCurrentIndex(swiper.realIndex);
@@ -105,9 +113,9 @@ export function Team({ hideCoFounders }: TeamProps) {
                 loopAdditionalSlides={4}
                 className='team-swiper h-full w-full overflow-visible!'
               >
-                {filteredMembers.map((member) => (
+                {displayMembers.map((member) => (
                   <SwiperSlide
-                    key={member.id}
+                    key={member.uniqueId}
                     className='group relative h-full w-full overflow-visible! opacity-40 transition-opacity duration-500 [clip-path:inset(0_-50vw_0_-50vw)] [&.swiper-slide-active]:opacity-100'
                   >
                     <TeamMemberPortrait image={member.image} name={member.name} />
