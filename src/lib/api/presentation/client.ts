@@ -1,5 +1,6 @@
 import { isJsonObject, readResponseJson, type JsonValue } from '@/lib/estimator/json';
-import type { CreateProposalResult, ProposalEstimate, ProposalStatusResult } from '@/lib/estimator/types';
+import { resolveProposalDownloadFileName } from '@/lib/estimator/proposal-outputs';
+import type { CreateProposalResult, ProposalEstimate, ProposalOutputs, ProposalStatusResult } from '@/lib/estimator/types';
 
 export async function createPresentationJob(
   input: {
@@ -77,6 +78,7 @@ export async function getPresentationJob(jobId: string, signal?: AbortSignal): P
     progress: typeof payload.progress === 'number' ? payload.progress : undefined,
     stage: typeof payload.stage === 'string' ? payload.stage : undefined,
     estimate: readEstimate(payload.estimate),
+    outputs: readOutputs(payload.outputs),
     error: typeof payload.error === 'string' ? payload.error : undefined
   };
 }
@@ -88,6 +90,7 @@ export interface ActivePresentationJobResult {
   progress?: number;
   stage?: string;
   estimate?: ProposalEstimate;
+  outputs?: ProposalOutputs;
   error?: string;
 }
 
@@ -119,14 +122,23 @@ export async function getActivePresentationJob(signal?: AbortSignal): Promise<Ac
     progress: typeof payload.progress === 'number' ? payload.progress : undefined,
     stage: typeof payload.stage === 'string' ? payload.stage : undefined,
     estimate: readEstimate(payload.estimate),
+    outputs: readOutputs(payload.outputs),
     error: typeof payload.error === 'string' ? payload.error : undefined
   };
 }
 
-export async function downloadPresentationJob(jobId: string, signal?: AbortSignal): Promise<Blob> {
+export interface DownloadPresentationResult {
+  blob: Blob;
+  fileName: string;
+}
+
+export async function downloadPresentationJob(
+  jobId: string,
+  options?: { preferredFileName?: string; signal?: AbortSignal }
+): Promise<DownloadPresentationResult> {
   const response = await fetch(`/api/presentation/${encodeURIComponent(jobId)}/download`, {
     method: 'GET',
-    signal,
+    signal: options?.signal,
     credentials: 'same-origin',
     cache: 'no-store'
   });
@@ -135,7 +147,15 @@ export async function downloadPresentationJob(jobId: string, signal?: AbortSigna
     throw new Error(await readApiError(response, 'Failed to download presentation.'));
   }
 
-  return response.blob();
+  const fileName = resolveProposalDownloadFileName({
+    contentDisposition: response.headers.get('content-disposition'),
+    fallback: options?.preferredFileName
+  });
+
+  return {
+    blob: await response.blob(),
+    fileName
+  };
 }
 
 async function readApiError(response: Response, fallback: string): Promise<string> {
@@ -164,6 +184,22 @@ function readEstimate(value: JsonValue | undefined): ProposalEstimate | undefine
   if (typeof value.hoursMax === 'number') result.hoursMax = value.hoursMax;
   if (typeof value.priceMin === 'number') result.priceMin = value.priceMin;
   if (typeof value.priceMax === 'number') result.priceMax = value.priceMax;
+
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
+function readOutputs(value: JsonValue | undefined): ProposalOutputs | undefined {
+  if (!value || !isJsonObject(value)) {
+    return undefined;
+  }
+
+  const result: ProposalOutputs = {};
+
+  if (typeof value.pdfUrl === 'string' && value.pdfUrl.length > 0) result.pdfUrl = value.pdfUrl;
+  if (typeof value.pptxUrl === 'string' && value.pptxUrl.length > 0) result.pptxUrl = value.pptxUrl;
+  if (typeof value.fileName === 'string' && value.fileName.length > 0) result.fileName = value.fileName;
+  if (value.expiresAt === null) result.expiresAt = null;
+  if (typeof value.expiresAt === 'string') result.expiresAt = value.expiresAt;
 
   return Object.keys(result).length > 0 ? result : undefined;
 }

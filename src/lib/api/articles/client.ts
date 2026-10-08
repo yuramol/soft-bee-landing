@@ -1,23 +1,124 @@
-import { createBrowserClient } from '@/utils/supabase/client';
-import { queryArticlesList } from './query';
-import { transformArticlesToInsights } from './transform';
+import { isJsonObject, readResponseJson, type JsonObject, type JsonValue } from '@/lib/security/json';
+
+import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
 import { ARTICLES_PAGE_SIZE_DESKTOP, type ArticlesListResponse, type FetchArticlesParams } from './types';
 
 /**
- * Client-side fetch for paginated Insights articles via anon Supabase (RLS public select).
+ * Client-side Insights list fetch via Next.js proxy (DB + Soft Bee News merge).
+ * Keeps NEWS_API_KEY server-only.
  */
 export async function fetchArticles(params: FetchArticlesParams = {}): Promise<ArticlesListResponse> {
-  const supabase = createBrowserClient();
-  const result = await queryArticlesList(supabase, {
-    ...params,
-    pageSize: params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP
+  const page = params.page ?? 1;
+  const pageSize = params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP;
+
+  const searchParams = new URLSearchParams();
+  searchParams.set('page', String(page));
+  searchParams.set('pageSize', String(pageSize));
+
+  if (params.category && params.category !== 'All') {
+    searchParams.set('category', params.category);
+  }
+  if (params.searchQuery?.trim()) {
+    searchParams.set('q', params.searchQuery.trim());
+  }
+
+  const response = await fetch(`/api/insights?${searchParams.toString()}`, {
+    method: 'GET',
+    headers: { Accept: 'application/json' },
+    cache: 'no-store'
   });
 
+  if (!response.ok) {
+    throw new Error(`Failed to fetch insights (${response.status})`);
+  }
+
+  const payload = await readResponseJson(response);
+  const parsed = parseArticlesListResponse(payload);
+  if (!parsed) {
+    throw new Error('Insights API returned an unexpected payload.');
+  }
+
+  return parsed;
+}
+
+function parseArticlesListResponse(value: JsonValue): ArticlesListResponse | null {
+  if (!isJsonObject(value)) return null;
+
+  const articlesValue = value.articles;
+  if (!Array.isArray(articlesValue)) return null;
+
+  const articles: InsightArticle[] = [];
+  for (const item of articlesValue) {
+    const article = parseInsightArticle(item);
+    if (article) articles.push(article);
+  }
+
+  const total = readNumber(value, 'total');
+  const page = readNumber(value, 'page');
+  const pageSize = readNumber(value, 'pageSize');
+  const totalPages = readNumber(value, 'totalPages');
+
+  if (total === undefined || page === undefined || pageSize === undefined || totalPages === undefined) {
+    return null;
+  }
+
+  const newsUnavailable = value.newsUnavailable === true ? true : undefined;
+
+  return { articles, total, page, pageSize, totalPages, ...(newsUnavailable ? { newsUnavailable } : {}) };
+}
+
+function parseInsightArticle(value: JsonValue): InsightArticle | null {
+  if (!isJsonObject(value)) return null;
+
+  const id = readString(value, 'id');
+  const slug = readString(value, 'slug');
+  const title = readString(value, 'title');
+  const image = readString(value, 'image');
+  const category = readString(value, 'category');
+  const readTime = readString(value, 'readTime');
+  // excerpt may be empty from Soft Bee News — keep the card on client refetch
+  const description = readString(value, 'description', { allowEmpty: true });
+  const authorName = readString(value, 'authorName');
+  const authorRole = readString(value, 'authorRole', { allowEmpty: true }) ?? '';
+  const authorImage = readString(value, 'authorImage');
+  const date = readString(value, 'date');
+
+  if (!id || !slug || !title || !image || !category || !readTime || description === undefined || !authorName || !authorImage || !date) {
+    return null;
+  }
+
+  const sourceValue = readString(value, 'source');
+  const source = sourceValue === 'ai' || sourceValue === 'db' ? sourceValue : undefined;
+
   return {
-    articles: transformArticlesToInsights(result.articles),
-    total: result.total,
-    page: result.page,
-    pageSize: result.pageSize,
-    totalPages: result.totalPages
+    id,
+    slug,
+    title,
+    image,
+    category,
+    readTime,
+    description,
+    authorName,
+    authorRole,
+    authorImage,
+    date,
+    content: [],
+    source
   };
+}
+
+function readString(payload: JsonObject, key: string, options: { allowEmpty?: boolean } = {}): string | undefined {
+  const value = payload[key];
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+  if (!options.allowEmpty && value.length === 0) {
+    return undefined;
+  }
+  return value;
+}
+
+function readNumber(payload: JsonObject, key: string): number | undefined {
+  const value = payload[key];
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 }

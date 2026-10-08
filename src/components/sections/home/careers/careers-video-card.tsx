@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
+import content from './content.json';
 
 interface PointerPosition {
   x: number;
@@ -85,7 +86,7 @@ export function CareersVideoCard({ title, description, imageSrc, videoUrl }: Car
               <Button
                 type='button'
                 variant='white'
-                aria-label='Play video'
+                aria-label={content.playVideoAriaLabel}
                 className={cn(
                   'pointer-events-none absolute z-10 shadow-sm',
                   isDesktopPointer

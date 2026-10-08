@@ -14,6 +14,12 @@ export interface MockJobState {
     priceMin?: number;
     priceMax?: number;
   } | null;
+  outputs?: {
+    pdfUrl?: string;
+    pptxUrl?: string;
+    fileName?: string;
+    expiresAt?: string | null;
+  } | null;
   error?: string | null;
 }
 
@@ -82,6 +88,7 @@ export async function mockPresentationApis(
       progress: current.progress,
       stage: current.stage,
       estimate: current.estimate,
+      outputs: current.outputs,
       error: current.error
     });
   });
@@ -99,13 +106,16 @@ export async function mockPresentationApis(
   });
 
   await page.route(`**/api/presentation/${MOCK_JOB_ID}/download`, async (route) => {
+    const fileName = current.outputs?.fileName ?? 'Example-project-proposal.pdf';
+    const isPdf = fileName.toLowerCase().endsWith('.pdf');
+
     await route.fulfill({
       status: 200,
-      contentType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      contentType: isPdf ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       headers: {
-        'content-disposition': 'attachment; filename="estimation.pptx"'
+        'content-disposition': `attachment; filename="${fileName}"`
       },
-      body: Buffer.from('PK-mock-pptx')
+      body: Buffer.from(isPdf ? '%PDF-1.4 mock' : 'PK-mock-pptx')
     });
   });
 
@@ -121,6 +131,7 @@ export async function mockPresentationApis(
       progress: current.progress,
       stage: current.stage,
       estimate: current.estimate,
+      outputs: current.outputs,
       error: current.error
     });
   });

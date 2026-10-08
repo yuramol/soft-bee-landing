@@ -1,39 +1,55 @@
 import { getImageProps } from 'next/image';
+import { preload } from 'react-dom';
 
 import { ComponentContainer } from '@/components/layout/component-container';
 import { Typography } from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
 
-export const AboutHero = () => {
+export function AboutHero() {
   const common = {
     alt: 'Meet the people behind Soft Bee',
     fill: true,
-    priority: true,
-    quality: 100,
+    quality: 75,
     sizes: '100vw',
     className: 'object-cover object-center'
   };
 
   const {
-    props: { srcSet: desktop }
+    props: { srcSet: desktop, src: desktopSrc }
   } = getImageProps({
     ...common,
     src: '/images/about/about-team.webp'
   });
 
   const {
-    props: { srcSet: mobile, alt, ...rest }
+    props: { srcSet: mobile, src: mobileSrc, alt, ...rest }
   } = getImageProps({
     ...common,
     src: '/images/about/about-team-mobile.webp'
   });
 
+  preload(mobileSrc, {
+    as: 'image',
+    imageSrcSet: mobile,
+    imageSizes: '100vw',
+    media: '(max-width: 767px)',
+    fetchPriority: 'high'
+  });
+
+  preload(desktopSrc, {
+    as: 'image',
+    imageSrcSet: desktop,
+    imageSizes: '100vw',
+    media: '(min-width: 768px)'
+  });
+
   return (
-    <section className='relative min-h-dvh w-full overflow-hidden rounded-2xl'>
+    <section className={cn('relative h-[calc(100vh-10px)] w-full overflow-hidden rounded-2xl', 'md:h-[calc(100vh-20px)]')}>
       <div className='absolute inset-0 z-0'>
         <picture>
           <source media='(min-width: 768px)' srcSet={desktop} />
           <source media='(max-width: 767px)' srcSet={mobile} />
-          <img alt={alt} {...rest} />
+          <img alt={alt} {...rest} fetchPriority='high' loading='eager' decoding='sync' />
         </picture>
         <div className='absolute inset-0 bg-(image:--hero-gradient)' />
       </div>
@@ -50,4 +66,4 @@ export const AboutHero = () => {
       </ComponentContainer>
     </section>
   );
-};
+}

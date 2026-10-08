@@ -14,7 +14,8 @@ import { getInitialTranslate } from '@/lib/utils';
 import { useSwiperPeekAnimation } from '@/hooks/use-swiper-peek-animation';
 
 import servicesContent from './content.json';
-import { ServiceCard } from './service-card';
+import { ServiceCard, ViewMoreServiceCard } from './service-card';
+import { IconName } from '@/components/ui/icon';
 
 const INITIAL_VISIBLE_CARDS = 2;
 
@@ -65,7 +66,7 @@ export const Services = () => {
 
   return (
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>
-      <div className='z-10 w-full px-4 pt-18.25 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100vh-20px)] md:flex-col md:justify-between md:px-10.5 xl:pt-28.75 xl:pb-15'>
+      <div className='z-10 w-full px-4 pt-18.25 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100dvh-10px)] md:max-h-225 md:flex-col md:justify-between md:px-10.5 xl:max-h-250 xl:pt-28.75 xl:pb-15'>
         <div className='mb-12 md:mb-0'>
           <Badge title={servicesContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
 
@@ -85,9 +86,12 @@ export const Services = () => {
           >
             {servicesContent.cards.map((card) => (
               <div key={card.id} className='flex snap-start self-stretch'>
-                <ServiceCard title={card.title} description={card.description} />
+                <ServiceCard title={card.title} description={card.description} icon={card.icon as IconName} />
               </div>
             ))}
+            <div className='flex snap-start self-stretch'>
+              <ViewMoreServiceCard />
+            </div>
           </motion.div>
 
           {/* Mobile Swiper */}
@@ -95,9 +99,12 @@ export const Services = () => {
             <Swiper loop={true} slidesPerView='auto' spaceBetween={10} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
               {servicesContent.cards.map((card) => (
                 <SwiperSlide key={`mobile-${card.id}`} className='flex h-auto! w-full!'>
-                  <ServiceCard title={card.title} description={card.description} />
+                  <ServiceCard title={card.title} description={card.description} icon={card.icon as IconName} />
                 </SwiperSlide>
               ))}
+              <SwiperSlide key='mobile-view-more' className='flex h-auto! w-full!'>
+                <ViewMoreServiceCard />
+              </SwiperSlide>
             </Swiper>
           </div>
         </div>

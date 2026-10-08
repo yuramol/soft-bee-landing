@@ -10,6 +10,8 @@ export interface ArticlesListResponse {
   page: number;
   pageSize: number;
   totalPages: number;
+  /** True when Soft Bee News (Tech & Dev) was requested but the archive API failed. */
+  newsUnavailable?: boolean;
 }
 
 export interface FetchArticlesParams {
@@ -21,3 +23,5 @@ export interface FetchArticlesParams {
 
 export const ARTICLES_PAGE_SIZE_MOBILE = 3;
 export const ARTICLES_PAGE_SIZE_DESKTOP = 3;
+/** Hard cap for Insights list pageSize (SSR + /api/insights). */
+export const ARTICLES_PAGE_SIZE_MAX = 24;

@@ -108,13 +108,6 @@ export function buildContactEmailHtml(input: ContactEmailTemplateInput): string 
                 ${messageBlock}
               </td>
             </tr>
-            <tr>
-              <td style="padding:0 24px 28px;font-family:${FONT_STACK};">
-                <p style="margin:0;font-size:12px;line-height:1.5;color:${BRAND_COLORS.graphiteGray};">
-                  Reply directly to this email to respond to the sender.
-                </p>
-              </td>
-            </tr>
           </table>
         </td>
       </tr>
@@ -143,13 +136,14 @@ export function buildContactEmailText(input: ContactEmailTemplateInput): string 
 
   lines.push('', 'Message:');
   lines.push(input.message.trim().length > 0 ? input.message : '(none)');
-  lines.push('', 'Reply directly to this email to respond to the sender.');
 
   return lines.join('\n');
 }
 
 function kindLabel(kind: ContactKind): string {
-  return kind === 'vacancy_application' ? 'Vacancy application' : 'Discuss project';
+  if (kind === 'vacancy_application') return 'Vacancy application';
+  if (kind === 'partnership') return 'Partnership request';
+  return 'Discuss project';
 }
 
 function buildMetaRows(input: ContactEmailTemplateInput): Array<[string, string]> {

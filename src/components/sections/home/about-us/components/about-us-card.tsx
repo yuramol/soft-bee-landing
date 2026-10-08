@@ -20,7 +20,7 @@ export const AboutUsCard = ({ id, title, description, activeBg, activeText, isAc
         'flex flex-col justify-between px-4 pt-4 pb-5 lg:px-8 lg:pt-8 lg:pb-16',
         'rounded-lg',
         isActive
-          ? `lg:min-h-147.5 lg:min-w-0 lg:flex-[0_1_903px] ${activeBg}`
+          ? `lg:min-h-125 lg:min-w-0 lg:flex-[0_1_903px] ${activeBg}`
           : 'bg-accent-foreground hover:bg-accent-foreground/80 lg:min-w-0 lg:flex-[0_1_294px]'
       )}
     >

@@ -1,16 +1,34 @@
+import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
 import { createServerClient } from '@/utils/supabase/server';
+import {
+  AI_INSIGHTS_CATEGORY,
+  NEWS_ARCHIVE_LIST_LIMIT,
+  NEWS_DEFAULT_LANGUAGE,
+  NEWS_MERGE_DB_FETCH_LIMIT,
+  NewsApiError,
+  getNewsArticle,
+  isNewsConfigured,
+  listNewsArticles,
+  transformNewsArticleToInsight,
+  transformNewsCardToInsight
+} from '@/lib/news';
+
+import {
+  filterInsightsBySearch,
+  mergeRankedInsights,
+  paginateInsights,
+  publishedAtToMs,
+  clampArticlesPageSize,
+  type RankedInsight
+} from './merge';
 import { queryArticlesList } from './query';
-import type { ArticleRow, FetchArticlesParams, TagRow } from './types';
+import { transformArticleToInsight } from './transform';
+import type { ArticleRow, ArticlesListResponse, FetchArticlesParams, TagRow } from './types';
+import { ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX } from './types';
 
 export type GetArticlesParams = FetchArticlesParams;
 
-export interface GetArticlesResult {
-  articles: ArticleRow[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
-}
+export type GetArticlesResult = ArticlesListResponse;
 
 /**
  * Fetch all article category tags ordered by creation (seed insert order).
@@ -28,17 +46,55 @@ export async function getTags(): Promise<TagRow[]> {
 }
 
 /**
- * Fetch articles with optional filtering, search, and pagination.
- * Articles are ordered by prioritized (desc) then published_at (desc) to ensure
- * prioritized DB articles rank above future AI-sourced articles in merged feeds.
+ * Merged Insights feed (three tiers):
+ * prioritized DB → Soft Bee News (Tech & Dev) → remaining DB, each by published date.
+ * Soft Bee News is read-only (service generates on its own); archive is cached ~1 day.
  */
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
-  const supabase = await createServerClient();
-  return queryArticlesList(supabase, params);
+  const page = params.page ?? 1;
+  const pageSize = clampArticlesPageSize(params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX);
+  const { articles, newsUnavailable } = await getMergedInsights({
+    category: params.category,
+    searchQuery: params.searchQuery
+  });
+  return {
+    ...paginateInsights(articles, page, pageSize),
+    ...(newsUnavailable ? { newsUnavailable: true } : {})
+  };
 }
 
 /**
- * Fetch a single article by slug.
+ * Resolve an insight by slug with the same tier preference as the merged list:
+ * prioritized DB → Soft Bee News → remaining DB.
+ * Non-404 Soft Bee News failures propagate (do not masquerade as missing articles).
+ */
+export async function getInsightBySlug(slug: string): Promise<InsightArticle | null> {
+  const dbArticle = await getArticleBySlug(slug);
+
+  if (dbArticle?.prioritized) {
+    return transformArticleToInsight(dbArticle);
+  }
+
+  if (isNewsConfigured()) {
+    try {
+      const newsArticle = await getNewsArticle(slug, NEWS_DEFAULT_LANGUAGE);
+      return transformNewsArticleToInsight(newsArticle);
+    } catch (error) {
+      if (!(error instanceof NewsApiError && error.status === 404)) {
+        throw error;
+      }
+    }
+  }
+
+  if (dbArticle) {
+    return transformArticleToInsight(dbArticle);
+  }
+
+  return null;
+}
+
+/**
+ * Fetch a single DB article by slug.
  */
 export async function getArticleBySlug(slug: string): Promise<ArticleRow | null> {
   const supabase = await createServerClient();
@@ -53,23 +109,94 @@ export async function getArticleBySlug(slug: string): Promise<ArticleRow | null>
 }
 
 /**
- * Fetch more articles for "More Insights" section, excluding the current article.
- * Returns up to `limit` articles ordered by prioritized then published_at.
+ * More Insights: full merged feed excluding the current slug (not limited by list pageSize).
  */
-export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<ArticleRow[]> {
-  const supabase = await createServerClient();
+export async function getMoreArticles(excludeSlug: string, limit = 3): Promise<InsightArticle[]> {
+  const { articles } = await getMergedInsights({});
+  return articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
+}
 
-  const { data, error } = await supabase
-    .from('articles')
-    .select('*')
-    .neq('slug', excludeSlug)
-    .order('prioritized', { ascending: false })
-    .order('published_at', { ascending: false })
-    .limit(limit);
+interface MergedInsightsResult {
+  articles: InsightArticle[];
+  newsUnavailable: boolean;
+}
 
-  if (error) {
-    throw new Error(error.message || 'Failed to fetch more articles');
+interface AiNewsFetchResult {
+  ranked: RankedInsight[];
+  newsUnavailable: boolean;
+}
+
+async function getMergedInsights(params: { category?: string; searchQuery?: string } = {}): Promise<MergedInsightsResult> {
+  const searchQuery = params.searchQuery?.trim() ?? '';
+  const category = params.category;
+
+  const [dbRows, aiResult] = await Promise.all([fetchDbArticlesForMerge(category), fetchAiRankedForMerge(category)]);
+
+  let rankedDb = toRankedDbInsights(dbRows);
+  let rankedAi = aiResult.ranked;
+
+  if (searchQuery) {
+    const filtered = filterInsightsBySearch(
+      [...rankedDb, ...rankedAi].map((entry) => entry.article),
+      searchQuery
+    );
+    const allowed = new Set(filtered.map((article) => article.slug));
+    rankedDb = rankedDb.filter((entry) => allowed.has(entry.article.slug));
+    rankedAi = rankedAi.filter((entry) => allowed.has(entry.article.slug));
   }
 
-  return data ?? [];
+  return {
+    articles: mergeRankedInsights(rankedDb, rankedAi),
+    newsUnavailable: aiResult.newsUnavailable
+  };
+}
+
+async function fetchDbArticlesForMerge(category: string | undefined): Promise<ArticleRow[]> {
+  const supabase = await createServerClient();
+  const result = await queryArticlesList(supabase, {
+    category,
+    page: 1,
+    pageSize: NEWS_MERGE_DB_FETCH_LIMIT
+  });
+  return result.articles;
+}
+
+async function fetchAiRankedForMerge(category: string | undefined): Promise<AiNewsFetchResult> {
+  if (!shouldIncludeAiNews(category) || !isNewsConfigured()) {
+    return { ranked: [], newsUnavailable: false };
+  }
+
+  try {
+    const cards = await listNewsArticles({
+      language: NEWS_DEFAULT_LANGUAGE,
+      limit: NEWS_ARCHIVE_LIST_LIMIT
+    });
+
+    return {
+      ranked: cards.map((card) => ({
+        article: transformNewsCardToInsight(card),
+        prioritized: false,
+        publishedAtMs: publishedAtToMs(card.publishedAt)
+      })),
+      newsUnavailable: false
+    };
+  } catch (error) {
+    console.error('Failed to load Soft Bee News archive:', error);
+    return { ranked: [], newsUnavailable: true };
+  }
+}
+
+function shouldIncludeAiNews(category: string | undefined): boolean {
+  if (!category || category === 'All') {
+    return true;
+  }
+  return category === AI_INSIGHTS_CATEGORY;
+}
+
+function toRankedDbInsights(rows: ArticleRow[]): RankedInsight[] {
+  return rows.map((row) => ({
+    article: transformArticleToInsight(row),
+    prioritized: row.prioritized,
+    publishedAtMs: publishedAtToMs(row.published_at)
+  }));
 }

@@ -4,3 +4,4 @@ export { CaseStudyOverview } from './case-study-overview';
 export { CaseStudyGallery } from './case-study-gallery';
 export { CaseStudyResults } from './case-study-results';
 export { MoreCases } from './more-cases';
+export { CaseStudyTestimonials } from './case-study-testimonials';

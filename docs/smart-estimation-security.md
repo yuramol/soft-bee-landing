@@ -10,7 +10,7 @@ Security model for the public Smart Estimation form and `/api/presentation/*` pr
 
 | Threat | Mitigation |
 |--------|------------|
-| Steal another user’s estimate / PPTX | HMAC-signed ownership cookie; status/download require ownership |
+| Steal another user’s estimate / proposal file | HMAC-signed ownership cookie; status/download require ownership |
 | CSRF / off-site browser POST | Allowlisted `Origin` (required in production) |
 | Scripted spam / cost abuse | reCAPTCHA v3 + IP burst/daily caps + cookie UX cap + edge WAF |
 | Junk captcha spam | Quota reserved **before** `siteverify` |

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { EstimatorApiError, downloadProposal, ownsJobId } from '@/lib/estimator';
+import { EstimatorApiError, downloadProposal, ownsJobId, resolveProposalDownloadFileName } from '@/lib/estimator';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
@@ -29,9 +29,13 @@ export async function GET(_request: Request, context: RouteContext) {
       return NextResponse.json({ error: 'Empty download response.' }, { status: 502 });
     }
 
+    const fileName = resolveProposalDownloadFileName({
+      contentDisposition: downloaded.contentDisposition
+    });
+
     const headers = new Headers();
     headers.set('Content-Type', downloaded.contentType);
-    headers.set('Content-Disposition', downloaded.contentDisposition ?? 'attachment; filename="estimation.pptx"');
+    headers.set('Content-Disposition', downloaded.contentDisposition ?? `attachment; filename="${fileName}"`);
 
     if (downloaded.contentLength) {
       headers.set('Content-Length', downloaded.contentLength);

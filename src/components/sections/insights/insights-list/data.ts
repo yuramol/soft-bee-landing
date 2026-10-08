@@ -12,6 +12,8 @@ export interface ArticleBlockContent {
   items?: string[];
 }
 
+export type InsightArticleSource = 'db' | 'ai';
+
 export interface InsightArticle {
   id: string;
   image: string;
@@ -25,4 +27,6 @@ export interface InsightArticle {
   authorImage: string;
   date: string;
   content: ArticleBlockContent[];
+  /** Origin of the article — AI covers may use remote image hosts. */
+  source?: InsightArticleSource;
 }

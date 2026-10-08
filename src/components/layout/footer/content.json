@@ -1,44 +1,55 @@
 {
-  "title": ["Have a vision in mind?", "Let’s build the roadmap together"],
-  "cta": "Plan your project with us",
-  "location": "Kyiv",
+  "title": ["Let's plan your next step"],
+  "cta": "Discuss your project",
+  "location": "Tallinn",
   "contacts": [
     {
-      "label": "hello@softbee.com",
-      "href": "mailto:hello@softbee.com"
-    },
-    {
-      "label": "(+00) 0000 000 0",
-      "href": "tel:+0000000000"
+      "label": "info@softbee.io",
+      "href": "mailto:info@softbee.io"
     }
   ],
   "navSections": [
     {
       "title": "Home",
       "links": [
-        { "label": "Services", "href": "/services", "target": "_self" },
-        { "label": "Case studies", "href": "/case-studies", "target": "_self" },
-        { "label": "Insights", "href": "/insights", "target": "_self" }
+        { "label": "Services", "href": "/services" },
+        { "label": "Case studies", "href": "/case-studies" },
+        { "label": "Insights", "href": "/insights" }
       ]
     },
     {
       "title": "About",
       "links": [
-        { "label": "Company", "href": "/company", "target": "_blank" },
-        { "label": "Career", "href": "/career", "target": "_blank" }
+        { "label": "Company", "href": "/company" },
+        { "label": "Career", "href": "/careers" }
       ]
     },
     {
       "title": "Social media",
       "links": [
-        { "label": "Instagram", "href": "/instagram", "target": "_blank" },
-        { "label": "LinkedIn", "href": "/linkedin", "target": "_blank" }
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/ai.softbee",
+          "target": "_blank"
+        },
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/softbeeio", "target": "_blank" },
+        { "label": "Clutch", "href": "https://clutch.co/profile/softbee-0", "target": "_blank" }
       ]
     }
   ],
   "legalLinks": [
-    { "label": "Terms of use", "href": "#" },
-    { "label": "Privacy policy", "href": "#" }
+    {
+      "label": "Terms of use",
+      "href": "/terms-of-use",
+      "target": "_self"
+    },
+    {
+      "label": "Privacy policy",
+      "href": "/privacy-policy",
+      "target": "_self"
+    }
   ],
-  "copyright": "Soft Bee © All rights reserved,"
+  "copyright": "Soft Bee © All rights reserved",
+  "logoAriaLabel": "Soft Bee",
+  "navigationAriaLabel": "Footer Navigation"
 }

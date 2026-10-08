@@ -6,7 +6,7 @@ import caseStudyOverviewContent from './content.json';
 
 interface CaseStudyOverviewProps {
   overviewTitle: string;
-  overviewDescription: string;
+  overviewDescription: string | string[];
   overviewImages: string[];
 }
 
@@ -16,28 +16,34 @@ export const CaseStudyOverview = ({ overviewTitle, overviewDescription, overview
       <ComponentContainer>
         <Badge title={caseStudyOverviewContent.badge} className='mb-7.5 w-fit lg:mb-10' />
 
-        <div className='mb-34 flex flex-col items-start justify-between gap-4.75 lg:mb-20 lg:flex-row lg:gap-10 xl:mb-30 2xl:mb-46'>
+        <div className='mb-34 flex flex-col items-start justify-between gap-4.75 lg:mb-20 lg:flex-row lg:gap-10 xl:mb-30 2xl:mb-38'>
           <Typography variant='h2' className='text-foreground lg:max-w-175 xl:max-w-233.5'>
             {overviewTitle}
           </Typography>
 
           <Typography variant='h5' className='text-foreground lg:max-w-85 xl:max-w-153'>
-            {overviewDescription}
+            {Array.isArray(overviewDescription)
+              ? overviewDescription.map((desc, i) => (
+                  <span key={i} className={i !== overviewDescription.length - 1 ? 'mb-6 block' : 'block'}>
+                    {desc}
+                  </span>
+                ))
+              : overviewDescription}
           </Typography>
         </div>
       </ComponentContainer>
     </div>
 
     <ComponentContainer>
-      <div className='flex flex-col gap-2.5 lg:flex-row'>
+      <div className='flex flex-col gap-2.5 md:flex-row'>
         {overviewImages.map((img, idx) => (
-          <div key={idx} className='relative w-full min-[1800px]:h-248.5! lg:h-150 lg:flex-1 xl:h-187.5'>
+          <div key={idx} className='relative w-full md:flex-1'>
             <Image
               src={img}
               alt={`Overview image ${idx + 1}`}
-              width={1272}
-              height={1400}
-              className='h-auto w-full rounded-md min-[1800px]:h-248.5! lg:h-150 lg:rounded-4xl lg:object-cover xl:h-187.5'
+              width={903}
+              height={994}
+              className='h-auto w-full rounded-md md:rounded-4xl md:object-cover'
             />
           </div>
         ))}

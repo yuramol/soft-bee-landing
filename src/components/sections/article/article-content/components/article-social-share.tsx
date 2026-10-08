@@ -30,7 +30,10 @@ export const ArticleSocialShare = () => {
       </Typography>
 
       <div className='flex flex-wrap items-center gap-5 md:gap-2.5'>
-        <ShareButton href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}>
+        <ShareButton
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+          ariaLabel={content.socialShare.linkedinAriaLabel}
+        >
           <Icon icon='LogoLinkedin' className='h-5.5 w-5.5' />
         </ShareButton>
 
@@ -45,10 +48,10 @@ export const ArticleSocialShare = () => {
           <Icon icon='LogoInstagram' className='h-5.5 w-5.5' />
         </button>
 
-        <ShareButton href={`https://www.threads.net/intent/post?text=${encodedUrl}`}>
+        <ShareButton href={`https://www.threads.net/intent/post?text=${encodedUrl}`} ariaLabel={content.socialShare.threadsAriaLabel}>
           <Icon icon='LogoThreads' className='h-5.5 w-5.5' />
         </ShareButton>
-        <ShareButton href={`https://twitter.com/intent/tweet?url=${encodedUrl}`}>
+        <ShareButton href={`https://twitter.com/intent/tweet?url=${encodedUrl}`} ariaLabel={content.socialShare.xAriaLabel}>
           <Icon icon='LogoX' className='h-5.5 w-5.5' />
         </ShareButton>
         <button
@@ -63,11 +66,12 @@ export const ArticleSocialShare = () => {
   );
 };
 
-const ShareButton = ({ children, href }: { children: React.ReactNode; href: string }) => (
+const ShareButton = ({ children, href, ariaLabel }: { children: React.ReactNode; href: string; ariaLabel?: string }) => (
   <Link
     href={href}
     target='_blank'
     rel='noopener noreferrer'
+    aria-label={ariaLabel}
     className='flex h-12 w-12 items-center justify-center rounded-full bg-[#F4F4F4] transition-colors hover:bg-[#EAEAEA]'
   >
     {children}

@@ -7,7 +7,7 @@ import awardsContent from './content.json';
 
 export function Awards() {
   return (
-    <section className='z-20 mb-2.5 flex flex-col items-center justify-center text-white'>
+    <section className='cv-auto z-40 mb-2.5 flex flex-col items-center justify-center text-white'>
       <ComponentContainer className='bg-brand-black relative flex h-auto flex-col items-start gap-27 overflow-hidden rounded-2xl px-4 pt-16.5 pb-4 lg:px-11.25 lg:pt-28.75 lg:pb-10 xl:h-screen'>
         <GlowEffect />
         <div className='relative z-10 flex h-full w-full flex-col items-start justify-between xl:max-w-[calc(100%-600px)] xl:pr-10'>
