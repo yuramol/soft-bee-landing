@@ -36,7 +36,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         title={article.title}
         authorName={article.authorName}
         authorRole={article.authorRole}
-        authorImage={article.authorImage}
         readTime={article.readTime}
         date={article.date}
       />
