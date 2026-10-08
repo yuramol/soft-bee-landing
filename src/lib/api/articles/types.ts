@@ -22,6 +22,6 @@ export interface FetchArticlesParams {
 }
 
 export const ARTICLES_PAGE_SIZE_MOBILE = 3;
-export const ARTICLES_PAGE_SIZE_DESKTOP = 6;
+export const ARTICLES_PAGE_SIZE_DESKTOP = 3;
 /** Hard cap for Insights list pageSize (SSR + /api/insights). */
 export const ARTICLES_PAGE_SIZE_MAX = 24;
