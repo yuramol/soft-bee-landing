@@ -37,17 +37,6 @@ export const ArticleSocialShare = () => {
           <Icon icon='LogoLinkedin' className='h-5.5 w-5.5' />
         </ShareButton>
 
-        <button
-          onClick={() => {
-            handleCopyLink();
-            window.open('https://www.instagram.com', '_blank', 'noopener,noreferrer');
-          }}
-          className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-[#F4F4F4] transition-colors hover:bg-[#EAEAEA]'
-          aria-label={content.socialShare.instagramAriaLabel}
-        >
-          <Icon icon='LogoInstagram' className='h-5.5 w-5.5' />
-        </button>
-
         <ShareButton href={`https://www.threads.net/intent/post?text=${encodedUrl}`} ariaLabel={content.socialShare.threadsAriaLabel}>
           <Icon icon='LogoThreads' className='h-5.5 w-5.5' />
         </ShareButton>

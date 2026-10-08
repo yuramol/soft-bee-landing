@@ -12,7 +12,7 @@ import { Loader } from '@/components/ui/loader';
 
 import heroContent from '@/components/sections/insights/hero/content.json';
 
-export default async function InsightsPage({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string; page?: string }> }) {
+export default async function InsightsPage({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string }> }) {
   return (
     <>
       <Hero titleSegments={heroContent.titleSegments} description={heroContent.description} />
