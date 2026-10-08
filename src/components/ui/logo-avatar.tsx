@@ -1,0 +1,20 @@
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+
+interface LogoAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+  name?: string;
+}
+
+export function LogoAvatar({ name, className, ...props }: LogoAvatarProps) {
+  return (
+    <div
+      className={cn('relative flex items-center justify-center overflow-hidden rounded-full bg-[#1B1C23] text-[#e2f163]', className)}
+      title={name}
+      {...props}
+    >
+      <svg className='h-[45%] w-auto' viewBox='0 0 251 297' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+        <path d='M125.705 0.0216251C52.8945 0.0216251 0 54.1376 0 119.604C0 234.409 119.867 296.914 120.018 297H125.554L125.424 296.46L109.941 238.69C115.088 239.273 120.342 239.576 125.705 239.576C197.695 239.576 251 185.071 251 119.583C251 54.0943 198.516 0 125.705 0V0.0216251ZM125.705 172.077C94.371 172.077 76.0547 148.9 76.0547 119.604C76.0547 90.3086 94.7819 67.5423 125.705 67.5423C156.629 67.5423 175.356 90.3086 175.356 119.604C175.356 148.9 157.04 172.077 125.705 172.077Z' />
+      </svg>
+    </div>
+  );
+}
