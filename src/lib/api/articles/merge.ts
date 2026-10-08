@@ -7,24 +7,28 @@ export interface RankedInsight {
 }
 
 /**
- * Three-tier merge:
- * 1. Prioritized DB articles (by published date desc)
- * 2. Soft Bee News / AI articles (by published date desc)
- * 3. Remaining DB articles (by published date desc)
+ * Two-tier merge:
+ * 1. Prioritized DB articles (by published date desc, then slug for deterministic tie-breaking)
+ * 2. All remaining items (non-prioritized DB + news/AI articles) merged by published date desc, then slug
  *
- * AI news is never prioritized. Duplicate slugs prefer the earlier tier entry.
+ * News/AI articles are never prioritized. Duplicate slugs prefer the earlier tier entry.
  */
 export function mergeRankedInsights(dbArticles: RankedInsight[], aiArticles: RankedInsight[]): InsightArticle[] {
-  const byDateDesc = (a: RankedInsight, b: RankedInsight) => b.publishedAtMs - a.publishedAtMs;
+  // Deterministic comparator: date desc, then slug asc for stable tie-breaking
+  const byDateAndSlug = (a: RankedInsight, b: RankedInsight) => {
+    const dateDiff = b.publishedAtMs - a.publishedAtMs;
+    if (dateDiff !== 0) return dateDiff;
+    return a.article.slug.localeCompare(b.article.slug);
+  };
 
-  const prioritized = dbArticles.filter((entry) => entry.prioritized).sort(byDateDesc);
-  const aiSorted = [...aiArticles].sort(byDateDesc);
-  const restDb = dbArticles.filter((entry) => !entry.prioritized).sort(byDateDesc);
+  const prioritized = dbArticles.filter((entry) => entry.prioritized).sort(byDateAndSlug);
+  const nonPrioritizedDb = dbArticles.filter((entry) => !entry.prioritized);
+  const allRemaining = [...nonPrioritizedDb, ...aiArticles].sort(byDateAndSlug);
 
   const seenSlugs = new Set<string>();
   const merged: InsightArticle[] = [];
 
-  for (const entry of [...prioritized, ...aiSorted, ...restDb]) {
+  for (const entry of [...prioritized, ...allRemaining]) {
     if (seenSlugs.has(entry.article.slug)) {
       continue;
     }

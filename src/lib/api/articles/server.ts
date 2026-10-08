@@ -38,8 +38,8 @@ export async function getTags(): Promise<TagRow[]> {
 }
 
 /**
- * Merged Insights feed (three tiers):
- * prioritized DB → Soft Bee News (Tech & Dev) → remaining DB, each by published date.
+ * Merged Insights feed (two tiers):
+ * prioritized DB (newest first) → all remaining (non-prioritized DB + news) by published date.
  * Search queries all DB and API items, then returns the 3 latest matches.
  * Soft Bee News is read-only (service generates on its own); archive is cached ~1 day.
  */
@@ -56,8 +56,9 @@ export async function getArticles(params: GetArticlesParams = {}): Promise<GetAr
 }
 
 /**
- * Resolve an insight by slug with the same tier preference as the merged list:
- * prioritized DB → Soft Bee News → remaining DB.
+ * Resolve an insight by slug.
+ * Uses three-tier preference for slug collisions: prioritized DB → news → remaining DB.
+ * This differs from list ordering but ensures prioritized content is never shadowed by news slugs.
  * Non-404 Soft Bee News failures propagate (do not masquerade as missing articles).
  */
 export async function getInsightBySlug(slug: string): Promise<InsightArticle | null> {
