@@ -44,33 +44,7 @@ export function filterInsightsBySearch(articles: InsightArticle[], searchQuery: 
   });
 }
 
-export function paginateInsights(
-  articles: InsightArticle[],
-  page: number,
-  pageSize: number
-): { articles: InsightArticle[]; total: number; page: number; pageSize: number; totalPages: number } {
-  const safePage = page > 0 ? page : 1;
-  const safePageSize = pageSize > 0 ? pageSize : 6;
-  const total = articles.length;
-  const start = (safePage - 1) * safePageSize;
-
-  return {
-    articles: articles.slice(start, start + safePageSize),
-    total,
-    page: safePage,
-    pageSize: safePageSize,
-    totalPages: Math.ceil(total / safePageSize) || 0
-  };
-}
-
 export function publishedAtToMs(iso: string): number {
   const ms = Date.parse(iso);
   return Number.isFinite(ms) ? ms : 0;
-}
-
-export function clampArticlesPageSize(pageSize: number, fallback: number, max: number): number {
-  if (!Number.isFinite(pageSize) || pageSize <= 0) {
-    return fallback;
-  }
-  return Math.min(max, Math.trunc(pageSize));
 }

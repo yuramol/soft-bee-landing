@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchArticles } from '@/lib/api/articles/client';
-import { ARTICLES_PAGE_SIZE_DESKTOP, type ArticlesListResponse, type FetchArticlesParams } from '@/lib/api/articles/types';
+import type { ArticlesListResponse, FetchArticlesParams } from '@/lib/api/articles/types';
 
 export interface UseArticlesQueryParams extends FetchArticlesParams {
   initialData?: ArticlesListResponse;
@@ -16,31 +16,17 @@ export function articlesQueryKey(params: FetchArticlesParams) {
     'articles',
     {
       category: params.category ?? '',
-      searchQuery: params.searchQuery ?? '',
-      page: params.page ?? 1,
-      pageSize: params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP
+      searchQuery: params.searchQuery ?? ''
     }
   ] as const;
 }
 
 function isSameArticlesParams(a: FetchArticlesParams, b: FetchArticlesParams): boolean {
-  return (
-    (a.category ?? '') === (b.category ?? '') &&
-    (a.searchQuery ?? '') === (b.searchQuery ?? '') &&
-    (a.page ?? 1) === (b.page ?? 1) &&
-    (a.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP) === (b.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP)
-  );
+  return (a.category ?? '') === (b.category ?? '') && (a.searchQuery ?? '') === (b.searchQuery ?? '');
 }
 
-export function useArticlesQuery({
-  category,
-  searchQuery = '',
-  page = 1,
-  pageSize = ARTICLES_PAGE_SIZE_DESKTOP,
-  initialData,
-  initialParams
-}: UseArticlesQueryParams) {
-  const params: FetchArticlesParams = { category, searchQuery, page, pageSize };
+export function useArticlesQuery({ category, searchQuery = '', initialData, initialParams }: UseArticlesQueryParams) {
+  const params: FetchArticlesParams = { category, searchQuery };
 
   const matchesInitialData = initialData !== undefined && initialParams !== undefined && isSameArticlesParams(params, initialParams);
 

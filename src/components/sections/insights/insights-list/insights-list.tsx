@@ -4,57 +4,37 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import type { InsightArticle } from './data';
 import { SearchInput } from '@/components/ui/search-input';
-import { CustomPagination } from '@/components/ui/custom-pagination';
 import { InsightCard, InsightsTabs, type TabItem } from './components';
 import { ComponentContainer } from '@/components/layout';
 import { Loader } from '@/components/ui/loader';
 import { useDebouncedValue } from '@/hooks/use-debounced-value';
-import { useWidth } from '@/hooks/use-width';
 import { useArticlesQuery } from '@/hooks/api/use-articles-query';
 import { isLegacyTabSlug, resolveTabSlug } from '@/lib/api/articles/tab-slug';
-import { ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MOBILE, type ArticlesListResponse } from '@/lib/api/articles/types';
+import type { ArticlesListResponse } from '@/lib/api/articles/types';
 
 const SEARCH_DEBOUNCE_MS = 300;
 
 interface InsightsListProps {
   initialInsights: InsightArticle[];
-  initialTotal: number;
-  initialPage: number;
-  initialPageSize: number;
   initialTab: string;
   initialSearchQuery: string;
   initialNewsUnavailable?: boolean;
   tabs: TabItem[];
 }
 
-export function InsightsList({
-  initialInsights,
-  initialTotal,
-  initialPage,
-  initialPageSize,
-  initialTab,
-  initialSearchQuery,
-  initialNewsUnavailable = false,
-  tabs
-}: InsightsListProps) {
+export function InsightsList({ initialInsights, initialTab, initialSearchQuery, initialNewsUnavailable = false, tabs }: InsightsListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLElement>(null);
   const skipSearchUrlCommitRef = useRef(false);
-  const { width, isMd } = useWidth();
 
   const rawTabId = searchParams.get('tab') || initialTab;
   const activeTabId = resolveTabSlug(rawTabId);
   const searchQuery = searchParams.get('q') ?? initialSearchQuery;
-  const pageFromUrl = Number.parseInt(searchParams.get('page') ?? '', 10);
-  const currentPage = Number.isFinite(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : initialPage;
 
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const debouncedSearchQuery = useDebouncedValue(localSearchQuery, SEARCH_DEBOUNCE_MS);
-
-  // Until the viewport is measured, keep the SSR page size to avoid a wrong mobile fetch on desktop.
-  const pageSize = width === 0 ? initialPageSize : isMd ? ARTICLES_PAGE_SIZE_DESKTOP : ARTICLES_PAGE_SIZE_MOBILE;
 
   const category = activeTabId === 'all' ? undefined : tabs.find((tab) => tab.id === activeTabId)?.label;
   const initialCategory = initialTab === 'all' ? undefined : tabs.find((tab) => tab.id === initialTab)?.label;
@@ -62,39 +42,27 @@ export function InsightsList({
   const initialData = useMemo<ArticlesListResponse>(
     () => ({
       articles: initialInsights,
-      total: initialTotal,
-      page: initialPage,
-      pageSize: initialPageSize,
-      totalPages: Math.ceil(initialTotal / initialPageSize) || 0,
       ...(initialNewsUnavailable ? { newsUnavailable: true } : {})
     }),
-    [initialInsights, initialTotal, initialPage, initialPageSize, initialNewsUnavailable]
+    [initialInsights, initialNewsUnavailable]
   );
 
   const initialParams = useMemo(
     () => ({
       category: initialCategory,
-      searchQuery: initialSearchQuery,
-      page: initialPage,
-      pageSize: initialPageSize
+      searchQuery: initialSearchQuery
     }),
-    [initialCategory, initialSearchQuery, initialPage, initialPageSize]
+    [initialCategory, initialSearchQuery]
   );
 
   const articlesQuery = useArticlesQuery({
     category,
     searchQuery,
-    page: currentPage,
-    pageSize,
     initialData,
     initialParams
   });
 
-  const queryArticles = articlesQuery.data?.articles ?? initialInsights;
-  // While pageSize is refetching after SSR, avoid flashing extra cards.
-  const paginatedInsights = articlesQuery.isFetching && queryArticles.length > pageSize ? queryArticles.slice(0, pageSize) : queryArticles;
-  // Recompute from total + current pageSize so placeholderData from a different pageSize cannot skew pagination.
-  const totalPages = Math.ceil((articlesQuery.data?.total ?? initialTotal) / pageSize);
+  const insights = articlesQuery.data?.articles ?? initialInsights;
   const isLoading = articlesQuery.isFetching;
   const hasQueryError = articlesQuery.isError;
   const isNewsUnavailable = articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
@@ -134,7 +102,6 @@ export function InsightsList({
     } else {
       params.delete('q');
     }
-    params.set('page', '1');
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, [debouncedSearchQuery, searchQuery, searchParams, pathname, router]);
 
@@ -158,17 +125,12 @@ export function InsightsList({
   }
 
   function handleTabClick(tabId: string) {
-    updateParams({ tab: tabId === 'all' ? null : tabId, page: '1' });
+    updateParams({ tab: tabId === 'all' ? null : tabId });
     scrollToTop();
   }
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setLocalSearchQuery(e.target.value);
-  }
-
-  function handlePageChange(page: number) {
-    updateParams({ page: page.toString() });
-    scrollToTop();
   }
 
   return (
@@ -196,10 +158,10 @@ export function InsightsList({
                   isLoading ? 'pointer-events-none opacity-50' : 'opacity-100'
                 }`}
               >
-                {paginatedInsights.map((article) => (
+                {insights.map((article) => (
                   <InsightCard key={article.id} article={article} />
                 ))}
-                {paginatedInsights.length === 0 && !isLoading && (
+                {insights.length === 0 && !isLoading && (
                   <div className='col-span-full py-12 text-center text-gray-500'>No articles found matching your criteria.</div>
                 )}
               </div>
@@ -212,14 +174,6 @@ export function InsightsList({
             </>
           )}
         </div>
-
-        {!hasQueryError && (
-          <div
-            className={`transition-opacity duration-300 ${isLoading ? 'pointer-events-none invisible opacity-0' : 'visible opacity-100'}`}
-          >
-            <CustomPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-          </div>
-        )}
       </ComponentContainer>
     </section>
   );
