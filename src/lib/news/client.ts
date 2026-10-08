@@ -124,10 +124,7 @@ function newsHeaders(apiKey: string): HeadersInit {
   };
 }
 
-async function fetchWithTimeout(
-  url: string,
-  init: RequestInit & { timeoutMs: number; revalidateSeconds?: number }
-): Promise<Response> {
+async function fetchWithTimeout(url: string, init: RequestInit & { timeoutMs: number; revalidateSeconds?: number }): Promise<Response> {
   const { timeoutMs, revalidateSeconds, ...requestInit } = init;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
@@ -136,9 +133,7 @@ async function fetchWithTimeout(
     return await fetch(url, {
       ...requestInit,
       signal: controller.signal,
-      ...(revalidateSeconds !== undefined
-        ? { next: { revalidate: revalidateSeconds } }
-        : { cache: 'no-store' as RequestCache })
+      ...(revalidateSeconds !== undefined ? { next: { revalidate: revalidateSeconds } } : { cache: 'no-store' as RequestCache })
     });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {

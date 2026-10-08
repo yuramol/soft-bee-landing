@@ -91,14 +91,13 @@ export function InsightsList({
   });
 
   const queryArticles = articlesQuery.data?.articles ?? initialInsights;
-  // While mobile pageSize (3) is refetching after SSR (6), avoid flashing all 6 cards.
+  // While pageSize is refetching after SSR, avoid flashing extra cards.
   const paginatedInsights = articlesQuery.isFetching && queryArticles.length > pageSize ? queryArticles.slice(0, pageSize) : queryArticles;
   // Recompute from total + current pageSize so placeholderData from a different pageSize cannot skew pagination.
   const totalPages = Math.ceil((articlesQuery.data?.total ?? initialTotal) / pageSize);
   const isLoading = articlesQuery.isFetching;
   const hasQueryError = articlesQuery.isError;
-  const isNewsUnavailable =
-    articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
+  const isNewsUnavailable = articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
 
   // canonicalize legacy ?tab=tech|team|company to current tag slugs
   useEffect(() => {
