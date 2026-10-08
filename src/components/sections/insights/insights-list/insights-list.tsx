@@ -97,8 +97,7 @@ export function InsightsList({
   const totalPages = Math.ceil((articlesQuery.data?.total ?? initialTotal) / pageSize);
   const isLoading = articlesQuery.isFetching;
   const hasQueryError = articlesQuery.isError;
-  const isNewsUnavailable =
-    articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
+  const isNewsUnavailable = articlesQuery.data !== undefined ? articlesQuery.data.newsUnavailable === true : initialNewsUnavailable;
 
   // canonicalize legacy ?tab=tech|team|company to current tag slugs
   useEffect(() => {
