@@ -4,7 +4,6 @@ import {
   AI_INSIGHTS_CATEGORY,
   NEWS_ARCHIVE_LIST_LIMIT,
   NEWS_DEFAULT_LANGUAGE,
-  NEWS_MERGE_DB_FETCH_LIMIT,
   NewsApiError,
   getNewsArticle,
   isNewsConfigured,
@@ -13,18 +12,11 @@ import {
   transformNewsCardToInsight
 } from '@/lib/news';
 
-import {
-  filterInsightsBySearch,
-  mergeRankedInsights,
-  paginateInsights,
-  publishedAtToMs,
-  clampArticlesPageSize,
-  type RankedInsight
-} from './merge';
+import { filterInsightsBySearch, mergeRankedInsights, publishedAtToMs, type RankedInsight } from './merge';
 import { queryArticlesList } from './query';
 import { transformArticleToInsight } from './transform';
 import type { ArticleRow, ArticlesListResponse, FetchArticlesParams, TagRow } from './types';
-import { ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX } from './types';
+import { INSIGHTS_DISPLAY_LIMIT } from './types';
 
 export type GetArticlesParams = FetchArticlesParams;
 
@@ -48,17 +40,17 @@ export async function getTags(): Promise<TagRow[]> {
 /**
  * Merged Insights feed (three tiers):
  * prioritized DB → Soft Bee News (Tech & Dev) → remaining DB, each by published date.
+ * Search queries all DB and API items, then returns the 3 latest matches.
  * Soft Bee News is read-only (service generates on its own); archive is cached ~1 day.
  */
 export async function getArticles(params: GetArticlesParams = {}): Promise<GetArticlesResult> {
-  const page = params.page ?? 1;
-  const pageSize = clampArticlesPageSize(params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_DESKTOP, ARTICLES_PAGE_SIZE_MAX);
   const { articles, newsUnavailable } = await getMergedInsights({
     category: params.category,
     searchQuery: params.searchQuery
   });
+
   return {
-    ...paginateInsights(articles, page, pageSize),
+    articles: articles.slice(0, INSIGHTS_DISPLAY_LIMIT),
     ...(newsUnavailable ? { newsUnavailable: true } : {})
   };
 }
@@ -126,6 +118,10 @@ interface AiNewsFetchResult {
   newsUnavailable: boolean;
 }
 
+/**
+ * Merge DB and AI articles, then apply search filter across ALL items.
+ * Search operates on the full merged set before limiting to INSIGHTS_DISPLAY_LIMIT.
+ */
 async function getMergedInsights(params: { category?: string; searchQuery?: string } = {}): Promise<MergedInsightsResult> {
   const searchQuery = params.searchQuery?.trim() ?? '';
   const category = params.category;
@@ -154,9 +150,7 @@ async function getMergedInsights(params: { category?: string; searchQuery?: stri
 async function fetchDbArticlesForMerge(category: string | undefined): Promise<ArticleRow[]> {
   const supabase = await createServerClient();
   const result = await queryArticlesList(supabase, {
-    category,
-    page: 1,
-    pageSize: NEWS_MERGE_DB_FETCH_LIMIT
+    category
   });
   return result.articles;
 }

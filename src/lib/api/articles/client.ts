@@ -1,19 +1,15 @@
 import { isJsonObject, readResponseJson, type JsonObject, type JsonValue } from '@/lib/security/json';
 
 import type { InsightArticle } from '@/components/sections/insights/insights-list/data';
-import { ARTICLES_PAGE_SIZE_DESKTOP, type ArticlesListResponse, type FetchArticlesParams } from './types';
+import type { ArticlesListResponse, FetchArticlesParams } from './types';
 
 /**
  * Client-side Insights list fetch via Next.js proxy (DB + Soft Bee News merge).
  * Keeps NEWS_API_KEY server-only.
+ * Always returns the 3 latest items for the requested tab/category.
  */
 export async function fetchArticles(params: FetchArticlesParams = {}): Promise<ArticlesListResponse> {
-  const page = params.page ?? 1;
-  const pageSize = params.pageSize ?? ARTICLES_PAGE_SIZE_DESKTOP;
-
   const searchParams = new URLSearchParams();
-  searchParams.set('page', String(page));
-  searchParams.set('pageSize', String(pageSize));
 
   if (params.category && params.category !== 'All') {
     searchParams.set('category', params.category);
@@ -53,18 +49,9 @@ function parseArticlesListResponse(value: JsonValue): ArticlesListResponse | nul
     if (article) articles.push(article);
   }
 
-  const total = readNumber(value, 'total');
-  const page = readNumber(value, 'page');
-  const pageSize = readNumber(value, 'pageSize');
-  const totalPages = readNumber(value, 'totalPages');
-
-  if (total === undefined || page === undefined || pageSize === undefined || totalPages === undefined) {
-    return null;
-  }
-
   const newsUnavailable = value.newsUnavailable === true ? true : undefined;
 
-  return { articles, total, page, pageSize, totalPages, ...(newsUnavailable ? { newsUnavailable } : {}) };
+  return { articles, ...(newsUnavailable ? { newsUnavailable } : {}) };
 }
 
 function parseInsightArticle(value: JsonValue): InsightArticle | null {
@@ -116,9 +103,4 @@ function readString(payload: JsonObject, key: string, options: { allowEmpty?: bo
     return undefined;
   }
   return value;
-}
-
-function readNumber(payload: JsonObject, key: string): number | undefined {
-  const value = payload[key];
-  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 }
