@@ -16,6 +16,8 @@ import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
+import Link from 'next/link';
+import { ROUTES } from '@/constants/routes';
 
 const discussProjectSchema = z
   .object({
@@ -221,9 +223,18 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
               {submitError} Please try again.
             </p>
           )}
-          <Button type='submit' variant='primary' disabled={isSubmitting}>
-            {isSubmitting ? 'Sending…' : submitError ? 'Try again' : 'Send'}
-          </Button>
+          <div className='flex flex-col gap-4'>
+            <Button type='submit' variant='primary' disabled={isSubmitting}>
+              {isSubmitting ? 'Sending…' : submitError ? 'Try again' : 'Send'}
+            </Button>
+            <p className='text-brand-black/50 text-center text-xs'>
+              We use the information you provide to respond to your enquiry. Learn more in our{' '}
+              <Link href={ROUTES.PRIVACY_POLICY} className='underline hover:no-underline' target='_blank' rel='noopener noreferrer'>
+                Privacy Policy
+              </Link>
+              .
+            </p>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
