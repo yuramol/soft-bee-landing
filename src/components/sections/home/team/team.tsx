@@ -3,7 +3,7 @@
 import 'swiper/css';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,12 +32,14 @@ export function Team({ hideCoFounders }: TeamProps) {
     : teamContent.members;
 
   // Swiper needs enough slides to loop smoothly, especially with overflow visible.
-  // We ensure there are at least 6 slides by repeating the array if necessary.
-  const MIN_SLIDES = 6;
+  // We ensure there are at least 24 slides by repeating the array if necessary to prevent premature snap back bugs at loop boundaries.
+  const MIN_SLIDES = 24;
   const repeatCount = baseMembers.length > 0 ? Math.max(1, Math.ceil(MIN_SLIDES / baseMembers.length)) : 1;
-  const displayMembers = Array.from({ length: repeatCount }).flatMap((_, iteration) =>
-    baseMembers.map((m) => ({ ...m, uniqueId: `${m.id}-${iteration}` }))
-  );
+  const displayMembers = useMemo(() => {
+    return Array.from({ length: repeatCount }).flatMap((_, iteration) =>
+      baseMembers.map((m) => ({ ...m, uniqueId: `${m.id}-${iteration}` }))
+    );
+  }, [baseMembers, repeatCount]);
 
   const activeMember = baseMembers[currentIndex % baseMembers.length];
 
@@ -110,7 +112,7 @@ export function Team({ hideCoFounders }: TeamProps) {
                   768: { spaceBetween: -120, slidesOffsetBefore: 0 },
                   1536: { spaceBetween: -180, slidesOffsetBefore: 0 }
                 }}
-                loopAdditionalSlides={4}
+                loopAdditionalSlides={8}
                 className='team-swiper h-full w-full overflow-visible!'
               >
                 {displayMembers.map((member) => (

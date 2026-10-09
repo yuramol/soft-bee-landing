@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
 import { submitContactForm } from '@/lib/api/contact';
+import Link from 'next/link';
+import { ROUTES } from '@/constants/routes';
 import content from '../partnership.json';
 
 const { form: f } = content;
@@ -276,10 +278,17 @@ export default function PartnershipForm() {
               </Typography>
             )}
 
-            <div className='pf-actions'>
+            <div className='pf-actions flex flex-col gap-4'>
               <Button variant='primary' type='submit' className='w-full' disabled={isSubmitting}>
                 {isSubmitting ? 'Sending...' : f.footer.submitButton}
               </Button>
+              <p className='text-foreground/50 text-center text-xs'>
+                We use the information you provide to respond to your enquiry. Learn more in our{' '}
+                <Link href={ROUTES.PRIVACY_POLICY} className='underline hover:no-underline' target='_blank' rel='noopener noreferrer'>
+                  Privacy Policy
+                </Link>
+                .
+              </p>
             </div>
           </>
         )}
