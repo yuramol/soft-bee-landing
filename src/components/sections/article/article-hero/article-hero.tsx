@@ -2,12 +2,12 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
-import Image from 'next/image';
 import { ComponentContainer } from '@/components/layout';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { CustomBreadcrumbs } from '@/components/ui/custom-breadcrumbs';
 import { TopicBadge } from '@/components/ui/topic-badge';
+import { LogoAvatar } from '@/components/ui/logo-avatar';
 import { ROUTES } from '@/constants';
 import articleHeroContent from './content.json';
 
@@ -34,12 +34,11 @@ interface ArticleHeroProps {
   title: string;
   authorName: string;
   authorRole: string;
-  authorImage: string;
   readTime: string;
   date: string;
 }
 
-export function ArticleHero({ topic, title, authorName, authorRole, authorImage, readTime, date }: ArticleHeroProps) {
+export function ArticleHero({ topic, title, authorName, authorRole, readTime, date }: ArticleHeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -86,13 +85,7 @@ export function ArticleHero({ topic, title, authorName, authorRole, authorImage,
           </Typography>
 
           <div className='flex items-center gap-5'>
-            <Image
-              src={authorImage}
-              width={63}
-              height={63}
-              className='h-15.75 w-15.75 shrink-0 rounded-full object-cover'
-              alt={authorName}
-            />
+            <LogoAvatar name={authorName} className='h-15.75 w-15.75 shrink-0' />
             <div className='flex flex-col gap-0.5 whitespace-nowrap'>
               <Typography variant='body2' className='text-foreground font-semibold lg:max-w-[25ch] lg:whitespace-break-spaces'>
                 {authorName}

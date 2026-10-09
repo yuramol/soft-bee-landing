@@ -15,6 +15,8 @@ import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import { ROUTES } from '@/constants/routes';
 
 const vacancyApplicationSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
@@ -228,13 +230,22 @@ export function VacancyDialog({
               </div>
               {submitError && <p className='text-destructive text-sm'>{submitError}</p>}
               {submitSuccess && <p className='text-sm text-emerald-700'>Thanks — your application was sent.</p>}
-              <div className='flex flex-wrap gap-3'>
-                <Button type='submit' variant='primary' disabled={isSubmitting}>
-                  {isSubmitting ? 'Sending…' : 'Send application'}
-                </Button>
-                <Button type='button' variant='white' disabled={isSubmitting} onClick={handleBackToRole}>
-                  Back to role
-                </Button>
+              <div className='flex flex-col gap-4'>
+                <div className='flex flex-wrap gap-3'>
+                  <Button type='submit' variant='primary' disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending…' : 'Send application'}
+                  </Button>
+                  <Button type='button' variant='white' disabled={isSubmitting} onClick={handleBackToRole}>
+                    Back to role
+                  </Button>
+                </div>
+                <p className='text-foreground/50 text-xs'>
+                  We use the information you provide to respond to your enquiry. Learn more in our{' '}
+                  <Link href={ROUTES.PRIVACY_POLICY} className='underline hover:no-underline' target='_blank' rel='noopener noreferrer'>
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
               </div>
             </form>
           ) : (
