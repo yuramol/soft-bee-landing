@@ -64,17 +64,17 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
       )}
 
       <ComponentContainer className='relative z-10 flex flex-col'>
+        <Typography variant='h1' className='pb-26.25 lg:pt-0 lg:pb-41.5'>
+          {title}
+        </Typography>
+
         {/* Mobile Header elements */}
-        <div className='flex w-full items-center justify-between pb-26.25 lg:hidden'>
+        <div className='flex w-full items-center justify-between gap-3 pb-6.25 lg:hidden'>
           <TopicBadge>{projectType}</TopicBadge>
           <Typography variant='body3' className='text-foreground/50 font-medium'>
             {year}
           </Typography>
         </div>
-
-        <Typography variant='h1' className='pb-6.25 lg:pt-0 lg:pb-41.5'>
-          {title}
-        </Typography>
 
         {/* Mobile tech tags */}
         <div className='flex flex-wrap gap-1.5 pb-9.25 lg:hidden'>

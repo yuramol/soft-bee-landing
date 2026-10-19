@@ -18,9 +18,10 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
 
+  const isCareers = pathname === ROUTES.CAREERS;
   const isPartnership = pathname === ROUTES.PARTNERSHIP;
   const isLegalPage = pathname === ROUTES.PRIVACY_POLICY || pathname === ROUTES.TERMS_OF_USE;
-  const hideTopSection = isPartnership || isLegalPage;
+  const hideTopSection = isPartnership || isLegalPage || isCareers;
 
   return (
     <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
@@ -28,9 +29,9 @@ export const Footer = () => {
 
       <div
         className={cn('relative z-10 w-full pb-17 transition-all duration-500 md:pb-22', {
-          'pt-0': isPartnership,
+          'pt-0': isPartnership || isCareers,
           'pt-20 md:pt-20': isLegalPage,
-          'pt-31.25 md:pt-80': !isPartnership && !isLegalPage
+          'pt-31.25 md:pt-80': !isPartnership && !isLegalPage && !isCareers
         })}
       >
         <ComponentContainer>

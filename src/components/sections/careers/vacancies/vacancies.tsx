@@ -7,7 +7,7 @@ export const Vacancies = () => {
   const vacancies = homeCareersContent.cards;
 
   return (
-    <section className='relative z-10 pb-15 lg:pb-30'>
+    <section className='relative z-10'>
       <ComponentContainer>
         <div className='w-full rounded-lg bg-white p-4 md:rounded-2xl md:p-10.5'>
           {vacancies.length > 0 ? (
