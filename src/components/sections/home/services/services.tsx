@@ -66,7 +66,7 @@ export const Services = () => {
 
   return (
     <section ref={targetRef} className='relative w-full md:h-[400vh]'>
-      <div className='z-10 w-full px-4 pt-15 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100dvh-10px)] md:max-h-225 md:flex-col md:justify-between md:px-10.5 xl:max-h-250 xl:pt-30 xl:pb-15'>
+      <div className='z-10 w-full px-4 pt-15 pb-10 md:sticky md:top-2.5 md:flex md:h-[calc(100dvh-10px)] md:max-h-225 md:flex-col md:justify-between md:px-10.5 xl:max-h-250 xl:pb-15'>
         <div className='mb-12 md:mb-0'>
           <Badge title={servicesContent.badge} className='bg-muted/50 mb-7.5 w-fit md:mb-10' />
 

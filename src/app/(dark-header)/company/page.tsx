@@ -7,7 +7,7 @@ import { AboutUs, Careers } from '@/components/sections/home';
 export const metadata: Metadata = {
   title: 'Company | Soft Bee',
   description:
-    "A 27-person engineering team working as your product's core since 2019. We own architecture and delivery — no endless specs, no micromanagement required."
+    'A 27-person engineering team working as your product’s core since 2019. We own architecture and delivery — no endless specs, no micromanagement required.'
 };
 
 const Founders = nextDynamic(() => import('@/components/sections/about/founders').then((module) => module.Founders));

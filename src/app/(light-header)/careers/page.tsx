@@ -19,7 +19,7 @@ export default function CareersPage() {
     <>
       <Hero
         titleSegments={[{ text: 'Shape the Next Generation of "Soft" Tech' }]}
-        description="Explore our open roles, bring your unique skills, and let's build impactful digital products together."
+        description='Explore our open roles, bring your unique skills, and let’s build impactful digital products together.'
       />
       <Benefits />
       <Vacancies />
