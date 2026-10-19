@@ -27,7 +27,7 @@ export const Footer = () => {
       {!hideTopSection && <FooterAnimatedBackground className='-top-82.5 h-312.5' />}
 
       <div
-        className={cn('relative z-10 w-full pb-17 transition-all duration-500 md:pb-10', {
+        className={cn('relative z-10 w-full pb-17 transition-all duration-500 md:pb-22', {
           'pt-0': isPartnership,
           'pt-20 md:pt-20': isLegalPage,
           'pt-31.25 md:pt-80': !isPartnership && !isLegalPage
@@ -36,7 +36,7 @@ export const Footer = () => {
         <ComponentContainer>
           {!hideTopSection && (
             <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
-              <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
+              <Typography variant='h1' className='text-foreground text-center tracking-[-0.58px]'>
                 {footerContent.title.map((line, index) => (
                   <span key={line}>
                     {index > 0 ? <br /> : null}
