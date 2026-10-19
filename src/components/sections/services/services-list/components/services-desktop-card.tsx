@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { ComponentContainer } from '@/components/layout';
+import { DiscussProjectButton } from '@/components/discuss-project-button';
 
 import { DeferredImage } from './deferred-image';
 import type { Service } from '../types';
@@ -13,6 +14,7 @@ interface DesktopCardProps {
   service: Service;
   index: number;
   allServices: Service[];
+  ctaText: string;
 }
 
 const PROJECT_IMAGE_SIZES = '28rem';
@@ -28,7 +30,7 @@ function scrollToService(id: string) {
   }
 }
 
-export function ServicesDesktopCard({ service, index, allServices }: DesktopCardProps) {
+export function ServicesDesktopCard({ service, index, allServices, ctaText }: DesktopCardProps) {
   const projectClassName = cn(
     'group absolute top-10.5 flex flex-col',
     service.project.images.length > 1 ? 'left-1/2' : 'right-10.5 w-111.75'
@@ -103,10 +105,11 @@ export function ServicesDesktopCard({ service, index, allServices }: DesktopCard
             <div className={projectClassName}>{projectContent}</div>
           )}
 
-          <div className='absolute bottom-14.5 left-10.5 xl:bottom-29'>
+          <div className='absolute bottom-10.75 left-10.5 flex flex-col items-start gap-6 xl:bottom-21.5'>
             <Typography variant='h2' className={cn('max-w-116.25', service.textClass)}>
               {service.title}
             </Typography>
+            <DiscussProjectButton variant='white' text={ctaText} />
           </div>
 
           <div className='absolute bottom-10.75 left-1/2 xl:bottom-21.5'>
