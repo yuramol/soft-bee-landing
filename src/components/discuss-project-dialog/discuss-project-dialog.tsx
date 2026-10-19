@@ -67,6 +67,8 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     }
   });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isPaperclipHovered, setIsPaperclipHovered] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -224,7 +226,7 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
             </p>
           )}
           <div className='flex flex-col gap-4'>
-            <Button type='submit' variant='primary' disabled={isSubmitting}>
+            <Button type='submit' variant='primary' disabled={isSubmitting || hasErrors}>
               {isSubmitting ? 'Sending…' : submitError ? 'Try again' : 'Send'}
             </Button>
             <p className='text-brand-black/50 text-center text-xs'>

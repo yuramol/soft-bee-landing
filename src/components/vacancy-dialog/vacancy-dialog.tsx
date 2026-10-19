@@ -72,6 +72,8 @@ export function VacancyDialog({
     }
   });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   const file = useWatch({ control, name: 'file' });
 
   function handleOpenChange(nextOpen: boolean) {
@@ -232,7 +234,7 @@ export function VacancyDialog({
               {submitSuccess && <p className='text-sm text-emerald-700'>Thanks — your application was sent.</p>}
               <div className='flex flex-col gap-4'>
                 <div className='flex flex-wrap gap-3'>
-                  <Button type='submit' variant='primary' disabled={isSubmitting}>
+                  <Button type='submit' variant='primary' disabled={isSubmitting || hasErrors}>
                     {isSubmitting ? 'Sending…' : 'Send application'}
                   </Button>
                   <Button type='button' variant='white' disabled={isSubmitting} onClick={handleBackToRole}>

@@ -55,6 +55,8 @@ export default function PartnershipForm() {
     }
   });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   useEffect(() => {
     if (isComplete) successHeadingRef.current?.focus();
   }, [isComplete]);
@@ -266,7 +268,7 @@ export default function PartnershipForm() {
               </div>
             </div>
 
-            {Object.keys(errors).length > 0 && (
+            {hasErrors && (
               <Typography variant='caption2' className='pf-errorSummary' role='alert' tag='p'>
                 {f.footer.errorSummary}
               </Typography>
@@ -279,7 +281,7 @@ export default function PartnershipForm() {
             )}
 
             <div className='pf-actions flex flex-col gap-4'>
-              <Button variant='primary' type='submit' className='w-full' disabled={isSubmitting}>
+              <Button variant='primary' type='submit' className='w-full' disabled={isSubmitting || hasErrors}>
                 {isSubmitting ? 'Sending...' : f.footer.submitButton}
               </Button>
               <p className='text-foreground/50 text-center text-xs'>
