@@ -99,7 +99,7 @@ export function ServicesDesktopCard({ service, index, allServices, ctaText }: De
             <Typography variant='h2' className={cn('max-w-116.25', service.textClass)}>
               {service.title}
             </Typography>
-            <DiscussProjectButton variant='white' text={ctaText} />
+            <DiscussProjectButton className='w-75' variant='white' text={ctaText} />
           </div>
 
           <div className='absolute bottom-10.75 left-1/2 xl:bottom-21.5'>

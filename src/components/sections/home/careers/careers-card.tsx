@@ -36,26 +36,26 @@ export function CareersCard({ badge, title, description, roleDescription }: Care
       <button
         type='button'
         onClick={handleOpen}
-        className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:p-8'
+        className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col gap-6 overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:gap-10 md:p-8'
       >
         <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
-        <div className='absolute top-8 right-8 z-10'>
-          <Button variant='icon' size='icon-md' className='pointer-events-none rounded-full' asChild>
+        <div className='relative z-10 flex w-full items-start justify-between gap-4'>
+          <div className='bg-foreground-secondary/4 w-fit rounded-sm px-3.5 py-[12.5px]'>
+            <Typography variant='h6' className='font-medium md:font-normal'>
+              {badge}
+            </Typography>
+          </div>
+
+          <Button variant='icon' size='icon-md' className='pointer-events-none shrink-0 rounded-full' asChild>
             <span>
               <Icon icon='ArrowUpRight' width={23} height={23} />
             </span>
           </Button>
         </div>
 
-        <div className='bg-foreground-secondary/4 relative z-10 w-fit rounded-sm px-3.5 py-[12.5px]'>
-          <Typography variant='h6' className='font-medium md:font-normal'>
-            {badge}
-          </Typography>
-        </div>
-
         <div className='relative z-10 space-y-4.25'>
-          <Typography variant='h4' className='text-[24px] leading-[1.24] font-medium'>
+          <Typography variant='h4' className='text-[24px] leading-[1.24] font-medium md:min-h-15'>
             {title}
           </Typography>
           <Typography variant='body3' className='text-foreground-secondary'>
