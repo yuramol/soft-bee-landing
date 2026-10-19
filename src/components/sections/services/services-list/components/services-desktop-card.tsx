@@ -17,7 +17,7 @@ interface DesktopCardProps {
   ctaText: string;
 }
 
-const PROJECT_IMAGE_SIZES = '28rem';
+const PROJECT_IMAGE_SIZES = '(max-width: 1279px) 20rem, 28rem';
 
 function scrollToService(id: string) {
   const anchor = document.getElementById(`service-anchor-${id}`);
@@ -31,34 +31,24 @@ function scrollToService(id: string) {
 }
 
 export function ServicesDesktopCard({ service, index, allServices, ctaText }: DesktopCardProps) {
-  const projectClassName = cn(
-    'group absolute top-10.5 flex flex-col',
-    service.project.images.length > 1 ? 'left-1/2' : 'right-10.5 w-111.75'
-  );
+  const projectClassName = 'group absolute top-10.5 right-10.5 flex flex-col items-start';
 
   const projectContent = (
     <>
-      <div
-        className={cn(
-          'overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-          service.project.images.length > 1 ? 'w-[50vw]' : 'w-auto'
-        )}
-      >
-        <div className={cn('flex gap-2', service.project.images.length > 1 ? 'w-max pr-10.5' : 'w-full')}>
-          {service.project.images.map((imgSrc, idx) => (
-            <div key={idx} className='relative h-93.75 w-111.75 shrink-0 overflow-hidden rounded-2xl'>
-              <DeferredImage
-                src={imgSrc}
-                alt={service.project.title}
-                sizes={PROJECT_IMAGE_SIZES}
-                className='object-cover transition-transform duration-500 group-hover:scale-105'
-              />
-            </div>
-          ))}
-        </div>
+      <div className='flex gap-2'>
+        {service.project.images.map((imgSrc, idx) => (
+          <div key={idx} className='relative h-65 w-78 shrink-0 overflow-hidden rounded-xl xl:h-93.75 xl:w-111.75 xl:rounded-2xl'>
+            <DeferredImage
+              src={imgSrc}
+              alt={service.project.title}
+              sizes={PROJECT_IMAGE_SIZES}
+              className='object-cover transition-transform duration-500 group-hover:scale-105'
+            />
+          </div>
+        ))}
       </div>
 
-      <div className='mt-3.5 w-111.75'>
+      <div className='mt-3.5'>
         <Typography variant='body1' className={cn('font-medium', service.textClass)}>
           {service.project.title}
         </Typography>
