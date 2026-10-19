@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import dialogContent from './content.json';
 
 const vacancyApplicationSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
@@ -129,7 +130,7 @@ export function VacancyDialog({
       reset();
       setSubmitSuccess(true);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to send application.';
+      const message = error instanceof Error ? error.message : dialogContent.feedback.defaultError;
       setSubmitError(message);
     }
   }
@@ -168,7 +169,7 @@ export function VacancyDialog({
 
             {!showApplyForm && (
               <Button type='button' variant='primary' className='w-42.75' onClick={handleApplyClick}>
-                Apply now
+                {dialogContent.applyNow}
               </Button>
             )}
           </div>
@@ -180,13 +181,18 @@ export function VacancyDialog({
           {showApplyForm ? (
             <form onSubmit={handleFormSubmit} className='flex max-w-183.75 flex-col gap-5 pb-4'>
               <Typography variant='h4' className='text-foreground text-[24px] font-medium'>
-                Apply for {title}
+                {dialogContent.applyFor} {title}
               </Typography>
               <div className='flex flex-col gap-3'>
                 <div className='flex flex-col gap-3 md:flex-row md:gap-2'>
-                  <Input placeholder='Full name' {...register('fullName')} error={errors.fullName?.message} disabled={isSubmitting} />
                   <Input
-                    placeholder='Your email'
+                    placeholder={dialogContent.fields.fullName.placeholder}
+                    {...register('fullName')}
+                    error={errors.fullName?.message}
+                    disabled={isSubmitting}
+                  />
+                  <Input
+                    placeholder={dialogContent.fields.email.placeholder}
                     type='email'
                     {...register('email')}
                     error={errors.email?.message}
@@ -203,7 +209,7 @@ export function VacancyDialog({
                 />
                 <div className='flex w-full flex-col gap-1'>
                   <textarea
-                    placeholder='Short note / cover letter'
+                    placeholder={dialogContent.fields.message.placeholder}
                     {...register('message')}
                     disabled={isSubmitting}
                     className={cn(
@@ -214,7 +220,7 @@ export function VacancyDialog({
                 </div>
                 <input type='file' className='hidden' accept={CONTACT_FILE_ACCEPT} ref={fileInputRef} onChange={handleFileChange} />
                 <Button type='button' variant='white' className='w-fit' onClick={handleFileClick} disabled={isSubmitting}>
-                  Attach CV (PDF, DOC, DOCX)
+                  {dialogContent.attachCv}
                 </Button>
                 <AnimatePresence>
                   {file && (
@@ -231,20 +237,20 @@ export function VacancyDialog({
                 </AnimatePresence>
               </div>
               {submitError && <p className='text-destructive text-sm'>{submitError}</p>}
-              {submitSuccess && <p className='text-sm text-emerald-700'>Thanks — your application was sent.</p>}
+              {submitSuccess && <p className='text-sm text-emerald-700'>{dialogContent.feedback.success}</p>}
               <div className='flex flex-col gap-4'>
                 <div className='flex flex-wrap gap-3'>
                   <Button type='submit' variant='primary' disabled={isSubmitting || hasErrors}>
-                    {isSubmitting ? 'Sending…' : 'Send application'}
+                    {isSubmitting ? dialogContent.buttons.submitting : dialogContent.buttons.submit}
                   </Button>
                   <Button type='button' variant='white' disabled={isSubmitting} onClick={handleBackToRole}>
-                    Back to role
+                    {dialogContent.backToRole}
                   </Button>
                 </div>
                 <p className='text-foreground/50 text-xs'>
-                  We use the information you provide to respond to your enquiry. Learn more in our{' '}
+                  {dialogContent.privacy.prefix}
                   <Link href={ROUTES.PRIVACY_POLICY} className='underline hover:no-underline' target='_blank' rel='noopener noreferrer'>
-                    Privacy Policy
+                    {dialogContent.privacy.link}
                   </Link>
                   .
                 </p>
@@ -254,7 +260,7 @@ export function VacancyDialog({
             <>
               <div className='flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-8'>
                 <Typography variant='h4' className='text-foreground max-w-42.25 text-[24px] font-medium'>
-                  The role
+                  {dialogContent.roleHeading}
                 </Typography>
                 <Typography variant='h4' className='text-foreground/50 max-w-183.75 whitespace-pre-line'>
                   {roleDescription}

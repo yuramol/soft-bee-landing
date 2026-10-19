@@ -1,0 +1,31 @@
+{
+  "badge": "Benefits & Perks",
+  "title": "Life at Soft Bee: Why you’ll love it here",
+  "benefits": [
+    {
+      "title": "Flexible & Remote-First Work",
+      "description": "Choose where and when you work best. We trust our team to manage their own time, offering flexible hours and fully remote options to support your ideal work-life balance.",
+      "type": "cyan",
+      "layout": "bottom"
+    },
+    {
+      "title": "Flexible & Remote-First Work",
+      "description": "Choose where and when you work best. We trust our team to manage their own time, offering flexible hours and fully remote options to support your ideal work-life balance.",
+      "type": "white",
+      "layout": "split"
+    },
+    {
+      "title": "Continuous Growth & Learning",
+      "description": "Choose where and when you work best. We trust our team to manage their own time, offering flexible hours and fully remote options to support your ideal work-life balance.",
+      "type": "image",
+      "image": "/images/careers/careers-team.webp",
+      "layout": "bottom"
+    },
+    {
+      "title": "Flexible & Remote-First Work",
+      "description": "Choose where and when you work best. We trust our team to manage their own time, offering flexible hours and fully remote options to support your ideal work-life balance.",
+      "type": "lime",
+      "layout": "top"
+    }
+  ]
+}

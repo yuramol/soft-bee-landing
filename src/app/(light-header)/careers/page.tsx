@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
 
 import { Hero } from '@/components/sections/home/hero';
+import careersContent from '@/components/sections/careers/content.json';
 
 export const metadata: Metadata = {
   title: 'Careers | Soft Bee',
@@ -17,10 +18,7 @@ export const dynamic = 'force-static';
 export default function CareersPage() {
   return (
     <>
-      <Hero
-        titleSegments={[{ text: 'Shape the Next Generation of "Soft" Tech' }]}
-        description='Explore our open roles, bring your unique skills, and let’s build impactful digital products together.'
-      />
+      <Hero titleSegments={careersContent.hero.titleSegments} description={careersContent.hero.description} />
       <Benefits />
       <Vacancies />
     </>

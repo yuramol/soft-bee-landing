@@ -4,6 +4,7 @@ import { ComponentContainer } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { BenefitCard } from './components';
+import content from './content.json';
 import { BENEFITS } from './data';
 
 const BenefitsMobile = nextDynamic(() => import('./benefits-mobile').then((module) => module.BenefitsMobile));
@@ -14,9 +15,9 @@ export function Benefits() {
       <ComponentContainer>
         <div className='hidden md:flex md:flex-col md:px-10 md:pt-30 md:pb-30'>
           <div className='mb-18.25'>
-            <Badge title='Benefits & Perks' className='mb-10 w-fit' />
+            <Badge title={content.badge} className='mb-10 w-fit' />
             <Typography variant='h2' className='text-foreground'>
-              Life at Soft Bee: Why You&apos;ll Love It Here
+              {content.title}
             </Typography>
           </div>
 
