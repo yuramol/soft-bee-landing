@@ -9,7 +9,7 @@ interface ArticleBlocksProps {
 
 export const ArticleBlocks = ({ content }: ArticleBlocksProps) => {
   return (
-    <div className='flex flex-col gap-14 md:gap-20 lg:gap-32'>
+    <div className='flex flex-col gap-14 md:gap-18'>
       {content.map((block) => (
         <div key={block.id} id={block.id} className='scroll-mt-32'>
           {block.type === 'text' && <BlockText block={block} />}
