@@ -12,7 +12,7 @@ export function Benefits() {
   return (
     <section className='bg-muted w-full overflow-x-hidden md:overflow-visible md:bg-transparent'>
       <ComponentContainer>
-        <div className='hidden md:flex md:flex-col md:px-10 md:pt-34.75 md:pb-41.25'>
+        <div className='hidden md:flex md:flex-col md:px-10 md:pt-30 md:pb-30'>
           <div className='mb-18.25'>
             <Badge title='Benefits & Perks' className='mb-10 w-fit' />
             <Typography variant='h2' className='text-foreground'>

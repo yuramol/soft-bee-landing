@@ -89,7 +89,7 @@ export const Testimonials = ({ cards = testimonialsContent.cards }: Testimonials
           >
             <div
               className={cn(
-                'z-10 w-full px-4 pt-18.25 md:flex md:flex-col md:px-10.5 md:pb-10 xl:pt-28.75',
+                'z-10 w-full px-4 pt-15 md:flex md:flex-col md:px-10.5 md:pb-10 xl:pt-30',
                 hasScroll ? 'md:sticky md:top-2.5 md:h-[calc(100dvh-10px)] md:max-h-225 md:justify-between xl:max-h-250' : 'md:gap-75'
               )}
             >

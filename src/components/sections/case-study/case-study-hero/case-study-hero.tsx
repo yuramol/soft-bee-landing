@@ -52,7 +52,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
       onPointerEnter={canRenderMedusae ? () => setIsHovering(true) : undefined}
       onPointerLeave={canRenderMedusae ? () => setIsHovering(false) : undefined}
       className={cn(
-        'bg-background relative mb-2.5 flex w-full flex-col justify-end overflow-hidden rounded-2xl px-4 pt-30 pb-8 lg:min-h-175 lg:px-10.5 lg:pt-63.75'
+        'bg-background relative mb-15 flex w-full flex-col justify-end overflow-hidden rounded-2xl px-4 pt-20 pb-8 lg:mb-30 lg:min-h-175 lg:px-10.5 lg:pt-30 lg:pb-15'
       )}
     >
       {canRenderMedusae && (

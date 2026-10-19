@@ -18,7 +18,7 @@ export function BenefitsMobile() {
   useSwiperPeekAnimation(swiperInstance, BREAKPOINTS.LG);
 
   return (
-    <div className='flex flex-col pt-25.25 pb-25 md:hidden'>
+    <div className='flex flex-col pt-15 pb-15 md:hidden'>
       <div className='mb-10 px-2.75'>
         <Badge title='Benefits & Perks' className='mb-7.5 w-fit' />
         <Typography variant='h2' className='text-foreground leading-tight'>

@@ -24,10 +24,10 @@ export const Founders = () => {
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className='relative z-20 mb-30.5 md:mb-21'>
+    <section className='relative z-20 mb-15 lg:mb-30'>
       <ComponentContainer>
         <div className='w-full overflow-hidden rounded-lg bg-white md:rounded-2xl'>
-          <div className='z-10 w-full px-4 pt-18.25 md:px-10.5 xl:pt-31.5'>
+          <div className='z-10 w-full px-4 pt-15 md:px-10.5 xl:pt-30'>
             <div className='mb-15.5 flex flex-col items-center text-center xl:mb-20'>
               <Badge title='Founders' className='mb-7.5 w-fit lg:mb-10' />
 

@@ -22,7 +22,7 @@ export default function AboutPage() {
       <AboutUs />
       <Founders />
       <Team hideCoFounders />
-      <Careers className='z-10 -mb-10 bg-transparent md:-mb-10' />
+      <Careers className='z-10 bg-transparent' />
     </>
   );
 }

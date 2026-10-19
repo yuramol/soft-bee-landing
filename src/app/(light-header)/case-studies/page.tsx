@@ -18,7 +18,7 @@ export default function CaseStudiesPage() {
   return (
     <>
       <CaseStudies caseStudies={getCaseStudyListings()} />
-      <SmartEstimation hideAnimatedBackground className='z-10 -mb-10 md:-mb-80 lg:-mb-40' />
+      <SmartEstimation hideAnimatedBackground className='z-10' />
     </>
   );
 }

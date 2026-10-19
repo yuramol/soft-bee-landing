@@ -75,7 +75,7 @@ export const Careers = ({ className }: CareersProps) => {
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className={cn('cv-auto bg-muted relative z-20', className)}>
+    <section className={cn('cv-auto bg-muted relative z-20 rounded-lg md:rounded-2xl', className)}>
       <ComponentContainer>
         <div className='w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
           <div ref={targetRef} className={cn('relative w-full', hasMultipleCards ? 'md:h-[400vh]' : 'md:h-auto')}>

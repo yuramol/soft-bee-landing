@@ -14,7 +14,7 @@ export const ArticleContent = ({ content }: ArticleContentProps) => {
   const headings = content.filter((block) => block.heading).map((block) => ({ id: block.id, title: block.shortHeading || block.heading! }));
 
   return (
-    <section className='relative w-full px-4 pt-10 pb-20 md:px-10.5 lg:pt-30 lg:pb-40'>
+    <section className='relative w-full px-4 pt-15 pb-15 md:px-10.5 lg:pt-30 lg:pb-30'>
       <ComponentContainer>
         <div className='flex flex-col gap-16 lg:flex-row lg:justify-between lg:gap-0'>
           <div className='flex w-full shrink-0 flex-col lg:w-[25%] lg:max-w-88.5'>

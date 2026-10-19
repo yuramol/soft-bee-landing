@@ -54,7 +54,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className='relative z-10 w-full pt-30 pb-24 md:pt-50 md:pb-0 2xl:pt-80'>
+    <section className='relative z-10 w-full pt-15 pb-15 lg:pt-30 lg:pb-30'>
       <ComponentContainer className='md:hidden'>
         <Swiper slidesPerView='auto' spaceBetween={10} loop={true} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
           {cases.map((c) => (

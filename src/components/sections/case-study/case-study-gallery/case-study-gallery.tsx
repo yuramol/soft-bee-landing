@@ -10,7 +10,7 @@ export const CaseStudyGallery = ({ images }: CaseStudyGalleryProps) => {
   if (!images || images.length !== 3) return null;
 
   return (
-    <section className='pb-20 xl:pb-32'>
+    <section className='pb-15 lg:pb-30'>
       <ComponentContainer>
         <div className='flex flex-col gap-2.5 xl:gap-8.75'>
           <div className='w-full'>
