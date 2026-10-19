@@ -46,7 +46,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
   );
 
   function handleCardClick(id: string) {
-    router.push(`/case-studies/${id}`);
+    router.push(`${ROUTES.CASE_STUDIES}/${id}`);
   }
 
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
@@ -59,7 +59,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
         <Swiper slidesPerView='auto' spaceBetween={10} loop={true} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
           {cases.map((c) => (
             <SwiperSlide key={c.id} className='w-[calc(100vw-32px)]! cursor-pointer'>
-              <Link href={`/${ROUTES.CASE_STUDIES}/${c.id}`} className='group flex w-full flex-col pl-4'>
+              <Link href={`${ROUTES.CASE_STUDIES}/${c.id}`} className='group flex w-full flex-col pl-4'>
                 <div className='mb-6.5 flex flex-col gap-3 px-1'>
                   <Typography
                     variant='h1'
