@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import { trackDiscussProjectSubmit } from '@/lib/analytics';
 import dialogContent from './content.json';
 
 const discussProjectSchema = z
@@ -110,6 +111,7 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
         captchaToken,
         website: data.website ?? ''
       });
+      trackDiscussProjectSubmit();
       reset();
       onOpenChange?.(false);
       toast.success(dialogContent.feedback.successTitle, {

@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import { trackVacancySubmit } from '@/lib/analytics';
 import dialogContent from './content.json';
 
 const vacancyApplicationSchema = z.object({
@@ -127,6 +128,7 @@ export function VacancyDialog({
         captchaToken,
         website: data.website ?? ''
       });
+      trackVacancySubmit(title);
       reset();
       setSubmitSuccess(true);
     } catch (error) {

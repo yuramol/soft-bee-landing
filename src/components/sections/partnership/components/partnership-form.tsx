@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
 import { submitContactForm } from '@/lib/api/contact';
+import { trackPartnershipSubmit } from '@/lib/analytics';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
 import content from '../partnership.json';
@@ -84,6 +85,7 @@ export default function PartnershipForm() {
         captchaToken
       });
 
+      trackPartnershipSubmit(data.partnershipType);
       setIsComplete(true);
     } catch (error) {
       console.error('Failed to submit partnership form:', error);

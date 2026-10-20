@@ -3,6 +3,8 @@ import './globals.css';
 
 import localFont from 'next/font/local';
 
+import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { CookieConsentBanner } from '@/components/cookie-consent/cookie-consent-banner';
 import { Footer, MainLayout } from '@/components/layout';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
@@ -50,10 +52,12 @@ export default function RootLayout({
   return (
     <html lang='en' className={cn('h-full antialiased', 'font-sans', fixel.variable)}>
       <body className='flex min-h-screen flex-col'>
+        <GoogleAnalytics />
         <Providers>
           <MainLayout>{children}</MainLayout>
           <Footer />
           <ScrollToTop />
+          <CookieConsentBanner />
           <Toaster />
         </Providers>
       </body>
