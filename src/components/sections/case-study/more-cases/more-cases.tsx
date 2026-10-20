@@ -63,6 +63,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
                 <div className='mb-6.5 flex flex-col gap-3 px-1'>
                   <Typography
                     variant='h1'
+                    tag='h3'
                     className='text-foreground group-hover:text-primary text-[40px] leading-tight font-normal transition-colors'
                   >
                     {c.title}

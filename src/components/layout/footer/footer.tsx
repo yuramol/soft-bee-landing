@@ -37,7 +37,7 @@ export const Footer = () => {
         <ComponentContainer>
           {!hideTopSection && (
             <div className='footer-top-section mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
-              <Typography variant='h1' className='text-foreground text-center tracking-[-0.58px]'>
+              <Typography variant='h1' tag='h2' className='text-foreground text-center tracking-[-0.58px]'>
                 {footerContent.title.map((line, index) => (
                   <span key={line}>
                     {index > 0 ? <br /> : null}
