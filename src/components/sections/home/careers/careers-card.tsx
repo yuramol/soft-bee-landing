@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
 
 const VacancyDialog = nextDynamic(() => import('@/components/vacancy-dialog').then((module) => module.VacancyDialog), {
   ssr: false
@@ -16,9 +17,10 @@ interface CareersCardProps {
   title: string;
   description: string;
   roleDescription: string;
+  className?: string;
 }
 
-export function CareersCard({ badge, title, description, roleDescription }: CareersCardProps) {
+export function CareersCard({ badge, title, description, roleDescription, className }: CareersCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogLoaded, setIsDialogLoaded] = useState(false);
 
@@ -36,7 +38,10 @@ export function CareersCard({ badge, title, description, roleDescription }: Care
       <button
         type='button'
         onClick={handleOpen}
-        className='group bg-muted relative flex h-auto min-h-93.75 w-full shrink-0 cursor-pointer flex-col gap-6 overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:gap-10 md:p-8'
+        className={cn(
+          'group bg-muted relative flex h-full min-h-93.75 w-full flex-1 shrink-0 cursor-pointer flex-col gap-6 overflow-hidden rounded-lg p-4 text-left md:max-w-100 md:min-w-112.75 md:gap-10 md:p-8',
+          className
+        )}
       >
         <div className='card-hover-gradient pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
