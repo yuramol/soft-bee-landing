@@ -107,18 +107,19 @@ export const Careers = ({ className }: CareersProps) => {
                     <motion.div
                       ref={carouselRef}
                       className={cn(
-                        'hidden snap-x snap-mandatory gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0',
+                        'hidden snap-x snap-mandatory items-stretch gap-2.5 overflow-x-auto pr-4 pb-4 will-change-transform md:flex md:snap-none md:overflow-visible md:pr-10.5 md:pb-0',
                         !hasMultipleCards && 'w-full md:justify-end'
                       )}
                       style={{ x: hasMultipleCards ? translateX : 0 }}
                     >
                       {CAREERS_CARDS.map((card) => (
-                        <div key={card.id} className='snap-start'>
+                        <div key={card.id} className='flex shrink-0 snap-start flex-col self-stretch'>
                           <CareersCard
                             badge={card.badge}
                             title={card.title}
                             description={card.description}
                             roleDescription={card.vacancyDetails.roleDescription}
+                            className='h-full flex-1'
                           />
                         </div>
                       ))}
@@ -133,12 +134,13 @@ export const Careers = ({ className }: CareersProps) => {
                         onSwiper={setSwiperInstance}
                       >
                         {CAREERS_CARDS.map((card) => (
-                          <SwiperSlide key={`mobile-${card.id}`} className='w-full!'>
+                          <SwiperSlide key={`mobile-${card.id}`} className='flex! h-auto! w-full!'>
                             <CareersCard
                               badge={card.badge}
                               title={card.title}
                               description={card.description}
                               roleDescription={card.vacancyDetails.roleDescription}
+                              className='h-full flex-1'
                             />
                           </SwiperSlide>
                         ))}
