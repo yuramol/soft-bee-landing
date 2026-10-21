@@ -63,7 +63,7 @@ export function DesktopCard({ c, index, isDesktopPointer, onClick }: DesktopCard
         </div>
 
         <div className='pointer-events-none absolute right-16 bottom-16 flex items-baseline gap-6'>
-          <Typography variant='h1' className='text-[96px] leading-none font-normal text-black'>
+          <Typography variant='h1' tag='h3' className='text-[96px] leading-none font-normal text-black'>
             {c.title}
           </Typography>
           <Typography variant='body1' className='text-[24px] font-normal text-black/80'>

@@ -17,8 +17,9 @@ export const dynamic = 'force-static';
 export default function CaseStudiesPage() {
   return (
     <>
+      <h1 className='sr-only'>Case Studies</h1>
       <CaseStudies caseStudies={getCaseStudyListings()} />
-      <SmartEstimation hideAnimatedBackground className='z-10 -mb-10 md:-mb-80 lg:-mb-40' />
+      <SmartEstimation hideAnimatedBackground className='z-10' />
     </>
   );
 }

@@ -13,11 +13,12 @@ import type { Service } from '../types';
 
 interface ServicesMobileCardProps {
   service: Service;
+  ctaText: string;
 }
 
 const PROJECT_IMAGE_SIZES = '(max-width: 415px) 85vw, 360px';
 
-export function ServicesMobileCard({ service }: ServicesMobileCardProps) {
+export function ServicesMobileCard({ service, ctaText }: ServicesMobileCardProps) {
   return (
     <div className='sticky top-0 w-full'>
       <div
@@ -72,7 +73,7 @@ export function ServicesMobileCard({ service }: ServicesMobileCardProps) {
                 </Typography>
               </div>
             )}
-            <DiscussProjectButton variant='white' className='w-full rounded-full font-medium' text='Discuss project' />
+            <DiscussProjectButton variant='white' className='w-full rounded-full font-medium' text={ctaText} />
           </div>
         </div>
       </div>

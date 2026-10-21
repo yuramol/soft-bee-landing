@@ -11,6 +11,7 @@ import { DeferredImage } from '@/components/sections/services/services-list/comp
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import { CoFounderCard } from './components';
+import foundersContent from './content.json';
 import teamContent from '@/components/sections/home/team/content.json';
 
 const yuriiData = teamContent.members.find((m) => m.name.includes('Yurii'))!;
@@ -24,19 +25,19 @@ export const Founders = () => {
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className='relative z-20 mb-30.5 md:mb-21'>
+    <section className='relative z-20 mb-15 lg:mb-30'>
       <ComponentContainer>
         <div className='w-full overflow-hidden rounded-lg bg-white md:rounded-2xl'>
-          <div className='z-10 w-full px-4 pt-18.25 md:px-10.5 xl:pt-31.5'>
-            <div className='mb-15.5 flex flex-col items-center text-center xl:mb-20'>
-              <Badge title='Founders' className='mb-7.5 w-fit lg:mb-10' />
+          <div className='z-10 w-full px-4 pt-15 md:px-10.5 xl:pt-30'>
+            <div className='mb-15.5 flex flex-col md:items-center md:text-center xl:mb-20'>
+              <Badge title={foundersContent.badge} className='mb-7.5 w-fit lg:mb-10' />
 
               <Typography variant='h2' className='max-w-331'>
-                <span className='text-foreground'>Soft Bee started with a simple idea: </span>
-                <span className='text-foreground/50'>
-                  technology should be efficient, not rigid. Just like bees tirelessly crafting the perfect geometry of a honeycomb, we
-                  built this project step by step.
-                </span>
+                {foundersContent.title.map((segment, index) => (
+                  <span key={index} className={segment.className ?? 'text-foreground'}>
+                    {segment.text}
+                  </span>
+                ))}
               </Typography>
             </div>
 
@@ -64,7 +65,7 @@ export const Founders = () => {
               <div className='relative -mx-4 -mt-8 aspect-10/11 w-[calc(100%+32px)] md:mx-0 md:-mt-40 md:w-full lg:-mt-55 xl:mt-0 xl:aspect-auto xl:h-187.5'>
                 <DeferredImage
                   src='/images/about/founders.webp'
-                  alt='Founders'
+                  alt={foundersContent.imageAlt}
                   sizes='100vw'
                   className='origin-bottom translate-x-[24%] scale-[2.5] object-contain object-bottom md:translate-x-[20%] md:scale-[2.2] xl:translate-x-[12%] xl:scale-[1.6]'
                 />
