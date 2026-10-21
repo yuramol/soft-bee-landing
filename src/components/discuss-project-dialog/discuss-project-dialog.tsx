@@ -18,6 +18,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import { trackDiscussProjectSubmit } from '@/lib/analytics';
+import dialogContent from './content.json';
 
 const discussProjectSchema = z
   .object({
@@ -67,6 +69,8 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
     }
   });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isPaperclipHovered, setIsPaperclipHovered] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -107,14 +111,15 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
         captchaToken,
         website: data.website ?? ''
       });
+      trackDiscussProjectSubmit();
       reset();
       onOpenChange?.(false);
-      toast.success('Message sent', {
-        description: 'Thanks — we received your message and will get back to you soon.',
+      toast.success(dialogContent.feedback.successTitle, {
+        description: dialogContent.feedback.successDescription,
         duration: 5000
       });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to send message.';
+      const message = error instanceof Error ? error.message : dialogContent.feedback.defaultError;
       setSubmitError(message);
     }
   }
@@ -149,16 +154,25 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
         </div>
         <form onSubmit={handleFormSubmit} className='flex flex-1 flex-col justify-center gap-5 md:gap-10'>
           <DialogHeader className='mt-20 md:mt-0'>
-            <DialogTitle className='text-brand-black text-28 font-semibold md:font-medium'>
-              Let&apos;s build your next
-              <br />
-              digital product
+            <DialogTitle className='text-brand-black text-28 font-semibold whitespace-pre-line md:font-medium'>
+              {dialogContent.title}
             </DialogTitle>
           </DialogHeader>
           <div className='flex flex-col gap-3.25'>
             <div className='flex flex-col gap-3.25 md:flex-row md:gap-2'>
-              <Input placeholder='Full name' {...register('fullName')} error={errors.fullName?.message} disabled={isSubmitting} />
-              <Input placeholder='Your email' type='email' {...register('email')} error={errors.email?.message} disabled={isSubmitting} />
+              <Input
+                placeholder={dialogContent.fields.fullName.placeholder}
+                {...register('fullName')}
+                error={errors.fullName?.message}
+                disabled={isSubmitting}
+              />
+              <Input
+                placeholder={dialogContent.fields.email.placeholder}
+                type='email'
+                {...register('email')}
+                error={errors.email?.message}
+                disabled={isSubmitting}
+              />
             </div>
             {/* Honeypot — leave empty; hidden from users */}
             <input
@@ -175,7 +189,7 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
               <div className='flex w-full flex-col gap-1'>
                 <div className='relative flex w-full'>
                   <textarea
-                    placeholder='Project details'
+                    placeholder={dialogContent.fields.projectDetails.placeholder}
                     {...register('projectDetails')}
                     onInput={handleProjectDetailsInput}
                     disabled={isSubmitting}
@@ -220,17 +234,21 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
           </div>
           {submitError && (
             <p role='alert' className='text-destructive text-sm'>
-              {submitError} Please try again.
+              {submitError} {dialogContent.feedback.tryAgain}
             </p>
           )}
           <div className='flex flex-col gap-4'>
-            <Button type='submit' variant='primary' disabled={isSubmitting}>
-              {isSubmitting ? 'Sending…' : submitError ? 'Try again' : 'Send'}
+            <Button type='submit' variant='primary' disabled={isSubmitting || hasErrors}>
+              {isSubmitting
+                ? dialogContent.buttons.submitting
+                : submitError
+                  ? dialogContent.buttons.tryAgain
+                  : dialogContent.buttons.submit}
             </Button>
             <p className='text-brand-black/50 text-center text-xs'>
-              We use the information you provide to respond to your enquiry. Learn more in our{' '}
+              {dialogContent.privacy.prefix}
               <Link href={ROUTES.PRIVACY_POLICY} className='underline hover:no-underline' target='_blank' rel='noopener noreferrer'>
-                Privacy Policy
+                {dialogContent.privacy.link}
               </Link>
               .
             </p>

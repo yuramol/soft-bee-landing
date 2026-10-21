@@ -10,6 +10,7 @@ import { getProposalFileName } from '@/lib/estimator/proposal-outputs';
 import type { ProposalEstimate } from '@/lib/estimator/types';
 import { executeEstimatorRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { validateEstimatorUpload } from '@/lib/estimator/validate-upload';
+import { trackEstimationComplete, trackEstimationStart } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 import { EstimationAnimatedBackground, SmartEstimationInput, SmartEstimationResultCard } from './components';
@@ -133,6 +134,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     setJobId(null);
     setIsBackgroundPolling(false);
     setStep('loading');
+    trackEstimationStart();
     clearPollTimeout();
     abortInFlight();
 
@@ -238,6 +240,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
           setIsBackgroundPolling(false);
           setStep('success');
           clearStoredActiveJobId();
+          trackEstimationComplete('completed');
           await downloadPresentation(activeJobId, { isAuto: true, preferredFileName: fileName ?? undefined });
           return;
         }
@@ -245,6 +248,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
         if (status.status === 'failed') {
           clearStoredActiveJobId();
           setIsBackgroundPolling(false);
+          trackEstimationComplete('failed');
           throw new Error(status.error || 'Estimate generation failed.');
         }
 
@@ -416,7 +420,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
     <section
       data-testid='smart-estimation'
       className={cn(
-        'relative flex w-full flex-col pt-53.25 pb-38.75 md:pt-80.5 md:pb-89.25 xl:h-screen xl:justify-center xl:py-16',
+        'relative flex w-full flex-col pt-15 pb-15 lg:pt-30 lg:pb-30 xl:h-screen xl:justify-center xl:py-16',
         className,
         step === 'loading' && 'z-50'
       )}

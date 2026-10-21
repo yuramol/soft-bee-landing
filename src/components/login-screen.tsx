@@ -22,7 +22,8 @@ export function LoginScreen() {
     defaultValues: { email: '', password: '' }
   });
 
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, errors } = form.formState;
+  const hasErrors = Object.keys(errors).length > 0;
 
   async function handleLogin(values: LoginFormData) {
     setFormError(null);
@@ -42,6 +43,10 @@ export function LoginScreen() {
     void handleLogin(values);
   }
 
+  function handleFormSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    void form.handleSubmit(onSubmit)(event);
+  }
+
   return (
     <div className='flex h-screen w-full items-center justify-center bg-[#0b162a] px-6 font-sans'>
       <div className='w-full max-w-sm space-y-10'>
@@ -51,7 +56,7 @@ export function LoginScreen() {
         </div>
 
         <Form {...form}>
-          <form className='space-y-5' onSubmit={(event) => void form.handleSubmit(onSubmit)(event)}>
+          <form className='space-y-5' onSubmit={handleFormSubmit}>
             {formError && (
               <p className='rounded-md border border-amber-500/40 bg-amber-950/30 px-3 py-2 text-sm text-amber-100' role='alert'>
                 {formError}
@@ -89,7 +94,7 @@ export function LoginScreen() {
             <Button
               variant='primary'
               type='submit'
-              disabled={isSubmitting}
+              disabled={isSubmitting || hasErrors}
               className='hover:bg-primary-hover group h-auto w-full justify-between rounded-sm px-6 py-4 font-bold text-white shadow-lg transition-all hover:-translate-y-0.5'
               rightIcon={<ArrowRight className='h-5 w-5 opacity-70 transition-opacity group-hover:opacity-100' />}
             >

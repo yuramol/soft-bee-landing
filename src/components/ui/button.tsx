@@ -75,7 +75,7 @@ function Button({
       ) : (
         <>
           {showHoverBackground ? (
-            <ButtonHover className='pointer-events-none absolute inset-0 size-full max-h-none max-w-none opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+            <ButtonHover className='pointer-events-none absolute inset-0 size-full max-h-none max-w-none opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-disabled:hidden' />
           ) : null}
           <span className={cn(showHoverBackground ? 'relative z-10 inline-flex items-center justify-center gap-2' : 'contents')}>
             {leftIcon}

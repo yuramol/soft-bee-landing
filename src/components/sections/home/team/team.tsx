@@ -83,7 +83,7 @@ export function Team({ hideCoFounders }: TeamProps) {
       <TeamAnimatedBackground className='-top-100 -bottom-100 -left-1.25 h-[calc(100%+800px)] w-[calc(100%+10px)] md:-left-2.5 md:w-[calc(100%+20px)]' />
 
       <ComponentContainer className='relative z-10'>
-        <div className='flex flex-col xl:h-[calc(100vh-107px)] xl:max-h-[calc(100vh-107px)] xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
+        <div className='flex flex-col xl:h-[calc(100vh-120px)] xl:max-h-[calc(100vh-120px)] xl:flex-row xl:items-stretch xl:gap-10 2xl:gap-50'>
           <div className='pointer-events-none z-20 flex w-full shrink-0 flex-col justify-between pb-0 xl:w-112.75 xl:py-10'>
             <div className='pointer-events-auto ml-3 md:ml-10.5'>
               <Badge title={teamContent.badge} className='mb-7.5 w-fit xl:mb-10' />

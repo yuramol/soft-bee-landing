@@ -1,0 +1,30 @@
+{
+  "applyNow": "Apply now",
+  "applyFor": "Apply for",
+  "roleHeading": "The role",
+  "attachCv": "Attach CV (PDF, DOC, DOCX)",
+  "backToRole": "Back to role",
+  "fields": {
+    "fullName": {
+      "placeholder": "Full name"
+    },
+    "email": {
+      "placeholder": "Your email"
+    },
+    "message": {
+      "placeholder": "Short note / cover letter"
+    }
+  },
+  "buttons": {
+    "submit": "Send application",
+    "submitting": "Sending…"
+  },
+  "feedback": {
+    "success": "Thanks — your application was sent.",
+    "defaultError": "Failed to send application."
+  },
+  "privacy": {
+    "prefix": "We use the information you provide to respond to your enquiry. Learn more in our ",
+    "link": "Privacy Policy"
+  }
+}
