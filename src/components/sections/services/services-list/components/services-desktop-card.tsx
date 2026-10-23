@@ -64,7 +64,7 @@ export function ServicesDesktopCard({ service, index, allServices, ctaText }: De
         className={cn('sticky top-0 flex h-screen w-full overflow-hidden rounded-[36px]', service.bgClass)}
         style={{ zIndex: 10 + index }}
       >
-        <ComponentContainer className='flex h-full w-full flex-col justify-between p-6 pb-10.75 lg:p-10.5 xl:pb-21.5'>
+        <ComponentContainer className='h-full w-full p-6 pb-10.75 lg:space-y-20 lg:p-10.5 xl:pb-21.5 2xl:space-y-30'>
           <div className='flex w-full items-start justify-between'>
             <div className='flex flex-col gap-1.5'>
               {allServices.map((s) => (
