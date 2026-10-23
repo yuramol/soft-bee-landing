@@ -23,7 +23,7 @@ export function ServicesMobileCard({ service, ctaText }: ServicesMobileCardProps
     <div className='sticky top-0 w-full'>
       <div
         className={cn(
-          'relative mb-2 flex min-h-dvh flex-col overflow-hidden rounded-2xl pt-[clamp(20px,calc(100dvh-620px),80px)] pb-7.5 max-[415px]:pt-7.5',
+          'relative mb-2 flex min-h-dvh flex-col justify-between overflow-hidden rounded-2xl pt-6 pb-24 sm:pt-7.5',
           service.bgClass
         )}
       >
@@ -31,12 +31,12 @@ export function ServicesMobileCard({ service, ctaText }: ServicesMobileCardProps
           <Typography variant='h2' className={cn('mb-2.5', service.textClass)}>
             {service.title}
           </Typography>
-          <Typography variant='body1' className={cn('mb-16.5 opacity-90 max-[415px]:mb-0', service.textClass)}>
+          <Typography variant='body1' className={cn('opacity-90', service.textClass)}>
             {service.description}
           </Typography>
         </div>
 
-        <div className='mt-auto pt-7.5 max-[415px]:pt-3.75'>
+        <div className='mt-auto pt-4'>
           <div className='mb-3.5 pl-4'>
             <Swiper slidesPerView='auto' spaceBetween={10} loop={true} className='w-full'>
               {service.project.images.map((imgSrc, idx) => (
