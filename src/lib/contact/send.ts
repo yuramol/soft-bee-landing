@@ -57,7 +57,7 @@ export async function sendContactEmail(input: SendContactEmailInput): Promise<Se
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from: getContactFromAddress(),
-    to: getContactToAddresses(),
+    to: getContactToAddresses(input.kind),
     replyTo: safeEmail,
     subject,
     html,
