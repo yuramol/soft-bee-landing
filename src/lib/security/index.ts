@@ -8,5 +8,7 @@ export { getAllowedRecaptchaHostnames, isAllowedEstimatorOrigin, isAllowedRecapt
 export { getSiteHmacSecret, isSiteHmacSecretConfigured } from './secrets';
 export { isBrowserFile, readFormString } from './form-data';
 export { getRequestIp } from './request-ip';
+export { getAllowedCountries, getRequestCountry } from './request-country';
 
-// Rate-limit helpers use next/headers — import from '@/lib/security/signed-rate-limit' in server code only.
+// Rate-limit and geo helpers use next/headers — import from '@/lib/security/signed-rate-limit' and
+// '@/lib/security/geo-restriction' in server code only.

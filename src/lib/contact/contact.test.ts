@@ -1,8 +1,40 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
+import { getContactToAddress, getContactToAddresses } from './secrets';
 import { validateContactSubmission } from './validate';
+
+describe('contact recipients', () => {
+  const previous = process.env.CONTACT_TO_EMAIL;
+
+  afterEach(() => {
+    if (previous === undefined) {
+      delete process.env.CONTACT_TO_EMAIL;
+    } else {
+      process.env.CONTACT_TO_EMAIL = previous;
+    }
+  });
+
+  it('falls back to the default inbox when unset or blank', () => {
+    delete process.env.CONTACT_TO_EMAIL;
+    expect(getContactToAddresses()).toEqual(['hello@softbee.com']);
+
+    process.env.CONTACT_TO_EMAIL = ' , ';
+    expect(getContactToAddresses()).toEqual(['hello@softbee.com']);
+  });
+
+  it('keeps a single address as-is', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io';
+    expect(getContactToAddresses()).toEqual(['info@softbee.io']);
+  });
+
+  it('splits comma-separated addresses and trims whitespace', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io, sales@softbee.io ,,';
+    expect(getContactToAddresses()).toEqual(['info@softbee.io', 'sales@softbee.io']);
+    expect(getContactToAddress()).toBe('info@softbee.io');
+  });
+});
 
 describe('contact email template', () => {
   const templateInput = {
