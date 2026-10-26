@@ -30,25 +30,25 @@ Browser (SmartEstimation)
   → Supabase estimation_logs        # service-role ops log + IP quota
 ```
 
-| Layer | Role |
-|-------|------|
-| `src/components/sections/home/smart-estimation/` | UI: input, loading modal, result |
-| `src/lib/api/presentation/` | Browser → Next API |
-| `src/app/api/presentation/` | Server routes |
-| `src/lib/estimator/` | Shared server helpers + Railway HTTP |
-| `src/lib/api/estimation-logs/` | Supabase logging / IP counts |
-| `fixtures/estimator/` | Sample briefs for manual / e2e use |
+| Layer                                            | Role                                 |
+| ------------------------------------------------ | ------------------------------------ |
+| `src/components/sections/home/smart-estimation/` | UI: input, loading modal, result     |
+| `src/lib/api/presentation/`                      | Browser → Next API                   |
+| `src/app/api/presentation/`                      | Server routes                        |
+| `src/lib/estimator/`                             | Shared server helpers + Railway HTTP |
+| `src/lib/api/estimation-logs/`                   | Supabase logging / IP counts         |
+| `fixtures/estimator/`                            | Sample briefs for manual / e2e use   |
 
 ---
 
 ## API
 
-| Method | Path | Purpose |
-|--------|------|---------|
-| `POST` | `/api/presentation/generate` | Create job (multipart: `text`, `file`, `captchaToken`) |
-| `GET` | `/api/presentation/active` | Latest owned in-progress/completed job for this cookie |
-| `GET` | `/api/presentation/[jobId]` | Poll status + estimate |
-| `GET` | `/api/presentation/[jobId]/download` | Stream proposal file (PDF or legacy PPTX) |
+| Method | Path                                 | Purpose                                                |
+| ------ | ------------------------------------ | ------------------------------------------------------ |
+| `POST` | `/api/presentation/generate`         | Create job (multipart: `text`, `file`, `captchaToken`) |
+| `GET`  | `/api/presentation/active`           | Latest owned in-progress/completed job for this cookie |
+| `GET`  | `/api/presentation/[jobId]`          | Poll status + estimate                                 |
+| `GET`  | `/api/presentation/[jobId]/download` | Stream proposal file (PDF or legacy PPTX)              |
 
 Optional request header on create: `Idempotency-Key` (forwarded to Railway). The UI sends a new `crypto.randomUUID()` per submit.
 
@@ -81,16 +81,15 @@ Optional request header on create: `Idempotency-Key` (forwarded to Railway). The
 }
 ```
 
-New completed jobs include `outputs.pdfUrl` + `.pdf` `fileName`. Legacy jobs may still return `outputs.pptxUrl` and a `.pptx` name. The website always downloads via its own `/download` proxy (never links the browser to Railway). PDF conversion failures surface as a failed job (`error` / `PDF_CONVERSION_FAILED`).
----
+## New completed jobs include `outputs.pdfUrl` + `.pdf` `fileName`. Legacy jobs may still return `outputs.pptxUrl` and a `.pptx` name. The website always downloads via its own `/download` proxy (never links the browser to Railway). PDF conversion failures surface as a failed job (`error` / `PDF_CONVERSION_FAILED`).
 
 ## Inputs
 
-| Input | Rules |
-|-------|--------|
-| Text | Optional if file present; min **10** characters; max **32,000** characters |
-| File | Optional if text present; max **10 MB** |
-| Types | PDF, TXT, Markdown, DOC, DOCX |
+| Input | Rules                                                                      |
+| ----- | -------------------------------------------------------------------------- |
+| Text  | Optional if file present; min **10** characters; max **32,000** characters |
+| File  | Optional if text present; max **10 MB**                                    |
+| Types | PDF, TXT, Markdown, DOC, DOCX                                              |
 
 Client validates metadata early; server also sniffs content before forwarding to Railway.
 
@@ -100,15 +99,16 @@ Client validates metadata early; server also sniffs content before forwarding to
 
 See `.example.env`. Required for the feature:
 
-| Variable | Where | Notes |
-|----------|--------|--------|
-| `ESTIMATOR_BASE_URL` | server | Railway base URL |
-| `ESTIMATOR_API_KEY` | server | Bearer to Railway |
-| `SITE_HMAC_SECRET` | server | HMAC for ownership, poll, and contact rate-limit cookies (**all envs**) |
-| `SITE_ALLOWED_ORIGINS` | server | Comma-separated prod origins (estimation + contact) |
-| `RECAPTCHA_SECRET` | server | siteverify |
-| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | client | Invisible v3 |
-| `SUPABASE_*` / service role | server | `estimation_logs` writes + IP counts |
+| Variable                         | Where  | Notes                                                                                       |
+| -------------------------------- | ------ | ------------------------------------------------------------------------------------------- |
+| `ESTIMATOR_BASE_URL`             | server | Railway base URL                                                                            |
+| `ESTIMATOR_API_KEY`              | server | Bearer to Railway                                                                           |
+| `SITE_HMAC_SECRET`               | server | HMAC for ownership, poll, and contact rate-limit cookies (**all envs**)                     |
+| `SITE_ALLOWED_ORIGINS`           | server | Comma-separated prod origins (estimation + contact)                                         |
+| `SITE_ALLOWED_COUNTRIES`         | server | Optional. Countries allowed to submit forms, e.g. `UA,RO`; unset = all countries (see security doc §4b) |
+| `RECAPTCHA_SECRET`               | server | siteverify                                                                                  |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | client | Invisible v3                                                                                |
+| `SUPABASE_*` / service role      | server | `estimation_logs` writes + IP counts                                                        |
 
 Set the same keys in Vercel Project Env (Production + Preview as needed).
 

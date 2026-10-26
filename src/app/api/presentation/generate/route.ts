@@ -15,6 +15,7 @@ import {
   verifyRecaptchaV3Token
 } from '@/lib/estimator';
 import { isBrowserFile, readFormString } from '@/lib/security';
+import { checkGeoRestriction, geoRestrictionResponse } from '@/lib/security/geo-restriction';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -38,6 +39,11 @@ export async function POST(request: Request) {
     if (!ip) {
       console.error('Missing client IP for estimation rate limit.');
       return NextResponse.json({ error: 'Unable to verify client. Please try again.' }, { status: 503 });
+    }
+
+    const geo = await checkGeoRestriction(request);
+    if (!geo.allowed) {
+      return geoRestrictionResponse(geo);
     }
 
     // Cookie rate limit check (now signed and consumed in one step)

@@ -20,6 +20,7 @@ import {
   isSiteHmacSecretConfigured,
   readFormString
 } from '@/lib/security';
+import { checkGeoRestriction, geoRestrictionResponse } from '@/lib/security/geo-restriction';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -42,6 +43,11 @@ export async function POST(request: Request) {
     if (!isSiteHmacSecretConfigured()) {
       console.error('SITE_HMAC_SECRET is not configured.');
       return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+    }
+
+    const geo = await checkGeoRestriction(request);
+    if (!geo.allowed) {
+      return geoRestrictionResponse(geo);
     }
 
     // 2. Parse form → honeypot check WITHOUT consuming quota
