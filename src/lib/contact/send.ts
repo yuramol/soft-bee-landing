@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { sanitizeEmailHeaderValue } from './escape';
-import { getContactFromAddress, getContactToAddress, getResendApiKey } from './secrets';
+import { getContactFromAddress, getContactToAddresses, getResendApiKey } from './secrets';
 import type { ContactKind } from './types';
 
 export interface SendContactEmailInput {
@@ -57,7 +57,7 @@ export async function sendContactEmail(input: SendContactEmailInput): Promise<Se
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from: getContactFromAddress(),
-    to: [getContactToAddress()],
+    to: getContactToAddresses(),
     replyTo: safeEmail,
     subject,
     html,

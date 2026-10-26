@@ -8,15 +8,15 @@ Security model for the public Smart Estimation form and `/api/presentation/*` pr
 
 ## Threat model (summary)
 
-| Threat | Mitigation |
-|--------|------------|
-| Steal another user’s estimate / proposal file | HMAC-signed ownership cookie; status/download require ownership |
-| CSRF / off-site browser POST | Allowlisted `Origin` (required in production) |
-| Scripted spam / cost abuse | reCAPTCHA v3 + IP burst/daily caps + cookie UX cap + edge WAF |
-| Junk captcha spam | Quota reserved **before** `siteverify` |
-| Malicious upload | MIME↔extension, double-ext block, magic-byte sniff on server |
-| Status poll amplification | Signed poll-rate cookie (30 / 60s) |
-| Secret leakage | Railway key + ownership secret server-only; upstream 401/403 → 502 |
+| Threat                                        | Mitigation                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------ |
+| Steal another user’s estimate / proposal file | HMAC-signed ownership cookie; status/download require ownership    |
+| CSRF / off-site browser POST                  | Allowlisted `Origin` (required in production)                      |
+| Scripted spam / cost abuse                    | reCAPTCHA v3 + IP burst/daily caps + cookie UX cap + edge WAF      |
+| Junk captcha spam                             | Quota reserved **before** `siteverify`                             |
+| Malicious upload                              | MIME↔extension, double-ext block, magic-byte sniff on server       |
+| Status poll amplification                     | Signed poll-rate cookie (30 / 60s)                                 |
+| Secret leakage                                | Railway key + ownership secret server-only; upstream 401/403 → 502 |
 
 ---
 
@@ -59,12 +59,12 @@ Code: `ownership-token.ts`, `ownership.ts`, `secrets.ts`.
 
 ### 4. Rate limits (app layer)
 
-| Limit | Value | Store |
-|-------|--------|--------|
-| Burst by IP | **5 / 10 minutes** | `estimation_logs` count |
-| Daily by IP | **10 / 24 hours** | `estimation_logs` count |
-| Soft daily (UX) | **10 / calendar day** | unsigned cookie `rate_limit_presentation` |
-| Status / active poll | **30 / 60 seconds** | signed cookie `estimator_poll_rate` |
+| Limit                | Value                 | Store                                     |
+| -------------------- | --------------------- | ----------------------------------------- |
+| Burst by IP          | **5 / 10 minutes**    | `estimation_logs` count                   |
+| Daily by IP          | **10 / 24 hours**     | `estimation_logs` count                   |
+| Soft daily (UX)      | **10 / calendar day** | unsigned cookie `rate_limit_presentation` |
+| Status / active poll | **30 / 60 seconds**   | signed cookie `estimator_poll_rate`       |
 
 Generate flow:
 
@@ -79,6 +79,22 @@ Generate flow:
 Failed captcha/validation **still consume** IP/cookie quota. Missing IP or DB count errors → **503** (fail closed).
 
 Constants: `src/lib/estimator/constants.ts`.
+
+### 4b. Country restriction (contact + estimator forms)
+
+Public form POSTs (`/api/contact`, `/api/presentation/generate`) are only accepted from the countries in `SITE_ALLOWED_COUNTRIES` (e.g. `UA,RO`). **Unset/empty = no restriction**; a value with no valid code denies everyone. Country comes from the edge header (`x-vercel-ip-country`, then `cf-ipcountry`).
+
+| Case                                                                                | Result                                                                                |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Country not allowed                                                                 | **403**                                                                               |
+| Country header missing (production)                                                 | **503** (fail closed); allowed on `next dev`                                          |
+| Allowed country, but this browser was seen from a disallowed one in the last 7 days | allowed, capped at **2 / 24h** (`rate_limit_geo_restricted`, signed cookie) → **429** |
+
+The browser's last country/IP and last-seen-abroad time are kept in the signed httpOnly cookie `geo_last_seen` (30 days). It is written on the 403 too, so a visitor who is blocked abroad and then switches to an allowed-country VPN is throttled instead of treated as new.
+
+**Limits — this is a soft gate.** A VPN with an allowed-country exit passes the country check, and a visitor who drops cookies starts clean; Ukrainians abroad are blocked. Hard abuse control stays with captcha, IP caps and the edge WAF. For a stricter edge rule, use a Vercel Firewall geo condition instead of / in addition to this.
+
+Code: `src/lib/security/geo-restriction.ts`, `request-country.ts`.
 
 ### 5. Upload hardening
 
@@ -108,9 +124,9 @@ App limits run **after** the serverless invoke. Edge rules are cheaper and stop 
 
 **Vercel** → Project → **Firewall** → **Configure**:
 
-1. Path `/api/presentation/generate` + method `POST` → Rate limit **5 / hour / IP** → Deny 429  
-2. Optional: Bot Protection / Attack Challenge  
-3. Optional: second rule **20 / day / IP**  
+1. Path `/api/presentation/generate` + method `POST` → Rate limit **5 / hour / IP** → Deny 429
+2. Optional: Bot Protection / Attack Challenge
+3. Optional: second rule **20 / day / IP**
 4. Enable on **Production** (and Preview if estimator is live there)
 
 **Verify:** scripted POSTs past the edge limit return 429 **without** new `estimation_logs` rows; normal UI submit still works.
@@ -121,16 +137,16 @@ If **Cloudflare** is in front: equivalent rate rule + bot mode. Prefer one prima
 
 ## Checklist vs common abuse criteria
 
-| Criterion | Status |
-|-----------|--------|
-| Origin / CSRF-style check | ✅ Prod Origin allowlist |
-| Rate limit by IP (short window) | ✅ 5 / 10 min |
-| Rate limit by IP (daily) | ✅ 10 / 24h |
-| WAF / bot protection | ⚠️ Ops (Vercel/CF) — not in repo |
-| CAPTCHA before expensive op | ✅ reCAPTCHA v3 |
+| Criterion                       | Status                                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------- |
+| Origin / CSRF-style check       | ✅ Prod Origin allowlist                                                                      |
+| Rate limit by IP (short window) | ✅ 5 / 10 min                                                                                 |
+| Rate limit by IP (daily)        | ✅ 10 / 24h                                                                                   |
+| WAF / bot protection            | ⚠️ Ops (Vercel/CF) — not in repo                                                              |
+| CAPTCHA before expensive op     | ✅ reCAPTCHA v3                                                                               |
 | Hard AI input/output token caps | ✅ Partial in Next — text ≤ 32k chars, file ≤ 10 MB; **output / model token caps on Railway** |
-| Global spend budget | ✅ Railway-side (not in this Next.js repo) |
-| Idempotency key | ✅ Forwarded; storage on Railway |
+| Global spend budget             | ✅ Railway-side (not in this Next.js repo)                                                    |
+| Idempotency key                 | ✅ Forwarded; storage on Railway                                                              |
 
 ---
 
@@ -145,16 +161,16 @@ If **Cloudflare** is in front: equivalent rate rule + bot mode. Prefer one prima
 
 ## Key files
 
-| Area | Path |
-|------|------|
-| Generate + quota | `src/app/api/presentation/generate/route.ts` |
+| Area                       | Path                                                          |
+| -------------------------- | ------------------------------------------------------------- |
+| Generate + quota           | `src/app/api/presentation/generate/route.ts`                  |
 | Status / download / active | `src/app/api/presentation/[jobId]/`, `…/download/`, `active/` |
-| Ownership HMAC | `src/lib/estimator/ownership-token.ts` |
-| Poll throttle | `src/lib/estimator/poll-rate-limit.ts` |
-| Captcha | `src/lib/estimator/recaptcha.ts` |
-| Uploads | `src/lib/estimator/validate-upload.ts` |
-| IP logs | `src/lib/api/estimation-logs/client.ts` |
-| Unit tests | `src/lib/estimator/estimator.test.ts` |
+| Ownership HMAC             | `src/lib/estimator/ownership-token.ts`                        |
+| Poll throttle              | `src/lib/estimator/poll-rate-limit.ts`                        |
+| Captcha                    | `src/lib/estimator/recaptcha.ts`                              |
+| Uploads                    | `src/lib/estimator/validate-upload.ts`                        |
+| IP logs                    | `src/lib/api/estimation-logs/client.ts`                       |
+| Unit tests                 | `src/lib/estimator/estimator.test.ts`                         |
 
 ---
 

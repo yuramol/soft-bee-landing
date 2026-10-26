@@ -10,9 +10,19 @@ export function getContactFromAddress(): string {
   return from && from.length > 0 ? from : CONTACT_DEFAULT_FROM;
 }
 
+/** Recipients of contact emails: `CONTACT_TO_EMAIL`, comma-separated (e.g. `a@x.com, b@x.com`). */
+export function getContactToAddresses(): string[] {
+  const addresses = (process.env.CONTACT_TO_EMAIL ?? '')
+    .split(',')
+    .map((address) => address.trim())
+    .filter((address) => address.length > 0);
+
+  return addresses.length > 0 ? addresses : [CONTACT_DEFAULT_TO];
+}
+
+/** First recipient — the address to show users when they should email us instead. */
 export function getContactToAddress(): string {
-  const to = process.env.CONTACT_TO_EMAIL?.trim();
-  return to && to.length > 0 ? to : CONTACT_DEFAULT_TO;
+  return getContactToAddresses()[0];
 }
 
 export function isContactMailConfigured(): boolean {
