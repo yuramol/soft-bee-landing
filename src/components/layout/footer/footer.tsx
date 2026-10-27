@@ -9,10 +9,10 @@ import { Divider } from '@/components/ui/divider';
 import { FooterAnimatedBackground } from '@/components/ui/footer-animated-background';
 import { Typography } from '@/components/ui/typography';
 import { ROUTES } from '@/constants';
+import { cn } from '@/lib/utils';
 
 import { FooterNav, LogoMedusae } from './components';
 import footerContent from './content.json';
-import { cn } from '@/lib/utils';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,7 +24,14 @@ export const Footer = () => {
   const hideTopSection = isPartnership || isLegalPage || isCareers;
 
   return (
-    <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
+    <footer
+      className={cn(
+        'from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5',
+        'peer-has-[[data-not-found]]:[&_.footer-animated-bg]:hidden',
+        'peer-has-[[data-not-found]]:[&_.footer-top-section]:hidden',
+        'peer-has-[[data-not-found]]:[&_.footer-content-wrapper]:!pt-20'
+      )}
+    >
       {!hideTopSection && <FooterAnimatedBackground className='footer-animated-bg -top-82.5 h-312.5' />}
 
       <div

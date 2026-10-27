@@ -46,6 +46,7 @@ export function subscribeToConsent(onStoreChange: () => void): () => void {
   };
 }
 
+/** Banner is analytics-only — never grant advertising consent from Accept. */
 export function updateGtagConsent(status: ConsentStatus): void {
   if (typeof window === 'undefined') {
     return;
@@ -56,30 +57,39 @@ export function updateGtagConsent(status: ConsentStatus): void {
   if (typeof window.gtag === 'function') {
     window.gtag('consent', 'update', {
       analytics_storage: status,
-      ad_storage: status,
-      ad_user_data: status,
-      ad_personalization: status
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
     });
   }
 }
 
+function canSendAnalytics(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.gtag === 'function' &&
+    hasGaId() &&
+    getStoredConsent() === 'granted'
+  );
+}
+
 export function trackPageView(url: string): void {
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function' || !hasGaId()) {
+  if (!canSendAnalytics()) {
     return;
   }
 
-  window.gtag('event', 'page_view', {
+  window.gtag?.('event', 'page_view', {
     page_path: url,
     send_to: GA_MEASUREMENT_ID
   });
 }
 
 export function trackEvent(eventName: string, params: TrackEventParams = {}): void {
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function' || !hasGaId()) {
+  if (!canSendAnalytics()) {
     return;
   }
 
-  window.gtag('event', eventName, {
+  window.gtag?.('event', eventName, {
     ...params,
     send_to: GA_MEASUREMENT_ID
   });

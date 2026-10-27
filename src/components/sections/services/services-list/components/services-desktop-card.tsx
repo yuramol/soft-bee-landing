@@ -37,7 +37,10 @@ export function ServicesDesktopCard({ service, index, allServices, ctaText }: De
     <>
       <div className='flex gap-2'>
         {service.project.images.map((imgSrc, idx) => (
-          <div key={idx} className='relative h-65 w-78 shrink-0 overflow-hidden rounded-xl xl:h-93.75 xl:w-111.75 xl:rounded-2xl'>
+          <div
+            key={idx}
+            className='relative h-40 w-52 shrink-0 overflow-hidden rounded-xl lg:h-65 lg:w-78 xl:h-93.75 xl:w-111.75 xl:rounded-2xl'
+          >
             <DeferredImage
               src={imgSrc}
               alt={service.project.title}
@@ -61,11 +64,11 @@ export function ServicesDesktopCard({ service, index, allServices, ctaText }: De
       <div id={`service-anchor-${service.id}`} className='block h-0 w-full' />
       <div
         id={`service-card-${service.id}`}
-        className={cn('sticky top-0 flex h-screen w-full overflow-hidden rounded-[36px]', service.bgClass)}
+        className={cn('sticky top-0 flex min-h-svh w-full overflow-x-hidden overflow-y-auto rounded-[36px]', service.bgClass)}
         style={{ zIndex: 10 + index }}
       >
-        <ComponentContainer className='h-full w-full p-6 pb-10.75 lg:space-y-20 lg:p-10.5 xl:pb-21.5 2xl:space-y-30'>
-          <div className='flex w-full items-start justify-between'>
+        <ComponentContainer className='flex min-h-svh w-full flex-col justify-between gap-8 p-6 pb-10.75 lg:gap-12 lg:p-10.5 xl:gap-20 xl:pb-21.5 2xl:gap-30'>
+          <div className='flex w-full items-start justify-between gap-4'>
             <div className='flex flex-col gap-1.5'>
               {allServices.map((s) => (
                 <button
@@ -97,7 +100,7 @@ export function ServicesDesktopCard({ service, index, allServices, ctaText }: De
             )}
           </div>
 
-          <div className='flex w-full items-start justify-between lg:pb-5'>
+          <div className='flex w-full items-start justify-between gap-4 lg:pb-5'>
             <div className='flex w-1/2 shrink-0 flex-col items-start gap-6 pr-4 lg:pr-8'>
               <Typography variant='h2' className={cn('max-w-116.25', service.textClass)}>
                 {service.title}
