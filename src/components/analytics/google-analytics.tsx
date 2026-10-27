@@ -2,17 +2,28 @@
 
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, Suspense } from 'react';
+import { Suspense, useEffect, useRef, useSyncExternalStore } from 'react';
 
-import { GA_MEASUREMENT_ID, hasGaId, trackPageView, COOKIE_CONSENT_KEY } from '@/lib/analytics';
+import {
+  COOKIE_CONSENT_KEY,
+  GA_MEASUREMENT_ID,
+  getStoredConsent,
+  hasGaId,
+  subscribeToConsent,
+  trackPageView
+} from '@/lib/analytics';
 
-function GaPageviewTracker() {
+interface GaPageviewTrackerProps {
+  hasConsent: boolean;
+}
+
+function GaPageviewTracker({ hasConsent }: GaPageviewTrackerProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const lastTrackedUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!hasGaId()) {
+    if (!hasGaId() || !hasConsent) {
       return;
     }
 
@@ -25,15 +36,19 @@ function GaPageviewTracker() {
 
     lastTrackedUrlRef.current = fullPath;
     trackPageView(fullPath);
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, hasConsent]);
 
   return null;
 }
 
 export function GoogleAnalytics() {
+  const consent = useSyncExternalStore(subscribeToConsent, getStoredConsent, () => null);
+
   if (!hasGaId()) {
     return null;
   }
+
+  const hasAnalyticsConsent = consent === 'granted';
 
   const consentInitScript = `
     window.dataLayer = window.dataLayer || [];
@@ -42,12 +57,12 @@ export function GoogleAnalytics() {
     try {
       savedConsent = localStorage.getItem('${COOKIE_CONSENT_KEY}');
     } catch(e) {}
-    var initialConsent = savedConsent === 'granted' ? 'granted' : 'denied';
+    var analyticsConsent = savedConsent === 'granted' ? 'granted' : 'denied';
     gtag('consent', 'default', {
-      'analytics_storage': initialConsent,
-      'ad_storage': initialConsent,
-      'ad_user_data': initialConsent,
-      'ad_personalization': initialConsent,
+      'analytics_storage': analyticsConsent,
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
       'wait_for_update': 500
     });
   `;
@@ -64,11 +79,19 @@ export function GoogleAnalytics() {
   return (
     <>
       <script id='ga-consent-defaults' dangerouslySetInnerHTML={{ __html: consentInitScript }} />
-      <Script id='ga-gtag-cdn' strategy='afterInteractive' src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-      <Script id='ga-config-init' strategy='afterInteractive' dangerouslySetInnerHTML={{ __html: gaConfigScript }} />
-      <Suspense fallback={null}>
-        <GaPageviewTracker />
-      </Suspense>
+      {hasAnalyticsConsent ? (
+        <>
+          <Script
+            id='ga-gtag-cdn'
+            strategy='afterInteractive'
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          />
+          <Script id='ga-config-init' strategy='afterInteractive' dangerouslySetInnerHTML={{ __html: gaConfigScript }} />
+          <Suspense fallback={null}>
+            <GaPageviewTracker hasConsent={hasAnalyticsConsent} />
+          </Suspense>
+        </>
+      ) : null}
     </>
   );
 }

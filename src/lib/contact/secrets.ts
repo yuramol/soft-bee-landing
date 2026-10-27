@@ -32,7 +32,7 @@ export function getContactToAddress(): string {
 
 function getClientToAddresses(): string[] {
   const addresses = parseAddressList(process.env.CONTACT_TO_EMAIL);
-  return addresses.length > 0 ? addresses : [CONTACT_DEFAULT_TO];
+  return addresses.length > 0 ? uniqueAddresses(addresses) : [CONTACT_DEFAULT_TO];
 }
 
 function parseAddressList(raw: string | undefined): string[] {

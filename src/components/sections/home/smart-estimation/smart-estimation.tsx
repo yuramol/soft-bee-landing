@@ -44,6 +44,15 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
   const pollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasAutoDownloadedRef = useRef(false);
   const hasResumedRef = useRef(false);
+  const trackedCompleteJobIdsRef = useRef(new Set<string>());
+
+  function trackEstimationCompleteOnce(activeJobId: string, status: 'completed' | 'failed') {
+    if (trackedCompleteJobIdsRef.current.has(activeJobId)) {
+      return;
+    }
+    trackedCompleteJobIdsRef.current.add(activeJobId);
+    trackEstimationComplete(status);
+  }
 
   useEffect(() => {
     void resumeActiveJob();
@@ -98,6 +107,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
         setStep('success');
         setIsBackgroundPolling(false);
         clearStoredActiveJobId();
+        trackEstimationCompleteOnce(active.jobId, 'completed');
         return;
       }
 
@@ -240,7 +250,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
           setIsBackgroundPolling(false);
           setStep('success');
           clearStoredActiveJobId();
-          trackEstimationComplete('completed');
+          trackEstimationCompleteOnce(activeJobId, 'completed');
           await downloadPresentation(activeJobId, { isAuto: true, preferredFileName: fileName ?? undefined });
           return;
         }
@@ -248,7 +258,7 @@ export function SmartEstimation({ hideAnimatedBackground, className }: SmartEsti
         if (status.status === 'failed') {
           clearStoredActiveJobId();
           setIsBackgroundPolling(false);
-          trackEstimationComplete('failed');
+          trackEstimationCompleteOnce(activeJobId, 'failed');
           throw new Error(status.error || 'Estimate generation failed.');
         }
 
