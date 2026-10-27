@@ -192,13 +192,4 @@
       linear-gradient(#ffffff, #ffffff) padding-box,
       linear-gradient(90deg, #c3ff00 0%, #00a2bb 100%) border-box;
   }
-
-  body:has([data-not-found]) .footer-animated-bg,
-  body:has([data-not-found]) .footer-top-section {
-    display: none !important;
-  }
-
-  body:has([data-not-found]) .footer-content-wrapper {
-    padding-top: 5rem !important;
-  }
 }

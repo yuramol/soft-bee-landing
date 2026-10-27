@@ -51,6 +51,13 @@ describe('contact recipients', () => {
     expect(getContactToAddresses('vacancy_application')).toEqual(['info@softbee.io', 'sales@softbee.io', 'HR@softbee.io']);
     expect(getContactToAddress()).toBe('info@softbee.io');
   });
+
+  it('deduplicates CONTACT_TO_EMAIL for client forms', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io, Info@softbee.io, sales@softbee.io';
+
+    expect(getContactToAddresses('discuss_project')).toEqual(['info@softbee.io', 'sales@softbee.io']);
+    expect(getContactToAddresses('partnership')).toEqual(['info@softbee.io', 'sales@softbee.io']);
+  });
 });
 
 function restoreEnv(name: 'CONTACT_TO_EMAIL' | 'HR_TO_EMAIL', value: string | undefined): void {

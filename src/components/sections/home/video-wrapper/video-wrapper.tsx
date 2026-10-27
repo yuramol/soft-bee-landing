@@ -1,6 +1,7 @@
 'use client';
 
 import { KeyboardEvent, MouseEvent, PointerEvent, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { flushSync } from 'react-dom';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 
 import { Button } from '@/components/ui/button';
@@ -51,9 +52,7 @@ export function VideoWrapper() {
     const currentBlob = blobUrlRef.current;
     if (currentBlob) {
       setVideoSrc(currentBlob);
-      return;
     }
-    setVideoSrc(VIDEO_SRC);
   }
 
   // Preload video with fetch after page load so it is reliably downloaded in the background and cached in memory
@@ -168,15 +167,9 @@ export function VideoWrapper() {
         setVideoSrc(currentBlob);
       }
     } else {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-      if (!video.src || (!video.src.includes(VIDEO_SRC) && !video.src.startsWith('blob:'))) {
-        video.src = VIDEO_SRC;
-        video.load();
-      }
-      if (videoSrc !== VIDEO_SRC) {
-        setVideoSrc(VIDEO_SRC);
+      abortControllerRef.current?.abort();
+      if (video.getAttribute('src') !== VIDEO_SRC) {
+        flushSync(() => setVideoSrc(VIDEO_SRC));
       }
     }
 
@@ -226,6 +219,7 @@ export function VideoWrapper() {
   }
 
   function handleContainerKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.target !== event.currentTarget) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       handlePlayClick();
