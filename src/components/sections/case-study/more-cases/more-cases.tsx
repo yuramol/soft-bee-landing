@@ -46,7 +46,7 @@ export function MoreCases({ currentId }: MoreCasesProps) {
   );
 
   function handleCardClick(id: string) {
-    router.push(`/case-studies/${id}`);
+    router.push(`${ROUTES.CASE_STUDIES}/${id}`);
   }
 
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
@@ -54,15 +54,16 @@ export function MoreCases({ currentId }: MoreCasesProps) {
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className='relative z-10 w-full pt-30 pb-24 md:pt-50 md:pb-0 2xl:pt-80'>
+    <section className='relative z-10 w-full pt-15 pb-15 lg:pt-30 lg:pb-30'>
       <ComponentContainer className='md:hidden'>
         <Swiper slidesPerView='auto' spaceBetween={10} loop={true} className='w-full overflow-visible!' onSwiper={setSwiperInstance}>
           {cases.map((c) => (
             <SwiperSlide key={c.id} className='w-[calc(100vw-32px)]! cursor-pointer'>
-              <Link href={`/${ROUTES.CASE_STUDIES}/${c.id}`} className='group flex w-full flex-col pl-4'>
+              <Link href={`${ROUTES.CASE_STUDIES}/${c.id}`} className='group flex w-full flex-col pl-4'>
                 <div className='mb-6.5 flex flex-col gap-3 px-1'>
                   <Typography
                     variant='h1'
+                    tag='h3'
                     className='text-foreground group-hover:text-primary text-[40px] leading-tight font-normal transition-colors'
                   >
                     {c.title}

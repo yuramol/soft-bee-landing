@@ -1,0 +1,35 @@
+# Soft Bee
+
+> Soft Bee is a premier custom software development and AI engineering consultancy. We design, build, and scale web applications, mobile platforms, SaaS products, and AI-driven solutions for startups and high-growth enterprises worldwide.
+
+Founded in 2019 and headquartered in Tallinn, Estonia, Soft Bee combines a senior team of 27 engineers, system architects, UI/UX designers, and product analysts. With over 120 successfully delivered digital products across SaaS, healthtech, cybersecurity, AI, and e-commerce, Soft Bee serves as an end-to-end product delivery partner.
+
+## Main Pages
+
+- [Home](https://softbee.io/): Overview of Soft Bee's core engineering capabilities, team, client reviews, and custom software delivery approach.
+- [Services](https://softbee.io/services): Comprehensive software engineering services from initial product concept and MVP to enterprise cloud architecture.
+- [Case Studies](https://softbee.io/case-studies): In-depth portfolios and technical case studies showcasing client platforms, architectures, and measurable results.
+- [Company](https://softbee.io/company): Soft Bee's engineering philosophy, leadership team, co-founders, and company culture.
+- [Careers](https://softbee.io/careers): Career opportunities, open vacancies, mentorship programs, and engineering culture at Soft Bee.
+- [Insights](https://softbee.io/insights): Technical articles, engineering teardowns, AI research, and architectural insights from our senior team.
+- [Partnership](https://softbee.io/partnership): Collaborative delivery partnerships for design agencies, founders, and technology companies.
+
+## Core Services
+
+- [Custom Web & Mobile Development](https://softbee.io/services): Full-stack web applications and cross-platform mobile apps developed with modern stacks (TypeScript, Next.js, React, Node.js, Python, React Native).
+- [AI Integration & Engineering](https://softbee.io/services): Large language model (LLM) integrations, retrieval-augmented generation (RAG), autonomous agents, computer vision, and machine learning pipeline development.
+- [SaaS & B2B Platforms](https://softbee.io/services): Scalable multitenant SaaS architectures, cloud infrastructure, microservices, and secure API ecosystems.
+- [UI/UX & Product Design](https://softbee.io/services): User research, wireframing, high-fidelity UI design systems, interactive prototyping, and usability testing.
+- [Product Support & Scaling](https://softbee.io/services): Performance optimization, infrastructure migration, technical audits, security hardening, and ongoing DevOps.
+
+## Featured Case Studies
+
+- [Elacity Control Plane](https://softbee.io/case-studies/elacity-control-plane): Decentralized digital asset management and media distribution platform providing granular control, DRM, and seamless transactions.
+- [Every Cure (Orchard)](https://softbee.io/case-studies/every-cure-orchard): AI-assisted biomedical data platform built in collaboration with Every Cure to accelerate global drug repurposing and rare disease treatments.
+- [Confyde](https://softbee.io/case-studies/confyde): Comprehensive cybersecurity posture, risk assessment, and compliance management platform for enterprise IT environments.
+
+## Contact & Legal
+
+- [Contact](mailto:info@softbee.io): General inquiries, project discussions, and partnership proposals (info@softbee.io).
+- [Privacy Policy](https://softbee.io/privacy-policy): Information on user data handling, cookie policies, and compliance with data privacy regulations.
+- [Terms of Use](https://softbee.io/terms-of-use): Terms and conditions governing the use of the Soft Bee website and services.

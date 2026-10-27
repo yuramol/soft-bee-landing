@@ -7,7 +7,7 @@ import aboutUsContent from './content.json';
 
 export const AboutUs = () => {
   return (
-    <section className='cv-auto flex w-full flex-col pt-15.5 pb-25 lg:px-10.5 lg:pt-50 lg:pb-35'>
+    <section className='cv-auto flex w-full flex-col pt-15 pb-15 lg:px-10.5 lg:pt-30 lg:pb-30'>
       <ComponentContainer>
         <div className='px-4 lg:px-0'>
           <Badge title={aboutUsContent.badge} className='mb-7.5 w-fit lg:mb-7' />

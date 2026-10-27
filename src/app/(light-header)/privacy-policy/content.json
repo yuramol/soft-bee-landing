@@ -183,19 +183,15 @@
       "blocks": [
         {
           "type": "p",
-          "content": "At the date of this Privacy Policy, the Website does  <strong> not use analytics, advertising, behavioural profiling, or marketing tracking tools such as Google Analytics 4, Meta Pixel, or Microsoft Clarity. </strong>"
+          "content": "The Website uses <strong>Google Analytics 4</strong> to collect aggregated data about site performance, traffic sources, and user interactions. Analytics tracking is governed by <strong>Google Consent Mode v2</strong> and is activated only when you provide explicit consent through our cookie banner."
         },
         {
           "type": "p",
-          "content": "We do not currently use cookies for advertising or behavioural tracking purposes."
+          "content": "If you decline analytics cookies or have not yet made a choice, cookies are not stored for analytics and tracking signals remain in a restricted, denied state."
         },
         {
           "type": "p",
           "content": "Certain strictly necessary technical functionality may process limited information where required to operate, secure, or deliver the Website."
-        },
-        {
-          "type": "p",
-          "content": "If we introduce analytics, advertising, or other non-essential tracking technologies in the future, we will update this Privacy Policy and, where required by law, implement an appropriate consent mechanism."
         }
       ]
     },

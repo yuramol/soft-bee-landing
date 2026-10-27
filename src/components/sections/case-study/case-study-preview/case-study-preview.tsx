@@ -7,7 +7,7 @@ interface CaseStudyPreviewProps {
 }
 
 export const CaseStudyPreview = ({ image, title }: CaseStudyPreviewProps) => (
-  <section className='my-2.5 lg:my-8'>
+  <section className='mb-15 lg:mb-30'>
     <ComponentContainer>
       <Image
         src={image}

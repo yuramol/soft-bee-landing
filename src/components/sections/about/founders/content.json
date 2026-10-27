@@ -1,0 +1,13 @@
+{
+  "badge": "Founders",
+  "title": [
+    {
+      "text": "Soft Bee started with a simple idea: "
+    },
+    {
+      "text": "technology should be efficient, not rigid. Just like bees tirelessly crafting the perfect geometry of a honeycomb, we built this project step by step.",
+      "className": "text-foreground/50"
+    }
+  ],
+  "imageAlt": "Founders"
+}

@@ -1,8 +1,72 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
+import { getContactToAddress, getContactToAddresses } from './secrets';
 import { validateContactSubmission } from './validate';
+
+describe('contact recipients', () => {
+  const previousTo = process.env.CONTACT_TO_EMAIL;
+  const previousHr = process.env.HR_TO_EMAIL;
+
+  afterEach(() => {
+    restoreEnv('CONTACT_TO_EMAIL', previousTo);
+    restoreEnv('HR_TO_EMAIL', previousHr);
+  });
+
+  it('falls back to the default inbox when unset or blank', () => {
+    delete process.env.CONTACT_TO_EMAIL;
+    expect(getContactToAddresses('discuss_project')).toEqual(['hello@softbee.com']);
+
+    process.env.CONTACT_TO_EMAIL = ' , ';
+    expect(getContactToAddresses('discuss_project')).toEqual(['hello@softbee.com']);
+  });
+
+  it('sends client forms only to CONTACT_TO_EMAIL, even when HR_TO_EMAIL is set', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io';
+    process.env.HR_TO_EMAIL = 'hr@softbee.io';
+
+    expect(getContactToAddresses('discuss_project')).toEqual(['info@softbee.io']);
+    expect(getContactToAddresses('partnership')).toEqual(['info@softbee.io']);
+  });
+
+  it('adds HR_TO_EMAIL for vacancy applications only', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io';
+    process.env.HR_TO_EMAIL = 'hr@softbee.io';
+
+    expect(getContactToAddresses('vacancy_application')).toEqual(['info@softbee.io', 'hr@softbee.io']);
+  });
+
+  it('sends applications to CONTACT_TO_EMAIL alone while HR_TO_EMAIL is unset', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io';
+    delete process.env.HR_TO_EMAIL;
+
+    expect(getContactToAddresses('vacancy_application')).toEqual(['info@softbee.io']);
+  });
+
+  it('splits comma-separated lists, trims whitespace and drops case-insensitive duplicates', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io, sales@softbee.io ,,';
+    process.env.HR_TO_EMAIL = 'HR@softbee.io, Info@softbee.io';
+
+    expect(getContactToAddresses('vacancy_application')).toEqual(['info@softbee.io', 'sales@softbee.io', 'HR@softbee.io']);
+    expect(getContactToAddress()).toBe('info@softbee.io');
+  });
+
+  it('deduplicates CONTACT_TO_EMAIL for client forms', () => {
+    process.env.CONTACT_TO_EMAIL = 'info@softbee.io, Info@softbee.io, sales@softbee.io';
+
+    expect(getContactToAddresses('discuss_project')).toEqual(['info@softbee.io', 'sales@softbee.io']);
+    expect(getContactToAddresses('partnership')).toEqual(['info@softbee.io', 'sales@softbee.io']);
+  });
+});
+
+function restoreEnv(name: 'CONTACT_TO_EMAIL' | 'HR_TO_EMAIL', value: string | undefined): void {
+  if (value === undefined) {
+    delete process.env[name];
+  } else {
+    process.env[name] = value;
+  }
+}
 
 describe('contact email template', () => {
   const templateInput = {

@@ -9,34 +9,42 @@ import { Divider } from '@/components/ui/divider';
 import { FooterAnimatedBackground } from '@/components/ui/footer-animated-background';
 import { Typography } from '@/components/ui/typography';
 import { ROUTES } from '@/constants';
+import { cn } from '@/lib/utils';
 
 import { FooterNav, LogoMedusae } from './components';
 import footerContent from './content.json';
-import { cn } from '@/lib/utils';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
 
+  const isCareers = pathname === ROUTES.CAREERS;
   const isPartnership = pathname === ROUTES.PARTNERSHIP;
   const isLegalPage = pathname === ROUTES.PRIVACY_POLICY || pathname === ROUTES.TERMS_OF_USE;
-  const hideTopSection = isPartnership || isLegalPage;
+  const hideTopSection = isPartnership || isLegalPage || isCareers;
 
   return (
-    <footer className='from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5'>
-      {!hideTopSection && <FooterAnimatedBackground className='-top-82.5 h-312.5' />}
+    <footer
+      className={cn(
+        'from-muted via-brand-white to-brand-white relative w-full shrink-0 overflow-x-clip bg-linear-to-b via-20% px-4 md:px-10.5',
+        'peer-has-[[data-not-found]]:[&_.footer-animated-bg]:hidden',
+        'peer-has-[[data-not-found]]:[&_.footer-top-section]:hidden',
+        'peer-has-[[data-not-found]]:[&_.footer-content-wrapper]:!pt-20'
+      )}
+    >
+      {!hideTopSection && <FooterAnimatedBackground className='footer-animated-bg -top-82.5 h-312.5' />}
 
       <div
-        className={cn('relative z-10 w-full pb-17 transition-all duration-500 md:pb-10', {
-          'pt-0': isPartnership,
+        className={cn('footer-content-wrapper relative z-10 w-full pb-17 transition-all duration-500 md:pb-22', {
+          'pt-0': isPartnership || isCareers,
           'pt-20 md:pt-20': isLegalPage,
-          'pt-31.25 md:pt-80': !isPartnership && !isLegalPage
+          'pt-31.25 md:pt-80': !isPartnership && !isLegalPage && !isCareers
         })}
       >
         <ComponentContainer>
           {!hideTopSection && (
-            <div className='mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
-              <Typography variant='h1' className='text-foreground tracking-[-0.58px] md:text-center'>
+            <div className='footer-top-section mb-19 flex flex-col items-center gap-9.5 md:mb-31.75 md:gap-16.25'>
+              <Typography variant='h1' tag='h2' className='text-foreground text-center tracking-[-0.58px]'>
                 {footerContent.title.map((line, index) => (
                   <span key={line}>
                     {index > 0 ? <br /> : null}

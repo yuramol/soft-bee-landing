@@ -2,8 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import { MOCK_JOB_ID, mockPresentationApis, openSmartEstimation, stubRecaptcha, submitEstimateBrief } from './helpers/presentation-mocks';
 
-const SAMPLE_BRIEF =
-  'Create a Telegram bot that sends me daily weather as TXT and PDF attachments for my saved city.';
+const SAMPLE_BRIEF = 'Create a Telegram bot that sends me daily weather as TXT and PDF attachments for my saved city.';
 
 test.describe('Smart Estimation', () => {
   test.beforeEach(async ({ page }) => {

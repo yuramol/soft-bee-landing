@@ -24,7 +24,7 @@ export default function Home() {
       <VideoWrapper />
       <AboutUs />
 
-      <div className='bg-muted relative pb-30.5 md:pb-26.75'>
+      <div className='bg-muted relative pb-15 lg:pb-30'>
         <ComponentContainer>
           <div className='relative z-20 w-full overflow-x-clip rounded-lg bg-white md:rounded-2xl'>
             <Services />

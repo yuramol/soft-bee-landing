@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
 import { submitContactForm } from '@/lib/api/contact';
+import { trackPartnershipSubmit } from '@/lib/analytics';
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
 import content from '../partnership.json';
@@ -55,6 +56,8 @@ export default function PartnershipForm() {
     }
   });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   useEffect(() => {
     if (isComplete) successHeadingRef.current?.focus();
   }, [isComplete]);
@@ -82,6 +85,7 @@ export default function PartnershipForm() {
         captchaToken
       });
 
+      trackPartnershipSubmit(data.partnershipType);
       setIsComplete(true);
     } catch (error) {
       console.error('Failed to submit partnership form:', error);
@@ -266,7 +270,7 @@ export default function PartnershipForm() {
               </div>
             </div>
 
-            {Object.keys(errors).length > 0 && (
+            {hasErrors && (
               <Typography variant='caption2' className='pf-errorSummary' role='alert' tag='p'>
                 {f.footer.errorSummary}
               </Typography>
@@ -279,7 +283,7 @@ export default function PartnershipForm() {
             )}
 
             <div className='pf-actions flex flex-col gap-4'>
-              <Button variant='primary' type='submit' className='w-full' disabled={isSubmitting}>
+              <Button variant='primary' type='submit' className='w-full' disabled={isSubmitting || hasErrors}>
                 {isSubmitting ? 'Sending...' : f.footer.submitButton}
               </Button>
               <p className='text-foreground/50 text-center text-xs'>

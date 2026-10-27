@@ -1,0 +1,31 @@
+{
+  "badge": "Benefits & Perks",
+  "title": "Life at Soft Bee: Why you’ll love it here",
+  "benefits": [
+    {
+      "title": "Flexible & Remote-First Work",
+      "description": "Choose where and when you work best. We trust our team to manage their own time, offering flexible hours and fully remote options to support your ideal work-life balance.",
+      "type": "cyan",
+      "layout": "bottom"
+    },
+    {
+      "title": "Ownership & Trust",
+      "description": "We hire people we trust and give them real ownership over decisions, delivery, and quality—without micromanagement getting in the way.",
+      "type": "white",
+      "layout": "split"
+    },
+    {
+      "title": "Continuous Growth & Learning",
+      "description": "Grow with mentorship, knowledge sharing, and space to explore new tools and practices that raise the bar for our craft.",
+      "type": "image",
+      "image": "/images/careers/careers-team.webp",
+      "layout": "bottom"
+    },
+    {
+      "title": "Impactful Product Work",
+      "description": "Ship meaningful products with clients who care about quality. Your work reaches real users and shapes how teams build software.",
+      "type": "lime",
+      "layout": "top"
+    }
+  ]
+}

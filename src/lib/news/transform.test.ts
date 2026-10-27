@@ -54,12 +54,18 @@ describe('transformNewsArticleToInsight', () => {
       ],
       tableOfContents: [{ id: 'sec-1', title: 'Section One' }],
       related: [],
-      sources: [{ name: 'Reuters', url: 'https://reuters.example', publishedAt: null }]
+      sources: [
+        { name: 'Reuters', url: 'https://reuters.example', publishedAt: null },
+        { name: 'BBC', url: 'https://bbc.example', publishedAt: '2026-09-20T12:00:00.000Z' }
+      ]
     };
 
     const insight = transformNewsArticleToInsight(full);
     expect(insight.content[0]?.type).toBe('text');
     expect(insight.content[0]?.heading).toBe('Section One');
-    expect(insight.content.some((block) => block.type === 'list' && block.heading === 'Sources')).toBe(true);
+    const sourcesBlock = insight.content.find((block) => block.type === 'list' && block.heading === 'Sources');
+    expect(sourcesBlock).toBeDefined();
+    expect(sourcesBlock?.items).toContain('Reuters: https://reuters.example');
+    expect(sourcesBlock?.items).toContain('BBC: https://bbc.example');
   });
 });

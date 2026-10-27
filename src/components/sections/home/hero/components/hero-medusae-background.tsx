@@ -50,7 +50,7 @@ export function HeroMedusaeBackground({ children }: HeroMedusaeBackgroundProps) 
       onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
       onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
-        'bg-background relative mb-2.5 flex h-[calc(100svh-20px)] w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pb-12.75 lg:h-175 lg:max-h-[calc(100vh-20px)] lg:px-10.5',
+        'bg-background relative mb-2.5 flex w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pt-50 pb-12.75 lg:h-175 lg:max-h-[calc(100vh-20px)] lg:px-10.5 lg:pt-0',
         'lg:min-h-140 lg:pb-27'
       )}
     >

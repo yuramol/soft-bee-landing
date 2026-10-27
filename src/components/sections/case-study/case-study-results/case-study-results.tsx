@@ -26,7 +26,7 @@ export const CaseStudyResults = ({ className, cards = [] }: CaseStudyResultsProp
   useSwiperPeekAnimation(swiperInstance);
 
   return (
-    <section className={cn('bg-muted relative px-4 pt-29.25 pb-23.75 md:pt-20 md:pb-37.5 lg:px-10.5', className)}>
+    <section className={cn('bg-muted relative px-4 pt-15 pb-15 lg:px-10.5 lg:pt-30 lg:pb-30', className)}>
       <ComponentContainer>
         <div className='flex flex-col xl:flex-row xl:justify-between'>
           <div className='contents w-full flex-col xl:flex xl:w-[25%]'>

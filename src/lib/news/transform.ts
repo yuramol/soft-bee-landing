@@ -125,8 +125,7 @@ function mapSourcesToBlocks(
   }
 
   for (const source of sources) {
-    const published = source.publishedAt ? ` (${source.publishedAt})` : '';
-    lines.push(`${source.name}${published}: ${source.url}`);
+    lines.push(`${source.name}: ${source.url}`);
   }
 
   if (lines.length === 0) {

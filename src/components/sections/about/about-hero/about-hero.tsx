@@ -4,10 +4,11 @@ import { preload } from 'react-dom';
 import { ComponentContainer } from '@/components/layout/component-container';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
+import aboutHeroContent from './content.json';
 
 export function AboutHero() {
   const common = {
-    alt: 'Meet the people behind Soft Bee',
+    alt: aboutHeroContent.imageAlt,
     fill: true,
     quality: 75,
     sizes: '100vw',
@@ -55,13 +56,12 @@ export function AboutHero() {
       </div>
 
       <ComponentContainer className='relative z-10 flex h-full min-h-dvh flex-col justify-end px-5 pb-10.25 lg:flex-row lg:items-end lg:justify-between lg:px-10.5 lg:pb-0'>
-        <Typography variant='h1' className='mb-6.75 text-white lg:order-last lg:mb-7 lg:w-1/2 xl:mb-14.25 2xl:mb-28.5'>
-          Meet the people
-          <br /> behind Soft Bee
+        <Typography variant='h1' className='mb-6.75 whitespace-pre-line text-white lg:order-last lg:mb-7 lg:w-1/2 xl:mb-14.25 2xl:mb-28.5'>
+          {aboutHeroContent.title}
         </Typography>
 
         <Typography variant='body2' className='max-w-84 text-white lg:mb-6.75 xl:mb-13.5 2xl:mb-27'>
-          We are a global team of creators, engineers, and problem-solvers who believe that great software starts with great relationships.
+          {aboutHeroContent.description}
         </Typography>
       </ComponentContainer>
     </section>
