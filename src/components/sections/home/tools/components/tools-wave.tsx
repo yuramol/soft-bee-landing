@@ -30,6 +30,8 @@ const trackWrapperClassName = cn(
   'xl:pt-14 xl:pb-20'
 );
 
+const compactMobileTrackClassName = 'pt-12 pb-12 sm:pt-12';
+
 const trackClassName = cn('flex w-max items-center gap-4', 'sm:gap-5 lg:gap-6');
 
 export interface ToolsWaveProps {
@@ -37,6 +39,8 @@ export interface ToolsWaveProps {
 }
 
 export function ToolsWave({ tools }: ToolsWaveProps) {
+  // Case study pages pass `tools` and use a compact mobile track.
+  const isCompactOnMobile = Boolean(tools);
   const activeTools = (tools || DEFAULT_TOOLS) as Tool[];
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -148,7 +152,11 @@ export function ToolsWave({ tools }: ToolsWaveProps) {
 
   return (
     <div ref={containerRef} className='w-full overflow-x-clip'>
-      <motion.div ref={trackRef} style={{ x }} className={cn(trackWrapperClassName, openToolsCount > 0 && 'tools-wave-paused')}>
+      <motion.div
+        ref={trackRef}
+        style={{ x }}
+        className={cn(trackWrapperClassName, isCompactOnMobile && compactMobileTrackClassName, openToolsCount > 0 && 'tools-wave-paused')}
+      >
         {renderToolSet(activeTools, 0, handleToolOpenChange)}
         {renderToolSet(activeTools, activeTools.length, handleToolOpenChange, true)}
       </motion.div>
