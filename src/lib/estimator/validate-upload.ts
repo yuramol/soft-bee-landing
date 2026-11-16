@@ -1,4 +1,5 @@
 import { ESTIMATOR_ALLOWED_MIME_TYPES, ESTIMATOR_MAX_FILE_BYTES, ESTIMATOR_MAX_TEXT_CHARS } from './constants';
+import { FILE_TOO_LARGE_MESSAGE, getFileExtension, getSpecificMimeType } from '@/lib/security/upload';
 
 export interface UploadValidationSuccess {
   ok: true;
@@ -11,7 +12,9 @@ export interface UploadValidationFailure {
 
 export type UploadValidationResult = UploadValidationSuccess | UploadValidationFailure;
 
-const ALLOWED_EXTENSIONS_BY_MIME: Record<(typeof ESTIMATOR_ALLOWED_MIME_TYPES)[number], readonly string[]> = {
+type EstimatorMimeType = (typeof ESTIMATOR_ALLOWED_MIME_TYPES)[number];
+
+const ALLOWED_EXTENSIONS_BY_MIME: Record<EstimatorMimeType, readonly string[]> = {
   'application/pdf': ['.pdf'],
   'text/plain': ['.txt'],
   'text/markdown': ['.md', '.markdown'],
@@ -44,7 +47,7 @@ export function validateEstimatorUpload(input: { text: string | null; file: File
 
   if (input.file) {
     if (input.file.size > ESTIMATOR_MAX_FILE_BYTES) {
-      return { ok: false, error: 'File must be 10 MB or smaller.' };
+      return { ok: false, error: FILE_TOO_LARGE_MESSAGE };
     }
 
     if (hasSuspiciousDoubleExtension(input.file.name)) {
@@ -88,40 +91,49 @@ export async function validateEstimatorUploadWithContent(input: {
   return { ok: true };
 }
 
-function isAllowedUploadFile(file: File): boolean {
-  const extension = getFileExtension(file.name);
-  const mimeType = file.type || '';
-
-  if (mimeType) {
-    if (!isAllowedMimeType(mimeType)) {
-      return false;
-    }
-
-    const allowedExtensions = ALLOWED_EXTENSIONS_BY_MIME[mimeType];
-    return allowedExtensions.includes(extension);
+/**
+ * Returns the file with its real document MIME type, so Railway never receives the generic
+ * `application/octet-stream` / `application/zip` some browsers send. Call only after validation passed.
+ */
+export function withResolvedMimeType(file: File): File {
+  const mimeType = resolveEstimatorMimeType(file);
+  if (!mimeType || file.type === mimeType) {
+    return file;
   }
 
-  // Browsers often leave type empty for .txt / .md; fall back to extension.
-  return isAllowedExtension(file.name);
+  return new File([file], file.name, { type: mimeType, lastModified: file.lastModified });
 }
 
-function isAllowedMimeType(mimeType: string): mimeType is (typeof ESTIMATOR_ALLOWED_MIME_TYPES)[number] {
+function isAllowedUploadFile(file: File): boolean {
+  return resolveEstimatorMimeType(file) !== null;
+}
+
+/**
+ * Allowed MIME type for the file, or `null` when it is not a supported document.
+ * Empty or generic (octet-stream / zip) types fall back to the extension; magic bytes confirm it server-side.
+ */
+function resolveEstimatorMimeType(file: File): EstimatorMimeType | null {
+  const extension = getFileExtension(file.name);
+  const mimeType = getSpecificMimeType(file);
+
+  if (!mimeType) {
+    return getMimeTypeByExtension(extension);
+  }
+
+  if (!isAllowedMimeType(mimeType)) {
+    return null;
+  }
+
+  return ALLOWED_EXTENSIONS_BY_MIME[mimeType].includes(extension) ? mimeType : null;
+}
+
+function isAllowedMimeType(mimeType: string): mimeType is EstimatorMimeType {
   return (ESTIMATOR_ALLOWED_MIME_TYPES as readonly string[]).includes(mimeType);
 }
 
-function isAllowedExtension(fileName: string): boolean {
-  const extension = getFileExtension(fileName);
-  return Object.values(ALLOWED_EXTENSIONS_BY_MIME).some((extensions) => extensions.includes(extension));
-}
-
-function getFileExtension(fileName: string): string {
-  const lowerName = fileName.toLowerCase().trim();
-  const lastDot = lowerName.lastIndexOf('.');
-  if (lastDot <= 0 || lastDot === lowerName.length - 1) {
-    return '';
-  }
-
-  return lowerName.slice(lastDot);
+function getMimeTypeByExtension(extension: string): EstimatorMimeType | null {
+  const match = ESTIMATOR_ALLOWED_MIME_TYPES.find((mimeType) => ALLOWED_EXTENSIONS_BY_MIME[mimeType].includes(extension));
+  return match ?? null;
 }
 
 function hasSuspiciousDoubleExtension(fileName: string): boolean {
@@ -136,7 +148,7 @@ function hasSuspiciousDoubleExtension(fileName: string): boolean {
 }
 
 function matchesMagicForFile(file: File, head: Uint8Array): boolean {
-  const mimeType = file.type || '';
+  const mimeType = getSpecificMimeType(file);
   const extension = getFileExtension(file.name);
 
   if (mimeType === 'application/pdf' || extension === '.pdf') {

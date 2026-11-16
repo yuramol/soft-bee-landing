@@ -8,9 +8,10 @@ import {
   CONTACT_RECAPTCHA_ACTIONS
 } from '@/lib/contact/constants';
 import { consumeContactRateLimitSlot } from '@/lib/contact/rate-limit';
-import { isContactMailConfigured } from '@/lib/contact/secrets';
+import { getContactToAddress, isContactMailConfigured } from '@/lib/contact/secrets';
 import { sendContactEmail } from '@/lib/contact/send';
-import { validateContactSubmissionWithContent } from '@/lib/contact/validate';
+import type { ContactKind } from '@/lib/contact/types';
+import { isContactKind, validateContactSubmissionWithContent } from '@/lib/contact/validate';
 import { verifyRecaptchaV3Token } from '@/lib/estimator/recaptcha';
 import {
   getRequestIp,
@@ -21,13 +22,14 @@ import {
   readFormString
 } from '@/lib/security';
 import { checkGeoRestriction, geoRestrictionResponse } from '@/lib/security/geo-restriction';
+import { CAPTCHA_FAILED_MESSAGE, TEMPORARILY_UNAVAILABLE_MESSAGE } from '@/lib/security/user-messages';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
 
 export async function POST(request: Request) {
   let reservationId: string | null = null;
-  let contactKind: string | null = null;
+  let contactKind: ContactKind | null = null;
 
   try {
     // 1. Origin / config checks
@@ -37,12 +39,12 @@ export async function POST(request: Request) {
 
     if (!isContactMailConfigured()) {
       console.error('RESEND_API_KEY is not configured.');
-      return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+      return sendUnavailableResponse(500);
     }
 
     if (!isSiteHmacSecretConfigured()) {
       console.error('SITE_HMAC_SECRET is not configured.');
-      return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+      return sendUnavailableResponse(500);
     }
 
     const geo = await checkGeoRestriction(request);
@@ -89,18 +91,15 @@ export async function POST(request: Request) {
     if (!rateLimit.allowed) {
       if (rateLimit.reason === 'misconfigured') {
         console.error('Contact rate-limit secret is not configured.');
-        return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+        return sendUnavailableResponse(500);
       }
 
-      return NextResponse.json(
-        { error: 'Too many messages. Please try again later.' },
-        { status: 429, headers: { 'Retry-After': '3600' } }
-      );
+      return rateLimit.reason === 'burst' ? burstRateLimitResponse() : dailyRateLimitResponse();
     }
 
     // 4. Validate + captcha
     const kind = readFormString(formData, 'kind');
-    contactKind = kind;
+    contactKind = kind && isContactKind(kind) ? kind : null;
     const fileEntry = formData.get('file');
     const file = isBrowserFile(fileEntry) ? fileEntry : null;
 
@@ -126,7 +125,8 @@ export async function POST(request: Request) {
     });
 
     if (!captchaResult.ok) {
-      return NextResponse.json({ error: captchaResult.error ?? 'Captcha verification failed.' }, { status: 403 });
+      console.warn('Contact captcha rejected:', captchaResult.error ?? 'unknown reason');
+      return NextResponse.json({ error: CAPTCHA_FAILED_MESSAGE }, { status: 403 });
     }
 
     // 5. Send (and log successful submission)
@@ -141,7 +141,7 @@ export async function POST(request: Request) {
 
     if (!sent.ok) {
       await logFailedSubmission(validation.kind, ip, sent.error ?? 'Email send failed.');
-      return NextResponse.json({ error: 'Failed to send message.' }, { status: 502 });
+      return sendUnavailableResponse(502);
     }
 
     reservationId = await reserveContactSubmission({
@@ -161,11 +161,11 @@ export async function POST(request: Request) {
     if (contactKind) {
       const ip = getRequestIp(request);
       if (ip) {
-        await logFailedSubmission(contactKind as any, ip, 'Unexpected server error.');
+        await logFailedSubmission(contactKind, ip, 'Unexpected server error.');
       }
     }
 
-    return NextResponse.json({ error: 'Unexpected server error.' }, { status: 500 });
+    return sendUnavailableResponse(500);
   }
 }
 
@@ -184,9 +184,9 @@ async function isIpOverLimit(ip: string, sinceIso: string, max: number): Promise
   return 'ok';
 }
 
-async function logFailedSubmission(kind: string, ip: string, errorMessage: string): Promise<void> {
+async function logFailedSubmission(kind: ContactKind, ip: string, errorMessage: string): Promise<void> {
   await reserveContactSubmission({
-    kind: kind as any,
+    kind,
     status: 'failed',
     ip,
     errorMessage
@@ -210,5 +210,13 @@ function dailyRateLimitResponse(): NextResponse {
 }
 
 function rateLimitUnavailableResponse(): NextResponse {
-  return NextResponse.json({ error: 'Rate limit temporarily unavailable. Please try again.' }, { status: 503 });
+  return NextResponse.json({ error: TEMPORARILY_UNAVAILABLE_MESSAGE }, { status: 503 });
+}
+
+/** Our side failed (config, mail provider, unexpected error) — give the user a direct way to reach us. */
+function sendUnavailableResponse(status: 500 | 502): NextResponse {
+  return NextResponse.json(
+    { error: `We couldn't send your message right now. Please try again later or email us at ${getContactToAddress()}.` },
+    { status }
+  );
 }

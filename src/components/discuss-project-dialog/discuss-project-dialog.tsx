@@ -11,6 +11,7 @@ import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { submitContactForm } from '@/lib/api/contact';
 import { CONTACT_FILE_ACCEPT, CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
+import { contactFileSchema } from '@/lib/contact/file-schema';
 import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,7 +27,7 @@ const discussProjectSchema = z
     fullName: z.string().min(1, 'Full name is required'),
     email: z.email('Invalid email address'),
     projectDetails: z.string().optional(),
-    file: z.custom<File>().optional(),
+    file: contactFileSchema,
     website: z.string().optional()
   })
   .refine(
@@ -86,6 +87,8 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
       setValue('file', e.target.files[0], { shouldValidate: true });
       void triggerValidation('projectDetails');
     }
+    // Reset so picking the same file again (e.g. after removing it) still fires onChange.
+    e.target.value = '';
   }
 
   function handleRemoveFile(e: MouseEvent) {
@@ -227,6 +230,11 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
                     className='overflow-hidden'
                   >
                     <FileUploadBadge file={file} onRemove={handleRemoveFile} disabled={isSubmitting} />
+                    {errors.file && (
+                      <span role='alert' className='text-destructive mt-1 block w-full text-left text-xs'>
+                        {errors.file.message}
+                      </span>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -234,7 +242,7 @@ export function DiscussProjectDialog({ children, triggerButton, open, onOpenChan
           </div>
           {submitError && (
             <p role='alert' className='text-destructive text-sm'>
-              {submitError} {dialogContent.feedback.tryAgain}
+              {submitError}
             </p>
           )}
           <div className='flex flex-col gap-4'>

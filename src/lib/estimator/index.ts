@@ -31,4 +31,4 @@ export {
 } from './proposal-outputs';
 export { getPresentationRateLimitState } from './rate-limit';
 export { verifyRecaptchaV3Token } from './recaptcha';
-export { validateEstimatorUpload, validateEstimatorUploadWithContent } from './validate-upload';
+export { validateEstimatorUpload, validateEstimatorUploadWithContent, withResolvedMimeType } from './validate-upload';

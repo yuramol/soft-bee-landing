@@ -11,7 +11,20 @@ declare global {
   }
 }
 
+export const RECAPTCHA_UNAVAILABLE_MESSAGE =
+  "The security check couldn't load. Please disable your ad blocker or refresh the page, then try again.";
+
+/** Runs reCAPTCHA v3; any load/execute failure surfaces as one readable message (details go to the console). */
 export async function executeRecaptcha(action: string): Promise<string> {
+  try {
+    return await runRecaptcha(action);
+  } catch (error) {
+    console.error('reCAPTCHA failed:', error);
+    throw new Error(RECAPTCHA_UNAVAILABLE_MESSAGE);
+  }
+}
+
+async function runRecaptcha(action: string): Promise<string> {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   if (!siteKey) {

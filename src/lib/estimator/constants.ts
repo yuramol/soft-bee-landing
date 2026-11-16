@@ -1,7 +1,9 @@
+import { MAX_UPLOAD_BYTES } from '@/lib/security/upload';
+
 export const ESTIMATOR_RECAPTCHA_ACTION = 'estimate_create';
 export const RECAPTCHA_MIN_SCORE = 0.5;
 
-export const ESTIMATOR_MAX_FILE_BYTES = 10 * 1024 * 1024;
+export const ESTIMATOR_MAX_FILE_BYTES = MAX_UPLOAD_BYTES;
 /** Max trimmed project text length (chars). Roughly caps prompt size before Railway. */
 export const ESTIMATOR_MAX_TEXT_CHARS = 32_000;
 
@@ -13,7 +15,8 @@ export const ESTIMATOR_ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 ] as const;
 
-export const ESTIMATOR_FILE_ACCEPT = ESTIMATOR_ALLOWED_MIME_TYPES.join(',');
+/** Extensions are listed too: mobile pickers often grey out documents when `accept` holds MIME types only. */
+export const ESTIMATOR_FILE_ACCEPT = ['.pdf', '.txt', '.md', '.markdown', '.doc', '.docx', ...ESTIMATOR_ALLOWED_MIME_TYPES].join(',');
 
 export const RATE_LIMIT_COOKIE_NAME = 'rate_limit_presentation';
 export const RATE_LIMIT_MAX_PER_DAY = 10;
