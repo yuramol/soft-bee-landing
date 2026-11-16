@@ -1,9 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { CONTACT_MAX_FILE_BYTES } from './constants';
 import { buildContactEmailHtml, buildContactEmailSubject, buildContactEmailText } from './email-template';
 import { escapeHtml, sanitizeEmailHeaderValue } from './escape';
 import { getContactToAddress, getContactToAddresses } from './secrets';
-import { validateContactSubmission } from './validate';
+import { getContactFileError, validateContactSubmission, validateContactSubmissionWithContent } from './validate';
 
 describe('contact recipients', () => {
   const previousTo = process.env.CONTACT_TO_EMAIL;
@@ -229,5 +230,47 @@ describe('validateContactSubmission', () => {
       file
     });
     expect(result.ok).toBe(false);
+  });
+  it('accepts a DOCX reported as application/zip when the contents are a ZIP', async () => {
+    const file = new File([new Uint8Array([0x50, 0x4b, 0x03, 0x04, 0x00])], 'resume.docx', { type: 'application/zip' });
+    const result = await validateContactSubmissionWithContent({ ...base, file });
+    expect(result.ok).toBe(true);
+  });
+
+  it('accepts a PDF reported as application/octet-stream when the contents are a PDF', async () => {
+    const file = new File(['%PDF-1.4 mock'], 'resume.pdf', { type: 'application/octet-stream' });
+    const result = await validateContactSubmissionWithContent({ ...base, file });
+    expect(result.ok).toBe(true);
+  });
+
+  it('rejects an octet-stream file whose contents do not match its extension', async () => {
+    const file = new File(['MZ fake exe'], 'resume.pdf', { type: 'application/octet-stream' });
+    const result = await validateContactSubmissionWithContent({ ...base, file });
+    expect(result.ok).toBe(false);
+  });
+
+  it('rejects a known MIME type paired with the wrong extension', () => {
+    const file = new File(['%PDF-1.4'], 'resume.docx', { type: 'application/pdf' });
+    const result = validateContactSubmission({ ...base, file });
+    expect(result.ok).toBe(false);
+  });
+});
+
+describe('getContactFileError', () => {
+  it('returns null for a supported file', () => {
+    expect(getContactFileError(new File(['%PDF-1.4'], 'cv.pdf', { type: 'application/pdf' }))).toBeNull();
+  });
+
+  it('rejects files over the upload limit with a readable message', () => {
+    const file = new File([new Uint8Array(CONTACT_MAX_FILE_BYTES + 1)], 'cv.pdf', { type: 'application/pdf' });
+    expect(getContactFileError(file)).toMatch(/4 MB/);
+  });
+
+  it('rejects empty files', () => {
+    expect(getContactFileError(new File([], 'cv.pdf', { type: 'application/pdf' }))).toMatch(/empty/i);
+  });
+
+  it('rejects dangerous double extensions', () => {
+    expect(getContactFileError(new File(['x'], 'cv.pdf.exe', { type: '' }))).toMatch(/unsupported/i);
   });
 });

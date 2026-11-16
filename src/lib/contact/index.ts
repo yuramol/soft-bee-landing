@@ -10,4 +10,4 @@ export {
   CONTACT_RECAPTCHA_ACTIONS
 } from './constants';
 
-export { isContactKind, validateContactSubmission, validateContactSubmissionWithContent } from './validate';
+export { getContactFileError, isContactKind, validateContactSubmission, validateContactSubmissionWithContent } from './validate';
