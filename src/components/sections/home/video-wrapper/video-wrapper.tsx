@@ -9,7 +9,7 @@ import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 import content from './content.json';
 
-const VIDEO_SRC = '/videos/home.webm';
+const VIDEO_SRC = '/videos/home.mp4';
 const VIDEO_POSTER = '/videos/home-poster.webp';
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
