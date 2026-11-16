@@ -278,7 +278,7 @@ export default function PartnershipForm() {
 
             {submitError && (
               <Typography variant='caption2' className='pf-errorSummary' role='alert' tag='p'>
-                {submitError} Please try again.
+                {submitError}
               </Typography>
             )}
 
