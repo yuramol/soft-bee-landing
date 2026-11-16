@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
 import { ComponentContainer } from '@/components/layout';
+import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { CaseStudyCards } from './components';
@@ -46,11 +47,19 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
     () => false
   );
 
+  function handlePointerEnter() {
+    setIsHovering(true);
+  }
+
+  function handlePointerLeave() {
+    setIsHovering(false);
+  }
+
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={canRenderMedusae ? () => setIsHovering(true) : undefined}
-      onPointerLeave={canRenderMedusae ? () => setIsHovering(false) : undefined}
+      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
+      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
         'bg-background relative mb-15 flex w-full flex-col justify-end overflow-hidden rounded-2xl px-4 pt-20 pb-8 lg:mb-30 lg:min-h-175 lg:px-10.5 lg:pt-30 lg:pb-15'
       )}
@@ -62,6 +71,11 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
           </Suspense>
         </div>
       )}
+
+      {/* Mobile background logo, same as home/services hero */}
+      <div className='pointer-events-none absolute inset-0 z-0 overflow-hidden lg:hidden' aria-hidden>
+        <Icon icon='LogoShort' width={196} height={297} className='absolute top-20 right-0' />
+      </div>
 
       <ComponentContainer className='relative z-10 flex flex-col'>
         <Typography variant='h1' className='pb-26.25 lg:pt-0 lg:pb-41.5'>
