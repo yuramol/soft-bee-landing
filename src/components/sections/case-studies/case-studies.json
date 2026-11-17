@@ -457,5 +457,1563 @@
         "link": "https://clutch.co/profile/softbee-0"
       }
     ]
+  },
+  {
+    "id": "cuedin",
+    "title": "CuedIn",
+    "year": "2025",
+    "image": "/images/case-studies/cuedin/cu1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/cuedin1.webp",
+    "link": "/case-studies/cuedin",
+    "client": "CuedIn",
+    "projectType": "Recruitment SaaS platform",
+    "tech": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    "cards": [
+      {
+        "title": "Structured application workflows",
+        "description": "Guide candidates through multi-step applications while organizations follow each application’s status across the recruitment lifecycle."
+      },
+      {
+        "title": "Separate organization workspaces",
+        "description": "Keep each organization’s recruitment data isolated within a shared platform through a multi-tenant architecture."
+      },
+      {
+        "title": "Real-time candidate communication",
+        "description": "Connect students and organizations through real-time chat and automated invitations tied to the recruitment process."
+      },
+      {
+        "title": "Recruitment analytics and dashboards",
+        "description": "Bring pipeline information into interactive dashboards and visualizations so organizations can review candidates and hiring activity in one place."
+      }
+    ],
+    "overviewTitle": "Connecting students and organizations through structured recruitment workflows",
+    "overviewDescription": [
+      "CuedIn is a two-sided recruitment platform connecting students with organizations. It brings applications, communication and candidate tracking into a shared ecosystem, while giving each organization its own workspace. The platform is designed for high-volume hiring pipelines with multiple steps and changing application statuses.",
+      "Recruitment teams need a clear view of candidates as they move through a hiring process. Students need to understand their progress and stay in contact with organizations. Supporting both sides in one platform also requires data separation, consistent application handling and reliable updates across different user workflows.",
+      "We developed multi-step application flows, dynamic status tracking, automated invitations and real-time chat, supported by interactive dashboards. A multi-tenant architecture separates organizational data. Server-driven logic, validated data flows, database optimization and asynchronous processing support the platform’s recruitment workflows and responsive frontend."
+    ],
+    "overviewImages": ["/images/case-studies/cuedin/cu3.webp", "/images/case-studies/cuedin/cu4.webp"],
+    "toolsTitle": "The technology behind CuedIn",
+    "tools": [
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript",
+        "icon": "LogoTypeScript"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "ServiceNow",
+        "description": "Cloud-based workflow automation platform",
+        "icon": "LogoServiceNow"
+      },
+      {
+        "name": "NextAuth",
+        "description": "Authentication for Next.js",
+        "icon": "LogoNextAuth"
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      },
+      {
+        "name": "Gemini",
+        "description": "Google multimodal models for text, code, and vision.",
+        "icon": "LogoGemini"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/cuedin/cu2.webp",
+      "/images/case-studies/cuedin/cu5.webp",
+      "/images/case-studies/cuedin/cu6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Follow every application",
+        "description": "Organizations can review candidate progress across hiring stages, while students can follow their place in the recruitment process."
+      },
+      {
+        "id": 2,
+        "title": "Keep conversations in context",
+        "description": "Students and organizations can communicate within the platform instead of separating conversations from the applications they concern."
+      },
+      {
+        "id": 3,
+        "title": "Work within separate organizations",
+        "description": "Each organization operates within its own data boundaries while using the same underlying recruitment platform."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "joinpeel",
+    "title": "JoinPeel",
+    "year": "2025",
+    "image": "/images/case-studies/joinpeel/jp1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/joinpeel1.webp",
+    "link": "/case-studies/joinpeel",
+    "client": "JoinPeel",
+    "projectType": "B2C marketplace · Web application",
+    "tech": ["React", "Next.js", "Supabase", "PostgreSQL"],
+    "cards": [
+      {
+        "title": "Local product discovery",
+        "description": "Buyers explore produce through search, filters, and a location map, with farm profiles providing details about each grower."
+      },
+      {
+        "title": "Direct orders and checkout",
+        "description": "Customers order from growers through checkout with Stripe and Peel Trade integrations, then follow their purchases through order tracking."
+      },
+      {
+        "title": "Buyer and grower roles",
+        "description": "One account supports buying and selling, allowing growers to manage their listings while also shopping from other producers."
+      },
+      {
+        "title": "Messages and order updates",
+        "description": "In-platform chat connects buyers and growers directly, while email and SMS notifications keep users informed about orders and activity."
+      }
+    ],
+    "overviewTitle": "Connecting local growers with buyers",
+    "overviewDescription": [
+      "JoinPeel is an online marketplace for locally grown products, connecting farmers and food producers with individual customers, restaurants, and food hubs. The platform brings product discovery, direct ordering, and conversations with growers into one place, with dedicated tools for sellers, buyers, ambassadors, and administrators.",
+      "The goal was to make direct trade easier for small and medium-sized farms and the communities around them. Growers needed a way to present their products and manage stock, while buyers needed to find nearby produce, request missing items, and follow orders without relying on intermediaries.",
+      "We developed the marketplace with searchable listings, a location map, grower profiles, checkout integrations, and order tracking. Buyers and sellers can message each other and switch roles within one account. Dedicated dashboards support administration and ambassador referrals, while email and SMS notifications communicate relevant updates."
+    ],
+    "overviewImages": ["/images/case-studies/joinpeel/jp3.webp", "/images/case-studies/joinpeel/jp4.webp"],
+    "toolsTitle": "The technology behind JoinPeel",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform for the internet",
+        "icon": "LogoStripe",
+        "invertOnHover": true
+      },
+      {
+        "name": "Redux Saga",
+        "description": "Side effect middleware for Redux",
+        "icon": "LogoReduxSaga",
+        "invertOnHover": true
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data framework for LLM retrieval and agents.",
+        "icon": "LogoLlamaIndex"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "description": "Advanced virtual agent and conversational AI platform",
+        "icon": "LogoGoogleCloudDialogflowCX",
+        "invertOnHover": true
+      },
+      {
+        "name": "Meta",
+        "description": "Open-weight Llama models and AI research stack.",
+        "icon": "LogoMeta"
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/joinpeel/jp2.webp",
+      "/images/case-studies/joinpeel/jp5.webp",
+      "/images/case-studies/joinpeel/jp6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Direct access to growers",
+        "description": "Farm profiles and in-platform conversations give buyers a direct way to learn about products and contact the people growing them."
+      },
+      {
+        "id": 2,
+        "title": "Requests beyond the catalog",
+        "description": "Buyers can request products that are not listed, giving growers a way to respond to demand from their community."
+      },
+      {
+        "id": 3,
+        "title": "Clearer order progress",
+        "description": "Order history, status tracking, and notifications help customers and growers keep track of purchases within the same marketplace."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "telemedicine-clinic",
+    "title": "Telemedicine",
+    "year": "2025",
+    "image": "/images/case-studies/telemedicine-clinic/tm1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/telemedicine-clinic1.webp",
+    "link": "/case-studies/telemedicine-clinic",
+    "client": "Confidential client",
+    "projectType": "Telehealth web and mobile applications",
+    "tech": ["Firebase", "Node.js", "Django", "React"],
+    "cards": [
+      {
+        "title": "Remote consultations",
+        "description": "Patients and doctors communicate through video calls, voice calls, and text messages."
+      },
+      {
+        "title": "Appointment booking",
+        "description": "A shared calendar supports consultation scheduling across the web portal and mobile apps."
+      },
+      {
+        "title": "Patient documents",
+        "description": "Patients upload documents while doctors maintain patient records and save test data."
+      },
+      {
+        "title": "Pharmacy orders",
+        "description": "Patients order medicines through the app, with connected pharmacies managing incoming orders."
+      }
+    ],
+    "overviewTitle": "Bringing consultations and patient services into one online clinic",
+    "overviewDescription": [
+      "The telemedicine clinic connects patients and doctors through synchronized web and mobile applications. It brings remote consultations together with appointment booking, document uploads, test requests, and medicine orders. The product supports interactions between patients, medical professionals, and external pharmacies, giving each group tools for its part of the care process.",
+      "The client needed a way for doctors to receive patients and conduct consultations remotely. Patients needed access to services from home, while doctors required tools suited to repeated daily use, including patient records, appointment schedules, and test data. Pharmacies also needed a way to manage orders placed through the applications.",
+      "We developed the web frontend and mobile applications for the online clinic. The interfaces support video, voice, and text communication, alongside profiles, booking, file uploads, and notifications. Synchronized web and mobile access connects these interactions with patient records, test requests, and pharmacy ordering within the wider platform."
+    ],
+    "overviewImages": ["/images/case-studies/telemedicine-clinic/tm3.webp", "/images/case-studies/telemedicine-clinic/tm4.webp"],
+    "toolsTitle": "The technology behind Telemedicine",
+    "tools": [
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform for the internet",
+        "icon": "LogoStripe",
+        "invertOnHover": true
+      },
+      {
+        "name": "React Native",
+        "description": "Framework for building native mobile apps with React",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Redux Saga",
+        "description": "Side effect middleware for Redux",
+        "icon": "LogoReduxSaga",
+        "invertOnHover": true
+      },
+      {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript",
+        "icon": "LogoTypeScript"
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      },
+      {
+        "name": "Playwright",
+        "description": "End-to-end testing for web apps",
+        "icon": "LogoPlaywright"
+      },
+      {
+        "name": "Python",
+        "description": "High-level, general-purpose programming language",
+        "icon": "LogoPython"
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/telemedicine-clinic/tm2.webp",
+      "/images/case-studies/telemedicine-clinic/tm5.webp",
+      "/images/case-studies/telemedicine-clinic/tm6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Consultations across devices",
+        "description": "Patients and doctors can access synchronized consultation and scheduling tools through the web portal or mobile apps."
+      },
+      {
+        "id": 2,
+        "title": "Records for daily practice",
+        "description": "Doctors can maintain patient records, save test data, and manage appointment schedules in the platform."
+      },
+      {
+        "id": 3,
+        "title": "Connected patient services",
+        "description": "Test requests and medicine ordering sit alongside consultation tools, with pharmacy access for handling orders."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "autobro",
+    "title": "Autobro",
+    "year": "2024",
+    "image": "/images/case-studies/autobro/ab1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/autobro1.webp",
+    "link": "/case-studies/autobro",
+    "client": "Autobro",
+    "projectType": "E-commerce · CRM · Warehouse management",
+    "tech": ["React", "Next.js", "JavaScript", "TypeScript"],
+    "cards": [
+      {
+        "title": "Connected auto parts catalog",
+        "description": "Customers browse parts from TecDoc, supplier databases, and the retailer’s own catalog, using detailed filters and supplier-specific prices."
+      },
+      {
+        "title": "Orders linked to CRM",
+        "description": "Online store orders enter the CRM automatically, where staff can review customer records, order details, and updated statuses."
+      },
+      {
+        "title": "Shelf-level warehouse tracking",
+        "description": "The digital warehouse shows where goods belong and where staff can pick them, with locations defined down to shelf space."
+      },
+      {
+        "title": "Automated supplier ordering",
+        "description": "Supplier integrations support automatic order creation, connecting external sourcing with the retailer’s customer orders and day-to-day fulfillment workflows."
+      }
+    ],
+    "overviewTitle": "Connecting sales, customers, and warehouse operations",
+    "overviewDescription": [
+      "Autobro is an integrated platform for an Austrian auto parts retailer, combining an online store, CRM, and digital warehouse. Customers use the store to find and order parts, while the retailer’s team manages customer records, supplier orders, delivery tracking, and stock locations through connected business tools.",
+      "The retailer needed to bring customer communication, order collection, sourcing, and logistics into a coordinated workflow. Its catalog drew on TecDoc and several supplier databases, making product data and API integration an important challenge. Warehouse staff also needed precise storage and picking information for individual goods.",
+      "We developed the storefront and connected it to a CRM with automatic order entry and status updates. The store includes detailed product filters, supplier-specific pricing, and customer accounts. We also built supplier ordering integrations and a digital warehouse with shelf locations, order assembly, and QR code and barcode generation."
+    ],
+    "overviewImages": ["/images/case-studies/autobro/ab3.webp", "/images/case-studies/autobro/ab4.webp"],
+    "toolsTitle": "The technology behind Autobro",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript",
+        "icon": "LogoTypeScript"
+      },
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data framework for LLM retrieval and agents.",
+        "icon": "LogoLlamaIndex"
+      },
+      {
+        "name": "Gemini",
+        "description": "Google multimodal models for text, code, and vision.",
+        "icon": "LogoGemini"
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      },
+      {
+        "name": "FastAPI",
+        "description": "High performance backend framework",
+        "icon": "LogoFastAPI"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/autobro/ab2.webp",
+      "/images/case-studies/autobro/ab5.webp",
+      "/images/case-studies/autobro/ab6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "One view of orders",
+        "description": "Connected store and CRM records let staff follow customer purchases and order statuses without entering each online order manually."
+      },
+      {
+        "id": 2,
+        "title": "Practical product selection",
+        "description": "Detailed filters, product descriptions, and prices from different suppliers help customers compare available parts before placing an order."
+      },
+      {
+        "id": 3,
+        "title": "Structured warehouse work",
+        "description": "Shelf locations, order assembly tools, and generated codes give warehouse staff concrete information for storing goods and preparing orders."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "soft-bee-tracker",
+    "title": "Soft Bee Tracker",
+    "year": "2025",
+    "image": "/images/case-studies/soft-bee-tracker/sbt1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/soft-bee-tracker1.webp",
+    "link": "/case-studies/soft-bee-tracker",
+    "client": "Soft Bee",
+    "projectType": "Workforce and project management platform",
+    "tech": ["React", "Next.js", "Node.js", "Strapi"],
+    "cards": [
+      {
+        "title": "Time and project tracking",
+        "description": "Bring time tracking and project management capabilities together with real-time monitoring in a shared application."
+      },
+      {
+        "title": "Scheduling and team availability",
+        "description": "Manage calendars and scheduling alongside records of sick leave and vacations to keep team availability visible."
+      },
+      {
+        "title": "Configurable reporting workflows",
+        "description": "Generate reports from collected data, customize their frequency and personalize the information included for different management needs."
+      },
+      {
+        "title": "Central management dashboard",
+        "description": "Give managers a dashboard and administrative interface for reviewing the information collected across the platform’s team workflows."
+      }
+    ],
+    "overviewTitle": "Bringing time, projects and team availability into one view",
+    "overviewDescription": [
+      "Soft Bee Tracker brings time tracking, project management and team scheduling into one application. It combines real-time monitoring with calendars, leave records and reporting tools. A dashboard and administrative interface give managers a shared place to review the information collected through these workflows.",
+      "Managing a team requires more than a record of hours. Project activity needs to be viewed alongside schedules, sick leave and vacations. Reports also need to reflect the information a manager is looking for and the frequency at which that information is useful.",
+      "The platform combines time tracking and project management with calendar and leave-management features. Reporting tools automate report creation and allow users to adjust report frequency and content. The technical stack includes React, Next.js, Node.js, GraphQL and Strapi, with Material UI and Styled Components for the interface."
+    ],
+    "overviewImages": ["/images/case-studies/soft-bee-tracker/sbt3.webp", "/images/case-studies/soft-bee-tracker/sbt4.webp"],
+    "toolsTitle": "The technology behind Soft Bee Tracker",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "ServiceNow",
+        "description": "Cloud-based workflow automation platform",
+        "icon": "LogoServiceNow"
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "description": "Advanced virtual agent and conversational AI platform",
+        "icon": "LogoGoogleCloudDialogflowCX",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data framework for LLM retrieval and agents.",
+        "icon": "LogoLlamaIndex"
+      },
+      {
+        "name": "Python",
+        "description": "High-level, general-purpose programming language",
+        "icon": "LogoPython"
+      },
+      {
+        "name": "NextAuth",
+        "description": "Authentication for Next.js",
+        "icon": "LogoNextAuth"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/soft-bee-tracker/sbt2.webp",
+      "/images/case-studies/soft-bee-tracker/sbt5.webp",
+      "/images/case-studies/soft-bee-tracker/sbt6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Review work in context",
+        "description": "Managers can consider tracked time together with project activity rather than treating hours as a separate source of information."
+      },
+      {
+        "id": 2,
+        "title": "See team availability",
+        "description": "Calendars, scheduling and leave records make it possible to review working plans alongside vacations and sick leave."
+      },
+      {
+        "id": 3,
+        "title": "Adapt recurring reports",
+        "description": "Users can change reporting frequency and personalize report content based on the data collected by the platform."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "shipcar24",
+    "title": "ShipCar24",
+    "year": "2025",
+    "image": "/images/case-studies/shipcar24/vl1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/shipcar241.webp",
+    "link": "/case-studies/shipcar24",
+    "client": "Confidential client",
+    "projectType": "Logistics SaaS MVP",
+    "tech": ["React", "Next.js", "React Hook Form", "Zustand"],
+    "cards": [
+      {
+        "title": "Automated transportation quotes",
+        "description": "Calculate vehicle shipping costs from parameters such as distance, transport type and delivery time, then manage the resulting orders."
+      },
+      {
+        "title": "Carrier assignment and tracking",
+        "description": "Search for carriers, assign shipments and track order stages from pending requests through shipping, delivery and completion."
+      },
+      {
+        "title": "Invoices and transport documents",
+        "description": "Generate invoices and bills of lading within the platform, with file uploads supporting the wider documentation workflow."
+      },
+      {
+        "title": "Connected operational data",
+        "description": "Use VIN information, location suggestions and maps alongside role-based access, invitations and dashboards for managing transport operations."
+      }
+    ],
+    "overviewTitle": "Managing vehicle shipping from the first quote to delivery",
+    "overviewDescription": [
+      "This logistics SaaS MVP brings vehicle transportation operations into one platform. It supports the workflow from a shipping quote to order creation, carrier assignment and delivery tracking. User management, financial reporting and document generation sit alongside the core transport process for logistics teams.",
+      "Vehicle shipping involves coordinating prices, carriers, locations, order statuses and documents. The project’s goal was to reduce manual work and give companies a central place to manage these operations. Different users also needed appropriate access to the information and actions relevant to their role.",
+      "We developed quote calculations, order management, carrier assignment and document generation, including invoices and bills of lading. The platform includes four business roles, invitations and Supabase row-level security. VIN checks, Google location suggestions, maps, file uploads and reporting support the operational workflow."
+    ],
+    "overviewImages": ["/images/case-studies/shipcar24/vl3.webp", "/images/case-studies/shipcar24/vl4.webp"],
+    "toolsTitle": "The technology behind ShipCar24",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Redux Saga",
+        "description": "Side effect middleware for Redux",
+        "icon": "LogoReduxSaga",
+        "invertOnHover": true
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      },
+      {
+        "name": "Python",
+        "description": "High-level, general-purpose programming language",
+        "icon": "LogoPython"
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "description": "Advanced virtual agent and conversational AI platform",
+        "icon": "LogoGoogleCloudDialogflowCX",
+        "invertOnHover": true
+      },
+      {
+        "name": "FastAPI",
+        "description": "High performance backend framework",
+        "icon": "LogoFastAPI"
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform for the internet",
+        "icon": "LogoStripe",
+        "invertOnHover": true
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/shipcar24/vl2.webp",
+      "/images/case-studies/shipcar24/vl5.webp",
+      "/images/case-studies/shipcar24/vl6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Keep shipment progress visible",
+        "description": "Teams can follow each order from initial request to completion and see where it sits in the transportation process."
+      },
+      {
+        "id": 2,
+        "title": "Reuse operational information",
+        "description": "Quote, order and document workflows share a platform, supporting the goal of reducing repeated manual work in transport operations."
+      },
+      {
+        "id": 3,
+        "title": "Control access by role",
+        "description": "Role-based access and invitations help companies organize who can use the platform and access its business workflows."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "gapnurse",
+    "title": "GapNurse",
+    "year": "2025",
+    "image": "/images/case-studies/gapnurse/gn1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/gapnurse1.webp",
+    "link": "/case-studies/gapnurse",
+    "client": "GapNurse",
+    "projectType": "Healthcare staffing platform",
+    "tech": ["Firebase", "Node.js", "React", "Django"],
+    "cards": [
+      {
+        "title": "Assignment matching",
+        "description": "Facilities publish open assignments for existing staff and independent healthcare workers."
+      },
+      {
+        "title": "Mobile shift management",
+        "description": "Workers review assignments, accept or reject them, and mark completed work from the mobile app."
+      },
+      {
+        "title": "Schedules and reminders",
+        "description": "Calendar booking, time tracking, and push notifications help workers keep track of their assignments."
+      },
+      {
+        "title": "Payments and administration",
+        "description": "The management portal combines facility and worker records with assignment oversight and payment integrations."
+      }
+    ],
+    "overviewTitle": "Connecting open shifts with healthcare workers and their schedules",
+    "overviewDescription": [
+      "GapNurse is a medical staffing platform for facilities and healthcare workers. Facilities publish assignments for their own employees and independent contractors, while workers use mobile apps to find opportunities that fit their schedules. The platform brings assignment details, scheduling, task progress, and payments into a shared web and mobile workflow.",
+      "The client wanted to help medical organizations find staff without relying on staffing agencies. This required more than a listing board: facilities needed to manage assignments, while workers needed to review shifts, track their time, complete tasks, and receive payment. Both sides needed synchronized information across the portal and mobile apps.",
+      "We developed the web portal and mobile applications for iOS and Android, with synchronized assignment and user information. The solution includes profiles, location and map features, booking, notifications, calls, and time tracking. An administration panel supports facility, employee, and assignment records, alongside feedback, ratings, and payment integration."
+    ],
+    "overviewImages": ["/images/case-studies/gapnurse/gn3.webp", "/images/case-studies/gapnurse/gn4.webp"],
+    "toolsTitle": "The technology behind GapNurse",
+    "tools": [
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform for the internet",
+        "icon": "LogoStripe",
+        "invertOnHover": true
+      },
+      {
+        "name": "React Native",
+        "description": "Framework for building native mobile apps with React",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "FastAPI",
+        "description": "High performance backend framework",
+        "icon": "LogoFastAPI"
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "ServiceNow",
+        "description": "Cloud-based workflow automation platform",
+        "icon": "LogoServiceNow"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      },
+      {
+        "name": "Playwright",
+        "description": "End-to-end testing for web apps",
+        "icon": "LogoPlaywright"
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/gapnurse/gn2.webp",
+      "/images/case-studies/gapnurse/gn5.webp",
+      "/images/case-studies/gapnurse/gn6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "One staffing workflow",
+        "description": "Facilities can publish assignments for internal employees and independent contractors within the same platform."
+      },
+      {
+        "id": 2,
+        "title": "Worker control over shifts",
+        "description": "Healthcare workers can review assignment details, accept or reject opportunities, and view their schedules on mobile."
+      },
+      {
+        "id": 3,
+        "title": "Assignment follow-through",
+        "description": "Task completion, time tracking, and payment features support work beyond the initial shift match."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "culture-token-platform",
+    "title": "Culture Token PWA",
+    "year": "2025",
+    "image": "/images/case-studies/culture-token-platform/ct1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/culture-token-platform1.webp",
+    "link": "/case-studies/culture-token-platform",
+    "client": "Confidential client",
+    "projectType": "Blockchain progressive web app",
+    "tech": ["React", "Next.js", "Supabase", "Tailwind CSS"],
+    "cards": [
+      {
+        "title": "Embedded wallet onboarding",
+        "description": "Use social sign-in and a hardware-backed non-custodial wallet to onboard users without requiring them to handle seed phrases directly."
+      },
+      {
+        "title": "Cross-device web experience",
+        "description": "Access the product through a progressive web app across mobile, desktop and browser environments, with shareable links to token pages."
+      },
+      {
+        "title": "Token discovery and swaps",
+        "description": "Explore trending tokens and use the integrated Jupiter exchange routing within a connected token discovery and purchase workflow."
+      },
+      {
+        "title": "Deposits and payment access",
+        "description": "Support crypto deposits and on-ramp purchase flows so users can access the platform through different funding methods."
+      }
+    ],
+    "overviewTitle": "Making culture-token discovery and wallet access easier to navigate",
+    "overviewDescription": [
+      "This progressive web app brings culture-token discovery, wallet access and purchase flows into one product. It is designed for both experienced crypto users and people new to the category. A browser-based experience makes the platform accessible across devices without relying on an app-store installation.",
+      "Wallet setup, private keys and disconnected interfaces can make the first steps into crypto difficult. The project aimed to create a more approachable flow while connecting token exploration, funding and transactions within a consistent interface for retail users.",
+      "The solution combines an embedded Cubist wallet and CubeSigner key recovery with social sign-in, a token exploration page and Jupiter swap integration. Supabase supports the application stack alongside React and Next.js. Crypto deposits and on-ramp flows connect account access with the product’s transaction experience."
+    ],
+    "overviewImages": ["/images/case-studies/culture-token-platform/ct3.webp", "/images/case-studies/culture-token-platform/ct4.webp"],
+    "toolsTitle": "The technology behind Culture Token PWA",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "FastAPI",
+        "description": "High performance backend framework",
+        "icon": "LogoFastAPI"
+      },
+      {
+        "name": "Gemini",
+        "description": "Google multimodal models for text, code, and vision.",
+        "icon": "LogoGemini"
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      },
+      {
+        "name": "ServiceNow",
+        "description": "Cloud-based workflow automation platform",
+        "icon": "LogoServiceNow"
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      },
+      {
+        "name": "Meta",
+        "description": "Open-weight Llama models and AI research stack.",
+        "icon": "LogoMeta"
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Redux",
+        "description": "Predictable state container for JavaScript apps",
+        "icon": "LogoRedux"
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "description": "Advanced virtual agent and conversational AI platform",
+        "icon": "LogoGoogleCloudDialogflowCX",
+        "invertOnHover": true
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/culture-token-platform/ct2.webp",
+      "/images/case-studies/culture-token-platform/ct5.webp",
+      "/images/case-studies/culture-token-platform/ct6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Reduce wallet setup friction",
+        "description": "Social sign-in and embedded wallet flows let users begin without directly managing seed phrases as part of the onboarding experience."
+      },
+      {
+        "id": 2,
+        "title": "Move between devices",
+        "description": "The progressive web app provides access across browser and device environments, while token links can be shared with others."
+      },
+      {
+        "id": 3,
+        "title": "Connect discovery and transactions",
+        "description": "Token exploration and exchange routing sit within the same product, giving users a connected path from research to a transaction."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "alliedmedical",
+    "title": "AlliedMedical",
+    "year": "2025",
+    "image": "/images/case-studies/alliedmedical/am1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/alliedmedical1.webp",
+    "link": "/case-studies/alliedmedical",
+    "client": "Alliedmedical-Lenmax",
+    "projectType": "Medical supplies distribution platform",
+    "tech": ["React", "Next.js", "React Hook Form (RHF)", "Zustand"],
+    "cards": [
+      {
+        "title": "Catalog and quick orders",
+        "description": "Customers browse product categories and filters or add items directly using SKU codes."
+      },
+      {
+        "title": "Reusable order templates",
+        "description": "Saved templates let organizations create orders from recurring product lists and selected shipping addresses."
+      },
+      {
+        "title": "Order and backorder tracking",
+        "description": "Customers review order statuses, delivered quantities, outstanding items, and delivery-related comments."
+      },
+      {
+        "title": "Distribution administration",
+        "description": "Administrators manage products, categories, manufacturers, users, invitations, and customer orders."
+      }
+    ],
+    "overviewTitle": "Putting repeat purchasing and delivery status in one customer portal",
+    "overviewDescription": [
+      "AlliedMedical is the distribution platform for Alliedmedical-Lenmax, a Canadian supplier of medical equipment and supplies. Its customers include emergency services, hospitals, fire departments, police departments, and home healthcare providers. The website combines a product catalog with organization accounts, purchasing tools, and access to current and past orders.",
+      "Organizational purchasing involves repeat product lists, different delivery addresses, and orders that may ship in parts. Customers need to see stock availability, reuse familiar orders, and understand what has not yet arrived. Administrators also need to maintain the catalog and manage customer access, invitations, and order information.",
+      "The platform combines catalog browsing with SKU-based quick ordering and reusable order templates. Customer accounts include order history, backorder reports, and separate shipping and billing address management. Administration tools cover product availability, categories, manufacturers, users, invitations, and order review, including the option to resubmit failed orders."
+    ],
+    "overviewImages": ["/images/case-studies/alliedmedical/am3.webp", "/images/case-studies/alliedmedical/am4.webp"],
+    "toolsTitle": "The technology behind AlliedMedical",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Advanced open source relational database",
+        "icon": "LogoPostgreSQL"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Redux Saga",
+        "description": "Side effect middleware for Redux",
+        "icon": "LogoReduxSaga",
+        "invertOnHover": true
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform for the internet",
+        "icon": "LogoStripe",
+        "invertOnHover": true
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data framework for LLM retrieval and agents.",
+        "icon": "LogoLlamaIndex"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      },
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "NextAuth",
+        "description": "Authentication for Next.js",
+        "icon": "LogoNextAuth"
+      },
+      {
+        "name": "Hugging Face",
+        "description": "Open models, datasets, and ML infrastructure.",
+        "icon": "LogoHuggingFace"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/alliedmedical/am2.webp",
+      "/images/case-studies/alliedmedical/am5.webp",
+      "/images/case-studies/alliedmedical/am6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Repeat orders without rebuilding",
+        "description": "Customers can create purchases from saved templates or add known products by SKU."
+      },
+      {
+        "id": 2,
+        "title": "Visible outstanding deliveries",
+        "description": "Backorder reports show ordered and delivered quantities, update dates, and delivery comments for pending items."
+      },
+      {
+        "id": 3,
+        "title": "Organization-level purchasing",
+        "description": "Customer profiles support multiple addresses, while administrators manage user roles and access invitations."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "plumbid",
+    "title": "plumBid",
+    "year": "2025",
+    "image": "/images/case-studies/plumbid/pb1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/plumbid1.webp",
+    "link": "/case-studies/plumbid",
+    "client": "plumBid",
+    "projectType": "Real estate bidding platform",
+    "tech": ["React", "GraphQL", "Node.js", "Next.js"],
+    "cards": [
+      {
+        "title": "Seller-defined priorities",
+        "description": "Sellers prioritize price, cash down payment, escrow length, and inspection, loan, or appraisal contingencies."
+      },
+      {
+        "title": "Offer calculations",
+        "description": "A calculation system uses seller preferences and economic conditions to determine bid incentives."
+      },
+      {
+        "title": "Real-time bidding",
+        "description": "Buyers adjust offers within an online auction process supported by a regularly updated timer."
+      },
+      {
+        "title": "Transaction communication",
+        "description": "Role-based profiles, chat, file uploads, scheduling, and email support interactions between buyers, sellers, and agents."
+      }
+    ],
+    "overviewTitle": "Making seller priorities part of the property bidding process",
+    "overviewDescription": [
+      "plumBid is a real estate platform for buyers, sellers, and agents participating in an online bidding process. Sellers define which terms matter most, including sales price, cash down payment, escrow length, and contingencies. Buyers use those priorities to shape offers rather than considering the asking price alone.",
+      "The project addressed a negotiation process in which buyers may not know how a seller weighs competing terms. Sellers, in turn, need to compare offers that differ in more than price. The platform needed to communicate these preferences and support offer adjustments within a shared, real-time auction environment.",
+      "The delivered platform brings seller preference settings together with a calculation system that determines bid incentives using those priorities and economic conditions. It includes profiles for three user roles, an updated bidding timer, chat, file uploads, scheduling, and email communication to support participation throughout the online offer process."
+    ],
+    "overviewImages": ["/images/case-studies/plumbid/pb3.webp", "/images/case-studies/plumbid/pb4.webp"],
+    "toolsTitle": "The technology behind plumBid",
+    "tools": [
+      {
+        "name": "React",
+        "description": "A JavaScript library for building user interfaces",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome’s V8 JavaScript engine",
+        "icon": "LogoNodeJs"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "Python",
+        "description": "High-level, general-purpose programming language",
+        "icon": "LogoPython"
+      },
+      {
+        "name": "Mistral AI",
+        "description": "Efficient open and frontier language models.",
+        "icon": "LogoMistralAI"
+      },
+      {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript",
+        "icon": "LogoTypeScript"
+      },
+      {
+        "name": "LangChain",
+        "description": "Framework for building context-aware LLM applications.",
+        "icon": "LogoLangChain",
+        "invertOnHover": true
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Redux Saga",
+        "description": "Side effect middleware for Redux",
+        "icon": "LogoReduxSaga",
+        "invertOnHover": true
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Playwright",
+        "description": "End-to-end testing for web apps",
+        "icon": "LogoPlaywright"
+      },
+      {
+        "name": "NextAuth",
+        "description": "Authentication for Next.js",
+        "icon": "LogoNextAuth"
+      },
+      {
+        "name": "Meta",
+        "description": "Open-weight Llama models and AI research stack.",
+        "icon": "LogoMeta"
+      },
+      {
+        "name": "Retell AI",
+        "description": "Conversational voice AI platform",
+        "icon": "LogoRetellAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Supabase",
+        "description": "Open source Firebase alternative",
+        "icon": "LogoSupabase"
+      }
+    ],
+    "galleryImages": [
+      "/images/case-studies/plumbid/pb2.webp",
+      "/images/case-studies/plumbid/pb5.webp",
+      "/images/case-studies/plumbid/pb6.webp"
+    ],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "Priorities beyond price",
+        "description": "Sellers can express the importance of down payment, escrow timing, and contingencies alongside the final sales price."
+      },
+      {
+        "id": 2,
+        "title": "Informed offer adjustments",
+        "description": "Buyers can use the seller’s stated priorities and bid incentives when shaping or revising an offer."
+      },
+      {
+        "id": 3,
+        "title": "Shared transaction tools",
+        "description": "Buyers, sellers, and agents have role-based profiles with messaging, document exchange, and scheduling tools."
+      }
+    ],
+    "testimonials": []
+  },
+  {
+    "id": "trovr",
+    "title": "Trovr",
+    "year": "2025",
+    "image": "/images/case-studies/trovr/tr1.webp",
+    "moreCasesImage": "/images/case-studies/more-cases/trovr1.webp",
+    "link": "/case-studies/trovr",
+    "client": "Trovr",
+    "projectType": "Consumer and merchant mobile applications",
+    "tech": ["React Native", "JavaScript", "TypeScript", "Firebase"],
+    "cards": [
+      {
+        "title": "Rewards for recycling",
+        "description": "Users earn points for recycling eligible glass, plastic, and aluminum containers through participating machines in the recycling network."
+      },
+      {
+        "title": "Vouchers for everyday shopping",
+        "description": "Earned points can be exchanged for retailer vouchers, giving users a practical way to use rewards online or in stores."
+      },
+      {
+        "title": "Connected merchant redemption",
+        "description": "Trovr Merchant works alongside the consumer app to support voucher redemption at participating shops through a synchronized mobile experience."
+      },
+      {
+        "title": "QR and barcode tools",
+        "description": "Built-in code generation and scanning support app interactions, alongside user profiles, notifications, location features, and third-party service integrations."
+      }
+    ],
+    "overviewTitle": "Connecting recycling activity with retail rewards",
+    "overviewDescription": [
+      "Trovr and Trovr Merchant are connected mobile applications built around rewards for recycling. Consumers earn points when they recycle eligible containers through participating machines, then exchange those points for vouchers. The companion merchant app supports redemption in shops, connecting recycling activity with purchases from participating retailers.",
+      "The project aimed to give people a practical incentive to recycle and a clear route from returning a container to using a reward. That experience needed to connect consumers, recycling infrastructure, and retailers, with synchronized apps supporting both the customer’s journey and voucher redemption at the shop.",
+      "We developed the Trovr and Trovr Merchant applications using React Native, TypeScript, and Firebase. The scope included user profiles, QR and barcode generation and scanning, push notifications, location features, and third-party integrations. App synchronization and deep links support the connections between recycling activity, rewards, and merchant interactions."
+    ],
+    "overviewImages": ["/images/case-studies/trovr/tr3.webp", "/images/case-studies/trovr/tr4.webp"],
+    "toolsTitle": "The technology behind Trovr",
+    "tools": [
+      {
+        "name": "React Native",
+        "description": "Framework for building native mobile apps with React",
+        "icon": "LogoReact"
+      },
+      {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript",
+        "icon": "LogoTypeScript"
+      },
+      {
+        "name": "SQLAlchemy",
+        "description": "Python SQL toolkit and Object Relational Mapper",
+        "icon": "LogoSQLAlchemy"
+      },
+      {
+        "name": "Redux",
+        "description": "Predictable state container for JavaScript apps",
+        "icon": "LogoRedux"
+      },
+      {
+        "name": "OpenAI",
+        "description": "Foundation models and APIs for language, vision, and reasoning.",
+        "icon": "LogoOpenAI",
+        "invertOnHover": true
+      },
+      {
+        "name": "Python",
+        "description": "High-level, general-purpose programming language",
+        "icon": "LogoPython"
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "description": "Advanced virtual agent and conversational AI platform",
+        "icon": "LogoGoogleCloudDialogflowCX",
+        "invertOnHover": true
+      },
+      {
+        "name": "Pinecone",
+        "description": "Vector database for semantic search and retrieval.",
+        "icon": "LogoPinecone",
+        "invertOnHover": true
+      },
+      {
+        "name": "Gemini",
+        "description": "Google multimodal models for text, code, and vision.",
+        "icon": "LogoGemini"
+      },
+      {
+        "name": "ServiceNow",
+        "description": "Cloud-based workflow automation platform",
+        "icon": "LogoServiceNow"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework for rapid UI development",
+        "icon": "LogoTailwindCSS"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework for production",
+        "icon": "LogoNextJs",
+        "invertOnHover": true
+      },
+      {
+        "name": "FastAPI",
+        "description": "High performance backend framework",
+        "icon": "LogoFastAPI"
+      },
+      {
+        "name": "Anthropic",
+        "description": "Claude models for safe, high-quality AI assistants.",
+        "icon": "LogoAnthropicClaude"
+      },
+      {
+        "name": "Playwright",
+        "description": "End-to-end testing for web apps",
+        "icon": "LogoPlaywright"
+      }
+    ],
+    "galleryImages": ["/images/case-studies/trovr/tr2.webp", "/images/case-studies/trovr/tr5.webp", "/images/case-studies/trovr/tr6.webp"],
+    "resultsCards": [
+      {
+        "id": 1,
+        "title": "A practical recycling incentive",
+        "description": "Points and redeemable vouchers give users a tangible reason to return eligible containers through the participating recycling network."
+      },
+      {
+        "id": 2,
+        "title": "Rewards across shopping channels",
+        "description": "Vouchers can be used online or at participating shops, giving consumers different ways to redeem the rewards they earn."
+      },
+      {
+        "id": 3,
+        "title": "Connected consumer and merchant apps",
+        "description": "The synchronized merchant application supports in-store voucher redemption, linking the customer-facing rewards experience with the retailer’s part of the process."
+      }
+    ],
+    "testimonials": []
   }
 ]

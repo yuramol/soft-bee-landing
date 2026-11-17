@@ -56,17 +56,18 @@ export function DesktopCard({ c, index, isDesktopPointer, onClick }: DesktopCard
       >
         <Image src={c.moreCasesImage || c.image} alt={c.title} fill className='object-cover' />
 
-        <div className='pointer-events-none absolute top-10.5 left-10.5'>
-          <Typography variant='body2' className='tracking-widest text-black uppercase'>
+        {/* White + difference blending inverts the photo underneath, so the label stays readable on light and dark areas. */}
+        <div className='pointer-events-none absolute top-10.5 left-10.5 mix-blend-difference'>
+          <Typography variant='body2' className='tracking-widest text-white uppercase'>
             [{content.topText}]
           </Typography>
         </div>
 
-        <div className='pointer-events-none absolute right-16 bottom-16 flex items-baseline gap-6'>
-          <Typography variant='h1' tag='h3' className='text-[96px] leading-none font-normal text-black'>
+        <div className='pointer-events-none absolute right-16 bottom-16 flex items-baseline gap-6 mix-blend-difference'>
+          <Typography variant='h1' tag='h3' className='text-[96px] leading-none font-normal text-white'>
             {c.title}
           </Typography>
-          <Typography variant='body1' className='text-[24px] font-normal text-black/80'>
+          <Typography variant='body1' className='text-[24px] font-normal text-white/80'>
             [{c.year}]
           </Typography>
         </div>
