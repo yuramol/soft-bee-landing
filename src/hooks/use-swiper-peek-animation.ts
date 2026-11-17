@@ -12,6 +12,10 @@ export function useSwiperPeekAnimation(swiperInstance: SwiperClass | null, maxWi
             if (!hasAnimated && window.innerWidth < maxWidth) {
               hasAnimated = true;
               if (swiperInstance && swiperInstance.wrapperEl) {
+                // Autoplay sliding mid-peek would be undone by the final setTranslate, so pause it until the peek ends.
+                const shouldResumeAutoplay = Boolean(swiperInstance.autoplay?.running);
+                if (shouldResumeAutoplay) swiperInstance.autoplay.stop();
+
                 setTimeout(() => {
                   const wrapper = swiperInstance.wrapperEl;
                   const currentTranslate = swiperInstance.translate;
@@ -24,6 +28,7 @@ export function useSwiperPeekAnimation(swiperInstance: SwiperClass | null, maxWi
                     setTimeout(() => {
                       wrapper.style.transition = '';
                       swiperInstance.setTranslate(currentTranslate);
+                      if (shouldResumeAutoplay && !swiperInstance.destroyed) swiperInstance.autoplay.start();
                     }, 600);
                   }, 700);
                 }, 500);
