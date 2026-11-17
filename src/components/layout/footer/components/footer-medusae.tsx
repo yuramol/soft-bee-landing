@@ -16,6 +16,8 @@ const VERTEX_SHADER = `
   attribute vec3 aHome;
   attribute vec2 aTarget;
   attribute float aRandom;
+  // 0 = always visible (idle net); 1 = fades in only while assembling Soft Bee.
+  attribute float aAppear;
 
   varying float vStrength;
 
@@ -27,6 +29,8 @@ const VERTEX_SHADER = `
     float eased = morph * morph * morph * (morph * (morph * 6.0 - 15.0) + 10.0);
     float localMorph = eased;
     float scatter = 1.0 - localMorph;
+    // Extra dots stay hidden in the default net, then join Soft Bee on hover.
+    float visibility = mix(1.0, localMorph, aAppear);
 
     float phase = rand * 6.28318;
 
@@ -53,10 +57,10 @@ const VERTEX_SHADER = `
     gl_Position = projectionMatrix * mvPosition;
 
     float sizePulse = 1.0 + localMorph * (0.08 * sin(t * 0.9 + phase) + 0.035 * wave);
-    gl_PointSize = uPointSize * mix(0.85, 1.02, localMorph) * (0.92 + rand * 0.14) * sizePulse;
+    gl_PointSize = uPointSize * mix(0.85, 1.02, localMorph) * (0.92 + rand * 0.14) * sizePulse * visibility;
 
     float shimmer = 0.88 + 0.12 * sin(t * 1.0 + phase) + 0.05 * wave;
-    vStrength = mix(0.55 + rand * 0.25, clamp(shimmer, 0.78, 1.0), localMorph);
+    vStrength = mix(0.55 + rand * 0.25, clamp(shimmer, 0.78, 1.0), localMorph) * visibility;
   }
 `;
 
@@ -94,15 +98,20 @@ interface FooterMedusaeProps {
   className?: string;
 }
 
-const MAX_PARTICLES = 12000;
+/** Idle field density — unchanged from the previous Soft Bee net. */
+const MAX_IDLE_PARTICLES = 12000;
+/** Hover Soft Bee density multiplier relative to the idle net. */
+const HOVER_DENSITY_MULTIPLIER = 4;
+/** Idle + hover extras so Soft Bee can fill denser on morph. */
+const MAX_PARTICLES = MAX_IDLE_PARTICLES * HOVER_DENSITY_MULTIPLIER;
 const TARGET_DOT_CSS_PX = 2.25;
-const LOGO_SAMPLE_POOL = 12000;
-const PARTICLE_BUILD_REVISION = 4;
+const LOGO_SAMPLE_POOL = MAX_PARTICLES;
+const PARTICLE_BUILD_REVISION = 7;
 
 let cachedLogoPool: Float32Array | null = null;
 
 function getLogoPool(): Float32Array {
-  if (!cachedLogoPool) {
+  if (!cachedLogoPool || cachedLogoPool.length !== LOGO_SAMPLE_POOL * 2) {
     // Mostly filled letter interiors so Soft Bee reads like the real mark.
     cachedLogoPool = sampleLogoPoints({ count: LOGO_SAMPLE_POOL, edgeRatio: 0.14 });
   }
@@ -254,35 +263,41 @@ function Particles({ isHovering }: ParticlesProps) {
 
     let cols: number;
     let rows: number;
-    let gridCount: number;
+    let idleCount: number;
 
-    if (idealCount <= MAX_PARTICLES) {
+    // Default net density stays the same; hover extras densify Soft Bee fill.
+    if (idealCount <= MAX_IDLE_PARTICLES) {
       cols = idealCols;
       rows = idealRows;
-      gridCount = idealCount;
+      idleCount = idealCount;
     } else {
       const aspect = fieldWidth / Math.max(fieldHeight, 0.001);
-      cols = Math.max(1, Math.round(Math.sqrt(MAX_PARTICLES * aspect)));
-      rows = Math.max(1, Math.floor(MAX_PARTICLES / cols));
-      gridCount = cols * rows;
+      cols = Math.max(1, Math.round(Math.sqrt(MAX_IDLE_PARTICLES * aspect)));
+      rows = Math.max(1, Math.floor(MAX_IDLE_PARTICLES / cols));
+      idleCount = cols * rows;
     }
 
+    const desiredExtraCount = idleCount * (HOVER_DENSITY_MULTIPLIER - 1);
+    const extraCount = Math.min(desiredExtraCount, MAX_PARTICLES - idleCount);
+    const totalCount = idleCount + extraCount;
     const cellW = fieldWidth / cols;
     const cellH = fieldHeight / rows;
     const jitter = Math.min(cellW, cellH) * 0.08;
     const cellSize = Math.max(cellW, cellH);
     const fitScale = Math.min((viewport.width * 0.94) / LOGO_ASPECT, viewport.height * 0.72);
-    // Every net particle becomes Soft Bee on hover — no leftover dots around the words.
-    const logoCount = Math.min(gridCount, LOGO_SAMPLE_POOL);
+    // Idle + extras all settle into Soft Bee — denser mark on hover.
+    const logoCount = Math.min(totalCount, LOGO_SAMPLE_POOL);
 
-    const homes = new Float32Array(gridCount * 3);
-    const randoms = new Float32Array(gridCount);
-    const positions = new Float32Array(gridCount * 3);
+    const homes = new Float32Array(totalCount * 3);
+    const randoms = new Float32Array(totalCount);
+    const appear = new Float32Array(totalCount);
+    const positions = new Float32Array(totalCount * 3);
 
-    for (let i = 0; i < gridCount; i++) {
+    for (let i = 0; i < idleCount; i++) {
       const col = i % cols;
       const row = Math.floor(i / cols);
       randoms[i] = Math.random();
+      appear[i] = 0;
 
       const gx = (col + 0.5) / cols - 0.5;
       const gy = (row + 0.5) / rows - 0.5;
@@ -296,15 +311,46 @@ function Particles({ isHovering }: ParticlesProps) {
       positions[i * 3 + 2] = 0;
     }
 
+    // Staggered offset lattices — invisible until morph, then densify Soft Bee ×4.
+    const EXTRA_HOME_OFFSETS = [
+      { ox: 1, oy: 1 },
+      { ox: 0.5, oy: 1 },
+      { ox: 1, oy: 0.5 },
+      { ox: 0.5, oy: 0.5 }
+    ] as const;
+
+    for (let i = 0; i < extraCount; i++) {
+      const index = idleCount + i;
+      const layer = i % EXTRA_HOME_OFFSETS.length;
+      const cellIndex = Math.floor(i / EXTRA_HOME_OFFSETS.length);
+      const col = cellIndex % cols;
+      const row = Math.floor(cellIndex / cols) % rows;
+      const offset = EXTRA_HOME_OFFSETS[layer];
+      randoms[index] = Math.random();
+      appear[index] = 1;
+
+      const gx = (col + offset.ox) / cols - 0.5;
+      const gy = (row + offset.oy) / rows - 0.5;
+      const hx = gx * fieldWidth + (Math.random() - 0.5) * jitter;
+      const hy = gy * fieldHeight + (Math.random() - 0.5) * jitter;
+      homes[index * 3] = hx;
+      homes[index * 3 + 1] = hy;
+      homes[index * 3 + 2] = 0;
+      positions[index * 3] = hx;
+      positions[index * 3 + 1] = hy;
+      positions[index * 3 + 2] = 0;
+    }
+
     const pool = getLogoPool();
     const targets = pool.subarray(0, logoCount * 2);
-    const targetAttr = assignNearestLogoHomes(homes, gridCount, targets, logoCount, fitScale, cellSize);
+    const targetAttr = assignNearestLogoHomes(homes, totalCount, targets, logoCount, fitScale, cellSize);
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('aHome', new THREE.BufferAttribute(homes, 3));
     geometry.setAttribute('aTarget', new THREE.BufferAttribute(targetAttr, 2));
     geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
-    geometry.setDrawRange(0, gridCount);
+    geometry.setAttribute('aAppear', new THREE.BufferAttribute(appear, 1));
+    geometry.setDrawRange(0, totalCount);
     readyRef.current = true;
   }, [geometry, viewport.width, viewport.height, size.height]);
 
