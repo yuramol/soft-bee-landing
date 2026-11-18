@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
+import { Suspense, useRef, useSyncExternalStore } from 'react';
 import { ComponentContainer } from '@/components/layout';
 import { Typography } from '@/components/ui/typography';
 import PartnerLink from './partner-link';
@@ -28,33 +28,22 @@ function getMediaQueryMatches(query: string) {
 export default function PartnershipHero() {
   const { hero } = content;
   const sectionRef = useRef<HTMLElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
   const canRenderMedusae = useSyncExternalStore(
     (onStoreChange) => subscribeMediaQuery(DESKTOP_MEDUSAE_QUERY, onStoreChange),
     () => getMediaQueryMatches(DESKTOP_MEDUSAE_QUERY),
     () => false
   );
 
-  function handlePointerEnter() {
-    setIsHovering(true);
-  }
-
-  function handlePointerLeave() {
-    setIsHovering(false);
-  }
-
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
-      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className='hero panel relative z-20 overflow-hidden px-4 py-12 md:px-10 md:py-24'
       aria-labelledby='hero-title'
     >
       {canRenderMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
           <Suspense fallback={null}>
-            <Medusae eventSource={sectionRef} isHovering={isHovering} className='h-full w-full' radiusScale={0.75} />
+            <Medusae eventSource={sectionRef} className='h-full w-full' radiusScale={0.75} />
           </Suspense>
         </div>
       )}

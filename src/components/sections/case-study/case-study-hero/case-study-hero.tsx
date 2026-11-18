@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense, useRef, useState, useSyncExternalStore } from 'react';
+import { Suspense, useRef, useSyncExternalStore } from 'react';
 import { ComponentContainer } from '@/components/layout';
 import { Icon } from '@/components/ui/icon';
 import { Typography } from '@/components/ui/typography';
@@ -39,7 +39,6 @@ interface CaseStudyHeroProps {
 
 export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }: CaseStudyHeroProps) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
 
   const canRenderMedusae = useSyncExternalStore(
     (onStoreChange) => subscribeMediaQuery(DESKTOP_MEDUSAE_QUERY, onStoreChange),
@@ -47,19 +46,9 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
     () => false
   );
 
-  function handlePointerEnter() {
-    setIsHovering(true);
-  }
-
-  function handlePointerLeave() {
-    setIsHovering(false);
-  }
-
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
-      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
         'bg-background relative mb-15 flex w-full flex-col justify-end overflow-hidden rounded-2xl px-4 pt-20 pb-8 lg:mb-30 lg:min-h-175 lg:px-10.5 lg:pt-30 lg:pb-15'
       )}
@@ -67,7 +56,7 @@ export const CaseStudyHero = ({ title, year, client, projectType, tech, cards }:
       {canRenderMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
           <Suspense fallback={null}>
-            <Medusae eventSource={sectionRef} isHovering={isHovering} className='h-full w-full' />
+            <Medusae eventSource={sectionRef} className='h-full w-full' />
           </Suspense>
         </div>
       )}
