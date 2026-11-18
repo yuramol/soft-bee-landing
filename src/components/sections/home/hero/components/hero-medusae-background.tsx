@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { ReactNode, Suspense, useRef, useState, useSyncExternalStore } from 'react';
+import { ReactNode, Suspense, useRef, useSyncExternalStore } from 'react';
 
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
@@ -29,26 +29,15 @@ function getMediaQueryMatches(query: string) {
 
 export function HeroMedusaeBackground({ children }: HeroMedusaeBackgroundProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
   const canRenderMedusae = useSyncExternalStore(
     (onStoreChange) => subscribeMediaQuery(DESKTOP_MEDUSAE_QUERY, onStoreChange),
     () => getMediaQueryMatches(DESKTOP_MEDUSAE_QUERY),
     () => false
   );
 
-  function handlePointerEnter() {
-    setIsHovering(true);
-  }
-
-  function handlePointerLeave() {
-    setIsHovering(false);
-  }
-
   return (
     <section
       ref={sectionRef}
-      onPointerEnter={canRenderMedusae ? handlePointerEnter : undefined}
-      onPointerLeave={canRenderMedusae ? handlePointerLeave : undefined}
       className={cn(
         'bg-background relative mb-2.5 flex w-full items-end justify-between overflow-hidden rounded-2xl px-5.25 pt-50 pb-12.75 lg:h-175 lg:max-h-[calc(100vh-20px)] lg:px-10.5 lg:pt-0',
         'lg:min-h-140 lg:pb-27'
@@ -57,7 +46,7 @@ export function HeroMedusaeBackground({ children }: HeroMedusaeBackgroundProps) 
       {canRenderMedusae && (
         <div className='pointer-events-none absolute inset-0 z-0' aria-hidden>
           <Suspense fallback={null}>
-            <Medusae eventSource={sectionRef} isHovering={isHovering} className='h-full w-full' />
+            <Medusae eventSource={sectionRef} className='h-full w-full' />
           </Suspense>
         </div>
       )}
