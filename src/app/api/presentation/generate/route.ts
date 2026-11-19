@@ -12,10 +12,14 @@ import {
   isOwnershipSecretConfigured,
   rememberOwnedJobId,
   validateEstimatorUploadWithContent,
-  verifyRecaptchaV3Token
+  verifyRecaptchaV3Token,
+  withResolvedMimeType
 } from '@/lib/estimator';
 import { isBrowserFile, readFormString } from '@/lib/security';
 import { checkGeoRestriction, geoRestrictionResponse } from '@/lib/security/geo-restriction';
+import { CAPTCHA_FAILED_MESSAGE, TEMPORARILY_UNAVAILABLE_MESSAGE } from '@/lib/security/user-messages';
+
+const GENERATION_FAILED_MESSAGE = "We couldn't generate your estimate right now. Please try again later.";
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -33,7 +37,7 @@ export async function POST(request: Request) {
 
     if (!isOwnershipSecretConfigured()) {
       console.error('SITE_HMAC_SECRET is not configured.');
-      return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+      return NextResponse.json({ error: GENERATION_FAILED_MESSAGE }, { status: 500 });
     }
 
     if (!ip) {
@@ -51,7 +55,7 @@ export async function POST(request: Request) {
     if (!rateLimit.allowed) {
       if (rateLimit.reason === 'misconfigured') {
         console.error('SITE_HMAC_SECRET is not configured for presentation rate limit.');
-        return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 });
+        return NextResponse.json({ error: GENERATION_FAILED_MESSAGE }, { status: 500 });
       }
       if (rateLimit.reason === 'burst') {
         return burstRateLimitResponse();
@@ -124,7 +128,7 @@ export async function POST(request: Request) {
     const captchaResult = await verifyRecaptchaV3Token(captchaToken ?? '');
     if (!captchaResult.ok) {
       await markReservationFailed(reservationId, requestText, fileName, captchaResult.error ?? 'Captcha verification failed.');
-      return NextResponse.json({ error: captchaResult.error ?? 'Captcha verification failed.' }, { status: 403 });
+      return NextResponse.json({ error: CAPTCHA_FAILED_MESSAGE }, { status: 403 });
     }
 
     const validation = await validateEstimatorUploadWithContent({ text, file });
@@ -137,7 +141,8 @@ export async function POST(request: Request) {
 
     const created = await createProposal({
       projectText: text ?? undefined,
-      file: file ?? undefined,
+      // Real document type instead of a generic octet-stream/zip, so Railway picks the right parser.
+      file: file ? withResolvedMimeType(file) : undefined,
       fileName: file?.name,
       idempotencyKey
     });
@@ -167,11 +172,11 @@ export async function POST(request: Request) {
 
     if (error instanceof EstimatorApiError) {
       console.error(`Estimator API error (${error.status}):`, error.message);
-      return NextResponse.json({ error: 'Generation failed.' }, { status: mapEstimatorStatus(error.status) });
+      return NextResponse.json({ error: GENERATION_FAILED_MESSAGE }, { status: mapEstimatorStatus(error.status) });
     }
 
     console.error('Error generating presentation:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: GENERATION_FAILED_MESSAGE }, { status: 500 });
   }
 }
 
@@ -224,7 +229,7 @@ function dailyRateLimitResponse(): NextResponse {
 }
 
 function rateLimitUnavailableResponse(): NextResponse {
-  return NextResponse.json({ error: 'Rate limit temporarily unavailable. Please try again.' }, { status: 503 });
+  return NextResponse.json({ error: TEMPORARILY_UNAVAILABLE_MESSAGE }, { status: 503 });
 }
 
 function mapEstimatorStatus(status: number): number {

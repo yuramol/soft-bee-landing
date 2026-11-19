@@ -14,13 +14,7 @@ export const CaseStudyGallery = ({ images }: CaseStudyGalleryProps) => {
       <ComponentContainer>
         <div className='flex flex-col gap-2.5 xl:gap-8.75'>
           <div className='w-full'>
-            <Image
-              src={images[0]}
-              alt='Gallery image 1'
-              width={1816}
-              height={1020}
-              className='aspect-490/539 h-auto w-full rounded-md object-cover xl:aspect-auto xl:rounded-4xl'
-            />
+            <Image src={images[0]} alt='Gallery image 1' width={1816} height={1020} className='h-auto w-full rounded-md xl:rounded-4xl' />
           </div>
 
           <div className='flex flex-col gap-2.5 xl:flex-row xl:gap-8.75'>

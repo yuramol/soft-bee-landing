@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Typography } from '@/components/ui/typography';
 import { submitContactForm } from '@/lib/api/contact';
 import { CONTACT_FILE_ACCEPT, CONTACT_RECAPTCHA_ACTIONS } from '@/lib/contact/constants';
+import { contactFileSchema } from '@/lib/contact/file-schema';
 import { executeRecaptcha } from '@/lib/estimator/recaptcha-client';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +25,7 @@ const vacancyApplicationSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.email('Invalid email address'),
   message: z.string().min(10, 'Please include a short note (at least 10 characters)'),
-  file: z.custom<File>().optional(),
+  file: contactFileSchema,
   website: z.string().optional()
 });
 
@@ -102,6 +103,8 @@ export function VacancyDialog({
     if (e.target.files && e.target.files[0]) {
       setValue('file', e.target.files[0], { shouldValidate: true });
     }
+    // Reset so picking the same file again (e.g. after removing it) still fires onChange.
+    e.target.value = '';
   }
 
   function handleRemoveFile(e: MouseEvent) {
@@ -234,11 +237,20 @@ export function VacancyDialog({
                       className='overflow-hidden'
                     >
                       <FileUploadBadge file={file} onRemove={handleRemoveFile} disabled={isSubmitting} />
+                      {errors.file && (
+                        <span role='alert' className='text-destructive mt-1 block w-full text-left text-xs'>
+                          {errors.file.message}
+                        </span>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-              {submitError && <p className='text-destructive text-sm'>{submitError}</p>}
+              {submitError && (
+                <p role='alert' className='text-destructive text-sm'>
+                  {submitError}
+                </p>
+              )}
               {submitSuccess && <p className='text-sm text-emerald-700'>{dialogContent.feedback.success}</p>}
               <div className='flex flex-col gap-4'>
                 <div className='flex flex-wrap gap-3'>

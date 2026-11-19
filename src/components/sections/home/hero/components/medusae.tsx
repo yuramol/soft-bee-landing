@@ -180,15 +180,20 @@ interface ParticleUniforms {
 }
 
 interface ParticlesProps {
-  isHovering: boolean;
+  eventSource: RefObject<HTMLElement | null>;
   radiusScale?: number;
 }
 
 interface MedusaeProps {
   eventSource: RefObject<HTMLElement | null>;
-  isHovering: boolean;
   className?: string;
   radiusScale?: number;
+}
+
+interface PointerTarget {
+  x: number;
+  y: number;
+  isActive: boolean;
 }
 
 function createParticleUniforms(): ParticleUniforms {
@@ -201,14 +206,24 @@ function createParticleUniforms(): ParticleUniforms {
   };
 }
 
-function Particles({ isHovering, radiusScale = 1 }: ParticlesProps) {
+function isPointInRect(clientX: number, clientY: number, rect: DOMRect) {
+  return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+}
+
+function getPointerNdc(clientX: number, clientY: number, rect: DOMRect) {
+  const width = Math.max(rect.width, 1);
+  const height = Math.max(rect.height, 1);
+
+  return {
+    x: ((clientX - rect.left) / width) * 2 - 1,
+    y: -((clientY - rect.top) / height) * 2 + 1
+  };
+}
+
+function Particles({ eventSource, radiusScale = 1 }: ParticlesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport, size } = useThree();
-  const hoveringRef = useRef(isHovering);
-
-  useEffect(() => {
-    hoveringRef.current = isHovering;
-  }, [isHovering]);
+  const pointerTargetRef = useRef<PointerTarget>({ x: 0, y: 0, isActive: false });
 
   const countX = 100;
   const countY = 60;
@@ -233,6 +248,42 @@ function Particles({ isHovering, radiusScale = 1 }: ParticlesProps) {
   useEffect(() => {
     uniformsRef.current.uResolution.value.set(size.width, size.height);
   }, [size.width, size.height]);
+
+  useEffect(() => {
+    function updatePointerTarget(clientX: number, clientY: number) {
+      const source = eventSource.current;
+      if (!source) {
+        pointerTargetRef.current.isActive = false;
+        return;
+      }
+
+      const rect = source.getBoundingClientRect();
+      const isActive = isPointInRect(clientX, clientY, rect);
+      pointerTargetRef.current.isActive = isActive;
+
+      if (!isActive) return;
+
+      const nextPointer = getPointerNdc(clientX, clientY, rect);
+      pointerTargetRef.current.x = nextPointer.x;
+      pointerTargetRef.current.y = nextPointer.y;
+    }
+
+    function handlePointerMove(event: PointerEvent) {
+      updatePointerTarget(event.clientX, event.clientY);
+    }
+
+    function handlePointerLeaveDocument() {
+      pointerTargetRef.current.isActive = false;
+    }
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    document.documentElement.addEventListener('pointerleave', handlePointerLeaveDocument);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      document.documentElement.removeEventListener('pointerleave', handlePointerLeaveDocument);
+    };
+  }, [eventSource]);
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -272,20 +323,20 @@ function Particles({ isHovering, radiusScale = 1 }: ParticlesProps) {
   }, [count, countX, countY, viewport.width, viewport.height]);
 
   useFrame((state) => {
-    const { clock, pointer } = state;
+    const { clock } = state;
     const nextUniforms = uniformsRef.current;
-    const isActive = hoveringRef.current;
+    const pointerTarget = pointerTargetRef.current;
     const current = nextUniforms.uMouse.value;
 
     nextUniforms.uTime.value = clock.getElapsedTime();
     nextUniforms.uRadius.value = Math.min(viewport.width, viewport.height) * 0.442 * radiusScale;
     nextUniforms.uOpacity.value = 1;
 
-    // Follow pointer while hovering; stay put when the pointer leaves.
-    if (!isActive) return;
+    // Follow pointer while over the section bounds; stay put when it leaves.
+    if (!pointerTarget.isActive) return;
 
-    const targetX = (pointer.x * viewport.width) / 2;
-    const targetY = (pointer.y * viewport.height) / 2;
+    const targetX = (pointerTarget.x * viewport.width) / 2;
+    const targetY = (pointerTarget.y * viewport.height) / 2;
     const dragFactor = 0.04;
     current.x += (targetX - current.x) * dragFactor;
     current.y += (targetY - current.y) * dragFactor;
@@ -294,12 +345,10 @@ function Particles({ isHovering, radiusScale = 1 }: ParticlesProps) {
   return <instancedMesh ref={meshRef} args={[geometry, material, count]} />;
 }
 
-export function Medusae({ eventSource, isHovering, className, radiusScale = 1 }: MedusaeProps) {
+export function Medusae({ eventSource, className, radiusScale = 1 }: MedusaeProps) {
   return (
     <Canvas
       className={className}
-      eventSource={eventSource as RefObject<HTMLElement>}
-      eventPrefix='client'
       dpr={[1, 1.5]}
       // Ignore page scroll events — nested scrollers (e.g. ToolsWave) would
       // otherwise keep resetting useMeasure's debounce and leave size at 0.
@@ -308,7 +357,7 @@ export function Medusae({ eventSource, isHovering, className, radiusScale = 1 }:
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ pointerEvents: 'none' }}
     >
-      <Particles isHovering={isHovering} radiusScale={radiusScale} />
+      <Particles eventSource={eventSource} radiusScale={radiusScale} />
     </Canvas>
   );
 }

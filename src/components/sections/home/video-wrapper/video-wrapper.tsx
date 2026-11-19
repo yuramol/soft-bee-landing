@@ -9,9 +9,10 @@ import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 import content from './content.json';
 
-const VIDEO_SRC = '/videos/home.webm';
+const VIDEO_SRC = '/videos/home.mp4';
 const VIDEO_POSTER = '/videos/home-poster.webp';
 const DESKTOP_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
+const AUTOPLAY_VISIBILITY_THRESHOLD = 0.4;
 
 function subscribeMediaQuery(query: string, onStoreChange: () => void) {
   const mediaQuery = window.matchMedia(query);
@@ -27,7 +28,7 @@ function getMediaQueryMatches(query: string) {
 export function VideoWrapper() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const shouldResumeRef = useRef(false);
+  const userPausedRef = useRef(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
@@ -107,7 +108,7 @@ export function VideoWrapper() {
     };
   }, []);
 
-  // Pause playback when scrolled offscreen and resume when scrolled back in
+  // Autoplay when ~40% of the block is visible; pause when scrolled away
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !videoSrc) return;
@@ -123,25 +124,30 @@ export function VideoWrapper() {
         if (!entry.isIntersecting) {
           if (video.paused) return;
 
-          shouldResumeRef.current = true;
           video.pause();
           setIsPlaying(false);
+          isPlayingRef.current = false;
           return;
         }
 
-        if (!shouldResumeRef.current) return;
+        if (userPausedRef.current || !video.paused) return;
 
-        shouldResumeRef.current = false;
+        if (video.ended) {
+          video.currentTime = 0;
+        }
+
         void video
           .play()
           .then(() => {
             setIsPlaying(true);
+            isPlayingRef.current = true;
           })
           .catch(() => {
             setIsPlaying(false);
+            isPlayingRef.current = false;
           });
       },
-      { threshold: 0 }
+      { threshold: AUTOPLAY_VISIBILITY_THRESHOLD }
     );
 
     observer.observe(container);
@@ -149,7 +155,7 @@ export function VideoWrapper() {
   }, [videoSrc]);
 
   function startPlayback() {
-    shouldResumeRef.current = false;
+    userPausedRef.current = false;
     const video = videoRef.current;
     if (!video) return;
 
@@ -193,7 +199,7 @@ export function VideoWrapper() {
     const video = videoRef.current;
     if (!video) return;
 
-    shouldResumeRef.current = false;
+    userPausedRef.current = true;
     video.pause();
     setIsPlaying(false);
     isPlayingRef.current = false;
@@ -263,9 +269,24 @@ export function VideoWrapper() {
   }
 
   function handleVideoEnded() {
-    shouldResumeRef.current = false;
-    setIsPlaying(false);
-    isPlayingRef.current = false;
+    const video = videoRef.current;
+    if (!video || userPausedRef.current) {
+      setIsPlaying(false);
+      isPlayingRef.current = false;
+      return;
+    }
+
+    video.currentTime = 0;
+    void video
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        isPlayingRef.current = true;
+      })
+      .catch(() => {
+        setIsPlaying(false);
+        isPlayingRef.current = false;
+      });
   }
 
   function handleVideoPlay() {
@@ -274,10 +295,8 @@ export function VideoWrapper() {
   }
 
   function handleVideoPause() {
-    if (!shouldResumeRef.current) {
-      setIsPlaying(false);
-      isPlayingRef.current = false;
-    }
+    setIsPlaying(false);
+    isPlayingRef.current = false;
   }
 
   const showDesktopButton = isDesktopPointer && isHovering;

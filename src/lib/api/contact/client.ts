@@ -1,4 +1,4 @@
-import { isJsonObject, readResponseJson } from '@/lib/estimator/json';
+import { fetchOrNetworkError, readApiError } from '@/lib/api/read-api-error';
 import type { ContactKind } from '@/lib/contact/types';
 
 export async function submitContactForm(
@@ -31,7 +31,7 @@ export async function submitContactForm(
     formData.append('file', input.file);
   }
 
-  const response = await fetch('/api/contact', {
+  const response = await fetchOrNetworkError('/api/contact', {
     method: 'POST',
     body: formData,
     signal,
@@ -41,17 +41,4 @@ export async function submitContactForm(
   if (!response.ok) {
     throw new Error(await readApiError(response, 'Failed to send message.'));
   }
-}
-
-async function readApiError(response: Response, fallback: string): Promise<string> {
-  try {
-    const payload = await readResponseJson(response);
-    if (isJsonObject(payload) && typeof payload.error === 'string' && payload.error.trim()) {
-      return payload.error;
-    }
-  } catch {
-    // ignore parse errors
-  }
-
-  return fallback;
 }

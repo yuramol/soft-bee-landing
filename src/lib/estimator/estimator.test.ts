@@ -5,7 +5,7 @@ import { formatEstimateHours, formatEstimatePrice } from './format-estimate';
 import { isJsonObject, parseJsonValue } from './json';
 import { isAllowedEstimatorOrigin, isAllowedRecaptchaHostname } from './origin';
 import { appendOwnedJob, readSignedOwnershipPayload, signOwnershipPayload } from './ownership-token';
-import { validateEstimatorUpload, validateEstimatorUploadWithContent } from './validate-upload';
+import { validateEstimatorUpload, validateEstimatorUploadWithContent, withResolvedMimeType } from './validate-upload';
 
 describe('validateEstimatorUpload', () => {
   it('rejects empty text without a file', () => {
@@ -88,7 +88,7 @@ describe('validateEstimatorUpload', () => {
     }
   });
 
-  it('rejects files over 10 MB', () => {
+  it('rejects files over the upload limit', () => {
     const result = validateEstimatorUpload({
       text: 'x'.repeat(10),
       file: mockFile({
@@ -101,7 +101,7 @@ describe('validateEstimatorUpload', () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.error).toMatch(/10 MB/i);
+      expect(result.error).toMatch(/4 MB/i);
     }
   });
 
@@ -188,6 +188,68 @@ describe('validateEstimatorUploadWithContent', () => {
     });
 
     expect(result.ok).toBe(true);
+  });
+
+  it('accepts a DOCX reported as application/zip (Windows/Android)', async () => {
+    const result = await validateEstimatorUploadWithContent({
+      text: null,
+      file: mockFile({
+        name: 'brief.docx',
+        type: 'application/zip',
+        size: 64,
+        bytes: new Uint8Array([0x50, 0x4b, 0x03, 0x04, 0x00, 0x00])
+      })
+    });
+
+    expect(result.ok).toBe(true);
+  });
+
+  it('accepts a PDF reported as application/octet-stream', async () => {
+    const result = await validateEstimatorUploadWithContent({
+      text: null,
+      file: mockFile({ name: 'brief.pdf', type: 'application/octet-stream', size: 1024, bytes: pdfBytes() })
+    });
+
+    expect(result.ok).toBe(true);
+  });
+
+  it('rejects an octet-stream file whose contents do not match its extension', async () => {
+    const result = await validateEstimatorUploadWithContent({
+      text: null,
+      file: mockFile({ name: 'brief.pdf', type: 'application/octet-stream', size: 64, bytes: textBytes('MZ fake exe') })
+    });
+
+    expect(result.ok).toBe(false);
+  });
+
+  it('rejects an octet-stream file with an unsupported extension', () => {
+    const result = validateEstimatorUpload({
+      text: null,
+      file: mockFile({ name: 'setup.exe', type: 'application/octet-stream', size: 64 })
+    });
+
+    expect(result.ok).toBe(false);
+  });
+});
+
+describe('withResolvedMimeType', () => {
+  it('replaces application/zip with the DOCX type and keeps name and contents', async () => {
+    const original = new File([new Uint8Array([0x50, 0x4b, 0x03, 0x04])], 'brief.docx', { type: 'application/zip' });
+    const resolved = withResolvedMimeType(original);
+
+    expect(resolved.type).toBe('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    expect(resolved.name).toBe('brief.docx');
+    expect(new Uint8Array(await resolved.arrayBuffer())).toEqual(new Uint8Array([0x50, 0x4b, 0x03, 0x04]));
+  });
+
+  it('fills an empty type from the extension', () => {
+    expect(withResolvedMimeType(new File(['# Brief'], 'brief.md', { type: '' })).type).toBe('text/markdown');
+    expect(withResolvedMimeType(new File(['%PDF-1.4'], 'brief.pdf', { type: 'application/octet-stream' })).type).toBe('application/pdf');
+  });
+
+  it('returns the same file when the type is already specific', () => {
+    const original = new File(['%PDF-1.4'], 'brief.pdf', { type: 'application/pdf' });
+    expect(withResolvedMimeType(original)).toBe(original);
   });
 });
 

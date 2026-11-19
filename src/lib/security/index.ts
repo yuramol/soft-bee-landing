@@ -7,6 +7,7 @@ export { getAllowedRecaptchaHostnames, isAllowedEstimatorOrigin, isAllowedRecapt
 
 export { getSiteHmacSecret, isSiteHmacSecretConfigured } from './secrets';
 export { isBrowserFile, readFormString } from './form-data';
+export { FILE_TOO_LARGE_MESSAGE, getFileExtension, getSpecificMimeType, MAX_UPLOAD_BYTES, MAX_UPLOAD_LABEL } from './upload';
 export { getRequestIp } from './request-ip';
 export { getAllowedCountries, getRequestCountry } from './request-country';
 

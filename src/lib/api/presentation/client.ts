@@ -1,3 +1,4 @@
+import { fetchOrNetworkError, readApiError } from '@/lib/api/read-api-error';
 import { isJsonObject, readResponseJson, type JsonValue } from '@/lib/estimator/json';
 import { resolveProposalDownloadFileName } from '@/lib/estimator/proposal-outputs';
 import type { CreateProposalResult, ProposalEstimate, ProposalOutputs, ProposalStatusResult } from '@/lib/estimator/types';
@@ -28,7 +29,7 @@ export async function createPresentationJob(
     headers.set('Idempotency-Key', input.idempotencyKey);
   }
 
-  const response = await fetch('/api/presentation/generate', {
+  const response = await fetchOrNetworkError('/api/presentation/generate', {
     method: 'POST',
     body: formData,
     headers,
@@ -156,19 +157,6 @@ export async function downloadPresentationJob(
     blob: await response.blob(),
     fileName
   };
-}
-
-async function readApiError(response: Response, fallback: string): Promise<string> {
-  try {
-    const body = await readResponseJson(response);
-    if (isJsonObject(body) && typeof body.error === 'string' && body.error.length > 0) {
-      return body.error;
-    }
-  } catch {
-    // ignore
-  }
-
-  return fallback;
 }
 
 function readEstimate(value: JsonValue | undefined): ProposalEstimate | undefined {
