@@ -16,16 +16,6 @@
       }
     },
     {
-      "id": 1,
-      "badge": "Development",
-      "title": "Frontend Developer (React, Next.js)",
-      "description": "This role is for an engineer who can build reliable, scalable frontend applications \u2014 not just implement designs page by page. We are looking for someone who understands application architecture, performance, reusable components, and how the frontend interacts with the entire system.",
-      "vacancyDetails": {
-        "roleDescription": "We are looking for a Frontend Developer (Middle / Senior) to join our team on a part-time or full-time basis.\n\nThis role is for an engineer who can build reliable, scalable frontend applications \u2014 not just implement designs page by page. We are looking for someone who understands application architecture, performance, reusable components, and how the frontend interacts with the entire system.\n\nTechnical Requirements\n- React\n- Next.js\n- TypeScript / JavaScript\n- Strong knowledge of modern frontend architecture\n- Experience working with REST and/or GraphQL APIs\n- State management and data fetching\n- Responsive and adaptive UI development\n- Understanding of frontend performance and optimization\n- Experience building reusable components and scalable UI systems\n\nBonus if you know\n- Supabase\n- React Native\n- Testing frameworks\n- CI/CD and deployment workflows\n\nWhat we are looking for\n- Strong frontend development skills\n- Ability to build applications from scratch\n- Good architectural thinking\n- Understanding of clean, scalable, and maintainable code\n- Ability to work independently and own features end-to-end\n- Attention to UI/UX details\n- Ability to collaborate with backend developers, designers, QA, and product teams\n\nLevel\nMiddle to Senior Frontend Developer\nThis is a frontend-focused role, but understanding how backend systems and APIs work is important.\n\nLanguage\nConversational English is required (spoken and written).\n\nIf you enjoy building scalable frontend applications, thinking beyond individual components, and owning features from idea to production, we\u2019d be happy to talk.",
-        "responsibilities": []
-      }
-    },
-    {
       "id": 2,
       "badge": "Development",
       "title": "Backend Developer (Supabase, PostgreSQL, Node.js)",
